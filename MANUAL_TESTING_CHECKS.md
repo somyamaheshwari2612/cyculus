@@ -53,3 +53,16 @@ This checklist tracks real manual user tests you can run directly in your browse
 | Test ID | Test Scenario | Steps to Execute | Expected Behavior | Status |
 | :--- | :--- | :--- | :--- | :--- |
 | **RATE-01** | **14 RPM Free-Tier Guard** | Exceed 14 requests within 60 seconds on `/api/extract`. | Returns HTTP 429: *"Rate limit reached (capped at 14 requests/min). Please wait a few moments before trying again."* Protects Gemini free-tier quota. | ✅ Pass |
+
+---
+
+## 📋 Feature 3.6: Aesthetic & Visual Makeover (Pastel & Editorial Serif)
+
+| Test ID | Test Scenario | Steps to Execute | Expected Behavior | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **VIS-01** | **Onboarding Modal Floral Aesthetic** | 1. Open app in an incognito window (or clear `cyculus_onboarding_done` in localStorage).<br>2. Observe the welcome dialog. | Soft blush background with cherry blossom emblem (`🌸`), serif title (*Welcome to Cyculus*), pastel guarantee cards, and a rounded pill "Get Started →" button. | ✅ Pass |
+| **VIS-02** | **OofLog Editorial Header & Cards** | 1. Dismiss onboarding.<br>2. Inspect the OofLog header and cards. | Ambient warm blush canvas (`#FAF5F7`), DM Serif Display heading (*Hey there, what's on your mind today?*), soft floating cards with rounded corners, pill badges, and circular action buttons. | ✅ Pass |
+| **VIS-03** | **Dayum Prediction & Timeline** | 1. Click the "Dayum" tab.<br>2. Inspect the prediction window card. | Soft pastel gradient card (`tint-lavender` to `tint-peach`), large serif dates (*Nov 18 – Nov 24*), Utah Hive baseline tag, and FIGO clinical flag card. | ✅ Pass |
+| **VIS-04** | **Doctor Brief (Chitthi) Styling** | 1. Click "Doctor Brief" tab.<br>2. Switch between English and हिन्दी. | Editorial 1-page health summary with 4 pastel metric cards (Average, Latest, Range, Bleeding), bulleted clinical observations, and print button. | ✅ Pass |
+| **VIS-05** | **Settings Demo Personas** | 1. Click "Settings" tab.<br>2. Inspect the Demo Personas section.<br>3. Click "✨ Riya (Irregular)". | 3 floating pastel cards (Lavender, Mint, Peach) matching showcase reference. Clicking Riya preloads 41-day cycle data with instant success toast. | ✅ Pass |
+

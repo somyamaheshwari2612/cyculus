@@ -10,25 +10,36 @@ export default {
         primary: {
           DEFAULT: '#7B5EA7',
           hover: '#694B96',
-          soft: '#E9DFF5',
-          light: '#F4EFFB',
+          soft: '#F1EAFD',
+          light: '#FAF6FE',
         },
         blush: {
-          DEFAULT: '#FBEAF0',
-          dark: '#F5C9D7',
-          soft: '#FFF5F8',
+          DEFAULT: '#FDEEF2',
+          dark: '#F8D7E0',
+          soft: '#FFF6F8',
         },
         ink: {
-          DEFAULT: '#2B2140',
-          muted: '#6E6280',
-          light: '#A59BB5',
-          faint: '#D6D0DF',
+          DEFAULT: '#2E2140',
+          muted: '#75678A',
+          light: '#A79AB8',
+          faint: '#EBE3EF',
         },
         surface: {
           DEFAULT: '#FFFFFF',
-          bg: '#FDF7F9',
-          subtle: '#FAF4F7',
-          border: '#EFE7F0',
+          bg: '#FAF5F7',
+          subtle: '#FDF9FA',
+          border: '#F0E6EE',
+        },
+        // Pastel tint backings matching showcase mockup
+        tint: {
+          rose: '#FDEEF2',
+          roseText: '#B8506E',
+          lavender: '#F1EAFD',
+          lavenderText: '#7B5EA7',
+          peach: '#FEF2E8',
+          peachText: '#B86F3B',
+          mint: '#EBF8F2',
+          mintText: '#3B916E',
         },
         // Clinical severity tokens
         severity: {
@@ -43,7 +54,7 @@ export default {
         },
         // Flow indicator colors
         flow: {
-          none: '#E2E8F0',
+          none: '#E8E1EA',
           spotting: '#F9A8D4',
           light: '#F472B6',
           medium: '#E11D48',
@@ -52,17 +63,19 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'Noto Sans Devanagari', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['"DM Serif Display"', '"Playfair Display"', 'Georgia', 'serif'],
         devanagari: ['Noto Sans Devanagari', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        'soft': '0 4px 20px -2px rgba(123, 94, 167, 0.08)',
-        'card': '0 2px 12px rgba(43, 33, 64, 0.04)',
-        'sheet': '0 -8px 30px rgba(43, 33, 64, 0.12)',
-        'glow': '0 0 25px rgba(123, 94, 167, 0.25)',
+        'soft': '0 8px 24px -4px rgba(123, 94, 167, 0.16)',
+        'card': '0 4px 25px rgba(46, 33, 64, 0.04)',
+        'float': '0 10px 30px -5px rgba(46, 33, 64, 0.08)',
+        'sheet': '0 -8px 30px rgba(46, 33, 64, 0.12)',
+        'pill': '0 2px 10px rgba(46, 33, 64, 0.05)',
       },
       borderRadius: {
-        '3xl': '1.5rem',
-        '4xl': '2rem',
+        '3xl': '1.75rem',
+        '4xl': '2.25rem',
       }
     },
   },

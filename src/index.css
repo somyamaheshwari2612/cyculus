@@ -13,8 +13,13 @@
   }
 
   body {
-    background-color: #FDF7F9;
-    color: #2B2140;
+    background-color: #FAF5F7;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(253, 238, 242, 0.7) 0px, transparent 50%),
+      radial-gradient(at 100% 10%, rgba(241, 234, 253, 0.6) 0px, transparent 50%),
+      radial-gradient(at 50% 100%, rgba(254, 242, 232, 0.5) 0px, transparent 60%);
+    background-attachment: fixed;
+    color: #2E2140;
     touch-action: manipulation;
   }
 
@@ -29,7 +34,7 @@
   }
 }
 
-/* Custom smooth scroll and custom scrollbar styling */
+/* Custom smooth scroll and refined pastel scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -38,7 +43,7 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #E9DFF5;
+  background: #E8DCF3;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {

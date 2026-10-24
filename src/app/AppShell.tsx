@@ -7,7 +7,7 @@ import { SettingsView } from './SettingsView';
 import { LanguageToggle } from './components/LanguageToggle';
 import { Toast } from './components/Toast';
 import { OnboardingModal } from './OnboardingModal';
-import { Calendar, PlusCircle, FileText, Settings, Heart } from 'lucide-react';
+import { Calendar, PlusCircle, FileText, Settings } from 'lucide-react';
 
 export type Tab = 'home' | 'ooflog' | 'brief' | 'settings';
 
@@ -61,31 +61,31 @@ export const AppShell: React.FC = () => {
       )}
 
       {/* Top Header */}
-      <header className="sticky top-0 z-40 bg-surface-bg/90 backdrop-blur-md border-b border-surface-border px-4 py-3">
+      <header className="sticky top-0 z-40 bg-surface-bg/80 backdrop-blur-md border-b border-surface-border px-4 py-3.5 transition-all">
         <div className="max-w-md md:max-w-3xl lg:max-w-4xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-2xl bg-primary flex items-center justify-center text-white shadow-soft shadow-primary/25">
-              <Heart className="w-4 h-4 fill-white" />
+            <div className="w-10 h-10 rounded-full bg-tint-lavender flex items-center justify-center text-primary shadow-pill border border-[#E7DCF8]">
+              <span className="text-lg">🌸</span>
             </div>
             <div>
-              <h1 className="text-base sm:text-lg font-bold text-ink leading-tight tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-serif text-ink tracking-tight leading-none">
                 Cyculus
               </h1>
-              <p className="text-[10px] sm:text-xs text-ink-muted leading-none">
-                {language === 'hi' ? 'प्राइवेट चक्र डायरी' : 'Private Cycle Diary'}
+              <p className="text-[10px] sm:text-xs text-ink-muted mt-0.5 tracking-wide">
+                {language === 'hi' ? 'प्राइवेट चक्र डायरी' : 'Your private cycle diary'}
               </p>
             </div>
           </div>
 
           {/* Desktop Web Navigation Tabs (Hidden on mobile) */}
-          <nav className="hidden md:flex items-center gap-1 bg-white border border-surface-border p-1 rounded-2xl shadow-card">
+          <nav className="hidden md:flex items-center gap-1.5 bg-white border border-surface-border p-1.5 rounded-full shadow-pill">
             <button
               type="button"
               onClick={() => setActiveTab('home')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'home'
-                  ? 'bg-primary text-white shadow-sm'
-                  : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
+                  ? 'bg-primary text-white shadow-soft'
+                  : 'text-ink-muted hover:text-ink hover:bg-[#FAF6FE]'
               }`}
             >
               <Calendar className="w-3.5 h-3.5" />
@@ -95,10 +95,10 @@ export const AppShell: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveTab('ooflog')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'ooflog'
-                  ? 'bg-primary text-white shadow-sm'
-                  : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
+                  ? 'bg-primary text-white shadow-soft'
+                  : 'text-ink-muted hover:text-ink hover:bg-[#FAF6FE]'
               }`}
             >
               <PlusCircle className="w-3.5 h-3.5" />
@@ -108,10 +108,10 @@ export const AppShell: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveTab('brief')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'brief'
-                  ? 'bg-primary text-white shadow-sm'
-                  : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
+                  ? 'bg-primary text-white shadow-soft'
+                  : 'text-ink-muted hover:text-ink hover:bg-[#FAF6FE]'
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
@@ -121,10 +121,10 @@ export const AppShell: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveTab('settings')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'settings'
-                  ? 'bg-primary text-white shadow-sm'
-                  : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
+                  ? 'bg-primary text-white shadow-soft'
+                  : 'text-ink-muted hover:text-ink hover:bg-[#FAF6FE]'
               }`}
             >
               <Settings className="w-3.5 h-3.5" />
