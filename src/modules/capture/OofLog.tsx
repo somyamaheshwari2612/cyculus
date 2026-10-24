@@ -350,14 +350,21 @@ export const OofLog: React.FC<OofLogProps> = ({
 
       {/* 2. Direct Tap Check-In (Always 100% Offline) */}
       <Card variant="default" padding="lg" className="space-y-6 border-surface-border">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-wrap gap-2">
           <h3 className="text-base font-semibold text-ink flex items-center gap-2">
             <span>{language === 'hi' ? 'दैनिक चेक-इन' : 'Daily Tap Check-in'}</span>
             <span className="text-xs font-normal text-ink-muted">({todayDate})</span>
           </h3>
-          <span className="text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-            {language === 'hi' ? '✓ ऑफ़लाइन उपलब्ध' : '✓ Offline ready'}
-          </span>
+          <div className="flex items-center gap-1.5">
+            {existingEntry && (
+              <span className="text-[11px] font-semibold text-primary bg-primary-soft px-2.5 py-0.5 rounded-full border border-primary/20">
+                {language === 'hi' ? '✓ आज दर्ज है' : '✓ Logged for today'}
+              </span>
+            )}
+            <span className="text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+              {language === 'hi' ? 'ऑफ़लाइन' : 'Offline ready'}
+            </span>
+          </div>
         </div>
 
         {/* Flow Selection */}

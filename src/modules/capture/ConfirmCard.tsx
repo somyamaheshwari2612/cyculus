@@ -117,10 +117,19 @@ export const ConfirmCard: React.FC<ConfirmCardProps> = ({
             <div className="flex items-center justify-between text-xs font-semibold text-primary">
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5" />
-                <span>
-                  {patch.date}
-                  {patches.length > 1 ? ` (Day ${idx + 1})` : ''}
-                </span>
+                {isEditing ? (
+                  <input
+                    type="date"
+                    value={patch.date}
+                    onChange={e => updatePatch(idx, p => ({ ...p, date: e.target.value }))}
+                    className="border border-surface-border rounded-lg px-2 py-1 text-xs text-ink bg-surface-subtle focus:bg-white focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                ) : (
+                  <span>
+                    {patch.date}
+                    {patches.length > 1 ? ` (Day ${idx + 1})` : ''}
+                  </span>
+                )}
               </span>
               <span className="text-[11px] font-normal text-ink-muted bg-primary-soft/50 px-2 py-0.5 rounded-full">
                 {Math.round(confidence * 100)}% match
