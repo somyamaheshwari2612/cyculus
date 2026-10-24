@@ -45,3 +45,5 @@ recHERsion_starter_prompts.md
 Thumbs.db
 .env
 data/external/
+scratch/
+*.pdf

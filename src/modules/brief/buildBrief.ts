@@ -1,5 +1,5 @@
-import type { Brief, Insights, KnowledgeRule, LogEntry } from '../../shared/types';
-import { BRIEF_TEXT } from '../../shared/translations';
+import type { Brief, Insights, KnowledgeRule, LogEntry, Symptom } from '../../shared/types';
+import { BRIEF_TEXT, SYMPTOM_LABELS } from '../../shared/translations';
 
 export function buildBrief(
   insights: Insights,
@@ -54,7 +54,12 @@ export function buildBrief(
   const symptoms = [...insights.patterns]
     .sort((a, b) => b.totalDays - a.totalDays)
     .slice(0, 3)
-    .map((p) => `${p.symptom.replace(/_/g, ' ')}: ${p.totalDays}`);
+    .map((p) => {
+      const sym = p.symptom as Symptom;
+      const label = SYMPTOM_LABELS[sym]?.[language] || p.symptom.replace(/_/g, ' ');
+      const daysText = language === 'hi' ? 'दिन' : 'days';
+      return `${label}: ${p.totalDays} ${daysText}`;
+    });
 
   // Flags: text comes from knowledge.json, in the chosen language
   const ruleFor = (ruleId: string) => knowledge.find((r) => r.id === ruleId);
