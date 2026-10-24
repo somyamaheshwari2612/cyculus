@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLogs } from '@/modules/capture/useLogs';
 import { OofLog } from '@/modules/capture/OofLog';
-import { DayumPlaceholder } from '@/modules/insights/DayumPlaceholder';
+import { DayumScreen } from '@/modules/insights';
 import { BriefPlaceholder } from '@/modules/brief/BriefPlaceholder';
 import { SettingsView } from './SettingsView';
 import { LanguageToggle } from './components/LanguageToggle';
@@ -142,7 +142,7 @@ export const AppShell: React.FC = () => {
       {/* Main Content Area: Mobile-First with Desktop Scaling */}
       <main className="flex-1 max-w-md md:max-w-2xl lg:max-w-3xl w-full mx-auto p-4 sm:p-5 md:p-6 pb-24 md:pb-12 transition-all">
         {activeTab === 'home' && (
-          <DayumPlaceholder
+          <DayumScreen
             logs={logs}
             language={language}
             onNavigateToLog={() => setActiveTab('ooflog')}
