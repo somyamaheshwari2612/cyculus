@@ -255,11 +255,10 @@ export const AppShell: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveTab('ooflog')}
-              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${
-                activeTab === 'ooflog'
+              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${activeTab === 'ooflog'
                   ? 'bg-primary text-white shadow-soft'
                   : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/50'
-              }`}
+                }`}
             >
               <PlusCircle className={`w-4 h-4 ${activeTab === 'ooflog' ? 'stroke-[2.5]' : ''}`} />
               <div>
@@ -274,11 +273,10 @@ export const AppShell: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveTab('home')}
-              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${
-                activeTab === 'home'
+              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${activeTab === 'home'
                   ? 'bg-primary text-white shadow-soft'
                   : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/50'
-              }`}
+                }`}
             >
               <Calendar className={`w-4 h-4 ${activeTab === 'home' ? 'stroke-[2.5]' : ''}`} />
               <div>
@@ -297,11 +295,10 @@ export const AppShell: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveTab('brief')}
-              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${
-                activeTab === 'brief'
+              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${activeTab === 'brief'
                   ? 'bg-primary text-white shadow-soft'
                   : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/50'
-              }`}
+                }`}
             >
               <FileText className={`w-4 h-4 ${activeTab === 'brief' ? 'stroke-[2.5]' : ''}`} />
               <div>
@@ -316,11 +313,10 @@ export const AppShell: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveTab('settings')}
-              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${
-                activeTab === 'settings'
+              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${activeTab === 'settings'
                   ? 'bg-primary text-white shadow-soft'
                   : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/50'
-              }`}
+                }`}
             >
               <Settings className={`w-4 h-4 ${activeTab === 'settings' ? 'stroke-[2.5]' : ''}`} />
               <div>
@@ -469,22 +465,20 @@ export const AppShell: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setActiveTab('home')}
-                    className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full border transition-all cursor-pointer ${
-                      activeTab === 'home'
+                    className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full border transition-all cursor-pointer ${activeTab === 'home'
                         ? 'bg-primary text-white border-primary shadow-soft'
                         : 'bg-white/90 text-primary border-[#E7DCF8] hover:bg-tint-lavender/50'
-                    }`}
+                      }`}
                   >
                     📖 {language === 'hi' ? 'PWA उपयोग निर्देश देखें' : 'View PWA Instructions & Guide'}
                   </button>
                   <button
                     type="button"
                     onClick={() => setActiveTab('ooflog')}
-                    className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full border transition-all cursor-pointer ${
-                      activeTab === 'ooflog'
+                    className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full border transition-all cursor-pointer ${activeTab === 'ooflog'
                         ? 'bg-primary text-white border-primary shadow-soft'
                         : 'bg-white/90 text-primary border-[#E7DCF8] hover:bg-tint-lavender/50'
-                    }`}
+                      }`}
                   >
                     ✍️ {language === 'hi' ? 'दैनिक चेक-इन शुरू करें (OofLog)' : 'Start Daily Check-in (OofLog)'}
                   </button>
@@ -623,11 +617,10 @@ export const AppShell: React.FC = () => {
           <button
             type="button"
             onClick={() => setActiveTab('ooflog')}
-            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${
-              activeTab === 'ooflog'
+            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${activeTab === 'ooflog'
                 ? 'bg-tint-lavender text-primary font-bold shadow-soft'
                 : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
-            }`}
+              }`}
           >
             <PlusCircle className={`w-5 h-5 ${activeTab === 'ooflog' ? 'stroke-[2.5] text-primary fill-primary-soft' : ''}`} />
             <span className="text-[10px] mt-1 font-semibold tracking-tight">OofLog</span>
@@ -637,11 +630,10 @@ export const AppShell: React.FC = () => {
           <button
             type="button"
             onClick={() => setActiveTab('home')}
-            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${
-              activeTab === 'home'
+            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${activeTab === 'home'
                 ? 'bg-tint-lavender text-primary font-bold shadow-soft'
                 : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
-            }`}
+              }`}
           >
             <Calendar className={`w-5 h-5 ${activeTab === 'home' ? 'stroke-[2.5] text-primary' : ''}`} />
             <span className="text-[10px] mt-1 font-semibold tracking-tight">
@@ -653,11 +645,10 @@ export const AppShell: React.FC = () => {
           <button
             type="button"
             onClick={() => setActiveTab('brief')}
-            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${
-              activeTab === 'brief'
+            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${activeTab === 'brief'
                 ? 'bg-tint-lavender text-primary font-bold shadow-soft'
                 : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
-            }`}
+              }`}
           >
             <FileText className={`w-5 h-5 ${activeTab === 'brief' ? 'stroke-[2.5] text-primary' : ''}`} />
             <span className="text-[10px] mt-1 font-semibold tracking-tight">
@@ -669,11 +660,10 @@ export const AppShell: React.FC = () => {
           <button
             type="button"
             onClick={() => setActiveTab('settings')}
-            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${
-              activeTab === 'settings'
+            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${activeTab === 'settings'
                 ? 'bg-tint-lavender text-primary font-bold shadow-soft'
                 : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
-            }`}
+              }`}
           >
             <Settings className={`w-5 h-5 ${activeTab === 'settings' ? 'stroke-[2.5] text-primary' : ''}`} />
             <span className="text-[10px] mt-1 font-semibold tracking-tight">

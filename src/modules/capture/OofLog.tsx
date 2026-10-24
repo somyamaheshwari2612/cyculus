@@ -42,7 +42,7 @@ export const OofLog: React.FC<OofLogProps> = ({
   const [hasSpeechSupport, setHasSpeechSupport] = useState<boolean>(false);
   const recognitionRef = useRef<any>(null);
 
-  // Update tap logger state if existingEntry changes
+  // Update tap logger state if existingEntry changes or is cleared
   useEffect(() => {
     if (existingEntry) {
       setSelectedFlow(existingEntry.flow);
@@ -50,6 +50,12 @@ export const OofLog: React.FC<OofLogProps> = ({
       setSelectedSymptoms(existingEntry.symptoms || []);
       setSelectedMoods(existingEntry.moods || []);
       setNotes(existingEntry.notes || '');
+    } else {
+      setSelectedFlow(null);
+      setPainLevel(null);
+      setSelectedSymptoms([]);
+      setSelectedMoods([]);
+      setNotes('');
     }
   }, [existingEntry]);
 
