@@ -1,0 +1,130 @@
+{
+  "generatedAt": "2026-10-24T11:41:10.522Z",
+  "dataSufficiency": "ok",
+  "cycles": [
+    {
+      "startDate": "2026-05-02",
+      "endDate": "2026-05-30",
+      "lengthDays": 28,
+      "bleedingDays": 4,
+      "heavyDays": 1,
+      "maxPain": 5
+    },
+    {
+      "startDate": "2026-05-30",
+      "endDate": "2026-06-28",
+      "lengthDays": 29,
+      "bleedingDays": 4,
+      "heavyDays": 1,
+      "maxPain": 5
+    },
+    {
+      "startDate": "2026-06-28",
+      "endDate": "2026-07-26",
+      "lengthDays": 28,
+      "bleedingDays": 4,
+      "heavyDays": 1,
+      "maxPain": 5
+    },
+    {
+      "startDate": "2026-07-26",
+      "endDate": "2026-08-24",
+      "lengthDays": 29,
+      "bleedingDays": 4,
+      "heavyDays": 1,
+      "maxPain": 5
+    },
+    {
+      "startDate": "2026-08-24",
+      "endDate": "2026-09-21",
+      "lengthDays": 28,
+      "bleedingDays": 4,
+      "heavyDays": 1,
+      "maxPain": 5
+    },
+    {
+      "startDate": "2026-09-21",
+      "endDate": "2026-10-20",
+      "lengthDays": 29,
+      "bleedingDays": 4,
+      "heavyDays": 1,
+      "maxPain": 5
+    },
+    {
+      "startDate": "2026-10-20",
+      "endDate": null,
+      "lengthDays": null,
+      "bleedingDays": 4,
+      "heavyDays": 1,
+      "maxPain": 5
+    }
+  ],
+  "stats": {
+    "cyclesUsed": 6,
+    "avgCycleLength": 28.5,
+    "cycleLengthSD": 0.5,
+    "shortest": 28,
+    "longest": 29,
+    "avgBleedingDays": 4
+  },
+  "prediction": {
+    "expected": "2026-11-18",
+    "earliest": "2026-11-16",
+    "latest": "2026-11-20",
+    "confidence": "high",
+    "basedOnCycles": 3
+  },
+  "patterns": [
+    {
+      "symptom": "cramps",
+      "totalDays": 35,
+      "byBand": {
+        "period": 28,
+        "early": 7,
+        "mid": 0,
+        "late": 0
+      }
+    },
+    {
+      "symptom": "bloating",
+      "totalDays": 30,
+      "byBand": {
+        "period": 0,
+        "early": 0,
+        "mid": 0,
+        "late": 30
+      }
+    },
+    {
+      "symptom": "breast_tenderness",
+      "totalDays": 30,
+      "byBand": {
+        "period": 0,
+        "early": 0,
+        "mid": 0,
+        "late": 30
+      }
+    },
+    {
+      "symptom": "headache",
+      "totalDays": 7,
+      "byBand": {
+        "period": 7,
+        "early": 0,
+        "mid": 0,
+        "late": 0
+      }
+    },
+    {
+      "symptom": "cravings",
+      "totalDays": 6,
+      "byBand": {
+        "period": 0,
+        "early": 0,
+        "mid": 0,
+        "late": 6
+      }
+    }
+  ],
+  "flags": []
+}

@@ -1,65 +1,63 @@
-import { useState, useEffect, useCallback } from 'react';
-import { LogEntry, DayPatch } from '@/shared/types';
-import { logStore } from './storage';
+import { useCallback } from 'react';
+import { useLiveQuery } from 'dexie-react-hooks';
+import { LogEntry, DayPatch, UserSetup } from '@/shared/types';
+import { db, logStore } from './storage';
 
 export function useLogs() {
-  const [logs, setLogs] = useState<LogEntry[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const logs = useLiveQuery(() => db.logs.orderBy('date').toArray(), []) ?? [];
+  const storedSetup = useLiveQuery(() => db.userSetup.get('current'), []);
 
-  const refresh = useCallback(async () => {
-    try {
-      const all = await logStore.getAll();
-      setLogs(all);
-    } catch (err) {
-      console.error('Failed to load logs:', err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    refresh();
-  }, [refresh]);
+  const userSetup: UserSetup | null = storedSetup ? {
+    lastPeriodStart: storedSetup.lastPeriodStart,
+    typicalCycleLength: storedSetup.typicalCycleLength,
+    previousStarts: storedSetup.previousStarts,
+    updatedAt: storedSetup.updatedAt
+  } : null;
 
   const savePatch = useCallback(async (
     patch: DayPatch,
     source: 'tap' | 'text' | 'voice',
     rawText?: string
   ): Promise<LogEntry> => {
-    const updated = await logStore.upsertPatch(patch, source, rawText);
-    await refresh();
-    return updated;
-  }, [refresh]);
+    return logStore.upsertPatch(patch, source, rawText);
+  }, []);
 
-  const getLogForDate = useCallback((date: string): LogEntry | undefined => {
-    return logs.find(l => l.date === date);
-  }, [logs]);
+  const saveSetup = useCallback(async (setup: UserSetup): Promise<void> => {
+    await logStore.saveUserSetup(setup);
+  }, []);
 
-  const clearAllLogs = useCallback(async () => {
+  const clearSetup = useCallback(async (): Promise<void> => {
+    await logStore.clearUserSetup();
+  }, []);
+
+  const clearAllLogs = useCallback(async (): Promise<void> => {
     await logStore.deleteAll();
-    await refresh();
-  }, [refresh]);
+  }, []);
 
-  const seedPersona = useCallback(async (entries: LogEntry[]) => {
+  const clearLogsOnly = useCallback(async (): Promise<void> => {
+    await logStore.clearLogs();
+  }, []);
+
+  const seedPersona = useCallback(async (entries: LogEntry[]): Promise<void> => {
     await logStore.bulkImport(entries);
-    await refresh();
-  }, [refresh]);
+  }, []);
 
   const exportJson = useCallback(async (): Promise<string> => {
     return logStore.exportAll();
   }, []);
 
   const todayStr = new Date().toISOString().split('T')[0];
-  const todayLog = getLogForDate(todayStr);
+  const todayLog = logs.find(l => l.date === todayStr);
 
   return {
     logs,
-    loading,
-    refresh,
+    userSetup,
     todayLog,
-    getLogForDate,
     savePatch,
+    saveSetup,
+    clearSetup,
     clearAllLogs,
+    clearLogsOnly,
     seedPersona,
     exportJson
   };

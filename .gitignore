@@ -27,9 +27,10 @@ pnpm-debug.log*
 lerna-debug.log*
 *.log
 
-# Internal prompt notes
+# Internal prompt notes & mockups
 instructions.md
 recHERsion_starter_prompts.md
+*.png
 
 # Editor & OS files
 .vscode/*
@@ -44,3 +45,5 @@ recHERsion_starter_prompts.md
 Thumbs.db
 .env
 data/external/
+scratch/
+*.pdf

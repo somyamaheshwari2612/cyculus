@@ -24,6 +24,14 @@ export interface LogEntry {
   updatedAt: string;            // ISO timestamp
 }
 
+/** Optional user setup answers, tagged as self-reported prior. Kept separate from logged entries. */
+export interface UserSetup {
+  lastPeriodStart?: string;        // 'YYYY-MM-DD'
+  typicalCycleLength?: number;     // user's own estimate
+  previousStarts?: string[];       // optional, up to 3 earlier period start dates
+  updatedAt: string;
+}
+
 /** Merge semantics when a new patch hits an existing day:
  *  symptoms/moods = union; flow and painLevel = latest non-null wins;
  *  notes appended; sources/rawTexts appended. */
