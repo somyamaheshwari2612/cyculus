@@ -1,22 +1,20 @@
 import React from 'react';
-import { LogEntry, UserProfile } from '@/shared/types';
+import { LogEntry, Insights, UserSetup } from '@/shared/types';
 import { Card } from '@/app/components/Card';
 import { Button } from '@/app/components/Button';
-import { TrendingUp, Sparkles, ExternalLink, CheckCircle2, Calendar } from 'lucide-react';
-import {
-  deriveCycles,
-  calculateRollingStats,
-  predictNextPeriodWindow,
-  getCurrentCycleStatus,
-  checkClinicalFlags,
-  diffDays
-} from './cycleEngine';
+import { TrendingUp, Sparkles, ExternalLink, CheckCircle2, Calendar, AlertCircle } from 'lucide-react';
+import { diffDays } from './computeInsights';
+
+import { PwaUsageGuide } from '@/app/components/PwaUsageGuide';
 
 export interface DayumPlaceholderProps {
   logs: LogEntry[];
-  profile?: UserProfile | null;
+  insights: Insights;
+  userSetup?: UserSetup | null;
   language: 'en' | 'hi';
   onNavigateToLog: () => void;
+  onOpenSetup?: () => void;
+  onLoadPersona?: (type: 'riya' | 'regular' | 'heavy') => Promise<void>;
 }
 
 function formatDate(isoDate: string, language: 'en' | 'hi'): string {
@@ -34,32 +32,33 @@ function formatDate(isoDate: string, language: 'en' | 'hi'): string {
 
 export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
   logs,
-  profile,
+  insights,
+  userSetup,
   language,
-  onNavigateToLog
+  onNavigateToLog,
+  onOpenSetup,
+  onLoadPersona
 }) => {
+  // When in a fresh browser with zero logs and no setup profile, render the full PWA Usage Guide & Instructions
+  if (logs.length === 0 && !userSetup) {
+    return (
+      <div className="space-y-6 pb-12">
+        <PwaUsageGuide
+          language={language}
+          onNavigateToLog={onNavigateToLog}
+          onOpenSetup={onOpenSetup}
+          onLoadPersona={onLoadPersona}
+        />
+      </div>
+    );
+  }
+
   const todayStr = new Date().toISOString().split('T')[0];
+  const { prediction, cycles, stats, flags, dataSufficiency } = insights;
 
-  // Derive dynamic cycles, rolling stats, prediction, and flags
-  const cycles = deriveCycles(logs, profile);
-  const stats = calculateRollingStats(cycles, profile);
-  
-  const lastCycleStart = cycles.length > 0 
-    ? cycles[cycles.length - 1].startDate 
-    : (profile?.lastPeriodStartDate || todayStr);
-
-  const prediction = predictNextPeriodWindow(lastCycleStart, stats);
-  const cycleStatus = getCurrentCycleStatus(
-    lastCycleStart,
-    todayStr,
-    stats,
-    profile?.typicalPeriodDuration || 5
-  );
-  const flags = checkClinicalFlags(cycles, logs);
-
-  const formattedEarliest = formatDate(prediction.earliest, language);
-  const formattedLatest = formatDate(prediction.latest, language);
-  const formattedExpected = formatDate(prediction.expected, language);
+  const formattedEarliest = prediction ? formatDate(prediction.earliest, language) : null;
+  const formattedLatest = prediction ? formatDate(prediction.latest, language) : null;
+  const formattedExpected = prediction ? formatDate(prediction.expected, language) : null;
 
   return (
     <div className="space-y-6 pb-12">
@@ -99,49 +98,71 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
                   <span>{language === 'hi' ? 'अनुमानित पीरियड विंडो' : 'Predicted Period Window'}</span>
                 </span>
                 <span className="bg-white/90 text-primary px-3 py-0.5 rounded-full text-[11px] font-bold border border-[#E7DCF8] shadow-soft">
-                  {prediction.confidence === 'high' ? 'High Confidence' : 'Calibrated Window'}
+                  {prediction
+                    ? prediction.basedOnCycles >= 3
+                      ? 'Validated Window (Utah Hive)'
+                      : prediction.basedOnCycles >= 1
+                      ? 'Shrinkage Prior Blend'
+                      : userSetup?.typicalCycleLength
+                      ? 'Prior Estimate (Low Confidence)'
+                      : 'Population Avg (29.3d, Bull et al.)'
+                    : 'Logging Needed'}
                 </span>
               </div>
 
               <div className="mt-4">
-                <h3 className="text-3xl sm:text-4xl font-serif font-bold text-ink tracking-tight">
-                  {formattedEarliest} – {formattedLatest}
-                </h3>
-                <p className="text-xs sm:text-sm text-ink-muted mt-1.5 leading-relaxed">
-                  {language === 'hi'
-                    ? `अपेक्षित केंद्र: ${formattedExpected} (रोलिंग औसत ${stats.avgCycleLength} दिन, ±${diffDays(prediction.latest, prediction.expected)} दिन विचलन)`
-                    : `Expected center: ${formattedExpected} (Based on ${stats.avgCycleLength}-day rolling average, ±${diffDays(prediction.latest, prediction.expected)} days window)`}
-                </p>
+                {prediction ? (
+                  <>
+                    <h3 className="text-3xl sm:text-4xl font-serif font-bold text-ink tracking-tight">
+                      {formattedEarliest} – {formattedLatest}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-ink-muted mt-1.5 leading-relaxed">
+                      {language === 'hi'
+                        ? `अपेक्षित केंद्र: ${formattedExpected} (विचलन: ±${diffDays(prediction.latest, prediction.expected)} दिन)`
+                        : `Expected center: ${formattedExpected} (Calibrated ±${diffDays(prediction.latest, prediction.expected)} days window)`}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="text-2xl sm:text-3xl font-serif font-bold text-ink tracking-tight">
+                      {language === 'hi' ? 'लॉगिंग आवश्यक' : 'Logging needed'}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-ink-muted mt-1.5 leading-relaxed">
+                      {language === 'hi'
+                        ? 'अनुमानित विंडो देखने के लिए अपनी पिछली माहवारी की तारीख दर्ज करें या आज का चेक-इन करें।'
+                        : 'Log your period start or set up your cycle prior to calibrate your window.'}
+                    </p>
+                    {onOpenSetup && (
+                      <button
+                        type="button"
+                        onClick={onOpenSetup}
+                        className="mt-2 text-xs font-semibold text-primary hover:underline cursor-pointer"
+                      >
+                        + Set up cycle prior →
+                      </button>
+                    )}
+                  </>
+                )}
               </div>
 
-              {/* Active Cycle Phase Band Badge */}
-              <div className="mt-4 p-3 bg-white/85 rounded-2xl border border-[#E7DCF8] flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-ink-muted block">
-                    {language === 'hi' ? 'वर्तमान चक्र चरण' : 'Current Cycle Phase'}
-                  </span>
-                  <span className="text-xs font-serif font-bold text-primary">
-                    🌸 Cycle Day {cycleStatus.cycleDay} · {language === 'hi' ? cycleStatus.bandLabel.hi : cycleStatus.bandLabel.en}
-                  </span>
-                </div>
-                <span className="text-[11px] text-ink-muted text-right max-w-[160px] hidden sm:inline-block leading-tight">
-                  {language === 'hi' ? cycleStatus.bandDescription.hi : cycleStatus.bandDescription.en}
-                </span>
-              </div>
-
+              {/* Data Sufficiency Badge */}
               <div className="mt-5 pt-3.5 border-t border-[#E7DCF8]/80 flex flex-wrap items-center justify-between gap-2 text-xs">
                 <span className="text-ink-muted">
-                  {language === 'hi' ? 'कुल दर्ज प्रविष्टियाँ:' : 'Total recorded logs:'}{' '}
+                  {language === 'hi' ? 'वास्तविक दर्ज प्रविष्टियाँ:' : 'Real logged entries:'}{' '}
                   <strong className="text-ink font-semibold">{logs.length} days</strong>
                 </span>
                 <span className="text-primary font-medium text-[11px] bg-white/70 px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
-                  {language === 'hi' ? 'व्यक्तिगत रोलिंग औसत' : `Calibrated on ${stats.cyclesUsed} cycles`}
+                  {dataSufficiency === 'ok'
+                    ? `${stats?.cyclesUsed} completed cycles`
+                    : dataSufficiency === 'minimal'
+                    ? `${stats?.cyclesUsed} cycle (blending with prior)`
+                    : 'Prior only (0 completed cycles)'}
                 </span>
               </div>
             </div>
           </div>
 
-          {/* 2. Flagged Clinical Insight or Healthy Baseline */}
+          {/* 2. Flagged Clinical Insight / Data Sufficiency Info */}
           {flags.length > 0 ? (
             <div className="rounded-[2rem] bg-tint-rose/40 border border-[#F8DDE5] p-5 sm:p-6 shadow-card relative overflow-hidden">
               <div className="flex items-start gap-3.5">
@@ -159,28 +180,28 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
                   <h4 className="text-base sm:text-lg font-serif font-bold text-ink mt-2.5 leading-snug">
                     {flags[0].ruleId === 'cycle_long' && (
                       language === 'hi'
-                        ? 'मासिक चक्र सामान्य अवधि (38 दिन) से अधिक लंबा रहा'
-                        : `Cycle interval longer than commonly cited range (${stats.longest} days)`
+                        ? `मासिक चक्र सामान्य अवधि (38 दिन) से अधिक लंबा रहा (${stats?.longest} दिन)`
+                        : `Observed cycle interval longer than typical range (${stats?.longest} days)`
                     )}
                     {flags[0].ruleId === 'cycle_short' && (
                       language === 'hi'
-                        ? 'मासिक चक्र सामान्य अवधि (24 दिन) से छोटा रहा'
-                        : `Cycle interval shorter than standard range (${stats.shortest} days)`
+                        ? `मासिक चक्र सामान्य अवधि (24 दिन) से छोटा रहा (${stats?.shortest} दिन)`
+                        : `Observed cycle interval shorter than typical range (${stats?.shortest} days)`
                     )}
                     {flags[0].ruleId === 'cycle_variability_high' && (
                       language === 'hi'
                         ? 'चक्रों की लंबाई में उच्च परिवर्तनशीलता (>9 दिन)'
-                        : `Cycle variability exceeds clinical threshold (${stats.longest - stats.shortest}d spread)`
+                        : `Cycle variability exceeds clinical threshold (${(stats?.longest || 0) - (stats?.shortest || 0)}d spread)`
                     )}
                     {flags[0].ruleId === 'heavy_flow_persistent' && (
                       language === 'hi'
                         ? 'लगातार कई दिनों तक भारी रक्तस्राव'
                         : 'Persistent heavy menstrual flow identified'
                     )}
-                    {flags[0].ruleId === 'dysmenorrhea_severe' && (
+                    {flags[0].ruleId === 'period_long' && (
                       language === 'hi'
-                        ? 'माहवारी के दौरान गंभीर दर्द (दर्द स्तर ≥ 7)'
-                        : 'Severe dysmenorrhea recorded on bleeding days'
+                        ? 'रक्तस्राव की अवधि 8 दिनों से अधिक रही'
+                        : 'Bleeding episode duration longer than 8 days'
                     )}
                   </h4>
 
@@ -192,7 +213,7 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
 
                   <div className="mt-4 p-3 bg-white/90 rounded-2xl border border-[#F8DDE5] text-xs text-ink flex items-center justify-between">
                     <span className="text-ink-muted">
-                      {language === 'hi' ? 'साक्ष्य:' : 'Evidence:'} <strong>FIGO criteria threshold met</strong>
+                      {language === 'hi' ? 'साक्ष्य:' : 'Evidence:'} <strong>Derived strictly from logged logs</strong>
                     </span>
                     <a
                       href="https://doi.org/10.1002/ijgo.12666"
@@ -207,7 +228,7 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
                 </div>
               </div>
             </div>
-          ) : (
+          ) : dataSufficiency === 'ok' ? (
             <div className="rounded-[2rem] bg-tint-mint/40 border border-[#D8F0E4] p-5 sm:p-6 shadow-card relative overflow-hidden">
               <div className="flex items-start gap-3.5">
                 <div className="p-2.5 bg-emerald-700 text-white rounded-2xl shadow-soft shrink-0 mt-0.5">
@@ -216,21 +237,21 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 bg-white/90 px-3 py-0.5 rounded-full border border-[#D8F0E4]">
-                      {language === 'hi' ? 'संतुलित चक्र सीमा' : 'Within Clinical Normal Limits'}
+                      {language === 'hi' ? 'संतुलित चक्र सीमा' : 'Within Normal Clinical Limits'}
                     </span>
                     <span className="text-[11px] text-ink-muted font-medium">FIGO 2018 Standards</span>
                   </div>
 
                   <h4 className="text-base sm:text-lg font-serif font-bold text-ink mt-2.5 leading-snug">
                     {language === 'hi'
-                      ? 'आपके चक्र के आंकड़े सामान्य चिकित्सकीय सीमा (24–38 दिन) में हैं'
-                      : `Cycle frequency (${stats.avgCycleLength}d) within normal adult range (24–38 days)`}
+                      ? `आपके चक्र की औसत अवधि (${stats?.avgCycleLength} दिन) सामान्य सीमा (24–38 दिन) में है`
+                      : `Observed cycle frequency (${stats?.avgCycleLength}d) within normal adult range (24–38 days)`}
                   </h4>
 
                   <p className="text-xs sm:text-sm text-ink-muted mt-1.5 leading-relaxed">
                     {language === 'hi'
-                      ? 'कोई असामान्य विचलन नहीं पाया गया। अपने दैनिक लक्षणों और फ्लो को इसी तरह रिकॉर्ड करते रहें।'
-                      : 'No abnormal cycle length or prolonged bleeding flags detected across your recorded logs.'}
+                      ? 'कोई असामान्य चक्र विचलन नहीं पाया गया। अपने दैनिक लक्षणों और फ्लो को इसी तरह रिकॉर्ड करते रहें।'
+                      : 'No abnormal cycle length or prolonged bleeding flags detected across your logged entries.'}
                   </p>
 
                   <div className="mt-4 p-3 bg-white/90 rounded-2xl border border-[#D8F0E4] text-xs text-ink flex items-center justify-between">
@@ -250,6 +271,29 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
                 </div>
               </div>
             </div>
+          ) : (
+            <div className="rounded-[2rem] bg-tint-lavender/30 border border-[#E7DCF8] p-5 sm:p-6 shadow-card relative overflow-hidden">
+              <div className="flex items-start gap-3.5">
+                <div className="p-2.5 bg-primary-soft text-primary rounded-2xl shadow-soft shrink-0 mt-0.5">
+                  <AlertCircle className="w-5 h-5" />
+                </div>
+                <div className="flex-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-white/90 px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
+                    {language === 'hi' ? 'डेटा पर्याप्तता: कम' : 'Data Sufficiency: Minimal'}
+                  </span>
+                  <h4 className="text-sm sm:text-base font-serif font-bold text-ink mt-2 leading-snug">
+                    {language === 'hi'
+                      ? 'क्लिनिकल फ़्लैग के लिए वास्तविक लॉग आवश्यक हैं'
+                      : 'Clinical standards require observed logs (<1 completed cycle logged)'}
+                  </h4>
+                  <p className="text-xs text-ink-muted mt-1 leading-relaxed">
+                    {language === 'hi'
+                      ? 'हम अनुमानित स्व-सूचित डेटा के आधार पर कभी कोई फ़्लैग नहीं लगाते। जैसे-जैसे आप दैनिक लॉग दर्ज करेंगी, साइकुलस आपके वास्तविक चक्रों का मूल्यांकन करेगा।'
+                      : 'To prevent hallucination, Cyculus never fires FIGO flags from self-reported setup data. Real flags evaluate strictly on completed logged cycles.'}
+                  </p>
+                </div>
+              </div>
+            </div>
           )}
         </div>
 
@@ -258,15 +302,15 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
           {/* 3. Recent Cycle History Summary */}
           <Card variant="default" padding="lg">
             <h3 className="text-xs font-bold text-ink uppercase tracking-wider mb-3">
-              {language === 'hi' ? 'हालिया चक्र इतिहास' : 'Recent Cycle Intervals'}
+              {language === 'hi' ? 'हालिया चक्र इतिहास (वास्तविक लॉग)' : 'Recent Observed Cycle Intervals'}
             </h3>
 
             <div className="space-y-2.5">
               {cycles.length > 0 ? (
                 cycles.map((c, i) => {
                   const isCurrent = c.endDate === null;
-                  const daysLogged = isCurrent 
-                    ? diffDays(todayStr, c.startDate) + 1 
+                  const daysLogged = isCurrent
+                    ? diffDays(todayStr, c.startDate) + 1
                     : c.lengthDays;
                   const isFlagged = c.lengthDays !== null && (c.lengthDays < 24 || c.lengthDays > 38);
 
@@ -284,7 +328,7 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
                       <div>
                         <div className="flex items-center gap-2">
                           <p className="text-xs font-semibold text-ink">
-                            {isCurrent 
+                            {isCurrent
                               ? (language === 'hi' ? 'वर्तमान चक्र (प्रगति पर)' : 'Current Active Cycle')
                               : (language === 'hi' ? `चक्र ${i + 1}` : `Cycle ${i + 1}`)}
                           </p>
@@ -312,7 +356,7 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
               ) : (
                 <div className="p-4 bg-tint-lavender/30 rounded-2xl border border-[#E7DCF8] text-center text-xs text-ink-muted">
                   <Calendar className="w-6 h-6 mx-auto mb-1 text-primary opacity-60" />
-                  <p>{language === 'hi' ? 'कोई चक्र डेटा नहीं मिला।' : 'No cycle data recorded yet.'}</p>
+                  <p>{language === 'hi' ? 'कोई चक्र डेटा नहीं मिला। आज का फ्लो दर्ज करें।' : 'No completed cycles logged yet. Log today to start.'}</p>
                 </div>
               )}
             </div>
@@ -325,12 +369,16 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
             </h4>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div className="p-3 bg-tint-lavender/30 rounded-xl border border-[#E7DCF8]">
-                <span className="text-ink-muted text-[11px] block">Average Length</span>
-                <span className="font-serif font-bold text-base text-ink">{stats.avgCycleLength} days</span>
+                <span className="text-ink-muted text-[11px] block">Observed Average</span>
+                <span className="font-serif font-bold text-base text-ink">
+                  {stats ? `${stats.avgCycleLength} days` : '—'}
+                </span>
               </div>
               <div className="p-3 bg-tint-peach/30 rounded-xl border border-[#FADCD0]">
                 <span className="text-ink-muted text-[11px] block">Range Spread</span>
-                <span className="font-serif font-bold text-base text-ink">{stats.longest - stats.shortest} days</span>
+                <span className="font-serif font-bold text-base text-ink">
+                  {stats ? `${stats.longest - stats.shortest} days` : '—'}
+                </span>
               </div>
             </div>
             <p className="text-[11px] text-ink-muted leading-relaxed">

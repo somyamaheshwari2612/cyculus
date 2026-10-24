@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Card } from './components/Card';
 import { Button } from './components/Button';
-import { ShieldCheck, Download, Trash2, Sparkles, User, RotateCcw, Check, SlidersHorizontal } from 'lucide-react';
-import { LogEntry, UserProfile } from '@/shared/types';
+import { ShieldCheck, Download, Trash2, Sparkles, SlidersHorizontal, RotateCcw, Smartphone } from 'lucide-react';
+import { LogEntry, UserSetup } from '@/shared/types';
 import irregularData from '@/shared/mocks/entries.irregular.json';
 import regularData from '@/shared/mocks/entries.regular.json';
 import heavyData from '@/shared/mocks/entries.heavy.json';
@@ -10,68 +10,28 @@ import heavyData from '@/shared/mocks/entries.heavy.json';
 export interface SettingsViewProps {
   language: 'en' | 'hi';
   logsCount: number;
-  userProfile: UserProfile;
-  onUpdateProfile: (profile: UserProfile, regenerateLogs?: boolean) => Promise<void>;
+  userSetup?: UserSetup | null;
+  onClearSetup: () => Promise<void>;
   onSeedPersona: (entries: LogEntry[]) => Promise<void>;
   onExportJson: () => Promise<string>;
   onClearAll: () => Promise<void>;
   onToast: (msg: string) => void;
-  onOpenOnboarding: () => void;
+  onOpenSetup: () => void;
 }
 
 export const SettingsView: React.FC<SettingsViewProps> = ({
   language,
   logsCount,
-  userProfile,
-  onUpdateProfile,
+  userSetup,
+  onClearSetup,
   onSeedPersona,
   onExportJson,
   onClearAll,
   onToast,
-  onOpenOnboarding
+  onOpenSetup
 }) => {
   const [isSeeding, setIsSeeding] = useState<boolean>(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
-
-  // Profile Edit Form State
-  const [isEditingProfile, setIsEditingProfile] = useState<boolean>(false);
-  const [name, setName] = useState<string>(userProfile.name);
-  const [lastPeriodDate, setLastPeriodDate] = useState<string>(userProfile.lastPeriodStartDate);
-  const [cycleLength, setCycleLength] = useState<number>(userProfile.typicalCycleLength);
-  const [periodDuration, setPeriodDuration] = useState<number>(userProfile.typicalPeriodDuration);
-
-  const handleSaveProfile = async (regenerateLogs: boolean = false) => {
-    const updated: UserProfile = {
-      ...userProfile,
-      name: name.trim() || 'Somya',
-      lastPeriodStartDate: lastPeriodDate,
-      typicalCycleLength: Math.min(45, Math.max(20, cycleLength)),
-      typicalPeriodDuration: Math.min(10, Math.max(2, periodDuration)),
-      isCustomProfile: true
-    };
-
-    await onUpdateProfile(updated, regenerateLogs);
-    setIsEditingProfile(false);
-    onToast(
-      language === 'hi'
-        ? 'आपकी प्रोफ़ाइल और चक्र गणनाएं सफलतापूर्वक अपडेट की गईं!'
-        : 'Profile and cycle calculations updated locally!'
-    );
-  };
-
-  const handleRestoreMyProfile = async () => {
-    setIsSeeding(true);
-    try {
-      await onUpdateProfile(userProfile, true);
-      onToast(
-        language === 'hi'
-          ? `वापस ${userProfile.name} की व्यक्तिगत डायरी पर स्विच किया गया!`
-          : `Restored ${userProfile.name}'s personal profile and logs!`
-      );
-    } finally {
-      setIsSeeding(false);
-    }
-  };
 
   const handleSeed = async (type: 'riya' | 'regular' | 'heavy') => {
     setIsSeeding(true);
@@ -92,8 +52,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
       await onSeedPersona(data);
       onToast(
         language === 'hi'
-          ? `${personaName} का डेमो डेटा सफलतापूर्वक लोड किया गया!`
-          : `Loaded simulated logs for ${personaName}!`
+          ? `${personaName} का डेटा सफलतापूर्वक लोड किया गया!`
+          : `Loaded 6 months of data for ${personaName}!`
       );
     } finally {
       setIsSeeding(false);
@@ -117,7 +77,16 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
   const handleDelete = async () => {
     await onClearAll();
     setShowConfirmDelete(false);
-    onToast(language === 'hi' ? 'सभी डेटा हटा दिया गया।' : 'All local logs cleared.');
+    onToast(language === 'hi' ? 'सभी डेटा और सेटअप हटा दिया गया।' : 'All local logs and setup cleared.');
+  };
+
+  const handleClearSetupOnly = async () => {
+    await onClearSetup();
+    onToast(
+      language === 'hi'
+        ? 'आरंभिक सेटअप प्रायर हटा दिया गया। अब केवल लॉग प्रविष्टियों का उपयोग होगा।'
+        : 'Setup prior removed. Engine will rely purely on logged entries.'
+    );
   };
 
   return (
@@ -134,163 +103,78 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
         </p>
       </div>
 
-      {/* 1. PERSONAL PROFILE CARD (User's real data) */}
+      {/* 1. Cycle Setup Prior Card (Self-Reported Prior, Separate Table) */}
       <div className="bg-white/95 backdrop-blur-sm rounded-[2.25rem] p-6 sm:p-7 border border-[#F3E8EE] shadow-card space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#F3E8EE] pb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-tint-rose flex items-center justify-center text-primary shadow-pill border border-[#F8DDE5]">
-              <User className="w-6 h-6" />
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
+                Self-Reported Prior
+              </span>
+              <span className="text-[11px] text-ink-muted">Dexie `userSetup` Table</span>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="font-serif font-bold text-ink text-lg sm:text-xl">
-                  {userProfile.name}
-                </h3>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
-                  Personal Profile
-                </span>
-              </div>
-              <p className="text-xs text-ink-muted mt-0.5">
-                {language === 'hi' ? 'ब्राउज़र में स्थानीय रूप से सुरक्षित' : 'Stored locally in your browser storage'}
-              </p>
-            </div>
+            <h3 className="font-serif font-bold text-ink text-lg sm:text-xl mt-1">
+              {language === 'hi' ? 'आरंभिक चक्र सेटअप' : 'Initial Cycle Setup & Prior'}
+            </h3>
+            <p className="text-xs text-ink-muted mt-0.5">
+              {language === 'hi'
+                ? 'यह डेटा केवल आरंभिक प्रेडिक्शन विंडो को दिशा देता है। यह कभी क्लिनिकल फ़्लैग ट्रिगर नहीं करता।'
+                : 'Acts as a shrinkage prior fading as real cycles accumulate. Never creates fake logs or triggers flags.'}
+            </p>
           </div>
 
           <div className="flex items-center gap-2">
-            {!isEditingProfile ? (
-              <Button
-                variant="outline"
-                size="sm"
-                icon={<SlidersHorizontal className="w-4 h-4" />}
-                onClick={() => setIsEditingProfile(true)}
-                className="rounded-full shadow-pill text-xs"
-              >
-                {language === 'hi' ? 'प्रोफ़ाइल बदलें' : 'Edit Profile'}
-              </Button>
-            ) : (
+            <Button
+              variant="outline"
+              size="sm"
+              icon={<SlidersHorizontal className="w-4 h-4" />}
+              onClick={onOpenSetup}
+              className="rounded-full shadow-pill text-xs"
+            >
+              {userSetup ? (language === 'hi' ? 'सेटअप बदलें' : 'Edit Prior') : (language === 'hi' ? 'सेटअप जोड़ें' : 'Set Up Prior')}
+            </Button>
+
+            {userSetup && (
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setIsEditingProfile(false)}
-                className="rounded-full text-xs"
+                icon={<RotateCcw className="w-4 h-4" />}
+                onClick={handleClearSetupOnly}
+                className="rounded-full text-xs text-ink-muted hover:text-ink"
               >
-                {language === 'hi' ? 'रद्द करें' : 'Cancel'}
+                {language === 'hi' ? 'प्रायर हटाएं' : 'Clear Prior'}
               </Button>
             )}
-
-            <Button
-              variant="secondary"
-              size="sm"
-              icon={<RotateCcw className="w-4 h-4" />}
-              onClick={handleRestoreMyProfile}
-              className="rounded-full shadow-pill text-xs"
-            >
-              {language === 'hi' ? 'मेरी प्रोफ़ाइल बहाल करें' : 'Restore My Logs'}
-            </Button>
           </div>
         </div>
 
-        {/* View vs Edit Profile Body */}
-        {!isEditingProfile ? (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs pt-1">
-            <div className="p-3.5 bg-tint-lavender/40 rounded-2xl border border-[#E7DCF8]">
-              <span className="text-ink-muted block text-[11px] font-medium">Last Period Start</span>
-              <span className="text-base font-serif font-bold text-ink mt-0.5 block">{userProfile.lastPeriodStartDate}</span>
-            </div>
-            <div className="p-3.5 bg-tint-peach/40 rounded-2xl border border-[#FADCD0]">
-              <span className="text-ink-muted block text-[11px] font-medium">Typical Cycle</span>
-              <span className="text-base font-serif font-bold text-ink mt-0.5 block">{userProfile.typicalCycleLength} days</span>
-            </div>
-            <div className="p-3.5 bg-tint-mint/40 rounded-2xl border border-[#D8F0E4]">
-              <span className="text-ink-muted block text-[11px] font-medium">Bleeding Duration</span>
-              <span className="text-base font-serif font-bold text-ink mt-0.5 block">~{userProfile.typicalPeriodDuration} days</span>
-            </div>
-            <div className="p-3.5 bg-tint-rose/40 rounded-2xl border border-[#F8DDE5]">
-              <span className="text-ink-muted block text-[11px] font-medium">Data Storage</span>
-              <span className="text-base font-serif font-bold text-primary mt-0.5 block">100% On-Device</span>
-            </div>
+        {/* Prior Values Display */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-1">
+          <div className="p-3.5 bg-tint-lavender/40 rounded-2xl border border-[#E7DCF8]">
+            <span className="text-ink-muted block text-[11px] font-medium">Last Period Start</span>
+            <span className="text-base font-serif font-bold text-ink mt-0.5 block">
+              {userSetup?.lastPeriodStart || (language === 'hi' ? 'दर्ज नहीं' : 'Not recorded')}
+            </span>
           </div>
-        ) : (
-          <div className="space-y-4 pt-1 animate-fade-in">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div>
-                <label className="block text-xs font-semibold text-ink mb-1">
-                  {language === 'hi' ? 'नाम' : 'Your Name'}
-                </label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-surface-bg border border-surface-border text-xs text-ink focus:outline-none focus:border-primary font-medium"
-                />
-              </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-ink mb-1">
-                  {language === 'hi' ? 'पिछला पीरियड' : 'Last Period Start'}
-                </label>
-                <input
-                  type="date"
-                  value={lastPeriodDate}
-                  max={new Date().toISOString().split('T')[0]}
-                  onChange={e => setLastPeriodDate(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-surface-bg border border-surface-border text-xs text-ink focus:outline-none focus:border-primary font-medium"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <label className="block text-[11px] font-semibold text-ink mb-1">
-                    {language === 'hi' ? 'चक्र' : 'Cycle (days)'}
-                  </label>
-                  <input
-                    type="number"
-                    min={20}
-                    max={45}
-                    value={cycleLength}
-                    onChange={e => setCycleLength(Number(e.target.value))}
-                    className="w-full px-2.5 py-2 rounded-xl bg-surface-bg border border-surface-border text-xs text-ink text-center font-bold focus:outline-none focus:border-primary"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-semibold text-ink mb-1">
-                    {language === 'hi' ? 'अवधि' : 'Bleed (days)'}
-                  </label>
-                  <input
-                    type="number"
-                    min={2}
-                    max={10}
-                    value={periodDuration}
-                    onChange={e => setPeriodDuration(Number(e.target.value))}
-                    className="w-full px-2.5 py-2 rounded-xl bg-surface-bg border border-surface-border text-xs text-ink text-center font-bold focus:outline-none focus:border-primary"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-surface-border">
-              <button
-                type="button"
-                onClick={onOpenOnboarding}
-                className="text-xs text-primary hover:underline font-semibold cursor-pointer"
-              >
-                {language === 'hi' ? 'पूर्ण सेटअप विज़ार्ड खोलें →' : 'Re-open Guided Setup Wizard →'}
-              </button>
-
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="primary"
-                  size="sm"
-                  icon={<Check className="w-4 h-4" />}
-                  onClick={() => handleSaveProfile(true)}
-                  className="rounded-full shadow-soft"
-                >
-                  {language === 'hi' ? 'सहेजें व रीसेट करें' : 'Save & Refresh Diary'}
-                </Button>
-              </div>
-            </div>
+          <div className="p-3.5 bg-tint-peach/40 rounded-2xl border border-[#FADCD0]">
+            <span className="text-ink-muted block text-[11px] font-medium">Cycle Prior</span>
+            <span className="text-base font-serif font-bold text-ink mt-0.5 block">
+              {userSetup?.typicalCycleLength
+                ? `${userSetup.typicalCycleLength} days (Self-reported)`
+                : '29.3d (Bull et al. 2019)'}
+            </span>
           </div>
-        )}
+
+          <div className="p-3.5 bg-tint-mint/40 rounded-2xl border border-[#D8F0E4]">
+            <span className="text-ink-muted block text-[11px] font-medium">Earlier Period Dates</span>
+            <span className="text-base font-serif font-bold text-ink mt-0.5 block">
+              {userSetup?.previousStarts?.length
+                ? `${userSetup.previousStarts.length} dates recorded`
+                : (language === 'hi' ? 'कोई नहीं' : 'None')}
+            </span>
+          </div>
+        </div>
       </div>
 
       {/* 2. Privacy Architecture Card */}
@@ -309,39 +193,77 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 : 'Cyculus has no user accounts or cloud databases. All daily entries stay inside your device’s IndexedDB storage. No health details are ever uploaded.'}
             </p>
             <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 border border-[#E7DCF8] text-xs font-semibold text-primary">
-              <span>🔒 {logsCount} days saved locally in this browser</span>
+              <span>🔒 {logsCount} real logged days in this browser</span>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 2b. PWA Installation & Offline Guide */}
+      <div className="bg-white/95 backdrop-blur-sm rounded-[2rem] p-5 sm:p-6 border border-[#F3E8EE] shadow-card space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 bg-tint-mint text-emerald-800 rounded-xl">
+              <Smartphone className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="font-serif font-bold text-ink text-base">
+                {language === 'hi' ? 'PWA इंस्टॉलेशन एवं ऑफ़लाइन गाइड' : 'PWA Installation & Offline Usage Guide'}
+              </h3>
+              <p className="text-xs text-ink-muted">
+                {language === 'hi' ? 'बिना इंटरनेट के होम स्क्रीन पर चलाएं' : 'Run full-screen from home screen without internet'}
+              </p>
+            </div>
+          </div>
+          <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+            Offline Ready
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2 text-xs">
+          <div className="p-3 bg-tint-rose/30 rounded-2xl border border-[#F8DDE5]">
+            <span className="font-bold text-ink block mb-1">🍏 iPhone / Safari</span>
+            <p className="text-ink-muted leading-relaxed text-[11px]">
+              {language === 'hi'
+                ? 'Safari शेयर (⎋) दबाएं → "Add to Home Screen" चुनें।'
+                : 'Tap Safari Share (⎋) → tap "Add to Home Screen".'}
+            </p>
+          </div>
+          <div className="p-3 bg-tint-lavender/30 rounded-2xl border border-[#E7DCF8]">
+            <span className="font-bold text-ink block mb-1">🤖 Android Chrome</span>
+            <p className="text-ink-muted leading-relaxed text-[11px]">
+              {language === 'hi'
+                ? 'मेनू (⋮) दबाएं → "Install app" चुनें।'
+                : 'Tap Chrome menu (⋮) → tap "Install app".'}
+            </p>
+          </div>
+          <div className="p-3 bg-tint-mint/30 rounded-2xl border border-[#D8F0E4]">
+            <span className="font-bold text-ink block mb-1">💻 Desktop PC / Mac</span>
+            <p className="text-ink-muted leading-relaxed text-[11px]">
+              {language === 'hi'
+                ? 'एड्रेस बार में इंस्टॉल आइकन (⊕) पर क्लिक करें।'
+                : 'Click the install icon (⊕) in address bar.'}
+            </p>
           </div>
         </div>
       </div>
 
       {/* 3. Demo Personas (Evaluation Tool for Hackathon Judges) */}
       <Card variant="default" padding="lg" className="space-y-4">
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-tint-peach flex items-center justify-center text-primary">
-              <Sparkles className="w-4 h-4" />
-            </div>
-            <div>
-              <h3 className="text-sm font-bold text-ink uppercase tracking-wider">
-                {language === 'hi' ? 'डेमो डेटा (मूल्यांकन हेतु)' : 'Demo Personas (Evaluation Tool)'}
-              </h3>
-              <p className="text-xs text-ink-muted">
-                {language === 'hi'
-                  ? 'निर्णायकों हेतु विभिन्न परिदृश्यों (जैसे अनियमित चक्र, हेवी ब्लीडिंग) का परीक्षण करने के लिए सिमुलेटेड डेटा लोड करें:'
-                  : 'Load simulated 6-month datasets to test FIGO clinical flags and doctor briefs:'}
-              </p>
-            </div>
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-full bg-tint-peach flex items-center justify-center text-primary">
+            <Sparkles className="w-4 h-4" />
           </div>
-
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleRestoreMyProfile}
-            className="text-xs font-semibold text-primary"
-          >
-            ← Back to My Data
-          </Button>
+          <div>
+            <h3 className="text-sm font-bold text-ink uppercase tracking-wider">
+              {language === 'hi' ? 'डेमो डेटा लोड करें (Quick Personas)' : 'Demo Personas (Evaluation Tool)'}
+            </h3>
+            <p className="text-xs text-ink-muted">
+              {language === 'hi'
+                ? 'निर्णायकों और परीक्षण के लिए 6 महीने का यथार्थवादी डेटा एक क्लिक में लोड करें (सेटअप स्वतः बाईपास होता है):'
+                : 'Preload 6 months of realistic longitudinal logs for hackathon evaluation (bypasses setup):'}
+            </p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
@@ -453,8 +375,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
               </p>
               <p className="text-[11px] text-ink-muted mt-0.5">
                 {language === 'hi'
-                  ? 'डिवाइस से सभी प्रविष्टियाँ हमेशा के लिए हटा दें।'
-                  : 'Permanently wipe all logs from this browser.'}
+                  ? 'डिवाइस से सभी प्रविष्टियाँ और सेटअप हमेशा के लिए हटा दें।'
+                  : 'Permanently wipe all logs and setup from this browser.'}
               </p>
             </div>
 
@@ -500,7 +422,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
             • <strong>Utah Hive Menstrual Dataset (2023)</strong>: Stanford & Najmabadi, University of Utah Repository.
           </p>
           <p className="leading-relaxed">
-            • <strong>Bull et al. (2019)</strong>: Real-world menstrual cycle characteristics of 600,000+ cycles, <em>npj Digital Medicine</em>.
+            • <strong>Bull et al. (2019)</strong>: Real-world menstrual cycle characteristics of 600,000+ cycles, <em>npj Digital Medicine</em>. Population mean 29.3 days.
           </p>
           <p className="leading-relaxed">
             • <strong>FIGO Menstrual Disorders Committee (2018)</strong>: Normal limits and abnormal uterine bleeding classifications.

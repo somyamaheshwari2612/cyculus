@@ -1,23 +1,20 @@
 import React from 'react';
-import { LogEntry, UserProfile } from '@/shared/types';
+import { LogEntry, Insights, UserSetup } from '@/shared/types';
 import { Button } from '@/app/components/Button';
-import { Printer } from 'lucide-react';
-import {
-  deriveCycles,
-  calculateRollingStats,
-  checkClinicalFlags
-} from '@/modules/insights/cycleEngine';
+import { Printer, Info } from 'lucide-react';
 
 export interface BriefPlaceholderProps {
   logs: LogEntry[];
-  profile?: UserProfile | null;
+  insights: Insights;
+  userSetup?: UserSetup | null;
   language: 'en' | 'hi';
   onLanguageChange?: (lang: 'en' | 'hi') => void;
 }
 
 export const BriefPlaceholder: React.FC<BriefPlaceholderProps> = ({
   logs,
-  profile,
+  insights,
+  userSetup,
   language,
   onLanguageChange
 }) => {
@@ -26,21 +23,16 @@ export const BriefPlaceholder: React.FC<BriefPlaceholderProps> = ({
   };
 
   const todayStr = new Date().toISOString().split('T')[0];
-  const cycles = deriveCycles(logs, profile);
-  const stats = calculateRollingStats(cycles, profile);
-  const flags = checkClinicalFlags(cycles, logs);
-
-  const completedCycles = cycles.filter(c => c.lengthDays !== null);
-  const latestCompleted = completedCycles.length > 0 
-    ? completedCycles[completedCycles.length - 1].lengthDays 
-    : (profile?.typicalCycleLength || 28);
-
-  // Date range covered
   const sortedDates = [...logs.map(l => l.date)].sort();
-  const fromDate = sortedDates[0] || profile?.lastPeriodStartDate || todayStr;
+  const fromDate = sortedDates[0] || userSetup?.lastPeriodStart || todayStr;
   const toDate = sortedDates[sortedDates.length - 1] || todayStr;
 
-  // Most frequent symptoms from user's actual logs
+  const completedCycles = insights.cycles.filter(c => c.lengthDays !== null);
+  const latestObserved = completedCycles.length > 0
+    ? completedCycles[completedCycles.length - 1].lengthDays
+    : null;
+
+  // Most frequent symptoms from user's actual logs only
   const symptomCounts: Record<string, number> = {};
   let maxPainLogged: number = 0;
   for (const log of logs) {
@@ -66,8 +58,6 @@ export const BriefPlaceholder: React.FC<BriefPlaceholderProps> = ({
     breast_tenderness: { en: 'Breast tenderness', hi: 'स्तनों में भारीपन' },
     nausea: { en: 'Nausea', hi: 'जी मिचलाना' }
   };
-
-  const patientName = profile?.name || 'Somya';
 
   return (
     <div className="space-y-6 pb-12">
@@ -131,11 +121,11 @@ export const BriefPlaceholder: React.FC<BriefPlaceholderProps> = ({
             </div>
             <h3 className="text-xl sm:text-2xl font-serif font-bold text-ink mt-2.5">
               {language === 'hi'
-                ? `${patientName} का मासिक धर्म चक्र एवं लक्षण सारांश`
-                : `${patientName} · Menstrual Cycle & Symptom Longitudinal Summary`}
+                ? 'मासिक धर्म चक्र एवं लक्षण सारांश'
+                : 'Menstrual Cycle & Symptom Longitudinal Summary'}
             </h3>
             <p className="text-xs text-ink-muted mt-1">
-              Period Covered: {fromDate} to {toDate} ({cycles.length} cycles, {logs.length} logged days)
+              Period Covered: {fromDate} to {toDate} ({insights.cycles.length} observed cycles, {logs.length} logged days)
             </p>
           </div>
           <div className="sm:text-right text-xs text-ink-muted shrink-0 bg-tint-lavender/30 p-2.5 rounded-2xl border border-[#E7DCF8]">
@@ -144,62 +134,94 @@ export const BriefPlaceholder: React.FC<BriefPlaceholderProps> = ({
           </div>
         </div>
 
-        {/* 1. Cycle Pattern & Intervals */}
+        {/* 1. Cycle Pattern & Observed Intervals */}
         <div>
           <h4 className="text-xs font-bold uppercase tracking-wider text-ink mb-3 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-primary" />
-            <span>1. {language === 'hi' ? 'चक्र का पैटर्न एवं अवधि' : 'Cycle Characteristics & Variability'}</span>
+            <span>1. {language === 'hi' ? 'दर्ज चक्र का पैटर्न एवं अवधि' : 'Logged Cycle Characteristics (Observed Facts)'}</span>
           </h4>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
             <div className="p-3.5 bg-tint-lavender/40 rounded-2xl border border-[#E7DCF8]">
-              <span className="text-ink-muted block text-[11px]">Average Cycle</span>
-              <span className="text-lg font-serif font-bold text-ink">{stats.avgCycleLength} days</span>
+              <span className="text-ink-muted block text-[11px]">Observed Average</span>
+              <span className="text-lg font-serif font-bold text-ink">
+                {insights.stats ? `${insights.stats.avgCycleLength} days` : '— (logging needed)'}
+              </span>
             </div>
             <div className="p-3.5 bg-tint-rose/40 rounded-2xl border border-[#F8DDE5]">
               <span className="text-ink-muted block text-[11px]">Latest Cycle</span>
-              <span className="text-lg font-serif font-bold text-primary">{latestCompleted} days</span>
+              <span className="text-lg font-serif font-bold text-primary">
+                {latestObserved !== null ? `${latestObserved} days` : 'In progress'}
+              </span>
             </div>
             <div className="p-3.5 bg-tint-peach/40 rounded-2xl border border-[#FADCD0]">
               <span className="text-ink-muted block text-[11px]">Range (Min–Max)</span>
-              <span className="text-lg font-serif font-bold text-ink">{stats.shortest} – {stats.longest} days</span>
+              <span className="text-lg font-serif font-bold text-ink">
+                {insights.stats ? `${insights.stats.shortest} – ${insights.stats.longest} days` : '—'}
+              </span>
             </div>
             <div className="p-3.5 bg-tint-mint/40 rounded-2xl border border-[#D8F0E4]">
               <span className="text-ink-muted block text-[11px]">Bleeding Duration</span>
-              <span className="text-lg font-serif font-bold text-ink">~{stats.avgBleedingDays} days</span>
+              <span className="text-lg font-serif font-bold text-ink">
+                {insights.stats ? `~${insights.stats.avgBleedingDays} days` : '—'}
+              </span>
             </div>
           </div>
+
+          {/* Labeled Line for Self-Reported Prior (Kept separate from logged facts) */}
+          {userSetup && (
+            <div className="mt-3 p-3 rounded-2xl bg-tint-lavender/30 border border-[#E7DCF8] text-xs text-ink-muted flex items-start gap-2">
+              <Info className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+              <div>
+                <span>
+                  {language === 'hi' ? 'स्व-सूचित चक्र अनुमान: ' : 'Self-reported typical cycle: '}
+                  <strong className="text-ink font-semibold">
+                    {userSetup.typicalCycleLength ? `${userSetup.typicalCycleLength} days` : 'Not specified'}
+                  </strong>
+                  <span className="text-[11px] text-ink-muted ml-1">
+                    ({language === 'hi' ? 'उपयोगकर्ता का अनुमान; लॉग प्रविष्टियों से असत्यापित' : 'patient estimate; unverified prior'})
+                  </span>
+                </span>
+                {userSetup.lastPeriodStart && (
+                  <span className="block mt-0.5 text-[11px]">
+                    {language === 'hi' ? 'स्व-सूचित पिछली माहवारी: ' : 'Self-reported last period start: '}
+                    <strong>{userSetup.lastPeriodStart}</strong>
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Responsive Grid for Sections 2 & 3 on Desktop (lg:) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-          {/* 2. Key Observations & Flags */}
+          {/* 2. Key Observations & Flags (Strictly from real entries) */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-ink mb-3 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-primary" />
               <span>2. {language === 'hi' ? 'प्रमुख बिंदु (Observations)' : 'Identified Patterns (Evidence-Grounded)'}</span>
             </h4>
             <div className="p-4 sm:p-5 bg-tint-rose/30 rounded-2xl border border-[#F8DDE5] text-xs space-y-2.5">
-              {flags.length > 0 ? (
+              {insights.flags.length > 0 ? (
                 <>
-                  {flags.some(f => f.ruleId === 'cycle_long') && (
+                  {insights.flags.some(f => f.ruleId === 'cycle_long') && (
                     <p className="font-semibold text-ink">
                       • {language === 'hi'
-                        ? `चक्र की लंबाई सामान्य सीमा से अधिक (${stats.longest} दिन) — FIGO 2018 मानक (24-38 दिन)`
-                        : `Cycle length extended beyond typical frequency (${stats.longest} days) — FIGO 2018 Criteria (24–38 days)`}
+                        ? `चक्र की लंबाई सामान्य सीमा से अधिक (${insights.stats?.longest} दिन) — FIGO 2018 मानक (24-38 दिन)`
+                        : `Cycle length extended beyond typical frequency (${insights.stats?.longest} days) — FIGO 2018 Criteria (24–38 days)`}
                     </p>
                   )}
-                  {flags.some(f => f.ruleId === 'cycle_short') && (
+                  {insights.flags.some(f => f.ruleId === 'cycle_short') && (
                     <p className="font-semibold text-ink">
                       • {language === 'hi'
-                        ? `चक्र की लंबाई सामान्य सीमा से कम (${stats.shortest} दिन) — FIGO 2018 मानक (24-38 दिन)`
-                        : `Cycle length shorter than standard interval (${stats.shortest} days) — FIGO 2018 Criteria (24–38 days)`}
+                        ? `चक्र की लंबाई सामान्य सीमा से कम (${insights.stats?.shortest} दिन) — FIGO 2018 मानक (24-38 दिन)`
+                        : `Cycle length shorter than standard interval (${insights.stats?.shortest} days) — FIGO 2018 Criteria (24–38 days)`}
                     </p>
                   )}
-                  {flags.some(f => f.ruleId === 'cycle_variability_high') && (
+                  {insights.flags.some(f => f.ruleId === 'cycle_variability_high') && (
                     <p className="text-ink-muted leading-relaxed">
                       • {language === 'hi'
-                        ? `चक्रों के बीच ${stats.longest - stats.shortest} दिनों का अंतर (${stats.shortest} से ${stats.longest} दिन), जो उच्च परिवर्तनशीलता दर्शाता है।`
-                        : `${stats.longest - stats.shortest}-day spread between shortest (${stats.shortest}d) and longest (${stats.longest}d) cycles indicating notable variability.`}
+                        ? `चक्रों के बीच ${(insights.stats?.longest || 0) - (insights.stats?.shortest || 0)} दिनों का अंतर, जो उच्च परिवर्तनशीलता दर्शाता है।`
+                        : `${(insights.stats?.longest || 0) - (insights.stats?.shortest || 0)}-day spread between shortest and longest observed cycles indicating notable variability.`}
                     </p>
                   )}
                   {maxPainLogged >= 7 && (
@@ -212,9 +234,13 @@ export const BriefPlaceholder: React.FC<BriefPlaceholderProps> = ({
                 </>
               ) : (
                 <p className="font-semibold text-ink">
-                  • {language === 'hi'
-                    ? `चक्र की अवधि (${stats.avgCycleLength} दिन) और रक्तस्राव (~${stats.avgBleedingDays} दिन) FIGO सामान्य सीमा (24-38 दिन) के भीतर है।`
-                    : `Cycle duration (${stats.avgCycleLength} days) and bleeding duration (~${stats.avgBleedingDays} days) are within FIGO 2018 normal limits (24–38 days).`}
+                  {insights.stats
+                    ? language === 'hi'
+                      ? `दर्ज चक्रों की औसत अवधि (${insights.stats.avgCycleLength} दिन) FIGO सामान्य सीमा (24-38 दिन) के भीतर है।`
+                      : `Observed cycle duration (${insights.stats.avgCycleLength} days) is within FIGO 2018 adult normal limits (24–38 days).`
+                    : language === 'hi'
+                      ? 'क्लिनिकल पैटर्न की पुष्टि के लिए कम से कम 1-2 पूरे चक्र का दैनिक डेटा दर्ज करें।'
+                      : 'Log at least 1-2 completed cycles to evaluate clinical patterns.'}
                 </p>
               )}
 
@@ -223,8 +249,8 @@ export const BriefPlaceholder: React.FC<BriefPlaceholderProps> = ({
                 <p className="text-ink-muted leading-relaxed">
                   • {language === 'hi' ? 'सर्वाधिक दर्ज लक्षण: ' : 'Most frequent logged symptoms: '}
                   {topSymptoms.map(([sym, count]) => {
-                    const label = symptomLabels[sym] 
-                      ? (language === 'hi' ? symptomLabels[sym].hi : symptomLabels[sym].en) 
+                    const label = symptomLabels[sym]
+                      ? (language === 'hi' ? symptomLabels[sym].hi : symptomLabels[sym].en)
                       : sym;
                     return `${label} (${count}d)`;
                   }).join(', ')}
@@ -240,14 +266,14 @@ export const BriefPlaceholder: React.FC<BriefPlaceholderProps> = ({
               <span>3. {language === 'hi' ? 'डॉक्टर से पूछने योग्य प्रश्न' : 'Suggested Questions for Clinician'}</span>
             </h4>
             <ul className="space-y-2 text-xs text-ink">
-              {flags.some(f => f.ruleId === 'cycle_long' || f.ruleId === 'cycle_variability_high') ? (
+              {insights.flags.some(f => f.ruleId === 'cycle_long' || f.ruleId === 'cycle_variability_high') ? (
                 <>
                   <li className="p-3 bg-white rounded-xl border border-surface-border leading-relaxed flex items-start gap-2">
                     <span className="text-primary font-bold">💬</span>
                     <span>
                       {language === 'hi'
-                        ? `क्या मेरे ${stats.longest} दिन के चक्र और उतार-चढ़ाव के लिए हार्मोनल या थायरॉइड टेस्ट कराना चाहिए?`
-                        : `Could my ${stats.longest}-day cycle and variability warrant evaluation for PCOS or thyroid function?`}
+                        ? `क्या मेरे ${insights.stats?.longest} दिन के चक्र और उतार-चढ़ाव के लिए हार्मोनल या थायरॉइड टेस्ट कराना चाहिए?`
+                        : `Could my observed ${insights.stats?.longest}-day cycle and variability warrant evaluation for PCOS or thyroid function?`}
                     </span>
                   </li>
                   <li className="p-3 bg-white rounded-xl border border-surface-border leading-relaxed flex items-start gap-2">
@@ -265,16 +291,16 @@ export const BriefPlaceholder: React.FC<BriefPlaceholderProps> = ({
                     <span className="text-primary font-bold">💬</span>
                     <span>
                       {language === 'hi'
-                        ? `मेरे चक्र की औसत अवधि ${stats.avgCycleLength} दिन है। क्या किसी नियमित स्वास्थ्य जांच की सलाह देंगे?`
-                        : `My cycle averages ${stats.avgCycleLength} days. Are there any routine preventative screenings recommended for my age group?`}
+                        ? 'माहवारी के दौरान ऊर्जा स्तर बनाए रखने के लिए क्या पोषण संबंधी सुझाव हैं?'
+                        : 'What nutritional or hydration guidelines are recommended to sustain energy across cycle phases?'}
                     </span>
                   </li>
                   <li className="p-3 bg-white rounded-xl border border-surface-border leading-relaxed flex items-start gap-2">
                     <span className="text-primary font-bold">💬</span>
                     <span>
                       {language === 'hi'
-                        ? 'माहवारी के दौरान ऊर्जा स्तर बनाए रखने के लिए क्या पोषण संबंधी सुझाव हैं?'
-                        : 'What nutritional or hydration guidelines are recommended to sustain energy across cycle phases?'}
+                        ? 'क्या मेरी उम्र के लिए किसी नियमित स्क्रीनिंग की सिफारिश की जाती है?'
+                        : 'Are there any routine health screenings recommended for my age group?'}
                     </span>
                   </li>
                 </>

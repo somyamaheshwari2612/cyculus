@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useLogs } from '@/modules/capture/useLogs';
 import { OofLog } from '@/modules/capture/OofLog';
 import { DayumPlaceholder } from '@/modules/insights/DayumPlaceholder';
@@ -9,42 +9,45 @@ import { Toast } from './components/Toast';
 import { OnboardingModal } from './OnboardingModal';
 import { BotanicalAccent } from './components/BotanicalAccent';
 import { Calendar, PlusCircle, FileText, Settings, ShieldCheck } from 'lucide-react';
-import { UserProfile } from '@/shared/types';
-import { loadUserProfile, saveUserProfile, generateBaselineLogs } from '@/modules/profile/profileStorage';
-import { deriveCycles, calculateRollingStats, getCurrentCycleStatus } from '@/modules/insights/cycleEngine';
+import { LogEntry, UserSetup } from '@/shared/types';
+import knowledgeData from '@/shared/knowledge.json';
+import { computeInsights, calculateCurrentCycleDay } from '@/modules/insights/computeInsights';
+import irregularData from '@/shared/mocks/entries.irregular.json';
+import regularData from '@/shared/mocks/entries.regular.json';
+import heavyData from '@/shared/mocks/entries.heavy.json';
 
 export type Tab = 'home' | 'ooflog' | 'brief' | 'settings';
 
 export const AppShell: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Tab>('ooflog');
+  const [activeTab, setActiveTab] = useState<Tab>('home');
   const [language, setLanguage] = useState<'en' | 'hi'>('en');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [showOnboarding, setShowOnboarding] = useState<boolean>(false);
-  const [userProfile, setUserProfile] = useState<UserProfile>(loadUserProfile());
 
   const {
     logs,
+    userSetup,
     todayLog,
     savePatch,
+    saveSetup,
+    clearSetup,
+    clearAllLogs,
     seedPersona,
-    exportJson,
-    clearAllLogs
+    exportJson
   } = useLogs();
 
   const todayStr = new Date().toISOString().split('T')[0];
 
-  // Derive active cycles, rolling stats, and cycle status dynamically from real logs & profile
-  const cycles = deriveCycles(logs, userProfile);
-  const stats = calculateRollingStats(cycles, userProfile);
-  const lastCycleStart = cycles.length > 0
-    ? cycles[cycles.length - 1].startDate
-    : userProfile.lastPeriodStartDate;
-  const cycleStatus = getCurrentCycleStatus(
-    lastCycleStart,
-    todayStr,
-    stats,
-    userProfile.typicalPeriodDuration
-  );
+  // Pure Module B engine evaluation with setup prior shrinkage
+  const insights = useMemo(() => {
+    return computeInsights(logs, knowledgeData.rules as any, todayStr, userSetup);
+  }, [logs, todayStr, userSetup]);
+
+  // Current cycle day relative to latest bleeding start or self-reported start
+  const latestStart = insights.cycles.length > 0
+    ? insights.cycles[insights.cycles.length - 1].startDate
+    : userSetup?.lastPeriodStart;
+  const currentCycleDay = latestStart ? calculateCurrentCycleDay(latestStart, todayStr) : null;
 
   // Check onboarding status
   useEffect(() => {
@@ -54,44 +57,56 @@ export const AppShell: React.FC = () => {
     }
   }, []);
 
-  // When completing onboarding setup
-  const handleCompleteOnboarding = async (profile: UserProfile) => {
-    saveUserProfile(profile);
-    setUserProfile(profile);
+  // When saving setup prior (writes to separate userSetup table, NEVER writes fake logs)
+  const handleSaveSetup = async (setup: UserSetup) => {
+    await saveSetup(setup);
     localStorage.setItem('cyculus_onboarding_done', 'true');
     setShowOnboarding(false);
-
-    // If no logs exist yet, seed initial baseline logs matching user's actual entered cycle
-    if (logs.length === 0) {
-      const baselineLogs = generateBaselineLogs(profile);
-      await seedPersona(baselineLogs);
-    }
-
     setToastMessage(
       language === 'hi'
-        ? `नमस्ते ${profile.name}! आपकी 100% ऑन-डिवाइस डायरी तैयार है।`
-        : `Welcome ${profile.name}! Your on-device diary is ready.`
+        ? 'आरंभिक चक्र सेटअप सहेजा गया! यह प्रायर के रूप में कार्य करेगा।'
+        : 'Cycle prior saved! Real logs will refine predictions with shrinkage.'
     );
   };
 
-  // Update profile from Settings
-  const handleUpdateProfile = async (profile: UserProfile, regenerateLogs: boolean = false) => {
-    saveUserProfile(profile);
-    setUserProfile(profile);
-    if (regenerateLogs) {
-      const baselineLogs = generateBaselineLogs(profile);
-      await seedPersona(baselineLogs);
-    }
+  // Skip setup
+  const handleSkipSetup = () => {
+    localStorage.setItem('cyculus_onboarding_done', 'true');
+    setShowOnboarding(false);
   };
+
+  const handleLoadPersona = async (type: 'riya' | 'regular' | 'heavy') => {
+    let data: LogEntry[];
+    let personaName = '';
+    if (type === 'riya') {
+      data = irregularData as LogEntry[];
+      personaName = 'Riya (Irregular)';
+    } else if (type === 'heavy') {
+      data = heavyData as LogEntry[];
+      personaName = 'Heavy Bleeding';
+    } else {
+      data = regularData as LogEntry[];
+      personaName = 'Regular Cycles';
+    }
+    await seedPersona(data);
+    setToastMessage(
+      language === 'hi'
+        ? `${personaName} का डेमो डेटा लोड किया गया!`
+        : `Loaded 6 months of data for ${personaName}!`
+    );
+  };
+
+  const isFreshBrowser = logs.length === 0 && !userSetup;
 
   return (
     <div className="min-h-screen bg-surface-bg flex font-sans selection:bg-primary-soft selection:text-ink">
-      {/* Onboarding Modal */}
+      {/* Onboarding / Setup Modal */}
       {showOnboarding && (
         <OnboardingModal
           language={language}
-          onComplete={handleCompleteOnboarding}
-          initialProfile={userProfile}
+          initialSetup={userSetup}
+          onSaveSetup={handleSaveSetup}
+          onSkip={handleSkipSetup}
         />
       )}
 
@@ -143,7 +158,7 @@ export const AppShell: React.FC = () => {
               </div>
             </button>
 
-            {/* Dayum (Cycle Tracker) */}
+            {/* Dayum (Cycle Tracker & PWA Guide) */}
             <button
               type="button"
               onClick={() => setActiveTab('home')}
@@ -155,9 +170,13 @@ export const AppShell: React.FC = () => {
             >
               <Calendar className={`w-4 h-4 ${activeTab === 'home' ? 'stroke-[2.5]' : ''}`} />
               <div>
-                <span className="block font-bold">Dayum</span>
+                <span className="block font-bold">
+                  {isFreshBrowser ? 'Guide & Dayum' : 'Dayum'}
+                </span>
                 <span className={`text-[10px] block ${activeTab === 'home' ? 'text-white/80' : 'text-ink-muted'}`}>
-                  {language === 'hi' ? 'चक्र ट्रैकर व अनुमान' : 'Cycle Timeline & Window'}
+                  {isFreshBrowser
+                    ? (language === 'hi' ? 'PWA गाइड एवं निर्देश' : 'PWA Guide & Timeline')
+                    : (language === 'hi' ? 'चक्र ट्रैकर व अनुमान' : 'Cycle Timeline & Window')}
                 </span>
               </div>
             </button>
@@ -218,7 +237,7 @@ export const AppShell: React.FC = () => {
             </p>
             <div className="mt-3 flex items-center gap-1.5 text-[10px] font-semibold text-primary">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Offline Ready</span>
+              <span>Offline Ready PWA</span>
             </div>
           </div>
         </div>
@@ -248,7 +267,7 @@ export const AppShell: React.FC = () => {
             <div className="hidden lg:flex items-center gap-2 text-xs">
               <span className="font-serif font-bold text-ink text-base">
                 {activeTab === 'ooflog' && 'OofLog · Daily Diary'}
-                {activeTab === 'home' && 'Dayum · Cycle Timeline'}
+                {activeTab === 'home' && (isFreshBrowser ? 'Guide & Instructions · PWA' : 'Dayum · Cycle Timeline')}
                 {activeTab === 'brief' && 'Doctor Brief · Chitthi'}
                 {activeTab === 'settings' && 'Privacy & Settings'}
               </span>
@@ -258,7 +277,7 @@ export const AppShell: React.FC = () => {
               </span>
             </div>
 
-            {/* Right Controls: Storage Badge, Language Toggle, and Avatar Pill */}
+            {/* Right Controls: Storage Badge & Language Toggle */}
             <div className="flex items-center gap-2.5">
               <div className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-semibold text-primary bg-tint-lavender/60 px-3 py-1 rounded-full border border-[#E7DCF8]">
                 <span>🔒 100% On-Device</span>
@@ -268,67 +287,138 @@ export const AppShell: React.FC = () => {
                 language={language}
                 onToggle={setLanguage}
               />
-
-              {/* Dynamic User Avatar Pill */}
-              <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-soft border border-white">
-                {userProfile.name.charAt(0).toUpperCase() || 'S'}
-              </div>
             </div>
           </div>
         </header>
 
         {/* Page Main Content */}
         <main className="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 lg:p-8 pb-28 lg:pb-12 transition-all">
-          {/* Ambient Welcome Banner with Dynamic User Name & Cycle Status */}
+          {/* Ambient Welcome Banner - When new browser with no profile set, no name is shown, just clear PWA guidance */}
           <div className="bg-gradient-to-r from-tint-rose/40 via-white/80 to-tint-lavender/40 border border-[#F3E8EE] rounded-[2.25rem] p-6 sm:p-7 relative overflow-hidden mb-6 shadow-card">
             <div className="absolute top-0 right-0 pointer-events-none opacity-60">
               <BotanicalAccent className="w-36 h-36 lg:w-44 lg:h-44 text-primary" />
             </div>
 
-            <div className="relative z-10 max-w-lg">
-              <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">
-                {language === 'hi' ? `नमस्ते, ${userProfile.name} 👋` : `Hey there, ${userProfile.name} 👋`}
-              </h2>
-              <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
-                {language === 'hi'
-                  ? 'आज आप कैसा महसूस कर रही हैं? बोलें या 1-टैप से दर्ज करें।'
-                  : 'What would you like to log or explore today? Speak naturally or tap below.'}
-              </p>
-              <div className="mt-3.5 flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-white/90 px-3 py-1 rounded-full border border-[#E7DCF8] shadow-soft">
-                  🌸 Cycle Day {cycleStatus.cycleDay} · {language === 'hi' ? cycleStatus.bandLabel.hi : cycleStatus.bandLabel.en}
-                </span>
-                <span className="text-[11px] text-ink-muted bg-white/70 px-2.5 py-1 rounded-full border border-surface-border">
-                  {logs.length} days recorded
-                </span>
+            {isFreshBrowser ? (
+              <div className="relative z-10 max-w-xl">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
+                    {language === 'hi' ? '🌸 नया ब्राउज़र · शून्य क्लाउड PWA' : '🌸 New Browser · Zero-Cloud PWA'}
+                  </span>
+                  <span className="text-[11px] text-ink-muted bg-white/80 px-2.5 py-0.5 rounded-full border border-[#F3E8EE]">
+                    {language === 'hi' ? 'कोई प्रोफ़ाइल सेट नहीं (अनाम)' : 'No Profile Set (Private & Anonymous)'}
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight font-bold">
+                  {language === 'hi' ? 'साइकुलस PWA · ऑफ़लाइन स्वास्थ्य डायरी' : 'Cyculus PWA · Offline Health Diary'}
+                </h2>
+                <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
+                  {language === 'hi'
+                    ? 'कोई खाता, प्रोफ़ाइल या नाम आवश्यक नहीं है। आपका व्यक्तिगत स्वास्थ्य डेटा 100% केवल इस ब्राउज़र में रहता है। नीचे उपयोग निर्देश एवं इंस्टॉलेशन गाइड देखें।'
+                    : 'No account, profile, or name required. Your health data stays 100% inside this browser. Follow the instructions and PWA usage guide below.'}
+                </p>
+                <div className="mt-4 flex flex-wrap items-center gap-2.5">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('home')}
+                    className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full border transition-all cursor-pointer ${
+                      activeTab === 'home'
+                        ? 'bg-primary text-white border-primary shadow-soft'
+                        : 'bg-white/90 text-primary border-[#E7DCF8] hover:bg-tint-lavender/50'
+                    }`}
+                  >
+                    📖 {language === 'hi' ? 'PWA उपयोग निर्देश देखें' : 'View PWA Instructions & Guide'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('ooflog')}
+                    className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full border transition-all cursor-pointer ${
+                      activeTab === 'ooflog'
+                        ? 'bg-primary text-white border-primary shadow-soft'
+                        : 'bg-white/90 text-primary border-[#E7DCF8] hover:bg-tint-lavender/50'
+                    }`}
+                  >
+                    ✍️ {language === 'hi' ? 'दैनिक चेक-इन शुरू करें (OofLog)' : 'Start Daily Check-in (OofLog)'}
+                  </button>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="relative z-10 max-w-lg">
+                <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">
+                  {language === 'hi' ? 'नमस्ते, साइकुलस में आपका स्वागत है 👋' : 'Hey there, welcome to Cyculus 👋'}
+                </h2>
+                <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
+                  {language === 'hi'
+                    ? 'आज आप कैसा महसूस कर रही हैं? बोलें या 1-टैप से दर्ज करें।'
+                    : 'What would you like to log or explore today? Speak naturally or tap below.'}
+                </p>
+                <div className="mt-3.5 flex flex-wrap items-center gap-2">
+                  {currentCycleDay !== null ? (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-white/90 px-3 py-1 rounded-full border border-[#E7DCF8] shadow-soft">
+                      🌸 Cycle Day {currentCycleDay}
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-white/90 px-3 py-1 rounded-full border border-[#E7DCF8] shadow-soft">
+                      🌸 Longitudinal Cycle Diary
+                    </span>
+                  )}
+                  <span className="text-[11px] text-ink-muted bg-white/70 px-2.5 py-1 rounded-full border border-surface-border">
+                    {logs.length} days recorded
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Active Tab Screen */}
           {activeTab === 'home' && (
             <DayumPlaceholder
               logs={logs}
-              profile={userProfile}
+              insights={insights}
+              userSetup={userSetup}
               language={language}
               onNavigateToLog={() => setActiveTab('ooflog')}
+              onOpenSetup={() => setShowOnboarding(true)}
+              onLoadPersona={handleLoadPersona}
             />
           )}
 
           {activeTab === 'ooflog' && (
-            <OofLog
-              todayDate={todayStr}
-              existingEntry={todayLog}
-              language={language}
-              onSavePatch={savePatch}
-              onSuccessToast={msg => setToastMessage(msg)}
-            />
+            <div className="space-y-4">
+              {isFreshBrowser && (
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-tint-lavender/50 border border-[#E7DCF8] flex flex-wrap items-center justify-between gap-3 text-xs">
+                  <div className="flex items-center gap-2 text-ink">
+                    <span className="text-base">🌸</span>
+                    <span>
+                      {language === 'hi'
+                        ? 'नया ब्राउज़र: कोई प्रोफ़ाइल सेट नहीं है। आप सीधे आज का लक्षण लॉग कर सकती हैं या PWA गाइड देख सकती हैं।'
+                        : 'New browser: No profile is set. You can start logging directly or explore the PWA guide.'}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('home')}
+                    className="font-bold text-primary hover:underline shrink-0 cursor-pointer"
+                  >
+                    {language === 'hi' ? 'PWA गाइड देखें →' : 'View PWA Guide →'}
+                  </button>
+                </div>
+              )}
+              <OofLog
+                todayDate={todayStr}
+                existingEntry={todayLog}
+                language={language}
+                onSavePatch={savePatch}
+                onSuccessToast={msg => setToastMessage(msg)}
+              />
+            </div>
           )}
 
           {activeTab === 'brief' && (
             <BriefPlaceholder
               logs={logs}
-              profile={userProfile}
+              insights={insights}
+              userSetup={userSetup}
               language={language}
               onLanguageChange={setLanguage}
             />
@@ -338,13 +428,13 @@ export const AppShell: React.FC = () => {
             <SettingsView
               language={language}
               logsCount={logs.length}
-              userProfile={userProfile}
-              onUpdateProfile={handleUpdateProfile}
+              userSetup={userSetup}
+              onClearSetup={clearSetup}
               onSeedPersona={seedPersona}
               onExportJson={exportJson}
               onClearAll={clearAllLogs}
               onToast={msg => setToastMessage(msg)}
-              onOpenOnboarding={() => setShowOnboarding(true)}
+              onOpenSetup={() => setShowOnboarding(true)}
             />
           )}
         </main>
@@ -367,7 +457,7 @@ export const AppShell: React.FC = () => {
             <span className="text-[10px] mt-1 font-semibold tracking-tight">OofLog</span>
           </button>
 
-          {/* Dayum / Cycle Tracker */}
+          {/* Dayum / Cycle Tracker & Guide */}
           <button
             type="button"
             onClick={() => setActiveTab('home')}
@@ -378,7 +468,9 @@ export const AppShell: React.FC = () => {
             }`}
           >
             <Calendar className={`w-5 h-5 ${activeTab === 'home' ? 'stroke-[2.5] text-primary' : ''}`} />
-            <span className="text-[10px] mt-1 font-semibold tracking-tight">Dayum</span>
+            <span className="text-[10px] mt-1 font-semibold tracking-tight">
+              {isFreshBrowser ? (language === 'hi' ? 'गाइड' : 'Guide') : 'Dayum'}
+            </span>
           </button>
 
           {/* Doctor Brief (Chitthi) */}
