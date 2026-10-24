@@ -34,6 +34,11 @@
   }
 }
 
+/* Safe area inset for modern mobile phone bottom navigation */
+.safe-area-bottom {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 8px));
+}
+
 /* Custom smooth scroll and refined pastel scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

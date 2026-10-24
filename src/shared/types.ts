@@ -24,6 +24,17 @@ export interface LogEntry {
   updatedAt: string;            // ISO timestamp
 }
 
+/** User profile stored locally on device */
+export interface UserProfile {
+  name: string;
+  lastPeriodStartDate: string;        // 'YYYY-MM-DD'
+  typicalCycleLength: number;         // default 28 days
+  typicalPeriodDuration: number;      // default 5 days
+  previousCycleLengths?: number[];    // past 2-3 cycles if known, e.g. [28, 30, 27]
+  createdAt: string;                  // ISO string
+  isCustomProfile: boolean;           // true if user configured their own data
+}
+
 /** Merge semantics when a new patch hits an existing day:
  *  symptoms/moods = union; flow and painLevel = latest non-null wins;
  *  notes appended; sources/rawTexts appended. */

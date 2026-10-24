@@ -67,5 +67,16 @@ This checklist tracks real manual user tests you can run directly in your browse
 | **VIS-05** | **Settings Demo Personas** | 1. Click "Settings" tab.<br>2. Inspect the Demo Personas section.<br>3. Click "✨ Riya (Irregular)". | 3 floating pastel cards (Lavender, Mint, Peach) matching showcase reference. Clicking Riya preloads 41-day cycle data with instant success toast. | ✅ Pass |
 | **VIS-06** | **Desktop Sidebar & Dual-Column Dashboard** | 1. Open app on desktop / wide screen (`>= 1024px`).<br>2. Observe left sidebar with brand logo, nav pills, and botanical quote card.<br>3. Inspect the top banner (*Hey there, Somya 👋*) with botanical SVG flourish.<br>4. Inspect OofLog dual-column layout (NLP on left, Tap check-in on right). | Full desktop dashboard fills space elegantly without awkward empty margins or excessive vertical scrolling. | ✅ Pass |
 | **VIS-07** | **Mobile Phone-First View & Quick Categories** | 1. Resize viewport to mobile screen (`< 768px`).<br>2. Observe hidden desktop sidebar and active bottom navigation bar.<br>3. Tap circular quick category pills (*Periods, Cramps, Mood, Energy, Bloating, Headache*). | Sidebar collapses into sleek top header & bottom navigation bar. Quick category circles instantly pre-select symptoms with 1 tap. | ✅ Pass |
+| **VIS-08** | **Adaptive Bottom Navigation on Phones & Tablets** | 1. View Cyculus on any screen `< 1024px` (e.g. mobile phones 390px, 500px, tablets 768px).<br>2. Observe side menu disappears completely.<br>3. Inspect the bottom navigation bar docked at the bottom.<br>4. Switch tabs (`OofLog`, `Dayum`, `Brief`, `Settings`).<br>5. Expand viewport to `>= 1024px`. | On all phone/tablet screens, navigation docks at the bottom with active pill indicators and safe-area padding.<br>At `>= 1024px`, the left sidebar smoothly resumes. | ✅ Pass |
+
+---
+
+## 📋 Feature 3.7: On-Device Personal Profile & Dynamic Rolling Average Engine
+
+| Test ID | Test Scenario | Steps to Execute | Expected Behavior | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **PROF-01** | **Personal Profile Setup & Zero-Cloud Storage** | 1. Navigate to Settings & click "Re-open Guided Setup Wizard".<br>2. Step 1: Click "Set Up Your Profile →".<br>3. Step 2: Enter Name = `Somya`, Last Period = `2026-10-11`, Cycle = `28`, Bleed = `5`, Past 3 cycles = `28, 29, 28`.<br>4. Click "Save & Enter Diary". | Saved 100% locally to browser `localStorage` & IndexedDB.<br>Zero remote database needed.<br>Header updates to `Hey there, Somya 👋` and avatar pill `S`. | ✅ Pass |
+| **PROF-02** | **Dynamic Cycle Calculation & Reactive Recalibration** | 1. Inspect Dayum after saving profile.<br>2. Verify Predicted Period Window center and range.<br>3. Check Cycle Day pill and phase band.<br>4. Log an early bleeding episode in OofLog. | Dayum dynamically computes prediction window based on rolling average.<br>Cycle Day and phase band (Early Follicular, Mid-Cycle, Luteal) update reactively without page reloads.<br>Doctor Brief displays personalized cycle characteristics and evidence-grounded questions. | ✅ Pass |
+
 
 
