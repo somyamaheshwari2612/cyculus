@@ -39,6 +39,7 @@ export const AppShell: React.FC = () => {
     saveSetup,
     clearSetup,
     clearAllLogs,
+    clearLogsOnly,
     seedPersona,
     exportJson
   } = useLogs();
@@ -66,6 +67,12 @@ export const AppShell: React.FC = () => {
 
   // When saving setup prior (writes to separate userSetup table, NEVER writes fake logs)
   const handleSaveSetup = async (setup: UserSetup) => {
+    // If mock demo persona is active, wipe all mock logs so the user starts fresh with their own setup!
+    if (demoPersona || localStorage.getItem('cyculus_demo_persona')) {
+      await clearLogsOnly();
+      localStorage.removeItem('cyculus_demo_persona');
+      setDemoPersona(null);
+    }
     await saveSetup(setup);
     localStorage.setItem('cyculus_onboarding_done', 'true');
     setShowOnboarding(false);
@@ -74,6 +81,26 @@ export const AppShell: React.FC = () => {
         ? 'आरंभिक चक्र सेटअप सहेजा गया! यह प्रायर के रूप में कार्य करेगा।'
         : 'Cycle prior saved! Real logs will refine predictions with shrinkage.'
     );
+  };
+
+  // When saving a real log entry from OofLog (tap check-in or natural text confirmation)
+  const handleSavePatch = async (
+    patch: DayPatch,
+    source: 'tap' | 'text' | 'voice',
+    rawText?: string
+  ): Promise<LogEntry> => {
+    // If mock demo persona is active, wipe mock persona logs before writing user's own data!
+    if (demoPersona || localStorage.getItem('cyculus_demo_persona')) {
+      await clearLogsOnly();
+      localStorage.removeItem('cyculus_demo_persona');
+      setDemoPersona(null);
+      setToastMessage(
+        language === 'hi'
+          ? 'डेमो डेटा हटा दिया गया और आपकी वास्तविक प्रविष्टि सहेजी गई!'
+          : 'Demo data removed. Your real health entry has been saved!'
+      );
+    }
+    return savePatch(patch, source, rawText);
   };
 
   // Skip setup
@@ -574,9 +601,9 @@ export const AppShell: React.FC = () => {
               )}
               <OofLog
                 todayDate={todayStr}
-                existingEntry={todayLog}
+                existingEntry={demoPersona ? undefined : todayLog}
                 language={language}
-                onSavePatch={savePatch}
+                onSavePatch={handleSavePatch}
                 onSuccessToast={msg => setToastMessage(msg)}
               />
             </div>

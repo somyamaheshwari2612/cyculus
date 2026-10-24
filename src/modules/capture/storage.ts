@@ -64,6 +64,14 @@ export class DexieLogStore implements LogStore {
   }
 
   /**
+   * Clear only the logs table without wiping userSetup.
+   * Used when clearing mock demo data upon entering real user logs.
+   */
+  async clearLogs(): Promise<void> {
+    await this.database.logs.clear();
+  }
+
+  /**
    * User setup prior stored in a separate table (tagged as self-reported, never seeds logs)
    */
   async getUserSetup(): Promise<UserSetup | null> {

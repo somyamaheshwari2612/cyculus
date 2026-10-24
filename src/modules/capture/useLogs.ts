@@ -34,6 +34,10 @@ export function useLogs() {
     await logStore.deleteAll();
   }, []);
 
+  const clearLogsOnly = useCallback(async (): Promise<void> => {
+    await logStore.clearLogs();
+  }, []);
+
   const seedPersona = useCallback(async (entries: LogEntry[]): Promise<void> => {
     await logStore.bulkImport(entries);
   }, []);
@@ -53,6 +57,7 @@ export function useLogs() {
     saveSetup,
     clearSetup,
     clearAllLogs,
+    clearLogsOnly,
     seedPersona,
     exportJson
   };
