@@ -54,3 +54,37 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #7B5EA7;
 }
+
+/* Print Stylesheet for Doctor Brief (Chitthi) Export */
+@media print {
+  @page {
+    margin: 12mm 15mm;
+    size: A4 portrait;
+  }
+  
+  body {
+    background: white !important;
+    background-image: none !important;
+    color: #1a1a1a !important;
+    font-family: 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  }
+
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  article {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .print-avoid-break {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
+

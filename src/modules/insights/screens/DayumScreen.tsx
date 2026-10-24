@@ -119,6 +119,17 @@ export const DayumScreen: React.FC<DayumScreenProps> = ({
                   </p>
                 </div>
 
+                {insights.prediction.basedOnCycles < 3 && (
+                  <div className="mt-3.5 p-3 rounded-2xl bg-amber-500/10 border border-amber-300/40 text-[11px] text-amber-900 flex items-start gap-2.5 leading-relaxed">
+                    <span className="shrink-0 text-sm">💡</span>
+                    <span>
+                      {language === 'hi'
+                        ? `प्रारंभिक अनुमान (केवल ${insights.prediction.basedOnCycles} चक्र दर्ज): चक्रों में प्राकृतिक उतार-चढ़ाव (±2–4 दिन) सामान्य है। 3+ चक्र दर्ज करने पर यूटा हाइव मॉडल पूर्ण अंशांकन (~85% कवरेज) प्राप्त करेगा।`
+                        : `Early Window (${insights.prediction.basedOnCycles} cycle analyzed): Menstrual cycles naturally fluctuate by ±2–4 days. Logging 3+ cycles achieves full Utah Hive calibration (~85% empirical coverage).`}
+                    </span>
+                  </div>
+                )}
+
                 <div className="mt-4 pt-3 border-t border-primary/20 flex flex-wrap items-center justify-between gap-2 text-xs">
                   <span className="text-ink-muted">
                     {language === 'hi' ? 'चक्र इतिहास:' : 'Cycles analyzed:'}{' '}

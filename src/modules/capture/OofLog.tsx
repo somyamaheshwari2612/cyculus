@@ -126,15 +126,24 @@ export const OofLog: React.FC<OofLogProps> = ({
     }
 
     try {
-      const response = await fetch('/api/extract', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          text: naturalText,
-          today: todayDate,
-          locale: language === 'hi' ? 'hi' : 'hinglish'
-        })
-      });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 7000);
+
+      let response: Response;
+      try {
+        response = await fetch('/api/extract', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
+          body: JSON.stringify({
+            text: naturalText,
+            today: todayDate,
+            locale: language === 'hi' ? 'hi' : 'hinglish'
+          })
+        });
+      } finally {
+        clearTimeout(timeoutId);
+      }
 
       if (!response.ok) {
         throw new Error(`Extraction HTTP ${response.status}`);
@@ -152,7 +161,7 @@ export const OofLog: React.FC<OofLogProps> = ({
         throw new Error('Extraction returned no patches');
       }
     } catch (err) {
-      console.warn('API extraction unavailable, using client-side deterministic fallback:', err);
+      console.warn('API extraction unavailable or timed out, using on-device deterministic fallback:', err);
       const isHeavy = /heavy|zyada|bohot flow|bahut/i.test(naturalText);
       const isSpotting = /spotting/i.test(naturalText);
       const hasCramps = /pet dard|cramps|ainthan/i.test(naturalText);
@@ -343,15 +352,22 @@ export const OofLog: React.FC<OofLogProps> = ({
         {/* LEFT COLUMN: Conversational NLP & Voice Card (lg:col-span-5) */}
         <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-20">
           <Card variant="default" padding="lg" className="border-surface-border shadow-card relative overflow-hidden">
-        <div className="flex items-center gap-2 mb-2.5">
-          <div className="w-6 h-6 rounded-full bg-tint-peach flex items-center justify-center text-xs">
-            ✨
+        <div className="flex items-center justify-between gap-2 mb-2.5">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-full bg-tint-peach flex items-center justify-center text-xs">
+              ✨
+            </div>
+            <label className="text-xs sm:text-sm font-semibold text-ink">
+              {language === 'hi'
+                ? 'आज के बारे में बताएं:'
+                : 'Tell me about today, in your own words:'}
+            </label>
           </div>
-          <label className="text-xs sm:text-sm font-semibold text-ink">
-            {language === 'hi'
-              ? 'आज के बारे में बताएं:'
-              : 'Tell me about today, in your own words:'}
-          </label>
+          {!hasSpeechSupport && (
+            <span className="text-[10px] text-ink-muted bg-tint-lavender/50 px-2 py-0.5 rounded-full border border-[#E7DCF8]">
+              {language === 'hi' ? 'माइक Chrome/Edge में' : 'Voice: Chrome & Edge'}
+            </span>
+          )}
         </div>
 
         <div className="relative">

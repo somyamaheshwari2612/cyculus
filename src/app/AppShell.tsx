@@ -232,7 +232,7 @@ export const AppShell: React.FC = () => {
       )}
 
       {/* DESKTOP SIDEBAR (Visible only on desktop/laptop screens >= 1024px) */}
-      <aside className="hidden lg:flex flex-col w-64 lg:w-72 shrink-0 bg-white/75 backdrop-blur-xl border-r border-[#F3E8EE] p-5 lg:p-6 justify-between min-h-screen sticky top-0 z-30">
+      <aside className="print:hidden hidden lg:flex flex-col w-64 lg:w-72 shrink-0 bg-white/75 backdrop-blur-xl border-r border-[#F3E8EE] p-5 lg:p-6 justify-between min-h-screen sticky top-0 z-30">
         <div className="space-y-7">
           {/* Brand Logo & Tagline */}
           <div className="flex items-start gap-3">
@@ -358,7 +358,7 @@ export const AppShell: React.FC = () => {
       {/* MAIN CONTENT AREA */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top Header Bar */}
-        <header className="sticky top-0 z-40 bg-surface-bg/85 backdrop-blur-md border-b border-surface-border px-4 sm:px-6 py-3 transition-all">
+        <header className="print:hidden sticky top-0 z-40 bg-surface-bg/85 backdrop-blur-md border-b border-surface-border px-4 sm:px-6 py-3 transition-all">
           <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
             {/* Mobile Branding (Hidden on desktop) */}
             <div className="lg:hidden flex items-center gap-2.5">
@@ -407,7 +407,7 @@ export const AppShell: React.FC = () => {
         <main className="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 lg:p-8 pb-28 lg:pb-12 transition-all">
           {/* Persistent Demo Data Banner (Flag stored outside LogEntry in localStorage) */}
           {demoPersona && (
-            <div className="mb-6 p-4 rounded-3xl bg-amber-500/10 border-2 border-amber-400/50 backdrop-blur-md shadow-card flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-ink">
+            <div className="print:hidden mb-6 p-4 rounded-3xl bg-amber-500/10 border-2 border-amber-400/50 backdrop-blur-md shadow-card flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-ink">
               <div className="flex items-start sm:items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-amber-400/20 text-amber-900 border border-amber-400/30 flex items-center justify-center shrink-0 text-lg shadow-soft">
                   ⚡
@@ -442,7 +442,7 @@ export const AppShell: React.FC = () => {
           )}
 
           {/* Ambient Welcome Banner - When new browser with no profile set, no name is shown, just clear PWA guidance */}
-          <div className="bg-gradient-to-r from-tint-rose/40 via-white/80 to-tint-lavender/40 border border-[#F3E8EE] rounded-[2.25rem] p-6 sm:p-7 relative overflow-hidden mb-6 shadow-card">
+          <div className="print:hidden bg-gradient-to-r from-tint-rose/40 via-white/80 to-tint-lavender/40 border border-[#F3E8EE] rounded-[2.25rem] p-6 sm:p-7 relative overflow-hidden mb-6 shadow-card">
             <div className="absolute top-0 right-0 pointer-events-none opacity-60">
               <BotanicalAccent className="w-36 h-36 lg:w-44 lg:h-44 text-primary" />
             </div>
@@ -617,7 +617,7 @@ export const AppShell: React.FC = () => {
       </div>
 
       {/* MOBILE / PHONE BOTTOM NAVIGATION BAR (Visible on all phone & tablet screens < lg) */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/92 backdrop-blur-xl border-t border-[#F0E6EE] px-3 py-2 shadow-sheet safe-area-bottom">
+      <nav className="print:hidden lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/92 backdrop-blur-xl border-t border-[#F0E6EE] px-3 py-2 shadow-sheet safe-area-bottom">
         <div className="max-w-md mx-auto grid grid-cols-4 gap-1.5">
           {/* OofLog (Daily Diary) */}
           <button

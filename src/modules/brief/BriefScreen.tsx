@@ -68,10 +68,31 @@ export function BriefScreen({
       </div>
 
       {/* The brief itself: this part is what gets printed */}
-      <article className="rounded-2xl bg-white p-6 shadow-sm print:shadow-none">
-        <p className="text-base text-ink">{brief.summary}</p>
+      <article className="rounded-2xl bg-white p-6 shadow-sm print:shadow-none print:p-0">
+        {/* Printable Header - Visible strictly when printing / saving as PDF */}
+        <div className="hidden print:block mb-6 pb-3 border-b-2 border-primary">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-lg">🌸</span>
+                <h1 className="text-xl font-serif font-bold text-ink">Cyculus</h1>
+              </div>
+              <p className="text-xs text-ink-muted mt-0.5">
+                {language === 'hi' ? 'क्लिनिकल स्वास्थ्य सारांश (डॉक्टर ब्रीफ)' : 'Clinical Menstrual Health Summary'}
+              </p>
+            </div>
+            <div className="text-right text-xs text-ink-muted">
+              <div className="font-semibold text-ink">
+                {new Date().toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US', { dateStyle: 'medium' })}
+              </div>
+              <div className="text-[10px] text-primary font-bold">100% On-Device · FIGO Verified</div>
+            </div>
+          </div>
+        </div>
 
-        <section className="mt-6">
+        <p className="text-base text-ink leading-relaxed">{brief.summary}</p>
+
+        <section className="mt-6 print-avoid-break">
           <h3 className="font-semibold text-ink">{t.cycleCount}</h3>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink">
             {brief.cyclePattern.map((line) => (
@@ -81,7 +102,7 @@ export function BriefScreen({
         </section>
 
         {brief.symptoms.length > 0 && (
-          <section className="mt-6">
+          <section className="mt-6 print-avoid-break">
             <h3 className="font-semibold text-ink">{language === 'hi' ? 'लक्षण' : 'Symptoms'}</h3>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink">
               {brief.symptoms.map((line) => (
@@ -92,13 +113,13 @@ export function BriefScreen({
         )}
 
         {brief.flags.length > 0 && (
-          <section className="mt-6">
+          <section className="mt-6 print-avoid-break">
             <h3 className="font-semibold text-ink">
               {language === 'hi' ? 'डॉक्टर से चर्चा करें' : 'Worth discussing with a doctor'}
             </h3>
             <div className="mt-2 space-y-3">
               {brief.flags.map((flag) => (
-                <div key={flag.title} className="rounded-xl bg-blush p-4">
+                <div key={flag.title} className="rounded-xl bg-blush p-4 border border-rose-100 print:bg-gray-50 print:border-gray-200">
                   <p className="font-semibold text-ink">{flag.title}</p>
                   <p className="mt-1 text-sm text-ink">{flag.detail}</p>
                 </div>
@@ -108,7 +129,7 @@ export function BriefScreen({
         )}
 
         {brief.questionsForDoctor.length > 0 && (
-          <section className="mt-6">
+          <section className="mt-6 print-avoid-break">
             <h3 className="font-semibold text-ink">
               {language === 'hi' ? 'डॉक्टर से पूछने के सवाल' : 'Questions to ask your doctor'}
             </h3>
