@@ -43,3 +43,5 @@ recHERsion_starter_prompts.md
 *.sw?
 .DS_Store
 Thumbs.db
+.env
+data/external/
