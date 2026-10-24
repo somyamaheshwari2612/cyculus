@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from './components/Button';
-import { HeartHandshake, Lock, ArrowRight, ArrowLeft, Calendar, Sparkles, Check } from 'lucide-react';
+import { HeartHandshake, Lock, ArrowRight, ArrowLeft, Calendar, Sparkles, Check, Minus, Plus } from 'lucide-react';
 import { UserSetup } from '@/shared/types';
 
 export interface OnboardingModalProps {
@@ -16,15 +16,28 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
   onSaveSetup,
   onSkip
 }) => {
-  const [step, setStep] = useState<1 | 2>(1);
+  // If editing an existing setup, open directly on step 2 (Date & Prior Setup)
+  const isAlreadyOnboarded = Boolean(initialSetup) || Boolean(localStorage.getItem('cyculus_onboarding_done'));
+  const [step, setStep] = useState<1 | 2>(isAlreadyOnboarded ? 2 : 1);
   const todayStr = new Date().toISOString().split('T')[0];
 
-  // Form states: No '28' default! Starts empty.
+  // Form states:
   const [lastPeriodStart, setLastPeriodStart] = useState<string>(initialSetup?.lastPeriodStart || '');
+
+  // Cycle choice mode: 'know' (default) or 'not_sure' — never default to not sure!
+  const [cycleMode, setCycleMode] = useState<'know' | 'not_sure'>(() => {
+    if (initialSetup && initialSetup.typicalCycleLength === undefined && initialSetup.lastPeriodStart) {
+      return 'not_sure';
+    }
+    return 'know';
+  });
+
+  const [cycleLength, setCycleLength] = useState<number>(() => {
+    return initialSetup?.typicalCycleLength ?? 29;
+  });
   const [cycleLengthStr, setCycleLengthStr] = useState<string>(
-    initialSetup?.typicalCycleLength ? String(initialSetup.typicalCycleLength) : ''
+    initialSetup?.typicalCycleLength ? String(initialSetup.typicalCycleLength) : '29'
   );
-  const [isNotSureLength, setIsNotSureLength] = useState<boolean>(false);
 
   // Optional earlier period starts for real intervals
   const [showEarlierDates, setShowEarlierDates] = useState<boolean>(
@@ -49,15 +62,15 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
       return;
     }
 
-    // Validate cycle length if provided
+    // Validate cycle length if in 'know' mode
     let typicalCycleLength: number | undefined = undefined;
-    if (!isNotSureLength && cycleLengthStr.trim() !== '') {
+    if (cycleMode === 'know') {
       const parsed = parseInt(cycleLengthStr, 10);
       if (isNaN(parsed) || parsed < 15 || parsed > 90) {
         setValidationError(
           language === 'hi'
-            ? 'कृपया चक्र की लंबाई 15 से 90 दिनों के बीच दर्ज करें।'
-            : 'Please enter a typical cycle length between 15 and 90 days.'
+            ? 'कृपया चक्र की लंबाई 15 से 90 दिनों के बीच दर्ज करें (या "पक्का नहीं पता" चुनें)।'
+            : 'Please enter a typical cycle length between 15 and 90 days, or select "Not sure / Irregular".'
         );
         return;
       }
@@ -232,8 +245,8 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 </div>
               </div>
 
-              {/* Field 2: Typical Cycle Length (NO 28 DEFAULT) */}
-              <div className="p-4 bg-tint-lavender/30 rounded-2xl border border-[#E7DCF8] space-y-2.5">
+              {/* Field 2: Typical Cycle Length (Explicit choice, never not-sure by default) */}
+              <div className="p-4 bg-tint-lavender/30 rounded-2xl border border-[#E7DCF8] space-y-3">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-semibold text-ink">
                     {language === 'hi' ? 'सामान्य चक्र की लंबाई' : 'Typical Cycle Length'}
@@ -241,51 +254,140 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                   <span className="text-[10px] text-primary font-bold">28 is a myth</span>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <input
-                    type="number"
-                    min={15}
-                    max={90}
-                    placeholder="e.g. 31"
-                    value={cycleLengthStr}
-                    onFocus={() => {
-                      if (isNotSureLength) {
-                        setIsNotSureLength(false);
-                      }
-                    }}
-                    onChange={e => {
-                      setCycleLengthStr(e.target.value);
-                      setIsNotSureLength(false);
-                    }}
-                    className={`w-24 px-3 py-2 rounded-xl bg-white border text-xs sm:text-sm font-bold text-center text-ink focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-soft transition-all ${
-                      isNotSureLength ? 'opacity-50 border-dashed border-[#E7DCF8]' : 'border-surface-border'
-                    }`}
-                  />
-                  <span className="text-xs text-ink-muted">{language === 'hi' ? 'दिन' : 'days'}</span>
-
+                {/* Two explicit segment choices */}
+                <div className="grid grid-cols-2 gap-2 p-1 bg-white/80 rounded-xl border border-[#E7DCF8]">
                   <button
                     type="button"
                     onClick={() => {
-                      const next = !isNotSureLength;
-                      setIsNotSureLength(next);
-                      if (next) setCycleLengthStr('');
+                      setCycleMode('know');
+                      if (!cycleLengthStr) {
+                        setCycleLength(29);
+                        setCycleLengthStr('29');
+                      }
                     }}
-                    className={`ml-auto px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                      isNotSureLength
+                    className={`py-2 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                      cycleMode === 'know'
                         ? 'bg-primary text-white shadow-soft'
-                        : 'bg-white border border-[#E7DCF8] text-ink-muted hover:text-ink'
+                        : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
                     }`}
                   >
-                    {language === 'hi' ? 'पक्का नहीं पता' : 'Not sure'}
+                    <span>🗓️</span>
+                    <span>{language === 'hi' ? 'मुझे चक्र की लंबाई पता है' : 'I know my cycle'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setCycleMode('not_sure')}
+                    className={`py-2 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                      cycleMode === 'not_sure'
+                        ? 'bg-primary text-white shadow-soft'
+                        : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
+                    }`}
+                  >
+                    <span>❓</span>
+                    <span>{language === 'hi' ? 'पक्का नहीं पता / अनियमित' : 'Not sure / Irregular'}</span>
                   </button>
                 </div>
 
-                {isNotSureLength && (
-                  <p className="text-[11px] text-ink-muted leading-relaxed">
-                    {language === 'hi'
-                      ? 'कोई बात नहीं! हम जनसंख्या औसत (29.3 दिन, Bull et al. 2019) और व्यापक विंडो का उपयोग करेंगे।'
-                      : 'We’ll use the population average (29.3 days from Bull et al.) and show a wide, low-confidence window until your own logs build up.'}
-                  </p>
+                {cycleMode === 'know' ? (
+                  <div className="space-y-3 pt-1 animate-fade-in">
+                    {/* Quick Select Chips */}
+                    <div>
+                      <span className="block text-[11px] text-ink-muted mb-1.5 font-medium">
+                        {language === 'hi' ? 'त्वरित चयन (सामान्य दिन):' : 'Quick select typical days:'}
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {[26, 27, 28, 29, 30, 31, 32, 35].map(days => (
+                          <button
+                            key={days}
+                            type="button"
+                            onClick={() => {
+                              setCycleLength(days);
+                              setCycleLengthStr(String(days));
+                            }}
+                            className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                              cycleLength === days && cycleLengthStr === String(days)
+                                ? 'bg-primary text-white shadow-soft ring-2 ring-primary/20 scale-105'
+                                : 'bg-white border border-[#E7DCF8] text-ink hover:border-primary/50'
+                            }`}
+                          >
+                            {days}d
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Stepper + Direct Numeric Input */}
+                    <div className="flex items-center justify-between gap-3 bg-white p-2.5 rounded-xl border border-surface-border shadow-soft">
+                      <span className="text-xs text-ink-muted font-medium">
+                        {language === 'hi' ? 'दिन समायोजित करें:' : 'Adjust exact days:'}
+                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const val = Math.max(15, (parseInt(cycleLengthStr, 10) || cycleLength || 29) - 1);
+                            setCycleLength(val);
+                            setCycleLengthStr(String(val));
+                          }}
+                          className="w-8 h-8 rounded-lg bg-surface-bg border border-surface-border text-ink hover:bg-tint-lavender flex items-center justify-center transition-all active:scale-95 cursor-pointer"
+                          aria-label="Decrease cycle length"
+                        >
+                          <Minus className="w-3.5 h-3.5" />
+                        </button>
+
+                        <input
+                          type="number"
+                          min={15}
+                          max={90}
+                          value={cycleLengthStr}
+                          onChange={e => {
+                            setCycleLengthStr(e.target.value);
+                            const parsed = parseInt(e.target.value, 10);
+                            if (!isNaN(parsed)) {
+                              setCycleLength(parsed);
+                            }
+                          }}
+                          className="w-16 px-2 py-1.5 rounded-lg bg-surface-bg border border-surface-border text-xs sm:text-sm font-bold text-center text-ink focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                        />
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const val = Math.min(90, (parseInt(cycleLengthStr, 10) || cycleLength || 29) + 1);
+                            setCycleLength(val);
+                            setCycleLengthStr(String(val));
+                          }}
+                          className="w-8 h-8 rounded-lg bg-surface-bg border border-surface-border text-ink hover:bg-tint-lavender flex items-center justify-center transition-all active:scale-95 cursor-pointer"
+                          aria-label="Increase cycle length"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                        </button>
+
+                        <span className="text-xs font-semibold text-ink pl-1">
+                          {language === 'hi' ? 'दिन' : 'days'}
+                        </span>
+                      </div>
+                    </div>
+
+                    <p className="text-[11px] text-ink-muted leading-relaxed">
+                      {language === 'hi'
+                        ? 'चिकित्सीय सामान्य सीमा 24–38 दिन है (FIGO मानक)। हम आपकी प्रविष्टियों के साथ अनुमान परिष्कृत करेंगे।'
+                        : 'Normal clinical range is 24–38 days (FIGO standard). Cyculus refines prediction as real logs accumulate.'}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="p-3.5 bg-white/90 rounded-xl border border-[#E7DCF8] space-y-1.5 animate-fade-in">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-primary">
+                      <Sparkles className="w-3.5 h-3.5 text-primary" />
+                      <span>{language === 'hi' ? 'जनसंख्या औसत का उपयोग' : 'Population Average Fallback'}</span>
+                    </div>
+                    <p className="text-[11px] text-ink-muted leading-relaxed">
+                      {language === 'hi'
+                        ? 'कोई बात नहीं! हम जनसंख्या औसत (29.3 दिन, Bull et al. 2019) और व्यापक विंडो का उपयोग करेंगे जब तक कि आपके वास्तविक चक्र दर्ज न हो जाएं।'
+                        : 'No problem! Cyculus will use the clinical population average (29.3 days from Bull et al. 2019) with a wide, low-confidence prediction window until your own logs build up.'}
+                    </p>
+                  </div>
                 )}
               </div>
 
