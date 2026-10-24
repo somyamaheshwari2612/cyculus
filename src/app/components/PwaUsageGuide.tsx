@@ -16,7 +16,7 @@ export interface PwaUsageGuideProps {
   onNavigateToLog?: () => void;
   onOpenSetup?: () => void;
   onOpenSettings?: () => void;
-  onLoadPersona?: (type: 'riya' | 'regular' | 'heavy') => Promise<void>;
+  onLoadPersona?: (type: 'riya' | 'regular' | 'heavy') => Promise<void> | void;
   className?: string;
 }
 

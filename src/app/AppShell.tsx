@@ -8,7 +8,7 @@ import { LanguageToggle } from './components/LanguageToggle';
 import { Toast } from './components/Toast';
 import { OnboardingModal } from './OnboardingModal';
 import { BotanicalAccent } from './components/BotanicalAccent';
-import { Calendar, PlusCircle, FileText, Settings, ShieldCheck } from 'lucide-react';
+import { Calendar, PlusCircle, FileText, Settings, ShieldCheck, Trash2 } from 'lucide-react';
 import { LogEntry, UserSetup } from '@/shared/types';
 import knowledgeData from '@/shared/knowledge.json';
 import { computeInsights, calculateCurrentCycleDay } from '@/modules/insights/computeInsights';
@@ -23,6 +23,13 @@ export const AppShell: React.FC = () => {
   const [language, setLanguage] = useState<'en' | 'hi'>('en');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [showOnboarding, setShowOnboarding] = useState<boolean>(false);
+  const [demoPersona, setDemoPersona] = useState<string | null>(() => localStorage.getItem('cyculus_demo_persona'));
+  const [confirmPersonaSeed, setConfirmPersonaSeed] = useState<{
+    type: 'riya' | 'regular' | 'heavy';
+    name: string;
+    description: string;
+    daysCount: number;
+  } | null>(null);
 
   const {
     logs,
@@ -75,25 +82,71 @@ export const AppShell: React.FC = () => {
     setShowOnboarding(false);
   };
 
-  const handleLoadPersona = async (type: 'riya' | 'regular' | 'heavy') => {
-    let data: LogEntry[];
-    let personaName = '';
+  const requestSeedPersona = (type: 'riya' | 'regular' | 'heavy') => {
     if (type === 'riya') {
-      data = irregularData as LogEntry[];
-      personaName = 'Riya (Irregular)';
+      setConfirmPersonaSeed({
+        type: 'riya',
+        name: 'Riya (Irregular / 41-day cycle)',
+        description: language === 'hi'
+          ? '41-दिन का लंबा चक्र, उच्च चक्र परिवर्तनशीलता (27–41 दिन) और FIGO cycle_long फ़्लैग का प्रदर्शन।'
+          : 'Demonstrates a 41-day cycle, high cycle variability (27–41 days), and FIGO cycle_long clinical flag.',
+        daysCount: (irregularData as LogEntry[]).length
+      });
     } else if (type === 'heavy') {
-      data = heavyData as LogEntry[];
-      personaName = 'Heavy Bleeding';
+      setConfirmPersonaSeed({
+        type: 'heavy',
+        name: 'Heavy Menstrual Bleeding',
+        description: language === 'hi'
+          ? 'प्रति चक्र 4+ भारी रक्तस्राव दिवस एवं तीव्र कष्टार्तव (दर्द 8/10), NICE व ACOG फ़्लैग का प्रदर्शन।'
+          : 'Demonstrates 4+ heavy bleeding days per cycle and severe dysmenorrhea (pain 8/10), triggering NICE/ACOG heavy flow flag.',
+        daysCount: (heavyData as LogEntry[]).length
+      });
     } else {
-      data = regularData as LogEntry[];
-      personaName = 'Regular Cycles';
+      setConfirmPersonaSeed({
+        type: 'regular',
+        name: 'Regular Cycles Baseline',
+        description: language === 'hi'
+          ? 'नियमित 28–29 दिन के चक्र, निम्न परिवर्तनशीलता, कोई क्लिनिकल फ़्लैग नहीं।'
+          : 'Demonstrates consistent 28–29 day physiological rhythms with low variability and 0 clinical flags.',
+        daysCount: (regularData as LogEntry[]).length
+      });
     }
+  };
+
+  const handleConfirmSeed = async () => {
+    if (!confirmPersonaSeed) return;
+    const { type, name } = confirmPersonaSeed;
+    let data: LogEntry[];
+    if (type === 'riya') data = irregularData as LogEntry[];
+    else if (type === 'heavy') data = heavyData as LogEntry[];
+    else data = regularData as LogEntry[];
+
     await seedPersona(data);
+    localStorage.setItem('cyculus_demo_persona', name);
+    setDemoPersona(name);
+    setConfirmPersonaSeed(null);
     setToastMessage(
       language === 'hi'
-        ? `${personaName} का डेमो डेटा लोड किया गया!`
-        : `Loaded 6 months of data for ${personaName}!`
+        ? `${name} का 6 महीने का डेमो डेटा लोड किया गया!`
+        : `Loaded 6 months of demo data for ${name}!`
     );
+  };
+
+  const handleRemoveDemoData = async () => {
+    await clearAllLogs();
+    localStorage.removeItem('cyculus_demo_persona');
+    setDemoPersona(null);
+    setToastMessage(
+      language === 'hi'
+        ? 'डेमो डेटा हटा दिया गया। अब डायरी पूरी तरह से साफ़ है।'
+        : 'Demo data removed. Returned to clean, private diary.'
+    );
+  };
+
+  const handleClearAll = async () => {
+    await clearAllLogs();
+    localStorage.removeItem('cyculus_demo_persona');
+    setDemoPersona(null);
   };
 
   const isFreshBrowser = logs.length === 0 && !userSetup;
@@ -108,6 +161,65 @@ export const AppShell: React.FC = () => {
           onSaveSetup={handleSaveSetup}
           onSkip={handleSkipSetup}
         />
+      )}
+
+      {/* Confirm Demo Seeding Modal */}
+      {confirmPersonaSeed && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/40 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-[2rem] max-w-md w-full p-6 sm:p-7 shadow-modal border border-[#F3E8EE] space-y-5 animate-in zoom-in-95 duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-tint-peach flex items-center justify-center text-primary text-xl shadow-soft border border-[#FADCD0] shrink-0">
+                ✨
+              </div>
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
+                  {language === 'hi' ? 'डेमो डेटा लोड' : 'Seed Demo Data'}
+                </span>
+                <h3 className="text-lg sm:text-xl font-serif font-bold text-ink mt-0.5">
+                  {language === 'hi' ? 'क्या आप डेमो डेटा लोड करना चाहती हैं?' : 'Load Demonstration Persona?'}
+                </h3>
+              </div>
+            </div>
+
+            <div className="p-4 bg-tint-lavender/30 rounded-2xl border border-[#E7DCF8] space-y-2 text-xs">
+              <div className="font-bold text-ink text-sm">
+                {confirmPersonaSeed.name}
+              </div>
+              <p className="text-ink-muted leading-relaxed">
+                {confirmPersonaSeed.description}
+              </p>
+              <div className="pt-1 flex items-center gap-2 text-[11px] font-semibold text-primary">
+                <span>📊 {confirmPersonaSeed.daysCount} longitudinal days</span>
+                <span>•</span>
+                <span>6 complete cycles</span>
+              </div>
+            </div>
+
+            <div className="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-[11px] text-amber-900 leading-relaxed">
+              <strong>⚠️ {language === 'hi' ? 'कृपया ध्यान दें:' : 'Notice:'}</strong>{' '}
+              {language === 'hi'
+                ? 'यह क्रिया आपके ब्राउज़र में डेमो डेटा लोड करेगी ताकि आप क्लिनिकल अंतर्दृष्टि का परीक्षण कर सकें। आप कभी भी "डेमो डेटा हटाएं" बटन से इसे साफ़ कर सकती हैं।'
+                : 'This will seed mock entries into your local IndexedDB for clinical rule evaluation. A persistent banner will allow you to remove it at any time.'}
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setConfirmPersonaSeed(null)}
+                className="px-4 py-2.5 rounded-full text-xs font-semibold text-ink-muted hover:text-ink hover:bg-tint-lavender/50 transition-all cursor-pointer"
+              >
+                {language === 'hi' ? 'रद्द करें' : 'Cancel'}
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmSeed}
+                className="px-5 py-2.5 rounded-full text-xs font-bold bg-primary text-white hover:bg-primary-dark shadow-soft transition-all cursor-pointer active:scale-95"
+              >
+                {language === 'hi' ? 'हाँ, डेमो डेटा लोड करें' : 'Confirm & Load Persona'}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Global Toast */}
@@ -293,6 +405,42 @@ export const AppShell: React.FC = () => {
 
         {/* Page Main Content */}
         <main className="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 lg:p-8 pb-28 lg:pb-12 transition-all">
+          {/* Persistent Demo Data Banner (Flag stored outside LogEntry in localStorage) */}
+          {demoPersona && (
+            <div className="mb-6 p-4 rounded-3xl bg-amber-500/10 border-2 border-amber-400/50 backdrop-blur-md shadow-card flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-ink">
+              <div className="flex items-start sm:items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-amber-400/20 text-amber-900 border border-amber-400/30 flex items-center justify-center shrink-0 text-lg shadow-soft">
+                  ⚡
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-900 bg-amber-200/90 px-2 py-0.5 rounded-full border border-amber-300">
+                      {language === 'hi' ? 'डेमो डेटा सक्रिय' : 'Demo Data Active'}
+                    </span>
+                    <span className="text-xs sm:text-sm font-serif font-bold text-ink">
+                      {demoPersona}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-ink-muted mt-0.5 leading-snug">
+                    {language === 'hi'
+                      ? 'सिंथेटिक डेमो डेटा लोड है (फ्लैग LogEntry के बाहर localStorage में सुरक्षित)। कभी भी हटाएं:'
+                      : 'Mock longitudinal logs loaded for testing. Flag stored strictly outside LogEntry in localStorage.'}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                <button
+                  type="button"
+                  onClick={handleRemoveDemoData}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-white text-rose-700 border border-rose-200 hover:bg-rose-50 hover:border-rose-300 shadow-soft transition-all cursor-pointer active:scale-95"
+                >
+                  <Trash2 className="w-3.5 h-3.5 text-rose-600" />
+                  <span>{language === 'hi' ? 'डेमो डेटा हटाएं' : 'Remove Demo Data'}</span>
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Ambient Welcome Banner - When new browser with no profile set, no name is shown, just clear PWA guidance */}
           <div className="bg-gradient-to-r from-tint-rose/40 via-white/80 to-tint-lavender/40 border border-[#F3E8EE] rounded-[2.25rem] p-6 sm:p-7 relative overflow-hidden mb-6 shadow-card">
             <div className="absolute top-0 right-0 pointer-events-none opacity-60">
@@ -379,7 +527,7 @@ export const AppShell: React.FC = () => {
               language={language}
               onNavigateToLog={() => setActiveTab('ooflog')}
               onOpenSetup={() => setShowOnboarding(true)}
-              onLoadPersona={handleLoadPersona}
+              onLoadPersona={requestSeedPersona}
             />
           )}
 
@@ -429,10 +577,12 @@ export const AppShell: React.FC = () => {
               language={language}
               logsCount={logs.length}
               userSetup={userSetup}
+              demoPersona={demoPersona}
               onClearSetup={clearSetup}
-              onSeedPersona={seedPersona}
+              onRequestSeedPersona={requestSeedPersona}
+              onRemoveDemoData={handleRemoveDemoData}
               onExportJson={exportJson}
-              onClearAll={clearAllLogs}
+              onClearAll={handleClearAll}
               onToast={msg => setToastMessage(msg)}
               onOpenSetup={() => setShowOnboarding(true)}
             />

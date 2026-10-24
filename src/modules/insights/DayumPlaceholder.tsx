@@ -14,7 +14,7 @@ export interface DayumPlaceholderProps {
   language: 'en' | 'hi';
   onNavigateToLog: () => void;
   onOpenSetup?: () => void;
-  onLoadPersona?: (type: 'riya' | 'regular' | 'heavy') => Promise<void>;
+  onLoadPersona?: (type: 'riya' | 'regular' | 'heavy') => Promise<void> | void;
 }
 
 function formatDate(isoDate: string, language: 'en' | 'hi'): string {

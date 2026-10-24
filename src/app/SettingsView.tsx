@@ -11,8 +11,10 @@ export interface SettingsViewProps {
   language: 'en' | 'hi';
   logsCount: number;
   userSetup?: UserSetup | null;
+  demoPersona?: string | null;
   onClearSetup: () => Promise<void>;
-  onSeedPersona: (entries: LogEntry[]) => Promise<void>;
+  onRequestSeedPersona: (type: 'riya' | 'regular' | 'heavy') => void;
+  onRemoveDemoData: () => Promise<void>;
   onExportJson: () => Promise<string>;
   onClearAll: () => Promise<void>;
   onToast: (msg: string) => void;
@@ -23,42 +25,16 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
   language,
   logsCount,
   userSetup,
+  demoPersona,
   onClearSetup,
-  onSeedPersona,
+  onRequestSeedPersona,
+  onRemoveDemoData,
   onExportJson,
   onClearAll,
   onToast,
   onOpenSetup
 }) => {
-  const [isSeeding, setIsSeeding] = useState<boolean>(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
-
-  const handleSeed = async (type: 'riya' | 'regular' | 'heavy') => {
-    setIsSeeding(true);
-    try {
-      let data: LogEntry[];
-      let personaName: string;
-      if (type === 'riya') {
-        data = irregularData as LogEntry[];
-        personaName = 'Riya (Irregular / 41-day cycle)';
-      } else if (type === 'heavy') {
-        data = heavyData as LogEntry[];
-        personaName = 'Heavy Bleeding Persona';
-      } else {
-        data = regularData as LogEntry[];
-        personaName = 'Regular Cycles Persona';
-      }
-
-      await onSeedPersona(data);
-      onToast(
-        language === 'hi'
-          ? `${personaName} का डेटा सफलतापूर्वक लोड किया गया!`
-          : `Loaded 6 months of data for ${personaName}!`
-      );
-    } finally {
-      setIsSeeding(false);
-    }
-  };
 
   const handleDownload = async () => {
     const jsonStr = await onExportJson();
@@ -266,13 +242,31 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           </div>
         </div>
 
+        {demoPersona && (
+          <div className="p-3.5 bg-amber-50 rounded-2xl border border-amber-200 flex flex-wrap items-center justify-between gap-2.5 text-xs">
+            <div className="flex items-center gap-2 text-amber-900">
+              <span className="font-bold uppercase tracking-wider text-[10px] bg-amber-100 px-2 py-0.5 rounded-full border border-amber-300">
+                Active Demo
+              </span>
+              <span className="font-semibold">{demoPersona}</span>
+            </div>
+            <button
+              type="button"
+              onClick={onRemoveDemoData}
+              className="text-xs text-rose-700 font-bold hover:underline cursor-pointer flex items-center gap-1"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>{language === 'hi' ? 'डेमो डेटा हटाएं' : 'Remove Demo Data'}</span>
+            </button>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
           {/* Persona A: Riya */}
           <button
             type="button"
-            disabled={isSeeding}
-            onClick={() => handleSeed('riya')}
-            className="p-4 rounded-3xl bg-tint-lavender/40 border border-[#E7DCF8] hover:border-primary hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group disabled:opacity-50"
+            onClick={() => onRequestSeedPersona('riya')}
+            className="p-4 rounded-3xl bg-tint-lavender/40 border border-[#E7DCF8] hover:border-primary hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
           >
             <div>
               <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-primary bg-white/90 px-2 py-0.5 rounded-full border border-[#E7DCF8] mb-2">
@@ -282,7 +276,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 ✨ Riya (Irregular)
               </h4>
               <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
-                Latest 41 days · High cycle variability (27–41d) · Clinician brief demo
+                Latest 41 days · High cycle variability (27–41d) · {(irregularData as LogEntry[]).length} days logged
               </p>
             </div>
             <div className="mt-3 text-[11px] font-semibold text-primary">
@@ -293,9 +287,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           {/* Persona B: Regular */}
           <button
             type="button"
-            disabled={isSeeding}
-            onClick={() => handleSeed('regular')}
-            className="p-4 rounded-3xl bg-tint-mint/40 border border-[#D8F0E4] hover:border-emerald-600 hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group disabled:opacity-50"
+            onClick={() => onRequestSeedPersona('regular')}
+            className="p-4 rounded-3xl bg-tint-mint/40 border border-[#D8F0E4] hover:border-emerald-600 hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
           >
             <div>
               <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-white/90 px-2 py-0.5 rounded-full border border-[#D8F0E4] mb-2">
@@ -305,7 +298,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 🌿 Regular Cycles
               </h4>
               <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
-                Consistent 28–29 days · Low variability · Healthy cycle baseline
+                Consistent 28–29 days · Low variability · {(regularData as LogEntry[]).length} days logged
               </p>
             </div>
             <div className="mt-3 text-[11px] font-semibold text-emerald-800">
@@ -316,9 +309,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           {/* Persona C: Heavy Flow */}
           <button
             type="button"
-            disabled={isSeeding}
-            onClick={() => handleSeed('heavy')}
-            className="p-4 rounded-3xl bg-tint-peach/40 border border-[#FADCD0] hover:border-amber-700 hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group disabled:opacity-50"
+            onClick={() => onRequestSeedPersona('heavy')}
+            className="p-4 rounded-3xl bg-tint-peach/40 border border-[#FADCD0] hover:border-amber-700 hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
           >
             <div>
               <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-amber-900 bg-white/90 px-2 py-0.5 rounded-full border border-[#FADCD0] mb-2">
@@ -328,7 +320,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 🩸 Heavy Bleeding
               </h4>
               <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
-                4+ heavy bleeding days · Severe dysmenorrhea (pain 8/10)
+                4+ heavy bleeding days · Severe dysmenorrhea (pain 8/10) · {(heavyData as LogEntry[]).length} days logged
               </p>
             </div>
             <div className="mt-3 text-[11px] font-semibold text-amber-900">
