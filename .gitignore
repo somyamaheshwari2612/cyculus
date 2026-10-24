@@ -31,6 +31,8 @@ lerna-debug.log*
 instructions.md
 recHERsion_starter_prompts.md
 *.png
+!public/*.png
+!public/**/*.png
 
 # Editor & OS files
 .vscode/*
