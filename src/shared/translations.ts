@@ -36,3 +36,36 @@ export const MOOD_LABELS: Record<Mood, { en: string; hi: string; emoji: string }
   low: { en: 'Low / Down', hi: 'उदास / लो', emoji: '😔' },
   mood_swings: { en: 'Mood Swings', hi: 'मूड बदलना', emoji: '🎭' }
 };
+
+export const BRIEF_TEXT = {
+  en: {
+    notEnoughData: 'Not enough data yet. Keep logging to see your cycle pattern.',
+    disclaimer: 'This app is not a medical device and does not replace a doctor. It does not diagnose.',
+    cycleCount: 'Cycles used',
+    avgLength: 'Average cycle length',
+    range: 'Shortest to longest',
+    avgBleeding: 'Average bleeding days',
+    latestCycle: 'Latest completed cycle',
+    days: 'days',
+    earlyPicture: 'This is based on only one or two cycles, so it is an early picture.',
+    flagsFound: 'point(s) are worth discussing with a doctor.',
+    noFlags: 'No points were flagged for discussion in this period.',
+    summaryStart: 'Based on',
+    completedCycles: 'completed cycle(s), your average cycle length is',
+  },
+  hi: {
+    notEnoughData: 'अभी पर्याप्त डेटा नहीं है। अपने चक्र का पैटर्न देखने के लिए लिखते रहें।',
+    disclaimer: 'यह ऐप कोई चिकित्सा उपकरण नहीं है और डॉक्टर की जगह नहीं लेता। यह निदान नहीं करता।',
+    cycleCount: 'उपयोग किए गए चक्र',
+    avgLength: 'चक्र की औसत लंबाई',
+    range: 'सबसे छोटा से सबसे लंबा',
+    avgBleeding: 'औसत रक्तस्राव के दिन',
+    latestCycle: 'नवीनतम पूरा चक्र',
+    days: 'दिन',
+    earlyPicture: 'यह केवल एक या दो चक्रों पर आधारित है, इसलिए यह शुरुआती तस्वीर है।',
+    flagsFound: 'बिंदु डॉक्टर से चर्चा के लायक हैं।',
+    noFlags: 'इस अवधि में चर्चा के लिए कोई बिंदु चिह्नित नहीं हुआ।',
+    summaryStart: 'के आधार पर',
+    completedCycles: 'पूरे चक्र, आपकी औसत चक्र लंबाई है',
+  },
+} as const;
