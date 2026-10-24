@@ -1,0 +1,1852 @@
+[
+  {
+    "date": "2026-05-10",
+    "flow": "heavy",
+    "painLevel": 8,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-10T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-11",
+    "flow": "heavy",
+    "painLevel": 7,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue",
+      "blood_clots"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
+    "sources": [
+      "text",
+      "tap"
+    ],
+    "rawTexts": [
+      "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"
+    ],
+    "updatedAt": "2026-05-11T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-12",
+    "flow": "heavy",
+    "painLevel": 7,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-12T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-13",
+    "flow": "heavy",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-13T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-14",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-14T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-15",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-15T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-16",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-16T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-18",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-18T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-20",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-20T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-22",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-22T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-24",
+    "flow": null,
+    "painLevel": null,
+    "symptoms": [],
+    "moods": [
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-24T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-02",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-02T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-03",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-03T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-04",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-04T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-05",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness",
+      "cravings"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-05T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-06",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-06T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-07",
+    "flow": "heavy",
+    "painLevel": 8,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-07T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-08",
+    "flow": "heavy",
+    "painLevel": 7,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue",
+      "blood_clots"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
+    "sources": [
+      "text",
+      "tap"
+    ],
+    "rawTexts": [
+      "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"
+    ],
+    "updatedAt": "2026-06-08T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-09",
+    "flow": "heavy",
+    "painLevel": 7,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-09T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-10",
+    "flow": "heavy",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-10T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-11",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-11T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-12",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-12T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-13",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-13T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-15",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-15T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-17",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-17T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-19",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-19T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-21",
+    "flow": null,
+    "painLevel": null,
+    "symptoms": [],
+    "moods": [
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-21T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-29",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-29T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-30",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-30T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-01",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-01T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-02",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness",
+      "cravings"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-02T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-03",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-03T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-04",
+    "flow": "heavy",
+    "painLevel": 8,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-04T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-05",
+    "flow": "heavy",
+    "painLevel": 7,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue",
+      "blood_clots"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
+    "sources": [
+      "text",
+      "tap"
+    ],
+    "rawTexts": [
+      "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"
+    ],
+    "updatedAt": "2026-07-05T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-06",
+    "flow": "heavy",
+    "painLevel": 7,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-06T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-07",
+    "flow": "heavy",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-07T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-08",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-08T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-09",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-09T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-10",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-10T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-12",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-12T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-14",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-14T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-16",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-16T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-18",
+    "flow": null,
+    "painLevel": null,
+    "symptoms": [],
+    "moods": [
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-18T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-27",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-27T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-28",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-28T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-29",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-29T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-30",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness",
+      "cravings"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-30T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-31",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-31T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-01",
+    "flow": "heavy",
+    "painLevel": 8,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-01T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-02",
+    "flow": "heavy",
+    "painLevel": 7,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue",
+      "blood_clots"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
+    "sources": [
+      "text",
+      "tap"
+    ],
+    "rawTexts": [
+      "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"
+    ],
+    "updatedAt": "2026-08-02T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-03",
+    "flow": "heavy",
+    "painLevel": 7,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-03T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-04",
+    "flow": "heavy",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-04T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-05",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-05T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-06",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-06T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-07",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-07T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-09",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-09T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-11",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-11T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-13",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-13T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-15",
+    "flow": null,
+    "painLevel": null,
+    "symptoms": [],
+    "moods": [
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-15T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-24",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-24T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-25",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-25T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-26",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-26T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-27",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness",
+      "cravings"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-27T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-28",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-28T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-29",
+    "flow": "heavy",
+    "painLevel": 8,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-29T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-30",
+    "flow": "heavy",
+    "painLevel": 7,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue",
+      "blood_clots"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
+    "sources": [
+      "text",
+      "tap"
+    ],
+    "rawTexts": [
+      "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"
+    ],
+    "updatedAt": "2026-08-30T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-31",
+    "flow": "heavy",
+    "painLevel": 7,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-31T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-01",
+    "flow": "heavy",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-01T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-02",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-02T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-03",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-03T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-04",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-04T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-06",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-06T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-08",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-08T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-10",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-10T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-12",
+    "flow": null,
+    "painLevel": null,
+    "symptoms": [],
+    "moods": [
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-12T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-20",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-20T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-21",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-21T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-22",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-22T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-23",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness",
+      "cravings"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-23T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-24",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-24T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-25",
+    "flow": "heavy",
+    "painLevel": 8,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-25T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-26",
+    "flow": "heavy",
+    "painLevel": 7,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue",
+      "blood_clots"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
+    "sources": [
+      "text",
+      "tap"
+    ],
+    "rawTexts": [
+      "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"
+    ],
+    "updatedAt": "2026-09-26T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-27",
+    "flow": "heavy",
+    "painLevel": 7,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-27T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-28",
+    "flow": "heavy",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-28T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-29",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-29T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-30",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-30T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-01",
+    "flow": "medium",
+    "painLevel": 4,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-01T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-03",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-03T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-05",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-05T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-07",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-07T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-09",
+    "flow": null,
+    "painLevel": null,
+    "symptoms": [],
+    "moods": [
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-09T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-18",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-18T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-19",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-19T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-20",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-20T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-21",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness",
+      "cravings"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-21T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-22",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-22T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-23",
+    "flow": "heavy",
+    "painLevel": 8,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-23T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-24",
+    "flow": "heavy",
+    "painLevel": 7,
+    "symptoms": [
+      "cramps",
+      "lower_back_pain",
+      "fatigue",
+      "blood_clots"
+    ],
+    "moods": [
+      "low",
+      "irritable"
+    ],
+    "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
+    "sources": [
+      "text",
+      "tap"
+    ],
+    "rawTexts": [
+      "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"
+    ],
+    "updatedAt": "2026-10-24T20:15:00.000Z"
+  }
+]

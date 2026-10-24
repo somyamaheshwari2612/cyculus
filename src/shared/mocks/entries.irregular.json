@@ -1,0 +1,1446 @@
+[
+  {
+    "date": "2026-05-05",
+    "flow": "medium",
+    "painLevel": 6,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-05T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-06",
+    "flow": "heavy",
+    "painLevel": 8,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-06T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-07",
+    "flow": "heavy",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-07T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-08",
+    "flow": "light",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-08T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-09",
+    "flow": "spotting",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-09T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-11",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-11T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-13",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-13T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-15",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-15T20:15:00.000Z"
+  },
+  {
+    "date": "2026-05-19",
+    "flow": null,
+    "painLevel": null,
+    "symptoms": [],
+    "moods": [
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-05-19T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-01",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-01T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-02",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-02T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-03",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-03T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-04",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness",
+      "cravings"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-04T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-05",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-05T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-06",
+    "flow": "medium",
+    "painLevel": 6,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-06T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-07",
+    "flow": "heavy",
+    "painLevel": 8,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-07T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-08",
+    "flow": "heavy",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-08T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-09",
+    "flow": "light",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-09T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-10",
+    "flow": "spotting",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-10T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-12",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-12T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-14",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-14T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-16",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-16T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-20",
+    "flow": "spotting",
+    "painLevel": null,
+    "symptoms": [
+      "discharge_change"
+    ],
+    "moods": [
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-20T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-28",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-28T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-29",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-29T20:15:00.000Z"
+  },
+  {
+    "date": "2026-06-30",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-06-30T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-01",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness",
+      "cravings"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-01T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-02",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-02T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-03",
+    "flow": "medium",
+    "painLevel": 6,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-03T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-04",
+    "flow": "heavy",
+    "painLevel": 8,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-04T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-05",
+    "flow": "heavy",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-05T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-06",
+    "flow": "light",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-06T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-07",
+    "flow": "spotting",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-07T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-08",
+    "flow": "spotting",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-08T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-09",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-09T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-11",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-11T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-13",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-13T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-15",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-15T20:15:00.000Z"
+  },
+  {
+    "date": "2026-07-17",
+    "flow": null,
+    "painLevel": null,
+    "symptoms": [],
+    "moods": [
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-07-17T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-03",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-03T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-04",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-04T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-05",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-05T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-06",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness",
+      "cravings"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-06T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-07",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-07T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-08",
+    "flow": "medium",
+    "painLevel": 6,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-08T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-09",
+    "flow": "heavy",
+    "painLevel": 8,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-09T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-10",
+    "flow": "heavy",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-10T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-11",
+    "flow": "light",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-11T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-12",
+    "flow": "spotting",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-12T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-14",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-14T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-16",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-16T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-18",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-18T20:15:00.000Z"
+  },
+  {
+    "date": "2026-08-22",
+    "flow": null,
+    "painLevel": null,
+    "symptoms": [],
+    "moods": [
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-08-22T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-01",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-01T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-02",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-02T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-03",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-03T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-04",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness",
+      "cravings"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-04T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-05",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-05T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-06",
+    "flow": "medium",
+    "painLevel": 6,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-06T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-07",
+    "flow": "heavy",
+    "painLevel": 8,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-07T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-08",
+    "flow": "heavy",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-08T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-09",
+    "flow": "light",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-09T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-10",
+    "flow": "spotting",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-10T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-12",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-12T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-14",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-14T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-16",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-16T20:15:00.000Z"
+  },
+  {
+    "date": "2026-09-20",
+    "flow": null,
+    "painLevel": null,
+    "symptoms": [],
+    "moods": [
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-09-20T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-12",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-12T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-13",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-13T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-14",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-14T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-15",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness",
+      "cravings"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-15T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-16",
+    "flow": null,
+    "painLevel": 2,
+    "symptoms": [
+      "bloating",
+      "breast_tenderness"
+    ],
+    "moods": [
+      "mood_swings",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-16T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-17",
+    "flow": "medium",
+    "painLevel": 6,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-17T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-18",
+    "flow": "heavy",
+    "painLevel": 8,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "kal se pet mein bohot dard hai aur flow heavy hai",
+    "sources": [
+      "text",
+      "tap"
+    ],
+    "rawTexts": [
+      "kal se pet mein bohot dard hai aur flow heavy hai"
+    ],
+    "updatedAt": "2026-10-18T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-19",
+    "flow": "heavy",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps",
+      "pelvic_pain",
+      "bloating"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-19T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-20",
+    "flow": "light",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-20T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-21",
+    "flow": "spotting",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-21T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-22",
+    "flow": "spotting",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps"
+    ],
+    "moods": [
+      "irritable",
+      "anxious"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-22T20:15:00.000Z"
+  },
+  {
+    "date": "2026-10-23",
+    "flow": null,
+    "painLevel": 0,
+    "symptoms": [],
+    "moods": [
+      "calm",
+      "happy"
+    ],
+    "notes": "",
+    "sources": [
+      "tap"
+    ],
+    "rawTexts": [],
+    "updatedAt": "2026-10-23T20:15:00.000Z"
+  }
+]

@@ -1,0 +1,79 @@
+[
+  {
+    "input": {
+      "text": "kal se pet mein bohot dard hai aur flow heavy hai",
+      "today": "2026-10-24",
+      "locale": "hinglish"
+    },
+    "output": {
+      "ok": true,
+      "patches": [
+        {
+          "date": "2026-10-23",
+          "flow": "heavy",
+          "painLevel": 8,
+          "symptoms": ["cramps", "pelvic_pain"],
+          "moods": [],
+          "notes": ""
+        },
+        {
+          "date": "2026-10-24",
+          "flow": "heavy",
+          "painLevel": 8,
+          "symptoms": ["cramps", "pelvic_pain"],
+          "moods": [],
+          "notes": ""
+        }
+      ],
+      "redFlags": [],
+      "confidence": 0.95,
+      "warnings": []
+    }
+  },
+  {
+    "input": {
+      "text": "aaj light spotting hui aur thodi thakaan lag rahi hai",
+      "today": "2026-10-24",
+      "locale": "hinglish"
+    },
+    "output": {
+      "ok": true,
+      "patches": [
+        {
+          "date": "2026-10-24",
+          "flow": "spotting",
+          "painLevel": 2,
+          "symptoms": ["fatigue"],
+          "moods": ["low"],
+          "notes": ""
+        }
+      ],
+      "redFlags": [],
+      "confidence": 0.94,
+      "warnings": []
+    }
+  },
+  {
+    "input": {
+      "text": "Severe bleeding, soaking a pad every 40 minutes and felt like fainting",
+      "today": "2026-10-24",
+      "locale": "en"
+    },
+    "output": {
+      "ok": true,
+      "patches": [
+        {
+          "date": "2026-10-24",
+          "flow": "heavy",
+          "painLevel": 7,
+          "symptoms": ["dizziness", "blood_clots"],
+          "moods": ["anxious"],
+          "notes": "Soaking pad every 40 minutes, near fainting"
+        }
+      ],
+      "redFlags": ["urgent_heavy_bleeding", "urgent_fainting"],
+      "confidence": 0.98,
+      "warnings": ["Urgent clinical symptoms detected. Please consult emergency care."]
+    }
+  }
+]
