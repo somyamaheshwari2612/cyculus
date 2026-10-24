@@ -5,10 +5,10 @@ import { FLOW_LEVELS, SYMPTOMS, MOODS, DayPatch, FlowLevel, Symptom, Mood } from
 const cache = new Map<string, { timestamp: number; data: any }>();
 const CACHE_TTL_MS = 5 * 60 * 1000;
 
-// Simple sliding window rate-limiter: max 30 requests per minute per IP
+// Sliding window rate-limiter: capped strictly at 14 requests per minute per IP (protects free-tier quota)
 const rateLimits = new Map<string, number[]>();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
-const MAX_REQUESTS_PER_WINDOW = 30;
+const MAX_REQUESTS_PER_WINDOW = 14;
 
 // Deterministic keyword / regex backup for urgent red-flag detection
 const URGENT_RULES = {
@@ -49,14 +49,14 @@ export default async function handler(req: any, res: any) {
     return res.status(405).json({ ok: false, error: 'Method Not Allowed' });
   }
 
-  // Rate Limiting
+  // Rate Limiting (14 RPM cap)
   const clientIp = req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
   const now = Date.now();
   const timestamps = (rateLimits.get(clientIp) || []).filter(t => now - t < RATE_LIMIT_WINDOW_MS);
   if (timestamps.length >= MAX_REQUESTS_PER_WINDOW) {
     return res.status(429).json({
       ok: false,
-      error: 'Too many requests. Please wait a moment before trying again.'
+      error: 'Rate limit reached (capped at 14 requests/min). Please wait a few moments before trying again.'
     });
   }
   timestamps.push(now);
@@ -241,22 +241,13 @@ Never diagnose. Only extract facts.`;
 
   } catch (error: any) {
     console.error('Extraction error:', error);
-    // Fall back gracefully so client is never blocked
+    // Return standard failure response so client falls back to local rules/tap logger
     return res.status(200).json({
-      ok: true,
-      patches: [
-        {
-          date: referenceDate,
-          flow: null,
-          painLevel: null,
-          symptoms: [],
-          moods: [],
-          notes: text.trim()
-        }
-      ],
+      ok: false,
+      error: error?.message || 'Gemini extraction encountered an error.',
       redFlags: deterministicRedFlags,
-      confidence: 0.5,
-      warnings: ['Automatic interpretation encountered an issue. Raw text saved into notes.']
+      confidence: 0,
+      warnings: ['Could not interpret with AI model. Falling back to local logger.']
     });
   }
 }

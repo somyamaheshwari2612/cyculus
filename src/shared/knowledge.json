@@ -39,7 +39,7 @@
           "url": "https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2015/12/menstruation-in-girls-and-adolescents-using-the-menstrual-cycle-as-a-vital-sign"
         }
       ],
-      "status": "draft"
+      "status": "verified"
     },
     {
       "id": "cycle_long",
@@ -80,7 +80,7 @@
           "url": "https://doi.org/10.1038/s41746-019-0152-7"
         }
       ],
-      "status": "draft"
+      "status": "verified"
     },
     {
       "id": "cycle_variability_high",
@@ -118,7 +118,7 @@
           "note": "Cycle regularity threshold is variation ≤7-9 days between shortest and longest cycle."
         }
       ],
-      "status": "draft"
+      "status": "verified"
     },
     {
       "id": "period_long",
@@ -155,7 +155,7 @@
           "note": "Normal menstrual duration is 4.5-8 days; >8 days is prolonged."
         }
       ],
-      "status": "draft"
+      "status": "verified"
     },
     {
       "id": "heavy_flow_persistent",
@@ -196,7 +196,7 @@
           "url": "https://www.acog.org/clinical/clinical-guidance/practice-bulletin/articles/2012/07/diagnosis-of-abnormal-uterine-bleeding-in-reproductive-aged-women"
         }
       ],
-      "status": "draft"
+      "status": "verified"
     },
     {
       "id": "pain_severe_recurring",
@@ -233,7 +233,7 @@
           "url": "https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2018/12/dysmenorrhea-and-endometriosis-in-the-adolescent"
         }
       ],
-      "status": "draft"
+      "status": "verified"
     },
     {
       "id": "period_missed",
@@ -269,7 +269,7 @@
           "url": "https://www.acog.org/clinical/clinical-guidance/practice-bulletin/articles/2019/12/secondary-amenorrhea"
         }
       ],
-      "status": "draft"
+      "status": "verified"
     },
     {
       "id": "spotting_between_periods",
@@ -306,7 +306,7 @@
           "note": "Intermenstrual bleeding (IMB) recognized as separate subcategory."
         }
       ],
-      "status": "draft"
+      "status": "verified"
     },
     {
       "id": "urgent_heavy_bleeding",
@@ -344,7 +344,7 @@
           "url": "https://www.nhs.uk/conditions/heavy-periods/"
         }
       ],
-      "status": "draft"
+      "status": "verified"
     },
     {
       "id": "urgent_severe_pain",
@@ -378,7 +378,7 @@
           "url": "https://www.aafp.org/pubs/afp/issues/2016/0301/p380.html"
         }
       ],
-      "status": "draft"
+      "status": "verified"
     },
     {
       "id": "urgent_fainting",
@@ -412,7 +412,7 @@
           "url": "https://www.who.int/publications/i/item/9789241549721"
         }
       ],
-      "status": "draft"
+      "status": "verified"
     }
   ],
   "algorithm": {
