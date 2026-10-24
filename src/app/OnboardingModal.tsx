@@ -24,7 +24,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
   const [cycleLengthStr, setCycleLengthStr] = useState<string>(
     initialSetup?.typicalCycleLength ? String(initialSetup.typicalCycleLength) : ''
   );
-  const [isNotSureLength, setIsNotSureLength] = useState<boolean>(!initialSetup?.typicalCycleLength);
+  const [isNotSureLength, setIsNotSureLength] = useState<boolean>(false);
 
   // Optional earlier period starts for real intervals
   const [showEarlierDates, setShowEarlierDates] = useState<boolean>(
@@ -246,22 +246,29 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                     type="number"
                     min={15}
                     max={90}
-                    disabled={isNotSureLength}
                     placeholder="e.g. 31"
                     value={cycleLengthStr}
+                    onFocus={() => {
+                      if (isNotSureLength) {
+                        setIsNotSureLength(false);
+                      }
+                    }}
                     onChange={e => {
                       setCycleLengthStr(e.target.value);
                       setIsNotSureLength(false);
                     }}
-                    className="w-24 px-3 py-2 rounded-xl bg-white border border-surface-border text-xs sm:text-sm font-bold text-center text-ink focus:outline-none focus:border-primary disabled:opacity-40"
+                    className={`w-24 px-3 py-2 rounded-xl bg-white border text-xs sm:text-sm font-bold text-center text-ink focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-soft transition-all ${
+                      isNotSureLength ? 'opacity-50 border-dashed border-[#E7DCF8]' : 'border-surface-border'
+                    }`}
                   />
                   <span className="text-xs text-ink-muted">{language === 'hi' ? 'दिन' : 'days'}</span>
 
                   <button
                     type="button"
                     onClick={() => {
-                      setIsNotSureLength(prev => !prev);
-                      if (!isNotSureLength) setCycleLengthStr('');
+                      const next = !isNotSureLength;
+                      setIsNotSureLength(next);
+                      if (next) setCycleLengthStr('');
                     }}
                     className={`ml-auto px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                       isNotSureLength
