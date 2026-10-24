@@ -118,55 +118,58 @@ export const BriefPlaceholder: React.FC<BriefPlaceholderProps> = ({
           </div>
         </div>
 
-        {/* 2. Key Observations & Flags */}
-        <div>
-          <h4 className="text-xs font-bold uppercase tracking-wider text-ink mb-3 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-primary" />
-            <span>2. {language === 'hi' ? 'प्रमुख बिंदु (Observations)' : 'Identified Patterns (Evidence-Grounded)'}</span>
-          </h4>
-          <div className="p-4 sm:p-5 bg-tint-rose/30 rounded-2xl border border-[#F8DDE5] text-xs space-y-2.5">
-            <p className="font-semibold text-ink">
-              • {language === 'hi'
-                ? 'चक्र की लंबाई सामान्य सीमा से अधिक (41 दिन) — FIGO 2018 मानक (24-38 दिन)'
-                : 'Cycle length extended beyond typical frequency (41 days) — FIGO 2018 Criteria (24–38 days)'}
-            </p>
-            <p className="text-ink-muted leading-relaxed">
-              • {language === 'hi'
-                ? 'चक्रों के बीच 14 दिनों का अंतर (27 से 41 दिन), जो उच्च परिवर्तनशीलता (High Variability) दर्शाता है।'
-                : '14-day spread between shortest (27d) and longest (41d) cycles indicating notable variability.'}
-            </p>
-            <p className="text-ink-muted leading-relaxed">
-              • {language === 'hi'
-                ? 'माहवारी के पहले 2 दिनों में तीव्र ऐंठन (दर्द 8/10) और भारी रक्तस्राव दर्ज किया गया।'
-                : 'Severe dysmenorrhea (pain 8/10) and heavy flow logged during days 1–2 of episodes.'}
-            </p>
+        {/* Responsive Grid for Sections 2 & 3 on Desktop (lg:) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+          {/* 2. Key Observations & Flags */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-ink mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary" />
+              <span>2. {language === 'hi' ? 'प्रमुख बिंदु (Observations)' : 'Identified Patterns (Evidence-Grounded)'}</span>
+            </h4>
+            <div className="p-4 sm:p-5 bg-tint-rose/30 rounded-2xl border border-[#F8DDE5] text-xs space-y-2.5">
+              <p className="font-semibold text-ink">
+                • {language === 'hi'
+                  ? 'चक्र की लंबाई सामान्य सीमा से अधिक (41 दिन) — FIGO 2018 मानक (24-38 दिन)'
+                  : 'Cycle length extended beyond typical frequency (41 days) — FIGO 2018 Criteria (24–38 days)'}
+              </p>
+              <p className="text-ink-muted leading-relaxed">
+                • {language === 'hi'
+                  ? 'चक्रों के बीच 14 दिनों का अंतर (27 से 41 दिन), जो उच्च परिवर्तनशीलता (High Variability) दर्शाता है।'
+                  : '14-day spread between shortest (27d) and longest (41d) cycles indicating notable variability.'}
+              </p>
+              <p className="text-ink-muted leading-relaxed">
+                • {language === 'hi'
+                  ? 'माहवारी के पहले 2 दिनों में तीव्र ऐंठन (दर्द 8/10) और भारी रक्तस्राव दर्ज किया गया।'
+                  : 'Severe dysmenorrhea (pain 8/10) and heavy flow logged during days 1–2 of episodes.'}
+              </p>
+            </div>
           </div>
-        </div>
 
-        {/* 3. Questions to Ask Doctor */}
-        <div>
-          <h4 className="text-xs font-bold uppercase tracking-wider text-ink mb-3 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-primary" />
-            <span>3. {language === 'hi' ? 'डॉक्टर से पूछने योग्य प्रश्न' : 'Suggested Questions for Clinician'}</span>
-          </h4>
-          <ul className="space-y-2 text-xs text-ink">
-            <li className="p-3 bg-white rounded-xl border border-surface-border leading-relaxed flex items-start gap-2">
-              <span className="text-primary font-bold">💬</span>
-              <span>
-                {language === 'hi'
-                  ? 'क्या मेरे 41 दिन के चक्र और उतार-चढ़ाव के लिए हार्मोनल या थायरॉइड टेस्ट कराना चाहिए?'
-                  : 'Could the 41-day cycle and variability warrant evaluation for PCOS or thyroid function?'}
-              </span>
-            </li>
-            <li className="p-3 bg-white rounded-xl border border-surface-border leading-relaxed flex items-start gap-2">
-              <span className="text-primary font-bold">💬</span>
-              <span>
-                {language === 'hi'
-                  ? 'पीरियड के दौरान होने वाले तीव्र दर्द (8/10) के लिए क्या उपचार बेहतर रहेगा?'
-                  : 'What targeted therapies are advised for dysmenorrhea reaching 8/10 severity?'}
-              </span>
-            </li>
-          </ul>
+          {/* 3. Questions to Ask Doctor */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-ink mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary" />
+              <span>3. {language === 'hi' ? 'डॉक्टर से पूछने योग्य प्रश्न' : 'Suggested Questions for Clinician'}</span>
+            </h4>
+            <ul className="space-y-2 text-xs text-ink">
+              <li className="p-3 bg-white rounded-xl border border-surface-border leading-relaxed flex items-start gap-2">
+                <span className="text-primary font-bold">💬</span>
+                <span>
+                  {language === 'hi'
+                    ? 'क्या मेरे 41 दिन के चक्र और उतार-चढ़ाव के लिए हार्मोनल या थायरॉइड टेस्ट कराना चाहिए?'
+                    : 'Could the 41-day cycle and variability warrant evaluation for PCOS or thyroid function?'}
+                </span>
+              </li>
+              <li className="p-3 bg-white rounded-xl border border-surface-border leading-relaxed flex items-start gap-2">
+                <span className="text-primary font-bold">💬</span>
+                <span>
+                  {language === 'hi'
+                    ? 'पीरियड के दौरान होने वाले तीव्र दर्द (8/10) के लिए क्या उपचार बेहतर रहेगा?'
+                    : 'What targeted therapies are advised for dysmenorrhea reaching 8/10 severity?'}
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* Footer & Disclaimer */}

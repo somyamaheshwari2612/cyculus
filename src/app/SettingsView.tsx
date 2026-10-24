@@ -200,93 +200,96 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
         </div>
       </Card>
 
-      {/* 3. Data Export and Deletion */}
-      <Card variant="default" padding="lg" className="space-y-4">
-        <h3 className="text-xs font-bold text-ink uppercase tracking-wider">
-          {language === 'hi' ? 'डेटा प्रबंधन' : 'Data Management & Export'}
-        </h3>
+      {/* Responsive Grid for Data Management & Clinical References on Desktop (lg:) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+        {/* 3. Data Export and Deletion */}
+        <Card variant="default" padding="lg" className="space-y-4">
+          <h3 className="text-xs font-bold text-ink uppercase tracking-wider">
+            {language === 'hi' ? 'डेटा प्रबंधन' : 'Data Management & Export'}
+          </h3>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
-          <div>
-            <p className="text-xs font-semibold text-ink">
-              {language === 'hi' ? 'सभी लॉग निर्यात करें (JSON)' : 'Export Full Health Data'}
-            </p>
-            <p className="text-[11px] text-ink-muted mt-0.5">
-              {language === 'hi'
-                ? 'अपने पूरे डेटा की एक JSON प्रति अपने पास सुरक्षित रखें।'
-                : 'Download a complete JSON backup of all daily entries.'}
-            </p>
-          </div>
-          <Button
-            variant="outline"
-            size="sm"
-            icon={<Download className="w-4 h-4" />}
-            onClick={handleDownload}
-            className="rounded-full shadow-pill"
-          >
-            {language === 'hi' ? 'निर्यात करें' : 'Export JSON'}
-          </Button>
-        </div>
-
-        <div className="border-t border-surface-border pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-          <div>
-            <p className="text-xs font-semibold text-rose-700">
-              {language === 'hi' ? 'सभी डेटा मिटाएं' : 'Delete All Data'}
-            </p>
-            <p className="text-[11px] text-ink-muted mt-0.5">
-              {language === 'hi'
-                ? 'डिवाइस से सभी प्रविष्टियाँ हमेशा के लिए हटा दें।'
-                : 'Permanently wipe all logs from this browser.'}
-            </p>
-          </div>
-
-          {!showConfirmDelete ? (
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
+            <div>
+              <p className="text-xs font-semibold text-ink">
+                {language === 'hi' ? 'सभी लॉग निर्यात करें (JSON)' : 'Export Full Health Data'}
+              </p>
+              <p className="text-[11px] text-ink-muted mt-0.5">
+                {language === 'hi'
+                  ? 'अपने पूरे डेटा की एक JSON प्रति अपने पास सुरक्षित रखें।'
+                  : 'Download a complete JSON backup of all daily entries.'}
+              </p>
+            </div>
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
-              icon={<Trash2 className="w-4 h-4 text-rose-600" />}
-              onClick={() => setShowConfirmDelete(true)}
-              className="text-rose-600 hover:bg-rose-50 hover:text-rose-700 rounded-full"
+              icon={<Download className="w-4 h-4" />}
+              onClick={handleDownload}
+              className="rounded-full shadow-pill"
             >
-              {language === 'hi' ? 'डेटा हटाएं' : 'Wipe Data'}
+              {language === 'hi' ? 'निर्यात करें' : 'Export JSON'}
             </Button>
-          ) : (
-            <div className="flex items-center gap-2">
+          </div>
+
+          <div className="border-t border-surface-border pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold text-rose-700">
+                {language === 'hi' ? 'सभी डेटा मिटाएं' : 'Delete All Data'}
+              </p>
+              <p className="text-[11px] text-ink-muted mt-0.5">
+                {language === 'hi'
+                  ? 'डिवाइस से सभी प्रविष्टियाँ हमेशा के लिए हटा दें।'
+                  : 'Permanently wipe all logs from this browser.'}
+              </p>
+            </div>
+
+            {!showConfirmDelete ? (
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setShowConfirmDelete(false)}
-                className="rounded-full"
+                icon={<Trash2 className="w-4 h-4 text-rose-600" />}
+                onClick={() => setShowConfirmDelete(true)}
+                className="text-rose-600 hover:bg-rose-50 hover:text-rose-700 rounded-full"
               >
-                {language === 'hi' ? 'रद्द करें' : 'Cancel'}
+                {language === 'hi' ? 'डेटा हटाएं' : 'Wipe Data'}
               </Button>
-              <Button
-                variant="danger"
-                size="sm"
-                onClick={handleDelete}
-                className="rounded-full"
-              >
-                {language === 'hi' ? 'हाँ, सब हटाएं' : 'Yes, Wipe All'}
-              </Button>
-            </div>
-          )}
-        </div>
-      </Card>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowConfirmDelete(false)}
+                  className="rounded-full"
+                >
+                  {language === 'hi' ? 'रद्द करें' : 'Cancel'}
+                </Button>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={handleDelete}
+                  className="rounded-full"
+                >
+                  {language === 'hi' ? 'हाँ, सब हटाएं' : 'Yes, Wipe All'}
+                </Button>
+              </div>
+            )}
+          </div>
+        </Card>
 
-      {/* 4. Clinical Evidence & References */}
-      <div className="rounded-3xl bg-white/70 p-5 border border-surface-border text-xs text-ink-muted space-y-2">
-        <h4 className="font-bold text-ink text-xs uppercase tracking-wider">
-          {language === 'hi' ? 'क्लिनिकल स्रोत एवं संदर्भ' : 'Clinical Sources & Academic References'}
-        </h4>
-        <p className="leading-relaxed">
-          • <strong>Utah Hive Menstrual Dataset (2023)</strong>: Stanford & Najmabadi, University of Utah Repository.
-        </p>
-        <p className="leading-relaxed">
-          • <strong>Bull et al. (2019)</strong>: Real-world menstrual cycle characteristics of 600,000+ cycles, <em>npj Digital Medicine</em>.
-        </p>
-        <p className="leading-relaxed">
-          • <strong>FIGO Menstrual Disorders Committee (2018)</strong>: Normal limits and abnormal uterine bleeding classifications.
-        </p>
+        {/* 4. Clinical Evidence & References */}
+        <div className="rounded-3xl bg-white/70 p-5 border border-surface-border text-xs text-ink-muted space-y-2">
+          <h4 className="font-bold text-ink text-xs uppercase tracking-wider">
+            {language === 'hi' ? 'क्लिनिकल स्रोत एवं संदर्भ' : 'Clinical Sources & Academic References'}
+          </h4>
+          <p className="leading-relaxed">
+            • <strong>Utah Hive Menstrual Dataset (2023)</strong>: Stanford & Najmabadi, University of Utah Repository.
+          </p>
+          <p className="leading-relaxed">
+            • <strong>Bull et al. (2019)</strong>: Real-world menstrual cycle characteristics of 600,000+ cycles, <em>npj Digital Medicine</em>.
+          </p>
+          <p className="leading-relaxed">
+            • <strong>FIGO Menstrual Disorders Committee (2018)</strong>: Normal limits and abnormal uterine bleeding classifications.
+          </p>
+        </div>
       </div>
     </div>
   );

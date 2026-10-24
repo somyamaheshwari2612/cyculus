@@ -234,25 +234,6 @@ export const OofLog: React.FC<OofLogProps> = ({
 
   return (
     <div className="space-y-6 pb-12">
-      {/* Editorial Welcome Header matching showcase style */}
-      <div>
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-tint-lavender text-primary text-xs font-semibold tracking-wide border border-[#E7DCF8]">
-          <span>🌸</span>
-          <span>{language === 'hi' ? 'ओफ़्लॉग · लक्षण डायरी' : 'OofLog · Symptom Diary'}</span>
-        </div>
-
-        <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight mt-3">
-          {language === 'hi'
-            ? 'नमस्ते, आज आप कैसा महसूस कर रही हैं?'
-            : "Hey there, what's on your mind today?"}
-        </h2>
-        <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
-          {language === 'hi'
-            ? 'अपनी भाषा में बोलें या लिखें — आपका डेटा पूरी तरह आपके फ़ोन पर ही रहता है।'
-            : 'Type or speak naturally in everyday Hinglish or English. Stored on-device.'}
-        </p>
-      </div>
-
       {/* Urgent Clinical Banner if triggered */}
       {urgentRedFlags.length > 0 && (
         <UrgentBanner
@@ -262,8 +243,106 @@ export const OofLog: React.FC<OofLogProps> = ({
         />
       )}
 
-      {/* 1. Conversational Input Card */}
-      <Card variant="default" padding="lg" className="border-surface-border shadow-card relative overflow-hidden">
+      {/* Quick Category Circle Pills (Screen 2 of Madhya collage) */}
+      <div className="bg-white/80 backdrop-blur-sm p-4 rounded-[2rem] border border-[#F3E8EE] shadow-soft">
+        <div className="flex items-center justify-between mb-2.5 px-1">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-ink-muted">
+            {language === 'hi' ? 'त्वरित श्रेणियां (Quick Categories)' : 'Quick Categories'}
+          </p>
+          <span className="text-[10px] text-primary font-semibold">1-Tap Select</span>
+        </div>
+        <div className="flex items-center gap-3 sm:gap-4 overflow-x-auto pb-1 px-1">
+          {/* Periods / Flow */}
+          <button
+            type="button"
+            onClick={() => setSelectedFlow(selectedFlow ? null : 'medium')}
+            className="flex flex-col items-center gap-1.5 shrink-0 group cursor-pointer"
+          >
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+              selectedFlow ? 'bg-primary text-white shadow-soft scale-105' : 'bg-tint-rose text-primary border border-[#F8DDE5] group-hover:scale-105'
+            }`}>
+              <span className="text-lg">🩸</span>
+            </div>
+            <span className="text-[11px] font-medium text-ink">Periods</span>
+          </button>
+
+          {/* Cramps */}
+          <button
+            type="button"
+            onClick={() => toggleSymptom('cramps')}
+            className="flex flex-col items-center gap-1.5 shrink-0 group cursor-pointer"
+          >
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+              selectedSymptoms.includes('cramps') ? 'bg-primary text-white shadow-soft scale-105' : 'bg-tint-lavender text-primary border border-[#E7DCF8] group-hover:scale-105'
+            }`}>
+              <span className="text-lg">⚡</span>
+            </div>
+            <span className="text-[11px] font-medium text-ink">Cramps</span>
+          </button>
+
+          {/* Mood */}
+          <button
+            type="button"
+            onClick={() => toggleMood('anxious')}
+            className="flex flex-col items-center gap-1.5 shrink-0 group cursor-pointer"
+          >
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+              selectedMoods.includes('anxious') ? 'bg-primary text-white shadow-soft scale-105' : 'bg-tint-peach text-amber-900 border border-[#FADCD0] group-hover:scale-105'
+            }`}>
+              <span className="text-lg">💭</span>
+            </div>
+            <span className="text-[11px] font-medium text-ink">Mood</span>
+          </button>
+
+          {/* Fatigue */}
+          <button
+            type="button"
+            onClick={() => toggleSymptom('fatigue')}
+            className="flex flex-col items-center gap-1.5 shrink-0 group cursor-pointer"
+          >
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+              selectedSymptoms.includes('fatigue') ? 'bg-primary text-white shadow-soft scale-105' : 'bg-tint-mint text-emerald-800 border border-[#D8F0E4] group-hover:scale-105'
+            }`}>
+              <span className="text-lg">😴</span>
+            </div>
+            <span className="text-[11px] font-medium text-ink">Energy</span>
+          </button>
+
+          {/* Bloating */}
+          <button
+            type="button"
+            onClick={() => toggleSymptom('bloating')}
+            className="flex flex-col items-center gap-1.5 shrink-0 group cursor-pointer"
+          >
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+              selectedSymptoms.includes('bloating') ? 'bg-primary text-white shadow-soft scale-105' : 'bg-[#EBF7F8] text-teal-800 border border-[#D2EEF0] group-hover:scale-105'
+            }`}>
+              <span className="text-lg">🌿</span>
+            </div>
+            <span className="text-[11px] font-medium text-ink">Bloating</span>
+          </button>
+
+          {/* Headache */}
+          <button
+            type="button"
+            onClick={() => toggleSymptom('headache')}
+            className="flex flex-col items-center gap-1.5 shrink-0 group cursor-pointer"
+          >
+            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+              selectedSymptoms.includes('headache') ? 'bg-primary text-white shadow-soft scale-105' : 'bg-tint-rose/40 text-rose-900 border border-[#F8DDE5] group-hover:scale-105'
+            }`}>
+              <span className="text-lg">🤕</span>
+            </div>
+            <span className="text-[11px] font-medium text-ink">Headache</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Responsive Grid: Single column on mobile, Dual-column on desktop (lg:) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        {/* LEFT COLUMN: Conversational NLP & Voice Card (lg:col-span-5) */}
+        <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-20">
+          <Card variant="default" padding="lg" className="border-surface-border shadow-card relative overflow-hidden">
         <div className="flex items-center gap-2 mb-2.5">
           <div className="w-6 h-6 rounded-full bg-tint-peach flex items-center justify-center text-xs">
             ✨
@@ -355,8 +434,24 @@ export const OofLog: React.FC<OofLogProps> = ({
         />
       )}
 
-      {/* 2. Direct Tap Check-In (Always 100% Offline) */}
-      <Card variant="default" padding="lg" className="space-y-6 border-surface-border shadow-card">
+      {/* Quick Tip / Manifesto Card (Screen 2 collage) */}
+          <div className="hidden lg:block bg-tint-peach/30 rounded-3xl p-5 border border-[#FADCD0] text-xs text-amber-950 space-y-1.5 shadow-soft">
+            <h4 className="font-bold flex items-center gap-1.5 text-xs uppercase tracking-wider">
+              <span>💡</span>
+              <span>{language === 'hi' ? 'हिंग्लिश समझता है' : 'Natural Hinglish Ready'}</span>
+            </h4>
+            <p className="leading-relaxed text-[11px] text-amber-900">
+              {language === 'hi'
+                ? 'आप "dard bohot hai", "spotting hui thi", "pet phoola lag raha hai" लिख या बोल सकते हैं। साइकुलस इसे समझ कर सटीक टैग्स में बदलता है।'
+                : 'Cyculus parses colloquial Hinglish and English symptoms locally without ever uploading private text.'}
+            </p>
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN: Direct Tap Check-In (lg:col-span-7) */}
+        <div className="lg:col-span-7 space-y-6">
+          {/* 2. Direct Tap Check-In (Always 100% Offline) */}
+          <Card variant="default" padding="lg" className="space-y-6 border-surface-border shadow-card">
         <div className="flex items-center justify-between flex-wrap gap-2 pb-1 border-b border-surface-border">
           <div>
             <h3 className="text-base font-serif font-bold text-ink">
@@ -515,6 +610,8 @@ export const OofLog: React.FC<OofLogProps> = ({
           {language === 'hi' ? 'आज का चेक-इन सुरक्षित करें' : 'Save Today’s Check-in'}
         </Button>
       </Card>
+        </div>
+      </div>
     </div>
   );
 };
