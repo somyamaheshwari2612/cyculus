@@ -3,7 +3,7 @@ import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'blush' | 'lavender' | 'outlined';
+  variant?: 'default' | 'blush' | 'lavender' | 'peach' | 'outlined';
   padding?: 'none' | 'sm' | 'md' | 'lg';
 }
 
@@ -18,8 +18,9 @@ export const Card: React.FC<CardProps> = ({
 
   const variants = {
     default: 'bg-white border-surface-border shadow-card',
-    blush: 'bg-blush-soft border-blush/60 shadow-card',
-    lavender: 'bg-primary-light border-primary-soft shadow-card',
+    blush: 'bg-[#FFF7F9] border-[#FBE0E7] shadow-card',
+    lavender: 'bg-[#FAF6FE] border-[#EEDBFA] shadow-card',
+    peach: 'bg-[#FFF8F3] border-[#FCE6D7] shadow-card',
     outlined: 'bg-transparent border-surface-border'
   };
 

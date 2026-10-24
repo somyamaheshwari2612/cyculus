@@ -1,14 +1,23 @@
 import Dexie, { type Table } from 'dexie';
-import { DayPatch, LogEntry, LogStore } from '@/shared/types';
+import { DayPatch, LogEntry, LogStore, UserSetup } from '@/shared/types';
 import { mergeDayPatch } from './mergePatch';
+
+export interface StoredUserSetup extends UserSetup {
+  id: string; // 'current'
+}
 
 export class CyculusDatabase extends Dexie {
   logs!: Table<LogEntry, string>;
+  userSetup!: Table<StoredUserSetup, string>;
 
   constructor() {
     super('CyculusDatabase');
     this.version(1).stores({
       logs: 'date, updatedAt, flow, painLevel'
+    });
+    this.version(2).stores({
+      logs: 'date, updatedAt, flow, painLevel',
+      userSetup: 'id, updatedAt'
     });
   }
 }
@@ -48,15 +57,45 @@ export class DexieLogStore implements LogStore {
   }
 
   async deleteAll(): Promise<void> {
-    await this.database.logs.clear();
+    await this.database.transaction('rw', [this.database.logs, this.database.userSetup], async () => {
+      await this.database.logs.clear();
+      await this.database.userSetup.clear();
+    });
   }
 
   /**
-   * Bulk import for seeding personas (Riya, regular, heavy)
+   * User setup prior stored in a separate table (tagged as self-reported, never seeds logs)
+   */
+  async getUserSetup(): Promise<UserSetup | null> {
+    const stored = await this.database.userSetup.get('current');
+    if (!stored) return null;
+    return {
+      lastPeriodStart: stored.lastPeriodStart,
+      typicalCycleLength: stored.typicalCycleLength,
+      previousStarts: stored.previousStarts,
+      updatedAt: stored.updatedAt
+    };
+  }
+
+  async saveUserSetup(setup: UserSetup): Promise<void> {
+    await this.database.userSetup.put({
+      ...setup,
+      id: 'current'
+    });
+  }
+
+  async clearUserSetup(): Promise<void> {
+    await this.database.userSetup.delete('current');
+  }
+
+  /**
+   * Bulk import for seeding personas (Riya, regular, heavy).
+   * Clears existing logs and setup so demo personas bypass setup completely.
    */
   async bulkImport(entries: LogEntry[]): Promise<void> {
-    await this.database.transaction('rw', this.database.logs, async () => {
+    await this.database.transaction('rw', [this.database.logs, this.database.userSetup], async () => {
       await this.database.logs.clear();
+      await this.database.userSetup.clear();
       await this.database.logs.bulkPut(entries);
     });
   }

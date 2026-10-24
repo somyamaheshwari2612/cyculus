@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useLogs } from '@/modules/capture/useLogs';
 import { OofLog } from '@/modules/capture/OofLog';
 import { DayumScreen } from '@/modules/insights';
@@ -7,24 +7,47 @@ import { SettingsView } from './SettingsView';
 import { LanguageToggle } from './components/LanguageToggle';
 import { Toast } from './components/Toast';
 import { OnboardingModal } from './OnboardingModal';
-import { Calendar, PlusCircle, FileText, Settings, Heart } from 'lucide-react';
+import { BotanicalAccent } from './components/BotanicalAccent';
+import { Calendar, PlusCircle, FileText, Settings, ShieldCheck } from 'lucide-react';
+import { LogEntry, UserSetup } from '@/shared/types';
+import knowledgeData from '@/shared/knowledge.json';
+import { computeInsights, calculateCurrentCycleDay } from '@/modules/insights/computeInsights';
+import irregularData from '@/shared/mocks/entries.irregular.json';
+import regularData from '@/shared/mocks/entries.regular.json';
+import heavyData from '@/shared/mocks/entries.heavy.json';
 
 export type Tab = 'home' | 'ooflog' | 'brief' | 'settings';
 
 export const AppShell: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Tab>('ooflog');
+  const [activeTab, setActiveTab] = useState<Tab>('home');
   const [language, setLanguage] = useState<'en' | 'hi'>('en');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [showOnboarding, setShowOnboarding] = useState<boolean>(false);
 
   const {
     logs,
+    userSetup,
     todayLog,
     savePatch,
+    saveSetup,
+    clearSetup,
+    clearAllLogs,
     seedPersona,
-    exportJson,
-    clearAllLogs
+    exportJson
   } = useLogs();
+
+  const todayStr = new Date().toISOString().split('T')[0];
+
+  // Pure Module B engine evaluation with setup prior shrinkage
+  const insights = useMemo(() => {
+    return computeInsights(logs, knowledgeData.rules as any, todayStr, userSetup);
+  }, [logs, todayStr, userSetup]);
+
+  // Current cycle day relative to latest bleeding start or self-reported start
+  const latestStart = insights.cycles.length > 0
+    ? insights.cycles[insights.cycles.length - 1].startDate
+    : userSetup?.lastPeriodStart;
+  const currentCycleDay = latestStart ? calculateCurrentCycleDay(latestStart, todayStr) : null;
 
   // Check onboarding status
   useEffect(() => {
@@ -34,20 +57,56 @@ export const AppShell: React.FC = () => {
     }
   }, []);
 
-  const handleCompleteOnboarding = () => {
+  // When saving setup prior (writes to separate userSetup table, NEVER writes fake logs)
+  const handleSaveSetup = async (setup: UserSetup) => {
+    await saveSetup(setup);
+    localStorage.setItem('cyculus_onboarding_done', 'true');
+    setShowOnboarding(false);
+    setToastMessage(
+      language === 'hi'
+        ? 'आरंभिक चक्र सेटअप सहेजा गया! यह प्रायर के रूप में कार्य करेगा।'
+        : 'Cycle prior saved! Real logs will refine predictions with shrinkage.'
+    );
+  };
+
+  // Skip setup
+  const handleSkipSetup = () => {
     localStorage.setItem('cyculus_onboarding_done', 'true');
     setShowOnboarding(false);
   };
 
-  const todayStr = new Date().toISOString().split('T')[0];
+  const handleLoadPersona = async (type: 'riya' | 'regular' | 'heavy') => {
+    let data: LogEntry[];
+    let personaName = '';
+    if (type === 'riya') {
+      data = irregularData as LogEntry[];
+      personaName = 'Riya (Irregular)';
+    } else if (type === 'heavy') {
+      data = heavyData as LogEntry[];
+      personaName = 'Heavy Bleeding';
+    } else {
+      data = regularData as LogEntry[];
+      personaName = 'Regular Cycles';
+    }
+    await seedPersona(data);
+    setToastMessage(
+      language === 'hi'
+        ? `${personaName} का डेमो डेटा लोड किया गया!`
+        : `Loaded 6 months of data for ${personaName}!`
+    );
+  };
+
+  const isFreshBrowser = logs.length === 0 && !userSetup;
 
   return (
-    <div className="min-h-screen bg-surface-bg flex flex-col font-sans selection:bg-primary-soft selection:text-ink">
-      {/* Onboarding Modal */}
+    <div className="min-h-screen bg-surface-bg flex font-sans selection:bg-primary-soft selection:text-ink">
+      {/* Onboarding / Setup Modal */}
       {showOnboarding && (
         <OnboardingModal
           language={language}
-          onComplete={handleCompleteOnboarding}
+          initialSetup={userSetup}
+          onSaveSetup={handleSaveSetup}
+          onSkip={handleSkipSetup}
         />
       )}
 
@@ -60,82 +119,127 @@ export const AppShell: React.FC = () => {
         />
       )}
 
-      {/* Top Header */}
-      <header className="sticky top-0 z-40 bg-surface-bg/90 backdrop-blur-md border-b border-surface-border px-4 py-3">
-        <div className="max-w-md md:max-w-3xl lg:max-w-4xl mx-auto flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-2xl bg-primary flex items-center justify-center text-white shadow-soft shadow-primary/25">
-              <Heart className="w-4 h-4 fill-white" />
+      {/* DESKTOP SIDEBAR (Visible only on desktop/laptop screens >= 1024px) */}
+      <aside className="hidden lg:flex flex-col w-64 lg:w-72 shrink-0 bg-white/75 backdrop-blur-xl border-r border-[#F3E8EE] p-5 lg:p-6 justify-between min-h-screen sticky top-0 z-30">
+        <div className="space-y-7">
+          {/* Brand Logo & Tagline */}
+          <div className="flex items-start gap-3">
+            <div className="w-11 h-11 rounded-2xl bg-tint-lavender flex items-center justify-center text-primary shadow-pill border border-[#E7DCF8] shrink-0">
+              <span className="text-xl">🌸</span>
             </div>
             <div>
-              <h1 className="text-base sm:text-lg font-bold text-ink leading-tight tracking-tight">
+              <h1 className="text-2xl font-serif text-ink tracking-tight leading-tight">
                 Cyculus
               </h1>
-              <p className="text-[10px] sm:text-xs text-ink-muted leading-none">
-                {language === 'hi' ? 'प्राइवेट चक्र डायरी' : 'Private Cycle Diary'}
+              <p className="text-[11px] text-ink-muted leading-tight mt-0.5">
+                {language === 'hi' ? 'स्वास्थ्य को सरल बनाएं' : 'Making health make sense.'}
               </p>
             </div>
           </div>
 
-          {/* Desktop Web Navigation Tabs (Hidden on mobile) */}
-          <nav className="hidden md:flex items-center gap-1 bg-white border border-surface-border p-1 rounded-2xl shadow-card">
-            <button
-              type="button"
-              onClick={() => setActiveTab('home')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                activeTab === 'home'
-                  ? 'bg-primary text-white shadow-sm'
-                  : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
-              }`}
-            >
-              <Calendar className="w-3.5 h-3.5" />
-              <span>Dayum</span>
-            </button>
-
+          {/* Desktop Navigation Links */}
+          <nav className="space-y-2">
+            {/* OofLog (Daily Diary) */}
             <button
               type="button"
               onClick={() => setActiveTab('ooflog')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${
                 activeTab === 'ooflog'
-                  ? 'bg-primary text-white shadow-sm'
-                  : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
+                  ? 'bg-primary text-white shadow-soft'
+                  : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/50'
               }`}
             >
-              <PlusCircle className="w-3.5 h-3.5" />
-              <span>OofLog</span>
+              <PlusCircle className={`w-4 h-4 ${activeTab === 'ooflog' ? 'stroke-[2.5]' : ''}`} />
+              <div>
+                <span className="block font-bold">OofLog</span>
+                <span className={`text-[10px] block ${activeTab === 'ooflog' ? 'text-white/80' : 'text-ink-muted'}`}>
+                  {language === 'hi' ? 'दैनिक लक्षण डायरी' : 'Daily Symptom Diary'}
+                </span>
+              </div>
             </button>
 
+            {/* Dayum (Cycle Tracker & PWA Guide) */}
+            <button
+              type="button"
+              onClick={() => setActiveTab('home')}
+              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${
+                activeTab === 'home'
+                  ? 'bg-primary text-white shadow-soft'
+                  : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/50'
+              }`}
+            >
+              <Calendar className={`w-4 h-4 ${activeTab === 'home' ? 'stroke-[2.5]' : ''}`} />
+              <div>
+                <span className="block font-bold">
+                  {isFreshBrowser ? 'Guide & Dayum' : 'Dayum'}
+                </span>
+                <span className={`text-[10px] block ${activeTab === 'home' ? 'text-white/80' : 'text-ink-muted'}`}>
+                  {isFreshBrowser
+                    ? (language === 'hi' ? 'PWA गाइड एवं निर्देश' : 'PWA Guide & Timeline')
+                    : (language === 'hi' ? 'चक्र ट्रैकर व अनुमान' : 'Cycle Timeline & Window')}
+                </span>
+              </div>
+            </button>
+
+            {/* Doctor Brief (Chitthi) */}
             <button
               type="button"
               onClick={() => setActiveTab('brief')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${
                 activeTab === 'brief'
-                  ? 'bg-primary text-white shadow-sm'
-                  : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
+                  ? 'bg-primary text-white shadow-soft'
+                  : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/50'
               }`}
             >
-              <FileText className="w-3.5 h-3.5" />
-              <span>{language === 'hi' ? 'चिट्ठी' : 'Doctor Brief'}</span>
+              <FileText className={`w-4 h-4 ${activeTab === 'brief' ? 'stroke-[2.5]' : ''}`} />
+              <div>
+                <span className="block font-bold">{language === 'hi' ? 'चिट्ठी (Doctor Brief)' : 'Doctor Brief'}</span>
+                <span className={`text-[10px] block ${activeTab === 'brief' ? 'text-white/80' : 'text-ink-muted'}`}>
+                  {language === 'hi' ? '1-पेज क्लिनिकल रिपोर्ट' : '1-Page Clinical Summary'}
+                </span>
+              </div>
             </button>
 
+            {/* Settings & Privacy */}
             <button
               type="button"
               onClick={() => setActiveTab('settings')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${
                 activeTab === 'settings'
-                  ? 'bg-primary text-white shadow-sm'
-                  : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
+                  ? 'bg-primary text-white shadow-soft'
+                  : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/50'
               }`}
             >
-              <Settings className="w-3.5 h-3.5" />
-              <span>{language === 'hi' ? 'सेटिंग्स' : 'Privacy'}</span>
+              <Settings className={`w-4 h-4 ${activeTab === 'settings' ? 'stroke-[2.5]' : ''}`} />
+              <div>
+                <span className="block font-bold">{language === 'hi' ? 'गोपनीयता व सेटिंग्स' : 'Privacy & Settings'}</span>
+                <span className={`text-[10px] block ${activeTab === 'settings' ? 'text-white/80' : 'text-ink-muted'}`}>
+                  {language === 'hi' ? '100% ऑन-डिवाइस डेटा' : 'Zero-Cloud & Data'}
+                </span>
+              </div>
             </button>
           </nav>
+        </div>
 
-          <LanguageToggle
-            language={language}
-            onToggle={setLanguage}
-          />
+        {/* Sidebar Footer Card */}
+        <div className="bg-tint-rose/40 rounded-3xl p-4 border border-[#F8DDE5] relative overflow-hidden">
+          <div className="absolute -bottom-4 -right-4 pointer-events-none opacity-40">
+            <BotanicalAccent className="w-24 h-24 text-primary" />
+          </div>
+          <div className="relative z-10">
+            <p className="text-[11px] font-serif font-bold text-ink leading-snug">
+              {language === 'hi'
+                ? 'आपका स्वास्थ्य। आपके सवाल। पूर्ण गोपनीयता।'
+                : 'Your health. Your questions. Our priority.'}
+            </p>
+            <p className="text-[10px] text-ink-muted mt-1">
+              100% on-device · Zero cloud
+            </p>
+            <div className="mt-3 flex items-center gap-1.5 text-[10px] font-semibold text-primary">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>Offline Ready PWA</span>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -185,59 +289,61 @@ export const AppShell: React.FC = () => {
           {/* Dayum / Home */}
           <button
             type="button"
-            onClick={() => setActiveTab('home')}
-            className={`flex flex-col items-center justify-center py-1.5 rounded-2xl min-h-[48px] transition-all cursor-pointer ${
-              activeTab === 'home'
-                ? 'text-primary font-bold'
-                : 'text-ink-muted hover:text-ink'
-            }`}
-          >
-            <Calendar className={`w-5 h-5 ${activeTab === 'home' ? 'stroke-[2.5]' : ''}`} />
-            <span className="text-[10px] mt-0.5">Dayum</span>
-          </button>
-
-          {/* OofLog (Center Action) */}
-          <button
-            type="button"
             onClick={() => setActiveTab('ooflog')}
-            className={`flex flex-col items-center justify-center py-1.5 rounded-2xl min-h-[48px] transition-all cursor-pointer ${
+            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${
               activeTab === 'ooflog'
-                ? 'text-primary font-bold'
-                : 'text-ink-muted hover:text-ink'
+                ? 'bg-tint-lavender text-primary font-bold shadow-soft'
+                : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
             }`}
           >
             <PlusCircle className={`w-5 h-5 ${activeTab === 'ooflog' ? 'stroke-[2.5] text-primary fill-primary-soft' : ''}`} />
-            <span className="text-[10px] mt-0.5">OofLog</span>
+            <span className="text-[10px] mt-1 font-semibold tracking-tight">OofLog</span>
           </button>
 
-          {/* Doctor Brief */}
+          {/* Dayum / Cycle Tracker & Guide */}
+          <button
+            type="button"
+            onClick={() => setActiveTab('home')}
+            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${
+              activeTab === 'home'
+                ? 'bg-tint-lavender text-primary font-bold shadow-soft'
+                : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
+            }`}
+          >
+            <Calendar className={`w-5 h-5 ${activeTab === 'home' ? 'stroke-[2.5] text-primary' : ''}`} />
+            <span className="text-[10px] mt-1 font-semibold tracking-tight">
+              {isFreshBrowser ? (language === 'hi' ? 'गाइड' : 'Guide') : 'Dayum'}
+            </span>
+          </button>
+
+          {/* Doctor Brief (Chitthi) */}
           <button
             type="button"
             onClick={() => setActiveTab('brief')}
-            className={`flex flex-col items-center justify-center py-1.5 rounded-2xl min-h-[48px] transition-all cursor-pointer ${
+            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${
               activeTab === 'brief'
-                ? 'text-primary font-bold'
-                : 'text-ink-muted hover:text-ink'
+                ? 'bg-tint-lavender text-primary font-bold shadow-soft'
+                : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
             }`}
           >
-            <FileText className={`w-5 h-5 ${activeTab === 'brief' ? 'stroke-[2.5]' : ''}`} />
-            <span className="text-[10px] mt-0.5">
+            <FileText className={`w-5 h-5 ${activeTab === 'brief' ? 'stroke-[2.5] text-primary' : ''}`} />
+            <span className="text-[10px] mt-1 font-semibold tracking-tight">
               {language === 'hi' ? 'चिट्ठी' : 'Brief'}
             </span>
           </button>
 
-          {/* Settings / Privacy */}
+          {/* Settings */}
           <button
             type="button"
             onClick={() => setActiveTab('settings')}
-            className={`flex flex-col items-center justify-center py-1.5 rounded-2xl min-h-[48px] transition-all cursor-pointer ${
+            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${
               activeTab === 'settings'
-                ? 'text-primary font-bold'
-                : 'text-ink-muted hover:text-ink'
+                ? 'bg-tint-lavender text-primary font-bold shadow-soft'
+                : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
             }`}
           >
-            <Settings className={`w-5 h-5 ${activeTab === 'settings' ? 'stroke-[2.5]' : ''}`} />
-            <span className="text-[10px] mt-0.5">
+            <Settings className={`w-5 h-5 ${activeTab === 'settings' ? 'stroke-[2.5] text-primary' : ''}`} />
+            <span className="text-[10px] mt-1 font-semibold tracking-tight">
               {language === 'hi' ? 'सेटिंग्स' : 'Settings'}
             </span>
           </button>

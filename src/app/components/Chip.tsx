@@ -8,7 +8,7 @@ export interface ChipProps {
   onClick?: () => void;
   icon?: React.ReactNode;
   variant?: 'default' | 'flow' | 'severity';
-  color?: string; // custom color if needed
+  color?: string;
   className?: string;
   disabled?: boolean;
 }
@@ -28,10 +28,10 @@ export const Chip: React.FC<ChipProps> = ({
       disabled={disabled}
       className={twMerge(
         clsx(
-          'inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-150 min-h-[44px] cursor-pointer select-none active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed',
+          'inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 min-h-[44px] cursor-pointer select-none active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed',
           selected
-            ? 'bg-primary text-white shadow-soft shadow-primary/25 border border-primary'
-            : 'bg-white text-ink border border-surface-border hover:border-primary-soft hover:bg-primary-light/50',
+            ? 'bg-primary text-white shadow-soft border border-primary'
+            : 'bg-white text-ink border border-surface-border shadow-pill hover:border-primary/30 hover:bg-[#FAF6FE]',
           className
         )
       )}

@@ -67,15 +67,15 @@ export const ConfirmCard: React.FC<ConfirmCardProps> = ({
   };
 
   return (
-    <Card variant="lavender" padding="lg" className="border-primary/30 shadow-lg mb-6 animate-scale-up">
+    <Card variant="lavender" padding="lg" className="border-[#EADBFA] shadow-float mb-6 animate-scale-up">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-primary/20">
-        <div className="flex items-center gap-2">
-          <div className="p-1.5 bg-primary text-white rounded-xl">
+      <div className="flex items-center justify-between pb-3.5 border-b border-[#E7DCF8]">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center shadow-soft">
             <Sparkles className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="font-semibold text-ink text-sm sm:text-base">
+            <h3 className="font-serif font-bold text-ink text-base sm:text-lg">
               {language === 'hi' ? 'पुष्टि करें: हमने यह समझा' : 'Review & Confirm Extracted Log'}
             </h3>
             <p className="text-xs text-ink-muted">
@@ -89,7 +89,7 @@ export const ConfirmCard: React.FC<ConfirmCardProps> = ({
         <button
           type="button"
           onClick={() => setIsEditing(!isEditing)}
-          className="inline-flex items-center gap-1 text-xs text-primary font-medium hover:underline px-2 py-1 min-h-[36px]"
+          className="inline-flex items-center gap-1.5 text-xs text-primary font-semibold bg-white px-3 py-1.5 rounded-full border border-[#E7DCF8] shadow-pill hover:bg-primary-soft/40 cursor-pointer transition-all"
         >
           <Edit3 className="w-3.5 h-3.5" />
           <span>{isEditing ? (language === 'hi' ? 'समीक्षा' : 'Review') : (language === 'hi' ? 'बदलें' : 'Edit')}</span>
@@ -97,13 +97,13 @@ export const ConfirmCard: React.FC<ConfirmCardProps> = ({
       </div>
 
       {originalText && (
-        <div className="mt-3 p-3 bg-white/70 rounded-2xl border border-primary-soft text-xs text-ink-muted italic">
+        <div className="mt-3.5 p-3.5 bg-white rounded-2xl border border-surface-border text-xs text-ink-muted italic shadow-pill">
           "{originalText}"
         </div>
       )}
 
       {warnings.length > 0 && (
-        <div className="mt-2 p-2.5 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
+        <div className="mt-2.5 p-3 bg-amber-50 rounded-2xl border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
           <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
           <span>{warnings.join(' ')}</span>
         </div>
