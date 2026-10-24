@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { computeInsights } from './computeInsights';
+import { computeInsights } from './index';
 import knowledgeData from '@/shared/knowledge.json';
 import irregularData from '@/shared/mocks/entries.irregular.json';
 import regularData from '@/shared/mocks/entries.regular.json';
@@ -7,12 +7,12 @@ import heavyData from '@/shared/mocks/entries.heavy.json';
 import { LogEntry } from '@/shared/types';
 
 describe('Persona Snapshot & Flag Invariance Tests', () => {
-  const rules = knowledgeData.rules as any;
+  const knowledge = knowledgeData as any;
   const todayStr = '2026-10-24';
 
   describe('Persona A: Riya (Irregular / 41-day cycle)', () => {
     it('accurately identifies 41-day cycle and asserts FIGO cycle_long flag', () => {
-      const insights = computeInsights(irregularData as LogEntry[], rules, todayStr);
+      const insights = computeInsights(irregularData as LogEntry[], knowledge, todayStr);
 
       // Verify cycle metrics
       expect(insights.cycles.length).toBeGreaterThanOrEqual(3);
@@ -34,7 +34,7 @@ describe('Persona Snapshot & Flag Invariance Tests', () => {
 
   describe('Persona B: Regular Cycles', () => {
     it('asserts zero clinical flags for standard 28-day physiological rhythm', () => {
-      const insights = computeInsights(regularData as LogEntry[], rules, todayStr);
+      const insights = computeInsights(regularData as LogEntry[], knowledge, todayStr);
 
       // Standard cycles within adult normal limits (24-38 days)
       expect(insights.cycles.length).toBeGreaterThanOrEqual(3);
@@ -49,7 +49,7 @@ describe('Persona Snapshot & Flag Invariance Tests', () => {
 
   describe('Persona C: Heavy Menstrual Bleeding', () => {
     it('asserts heavy_flow_persistent flag per NICE & ACOG criteria', () => {
-      const insights = computeInsights(heavyData as LogEntry[], rules, todayStr);
+      const insights = computeInsights(heavyData as LogEntry[], knowledge, todayStr);
 
       expect(insights.cycles.length).toBeGreaterThanOrEqual(3);
 
@@ -57,7 +57,8 @@ describe('Persona Snapshot & Flag Invariance Tests', () => {
       const heavyFlag = insights.flags.find(f => f.ruleId === 'heavy_flow_persistent');
       expect(heavyFlag).toBeDefined();
       expect(heavyFlag?.severity).toBe('soon');
-      expect((heavyFlag?.evidence as any)?.maxHeavyDays).toBeGreaterThanOrEqual(4);
+      const heavyDays = (heavyFlag?.evidence as any)?.maxTotalHeavyDays ?? (heavyFlag?.evidence as any)?.maxHeavyDays;
+      expect(heavyDays).toBeGreaterThanOrEqual(4);
     });
   });
 });

@@ -218,6 +218,7 @@ function evaluateHeavyFlow(
       of: cycles.length,
       maxConsecutiveHeavyDays: maxConsecutiveHeavy,
       maxTotalHeavyDays: maxTotalHeavy,
+      maxHeavyDays: maxTotalHeavy,
       consecutiveThreshold,
       totalThreshold,
     },

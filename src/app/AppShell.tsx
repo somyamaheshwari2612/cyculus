@@ -11,7 +11,7 @@ import { BotanicalAccent } from './components/BotanicalAccent';
 import { Calendar, PlusCircle, FileText, Settings, ShieldCheck, Trash2 } from 'lucide-react';
 import { LogEntry, UserSetup } from '@/shared/types';
 import knowledgeData from '@/shared/knowledge.json';
-import { computeInsights, calculateCurrentCycleDay } from '@/modules/insights/computeInsights';
+import { computeInsights, calculateCurrentCycleDay } from '@/modules/insights';
 import irregularData from '@/shared/mocks/entries.irregular.json';
 import regularData from '@/shared/mocks/entries.regular.json';
 import heavyData from '@/shared/mocks/entries.heavy.json';
@@ -45,10 +45,10 @@ export const AppShell: React.FC = () => {
 
   const todayStr = new Date().toISOString().split('T')[0];
 
-  // Pure Module B engine evaluation with setup prior shrinkage
+  // Pure Module B engine evaluation
   const insights = useMemo(() => {
-    return computeInsights(logs, knowledgeData.rules as any, todayStr, userSetup);
-  }, [logs, todayStr, userSetup]);
+    return computeInsights(logs, knowledgeData as any, todayStr);
+  }, [logs, todayStr]);
 
   // Current cycle day relative to latest bleeding start or self-reported start
   const latestStart = insights.cycles.length > 0
