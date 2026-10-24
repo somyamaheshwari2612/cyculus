@@ -9,7 +9,7 @@ import { Toast } from './components/Toast';
 import { OnboardingModal } from './OnboardingModal';
 import { BotanicalAccent } from './components/BotanicalAccent';
 import { Calendar, PlusCircle, FileText, Settings, ShieldCheck, Trash2 } from 'lucide-react';
-import { LogEntry, UserSetup } from '@/shared/types';
+import { DayPatch, LogEntry, UserSetup } from '@/shared/types';
 import knowledgeData from '@/shared/knowledge.json';
 import { computeInsights, calculateCurrentCycleDay } from '@/modules/insights';
 import irregularData from '@/shared/mocks/entries.irregular.json';
