@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { DayPatch, FlowLevel, Symptom, Mood, FLOW_LEVELS, SYMPTOMS, MOODS } from '@/shared/types';
 import { FLOW_LABELS, SYMPTOM_LABELS, MOOD_LABELS } from '@/shared/translations';
-import { Card } from '@/app/components/Card';
-import { Button } from '@/app/components/Button';
-import { Chip } from '@/app/components/Chip';
+import { Card, Button, Chip } from '@/app/components';
 import { Check, Edit3, Calendar, Sparkles, AlertCircle } from 'lucide-react';
 
 export interface ConfirmCardProps {

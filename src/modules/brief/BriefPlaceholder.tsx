@@ -1,6 +1,6 @@
 import React from 'react';
 import { LogEntry, Insights, UserSetup } from '@/shared/types';
-import { Button } from '@/app/components/Button';
+import { Button } from '@/app/components';
 import { Printer, Info } from 'lucide-react';
 
 export interface BriefPlaceholderProps {

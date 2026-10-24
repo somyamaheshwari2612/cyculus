@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FlowLevel, Symptom, Mood, FLOW_LEVELS, SYMPTOMS, MOODS, DayPatch, LogEntry } from '@/shared/types';
 import { FLOW_LABELS, SYMPTOM_LABELS, MOOD_LABELS } from '@/shared/translations';
-import { Card } from '@/app/components/Card';
-import { Button } from '@/app/components/Button';
-import { Chip } from '@/app/components/Chip';
+import { Card, Button, Chip } from '@/app/components';
 import { ConfirmCard } from './ConfirmCard';
 import { UrgentBanner } from './UrgentBanner';
 import { Mic, MicOff, ArrowRight, CheckCircle2 } from 'lucide-react';
