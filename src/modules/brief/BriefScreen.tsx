@@ -8,10 +8,24 @@ export interface BriefScreenProps {
   insights: Insights;
   entries: LogEntry[];
   knowledge: KnowledgeRule[];
+  language?: 'en' | 'hi';
+  onLanguageChange?: (lang: 'en' | 'hi') => void;
 }
 
-export function BriefScreen({ insights, entries, knowledge }: BriefScreenProps) {
-  const [language, setLanguage] = useState<'en' | 'hi'>('en');
+export function BriefScreen({
+  insights,
+  entries,
+  knowledge,
+  language: parentLanguage,
+  onLanguageChange,
+}: BriefScreenProps) {
+  const [localLanguage, setLocalLanguage] = useState<'en' | 'hi'>(parentLanguage ?? 'en');
+  const language = parentLanguage ?? localLanguage;
+
+  const handleLanguageChange = (lang: 'en' | 'hi') => {
+    setLocalLanguage(lang);
+    onLanguageChange?.(lang);
+  };
 
   const brief = buildBrief(insights, entries, knowledge, language);
   const t = BRIEF_TEXT[language];
@@ -32,20 +46,20 @@ export function BriefScreen({ insights, entries, knowledge }: BriefScreenProps) 
         <div className="flex gap-2">
           <button
             type="button"
-            onClick={() => setLanguage('en')}
+            onClick={() => handleLanguageChange('en')}
             aria-pressed={language === 'en'}
-            className={`min-h-[44px] rounded-full px-4 text-sm font-semibold ${
-              language === 'en' ? 'bg-primary text-white' : 'bg-primary-soft text-ink'
+            className={`min-h-[44px] rounded-full px-4 text-sm font-semibold cursor-pointer transition-all ${
+              language === 'en' ? 'bg-primary text-white shadow-soft' : 'bg-primary-soft text-ink hover:bg-primary-soft/80'
             }`}
           >
             English
           </button>
           <button
             type="button"
-            onClick={() => setLanguage('hi')}
+            onClick={() => handleLanguageChange('hi')}
             aria-pressed={language === 'hi'}
-            className={`min-h-[44px] rounded-full px-4 text-sm font-semibold ${
-              language === 'hi' ? 'bg-primary text-white' : 'bg-primary-soft text-ink'
+            className={`min-h-[44px] rounded-full px-4 text-sm font-semibold cursor-pointer transition-all ${
+              language === 'hi' ? 'bg-primary text-white shadow-soft' : 'bg-primary-soft text-ink hover:bg-primary-soft/80'
             }`}
           >
             हिन्दी

@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-10-24T11:41:10.533Z",
+  "dataSufficiency": "ok",
+  "cycles": [
+    {
+      "startDate": "2026-05-10",
+      "endDate": "2026-06-07",
+      "lengthDays": 28,
+      "bleedingDays": 7,
+      "heavyDays": 3,
+      "maxPain": 8
+    },
+    {
+      "startDate": "2026-06-07",
+      "endDate": "2026-07-04",
+      "lengthDays": 27,
+      "bleedingDays": 7,
+      "heavyDays": 3,
+      "maxPain": 8
+    },
+    {
+      "startDate": "2026-07-04",
+      "endDate": "2026-08-01",
+      "lengthDays": 28,
+      "bleedingDays": 7,
+      "heavyDays": 3,
+      "maxPain": 8
+    },
+    {
+      "startDate": "2026-08-01",
+      "endDate": "2026-08-29",
+      "lengthDays": 28,
+      "bleedingDays": 7,
+      "heavyDays": 3,
+      "maxPain": 8
+    },
+    {
+      "startDate": "2026-08-29",
+      "endDate": "2026-09-25",
+      "lengthDays": 27,
+      "bleedingDays": 7,
+      "heavyDays": 3,
+      "maxPain": 8
+    },
+    {
+      "startDate": "2026-09-25",
+      "endDate": "2026-10-23",
+      "lengthDays": 28,
+      "bleedingDays": 7,
+      "heavyDays": 3,
+      "maxPain": 8
+    },
+    {
+      "startDate": "2026-10-23",
+      "endDate": null,
+      "lengthDays": null,
+      "bleedingDays": 2,
+      "heavyDays": 1,
+      "maxPain": 8
+    }
+  ],
+  "stats": {
+    "cyclesUsed": 6,
+    "avgCycleLength": 27.67,
+    "cycleLengthSD": 0.47,
+    "shortest": 27,
+    "longest": 28,
+    "avgBleedingDays": 7
+  },
+  "prediction": {
+    "expected": "2026-11-20",
+    "earliest": "2026-11-18",
+    "latest": "2026-11-22",
+    "confidence": "high",
+    "basedOnCycles": 3
+  },
+  "patterns": [
+    {
+      "symptom": "cramps",
+      "totalDays": 44,
+      "byBand": {
+        "period": 38,
+        "early": 6,
+        "mid": 0,
+        "late": 0
+      }
+    },
+    {
+      "symptom": "fatigue",
+      "totalDays": 44,
+      "byBand": {
+        "period": 38,
+        "early": 6,
+        "mid": 0,
+        "late": 0
+      }
+    },
+    {
+      "symptom": "lower_back_pain",
+      "totalDays": 44,
+      "byBand": {
+        "period": 38,
+        "early": 6,
+        "mid": 0,
+        "late": 0
+      }
+    },
+    {
+      "symptom": "bloating",
+      "totalDays": 30,
+      "byBand": {
+        "period": 0,
+        "early": 0,
+        "mid": 0,
+        "late": 30
+      }
+    },
+    {
+      "symptom": "breast_tenderness",
+      "totalDays": 30,
+      "byBand": {
+        "period": 0,
+        "early": 0,
+        "mid": 0,
+        "late": 30
+      }
+    },
+    {
+      "symptom": "blood_clots",
+      "totalDays": 13,
+      "byBand": {
+        "period": 13,
+        "early": 0,
+        "mid": 0,
+        "late": 0
+      }
+    },
+    {
+      "symptom": "cravings",
+      "totalDays": 6,
+      "byBand": {
+        "period": 0,
+        "early": 0,
+        "mid": 0,
+        "late": 6
+      }
+    }
+  ],
+  "flags": [
+    {
+      "ruleId": "heavy_flow_persistent",
+      "severity": "soon",
+      "evidence": {
+        "cyclesAffected": 6,
+        "of": 7,
+        "maxConsecutiveHeavyDays": 3,
+        "maxTotalHeavyDays": 3,
+        "consecutiveThreshold": 3,
+        "totalThreshold": 4
+      }
+    },
+    {
+      "ruleId": "pain_severe_recurring",
+      "severity": "soon",
+      "evidence": {
+        "cyclesWithSeverePain": 7,
+        "of": 7,
+        "minPainThreshold": 8,
+        "maxPainRecorded": 8
+      }
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLogs } from '@/modules/capture/useLogs';
 import { OofLog } from '@/modules/capture/OofLog';
-import { DayumPlaceholder } from '@/modules/insights/DayumPlaceholder';
-import { BriefPlaceholder } from '@/modules/brief/BriefPlaceholder';
+import { DayumScreen } from '@/modules/insights';
+import { BriefScreen } from '@/modules/brief/BriefScreen';
 import { SettingsView } from './SettingsView';
 import { LanguageToggle } from './components/LanguageToggle';
 import { Toast } from './components/Toast';
@@ -520,15 +520,41 @@ export const AppShell: React.FC = () => {
 
           {/* Active Tab Screen */}
           {activeTab === 'home' && (
-            <DayumPlaceholder
-              logs={logs}
-              insights={insights}
-              userSetup={userSetup}
-              language={language}
-              onNavigateToLog={() => setActiveTab('ooflog')}
-              onOpenSetup={() => setShowOnboarding(true)}
-              onLoadPersona={requestSeedPersona}
-            />
+            <div className="space-y-6">
+              {isFreshBrowser && (
+                <div className="p-4 rounded-3xl bg-tint-lavender/40 border border-[#E7DCF8] flex flex-wrap items-center justify-between gap-3 text-xs">
+                  <div className="flex items-center gap-2 text-ink">
+                    <span className="text-base">🌸</span>
+                    <span className="font-medium">
+                      {language === 'hi'
+                        ? 'कोई डेटा नहीं मिला। आप सीधे आज का लक्षण लॉग कर सकती हैं या नीचे डेमो प्रोफाइल आज़मा सकती हैं।'
+                        : 'No logs recorded yet. Start logging symptoms or test with demonstration personas.'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => requestSeedPersona('riya')}
+                      className="px-3.5 py-1.5 rounded-full bg-white text-primary font-bold border border-[#E7DCF8] hover:bg-primary hover:text-white shadow-soft transition-all cursor-pointer"
+                    >
+                      ✨ {language === 'hi' ? 'रिया का डेटा लोड करें' : 'Try Riya Persona'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('ooflog')}
+                      className="px-3.5 py-1.5 rounded-full bg-primary text-white font-bold shadow-soft hover:bg-primary-dark transition-all cursor-pointer"
+                    >
+                      ✍️ {language === 'hi' ? 'आज का चेक-इन' : 'Log Today'}
+                    </button>
+                  </div>
+                </div>
+              )}
+              <DayumScreen
+                logs={logs}
+                language={language}
+                onNavigateToLog={() => setActiveTab('ooflog')}
+              />
+            </div>
           )}
 
           {activeTab === 'ooflog' && (
@@ -563,10 +589,10 @@ export const AppShell: React.FC = () => {
           )}
 
           {activeTab === 'brief' && (
-            <BriefPlaceholder
-              logs={logs}
+            <BriefScreen
               insights={insights}
-              userSetup={userSetup}
+              entries={logs}
+              knowledge={knowledgeData.rules as any}
               language={language}
               onLanguageChange={setLanguage}
             />
