@@ -90,3 +90,5 @@ npm run typecheck
 
 ## 📚 Datasets & Clinical Citations
 See [`ACKNOWLEDGEMENTS.md`](file:///c:/Users/somya/cyculus/ACKNOWLEDGEMENTS.md) for full academic citations including the **Utah Hive Menstrual Cycle Dataset**, **Bull et al. (2019)**, FIGO standards, and ACOG guidelines.
+
+Module C (Brief, Privacy, PWA) - work in progress by Eva.
