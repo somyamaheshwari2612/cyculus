@@ -62,20 +62,75 @@ export const AppShell: React.FC = () => {
 
       {/* Top Header */}
       <header className="sticky top-0 z-40 bg-surface-bg/90 backdrop-blur-md border-b border-surface-border px-4 py-3">
-        <div className="max-w-md mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-primary flex items-center justify-center text-white shadow-soft shadow-primary/25">
+        <div className="max-w-md md:max-w-3xl lg:max-w-4xl mx-auto flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-2xl bg-primary flex items-center justify-center text-white shadow-soft shadow-primary/25">
               <Heart className="w-4 h-4 fill-white" />
             </div>
             <div>
-              <h1 className="text-base font-bold text-ink leading-tight tracking-tight">
+              <h1 className="text-base sm:text-lg font-bold text-ink leading-tight tracking-tight">
                 Cyculus
               </h1>
-              <p className="text-[10px] text-ink-muted leading-none">
+              <p className="text-[10px] sm:text-xs text-ink-muted leading-none">
                 {language === 'hi' ? 'प्राइवेट चक्र डायरी' : 'Private Cycle Diary'}
               </p>
             </div>
           </div>
+
+          {/* Desktop Web Navigation Tabs (Hidden on mobile) */}
+          <nav className="hidden md:flex items-center gap-1 bg-white border border-surface-border p-1 rounded-2xl shadow-card">
+            <button
+              type="button"
+              onClick={() => setActiveTab('home')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'home'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
+              }`}
+            >
+              <Calendar className="w-3.5 h-3.5" />
+              <span>Dayum</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab('ooflog')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'ooflog'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
+              }`}
+            >
+              <PlusCircle className="w-3.5 h-3.5" />
+              <span>OofLog</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab('brief')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'brief'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
+              }`}
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span>{language === 'hi' ? 'चिट्ठी' : 'Doctor Brief'}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setActiveTab('settings')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                activeTab === 'settings'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-ink-muted hover:text-ink hover:bg-surface-subtle'
+              }`}
+            >
+              <Settings className="w-3.5 h-3.5" />
+              <span>{language === 'hi' ? 'सेटिंग्स' : 'Privacy'}</span>
+            </button>
+          </nav>
 
           <LanguageToggle
             language={language}
@@ -84,8 +139,8 @@ export const AppShell: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-md w-full mx-auto p-4 sm:p-5">
+      {/* Main Content Area: Mobile-First with Desktop Scaling */}
+      <main className="flex-1 max-w-md md:max-w-2xl lg:max-w-3xl w-full mx-auto p-4 sm:p-5 md:p-6 pb-24 md:pb-12 transition-all">
         {activeTab === 'home' && (
           <DayumPlaceholder
             logs={logs}
@@ -124,8 +179,8 @@ export const AppShell: React.FC = () => {
         )}
       </main>
 
-      {/* Bottom Navigation Bar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-lg border-t border-surface-border px-3 py-1.5 shadow-lg">
+      {/* Bottom Navigation Bar (Visible only on Mobile, hidden on md: and above) */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-lg border-t border-surface-border px-3 py-1.5 shadow-lg">
         <div className="max-w-md mx-auto grid grid-cols-4 gap-1">
           {/* Dayum / Home */}
           <button
