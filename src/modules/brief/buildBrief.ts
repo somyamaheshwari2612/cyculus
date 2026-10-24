@@ -1,7 +1,5 @@
 import type { Brief, Insights, KnowledgeRule, LogEntry } from '../../shared/types';
-
-const DISCLAIMER_EN =
-  'This app is not a medical device and does not replace a doctor. It does not diagnose.';
+import { BRIEF_TEXT } from '../../shared/translations';
 
 export function buildBrief(
   insights: Insights,
@@ -9,20 +7,22 @@ export function buildBrief(
   knowledge: KnowledgeRule[],
   language: 'en' | 'hi'
 ): Brief {
+  // Pick the right phrase set for this language
+  const t = BRIEF_TEXT[language];
   const generatedAt = new Date().toISOString();
 
-  // Case 1: not enough data yet. Say so, don't invent anything.
+  // Not enough data yet: say so, don't invent anything
   if (insights.dataSufficiency === 'none' || insights.stats === null) {
     return {
       language,
       generatedAt,
       periodCovered: { from: '', to: '' },
-      summary: 'Not enough data yet. Keep logging to see your cycle pattern.',
+      summary: t.notEnoughData,
       cyclePattern: [],
       symptoms: [],
       flags: [],
       questionsForDoctor: [],
-      disclaimer: DISCLAIMER_EN,
+      disclaimer: t.disclaimer,
       sourcesUsed: [],
     };
   }
@@ -38,25 +38,25 @@ export function buildBrief(
 
   // Cycle pattern lines (numbers come straight from the stats)
   const cyclePattern: string[] = [
-    `Cycles used: ${stats.cyclesUsed}`,
-    `Average cycle length: ${stats.avgCycleLength} days`,
-    `Shortest to longest: ${stats.shortest} to ${stats.longest} days`,
-    `Average bleeding days: ${stats.avgBleedingDays}`,
+    `${t.cycleCount}: ${stats.cyclesUsed}`,
+    `${t.avgLength}: ${stats.avgCycleLength} ${t.days}`,
+    `${t.range}: ${stats.shortest} – ${stats.longest} ${t.days}`,
+    `${t.avgBleeding}: ${stats.avgBleedingDays}`,
   ];
 
   const completed = insights.cycles.filter((c) => c.lengthDays !== null);
   if (completed.length > 0) {
     const latest = completed[completed.length - 1];
-    cyclePattern.push(`Latest completed cycle: ${latest.lengthDays} days`);
+    cyclePattern.push(`${t.latestCycle}: ${latest.lengthDays} ${t.days}`);
   }
 
   // Top 3 most frequent symptoms
   const symptoms = [...insights.patterns]
     .sort((a, b) => b.totalDays - a.totalDays)
     .slice(0, 3)
-    .map((p) => `${p.symptom.replace(/_/g, ' ')}: logged on ${p.totalDays} days`);
+    .map((p) => `${p.symptom.replace(/_/g, ' ')}: ${p.totalDays}`);
 
-  // Flags: look up each rule in knowledge.json. Never hardcode text here.
+  // Flags: text comes from knowledge.json, in the chosen language
   const ruleFor = (ruleId: string) => knowledge.find((r) => r.id === ruleId);
 
   const flags = insights.flags
@@ -87,20 +87,17 @@ export function buildBrief(
     )
   );
 
-  // Summary: 2–3 plain sentences built from the numbers above
-  const early =
-    insights.dataSufficiency === 'minimal'
-      ? ' This is based on only one or two cycles, so it is an early picture.'
-      : '';
-  const flagLine =
-    flags.length > 0
-      ? `${flags.length} point(s) are worth discussing with a doctor.`
-      : 'No points were flagged for discussion in this period.';
-  const summary =
-    `Based on ${stats.cyclesUsed} completed cycle(s), your average cycle length is ${stats.avgCycleLength} days.` +
-    early +
-    ' ' +
-    flagLine;
+  // Summary: a few plain sentences built from the numbers above.
+  // Word order differs between English and Hindi, so each has its own sentence.
+  const cycleSentence =
+    language === 'hi'
+      ? `${stats.cyclesUsed} ${t.completedCycles} ${stats.avgCycleLength} ${t.days}।`
+      : `${t.summaryStart} ${stats.cyclesUsed} ${t.completedCycles} ${stats.avgCycleLength} ${t.days}.`;
+
+  const early = insights.dataSufficiency === 'minimal' ? ' ' + t.earlyPicture : '';
+  const flagLine = flags.length > 0 ? `${flags.length} ${t.flagsFound}` : t.noFlags;
+
+  const summary = cycleSentence + early + ' ' + flagLine;
 
   return {
     language,
@@ -111,7 +108,7 @@ export function buildBrief(
     symptoms,
     flags,
     questionsForDoctor,
-    disclaimer: DISCLAIMER_EN,
+    disclaimer: t.disclaimer,
     sourcesUsed,
   };
 }
