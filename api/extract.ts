@@ -1,5 +1,26 @@
 import { GoogleGenerativeAI, SchemaType } from '@google/generative-ai';
-import { FLOW_LEVELS, SYMPTOMS, MOODS, DayPatch, FlowLevel, Symptom, Mood } from '../src/shared/types';
+
+export const FLOW_LEVELS = ['none', 'spotting', 'light', 'medium', 'heavy'] as const;
+export type FlowLevel = typeof FLOW_LEVELS[number];
+
+export const SYMPTOMS = [
+  'cramps', 'lower_back_pain', 'pelvic_pain', 'headache', 'nausea', 'bloating',
+  'breast_tenderness', 'fatigue', 'acne', 'dizziness', 'blood_clots',
+  'discharge_change', 'sleep_trouble', 'cravings', 'diarrhea', 'constipation', 'leg_pain'
+] as const;
+export type Symptom = typeof SYMPTOMS[number];
+
+export const MOODS = ['calm', 'happy', 'anxious', 'irritable', 'low', 'mood_swings'] as const;
+export type Mood = typeof MOODS[number];
+
+export interface DayPatch {
+  date: string;
+  flow?: FlowLevel | null;
+  painLevel?: number | null;
+  symptoms?: Symptom[];
+  moods?: Mood[];
+  notes?: string;
+}
 
 // In-memory cache for recent identical requests (5 minute TTL)
 const cache = new Map<string, { timestamp: number; data: any }>();
@@ -9,6 +30,15 @@ const CACHE_TTL_MS = 5 * 60 * 1000;
 const rateLimits = new Map<string, number[]>();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 const MAX_REQUESTS_PER_WINDOW = 14;
+
+function sendJson(res: any, status: number, data: any) {
+  if (typeof res.status === 'function' && typeof res.json === 'function') {
+    return res.status(status).json(data);
+  }
+  res.statusCode = status;
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify(data));
+}
 
 // Deterministic keyword / regex backup for urgent red-flag detection
 const URGENT_RULES = {
@@ -45,8 +75,17 @@ function detectDeterministicRedFlags(text: string): string[] {
 
 // Serverless handler for Vercel / Node
 export default async function handler(req: any, res: any) {
+  // CORS support
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return sendJson(res, 200, { ok: true });
+  }
+
   if (req.method !== 'POST') {
-    return res.status(405).json({ ok: false, error: 'Method Not Allowed' });
+    return sendJson(res, 405, { ok: false, error: 'Method Not Allowed' });
   }
 
   // Rate Limiting (14 RPM cap)
@@ -54,7 +93,7 @@ export default async function handler(req: any, res: any) {
   const now = Date.now();
   const timestamps = (rateLimits.get(clientIp) || []).filter(t => now - t < RATE_LIMIT_WINDOW_MS);
   if (timestamps.length >= MAX_REQUESTS_PER_WINDOW) {
-    return res.status(429).json({
+    return sendJson(res, 429, {
       ok: false,
       error: 'Rate limit reached (capped at 14 requests/min). Please wait a few moments before trying again.'
     });
@@ -62,10 +101,31 @@ export default async function handler(req: any, res: any) {
   timestamps.push(now);
   rateLimits.set(clientIp, timestamps);
 
-  const { text, today, locale = 'auto' } = req.body || {};
+  // Robust body parsing across Vercel environments
+  let body = req.body;
+  if (typeof body === 'string') {
+    try {
+      body = JSON.parse(body);
+    } catch {
+      body = {};
+    }
+  } else if (!body && typeof req[Symbol.asyncIterator] === 'function') {
+    try {
+      const chunks: Buffer[] = [];
+      for await (const chunk of req) {
+        chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
+      }
+      const raw = Buffer.concat(chunks).toString('utf-8');
+      body = raw ? JSON.parse(raw) : {};
+    } catch {
+      body = {};
+    }
+  }
+
+  const { text, today, locale = 'auto' } = body || {};
 
   if (!text || typeof text !== 'string' || !text.trim()) {
-    return res.status(400).json({ ok: false, error: 'Text query is required' });
+    return sendJson(res, 400, { ok: false, error: 'Text query is required' });
   }
 
   const referenceDate = today || new Date().toISOString().split('T')[0];
@@ -74,7 +134,7 @@ export default async function handler(req: any, res: any) {
   // Check cache
   const cached = cache.get(cacheKey);
   if (cached && now - cached.timestamp < CACHE_TTL_MS) {
-    return res.status(200).json(cached.data);
+    return sendJson(res, 200, cached.data);
   }
 
   // Deterministic urgent red flag check
@@ -101,7 +161,7 @@ export default async function handler(req: any, res: any) {
       confidence: 0.7,
       warnings: ['Processed with local rule fallback (API key not configured).']
     };
-    return res.status(200).json(responsePayload);
+    return sendJson(res, 200, responsePayload);
   }
 
   try {
@@ -237,12 +297,12 @@ Never diagnose. Only extract facts.`;
     };
 
     cache.set(cacheKey, { timestamp: now, data: finalResult });
-    return res.status(200).json(finalResult);
+    return sendJson(res, 200, finalResult);
 
   } catch (error: any) {
     console.error('Extraction error:', error);
     // Return standard failure response so client falls back to local rules/tap logger
-    return res.status(200).json({
+    return sendJson(res, 200, {
       ok: false,
       error: error?.message || 'Gemini extraction encountered an error.',
       redFlags: deterministicRedFlags,
