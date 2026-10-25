@@ -4,17 +4,13 @@ import { OofLog } from '@/modules/capture/OofLog';
 import { DayumScreen } from '@/modules/insights';
 import { BriefPlaceholder } from '@/modules/brief/BriefPlaceholder';
 import { SettingsView } from './SettingsView';
-import { LanguageToggle } from './components/LanguageToggle';
 import { Toast } from './components/Toast';
 import { OnboardingModal } from './OnboardingModal';
 import { BotanicalAccent } from './components/BotanicalAccent';
 import { Calendar, PlusCircle, FileText, Settings, ShieldCheck } from 'lucide-react';
-import { LogEntry, UserSetup } from '@/shared/types';
+import { UserSetup } from '@/shared/types';
 import knowledgeData from '@/shared/knowledge.json';
-import { computeInsights, calculateCurrentCycleDay } from '@/modules/insights/computeInsights';
-import irregularData from '@/shared/mocks/entries.irregular.json';
-import regularData from '@/shared/mocks/entries.regular.json';
-import heavyData from '@/shared/mocks/entries.heavy.json';
+import { computeInsights } from '@/modules/insights/computeInsights';
 
 export type Tab = 'home' | 'ooflog' | 'brief' | 'settings';
 
@@ -43,12 +39,6 @@ export const AppShell: React.FC = () => {
     return computeInsights(logs, knowledgeData.rules as any, todayStr, userSetup);
   }, [logs, todayStr, userSetup]);
 
-  // Current cycle day relative to latest bleeding start or self-reported start
-  const latestStart = insights.cycles.length > 0
-    ? insights.cycles[insights.cycles.length - 1].startDate
-    : userSetup?.lastPeriodStart;
-  const currentCycleDay = latestStart ? calculateCurrentCycleDay(latestStart, todayStr) : null;
-
   // Check onboarding status
   useEffect(() => {
     const done = localStorage.getItem('cyculus_onboarding_done');
@@ -73,27 +63,6 @@ export const AppShell: React.FC = () => {
   const handleSkipSetup = () => {
     localStorage.setItem('cyculus_onboarding_done', 'true');
     setShowOnboarding(false);
-  };
-
-  const handleLoadPersona = async (type: 'riya' | 'regular' | 'heavy') => {
-    let data: LogEntry[];
-    let personaName = '';
-    if (type === 'riya') {
-      data = irregularData as LogEntry[];
-      personaName = 'Riya (Irregular)';
-    } else if (type === 'heavy') {
-      data = heavyData as LogEntry[];
-      personaName = 'Heavy Bleeding';
-    } else {
-      data = regularData as LogEntry[];
-      personaName = 'Regular Cycles';
-    }
-    await seedPersona(data);
-    setToastMessage(
-      language === 'hi'
-        ? `${personaName} का डेमो डेटा लोड किया गया!`
-        : `Loaded 6 months of data for ${personaName}!`
-    );
   };
 
   const isFreshBrowser = logs.length === 0 && !userSetup;
@@ -241,7 +210,7 @@ export const AppShell: React.FC = () => {
             </div>
           </div>
         </div>
-      </header>
+      </aside>
 
       {/* Main Content Area: Mobile-First with Desktop Scaling */}
       <main className="flex-1 max-w-md md:max-w-2xl lg:max-w-3xl w-full mx-auto p-4 sm:p-5 md:p-6 pb-24 md:pb-12 transition-all">
@@ -266,6 +235,8 @@ export const AppShell: React.FC = () => {
         {activeTab === 'brief' && (
           <BriefPlaceholder
             logs={logs}
+            insights={insights}
+            userSetup={userSetup}
             language={language}
             onLanguageChange={setLanguage}
           />
@@ -275,6 +246,9 @@ export const AppShell: React.FC = () => {
           <SettingsView
             language={language}
             logsCount={logs.length}
+            userSetup={userSetup}
+            onClearSetup={clearSetup}
+            onOpenSetup={() => setShowOnboarding(true)}
             onSeedPersona={seedPersona}
             onExportJson={exportJson}
             onClearAll={clearAllLogs}
