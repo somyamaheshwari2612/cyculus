@@ -163,7 +163,6 @@ export function BriefScreen({
 
         <p className="text-base text-ink leading-relaxed">{brief.summary}</p>
 
-          {brief.cyclePattern.length > 0 && (
         <section className="mt-6 print-avoid-break">
           <h3 className="font-semibold text-ink">{t.cycleCount}</h3>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink">
@@ -172,6 +171,7 @@ export function BriefScreen({
             ))}
           </ul>
         </section>
+
         {brief.symptoms.length > 0 && (
           <section className="mt-6 print-avoid-break">
             <h3 className="font-semibold text-ink">{language === 'hi' ? 'मुख्य लक्षण' : 'Symptoms'}</h3>
@@ -182,6 +182,7 @@ export function BriefScreen({
             </ul>
           </section>
         )}
+
         {brief.flags.length > 0 && (
           <section className="mt-6 print-avoid-break">
             <h3 className="font-semibold text-ink">
