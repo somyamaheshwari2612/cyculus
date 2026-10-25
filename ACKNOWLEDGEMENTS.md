@@ -108,3 +108,11 @@ Tooling utilized for building, testing, optimizing, and evaluating Cyculus:
 - **Local-First Zero Cloud Ingestion**: All menstrual diary entries, symptom notes, pain scores, and flow logs are stored strictly inside the client device's IndexedDB via Dexie. No user health records are transmitted to or stored on any remote cloud database.
 - **Transient AI Processing**: Conversational entries processed via Gemini operate exclusively with constrained JSON schemas on stateless serverless functions with zero session persistence.
 - **Clear Clinical Boundaries**: Cyculus flags, charts, and summaries are explicitly intended as longitudinal preparation tools to facilitate informed discussions with qualified healthcare providers, not as autonomous medical diagnosis systems.
+
+## Module C (Brief, Privacy, PWA)
+
+- **vite-plugin-pwa**: PWA manifest and service worker. https://vite-pwa-org.netlify.app
+- **lucide-react**: icons (printer icon). https://lucide.dev
+- **Noto Sans Devanagari**: Hindi font for offline and PDF rendering. Open Font License. https://fonts.google.com/noto/specimen/Noto+Sans+Devanagari
+- **Bull et al. (2019)**: "Real-world menstrual cycle characteristics of more than 600,000 menstrual cycles", *npj Digital Medicine*. Published statistics only, cited for population norms. No raw data used.
+- **Clearblue (2019)**: cloud-data poster. Company poster, not peer-reviewed. Cited as context only.
