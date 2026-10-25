@@ -229,7 +229,7 @@ This project is developed for **recHERsion 2026**. Open source code is available
 
 - **Doctor brief:** a one-page summary in English or Hindi, built only from computed data and cited rules. Print or save as PDF.
 - **Numeric guard:** any number in AI-polished text must appear in the source facts, or the plain text is used. Covered by tests.
-- **Privacy:** data stays on the device. Users can export everything as JSON or delete it with confirmation.
+- **Privacy:** logs are saved only on this phone; notes typed for extraction are processed securely and not stored by us. Users can export everything as JSON or delete it with confirmation.
 - **Installable PWA:** works offline after the first visit.
 - **Live link:** [paste your Vercel link]
 - **Limits:** Hindi text is a first draft pending review. The demo uses one persona. This app is not a medical device and does not replace a doctor.

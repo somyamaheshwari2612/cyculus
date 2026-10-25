@@ -45,10 +45,10 @@ export function PrivacyScreen({ store, language }: PrivacyScreenProps) {
 
       <section className="rounded-2xl bg-white p-6 shadow-sm">
         <h3 className="font-semibold text-ink">{hi ? 'आपका डेटा कहाँ है' : 'Where your data is stored'}</h3>
-        <p className="mt-2 text-sm text-ink">
+        <p className="mt-2 text-sm text-ink leading-relaxed">
           {hi
-            ? 'आपका सारा डेटा सिर्फ़ इसी फ़ोन में रहता है। कोई खाता नहीं है और कोई डेटा सर्वर पर नहीं भेजा जाता।'
-            : 'All your data stays on this phone only. There is no account, and nothing is uploaded to a server.'}
+            ? 'आपके लॉग सिर्फ इसी फोन में सेव रहते हैं। जब आप कोई नोट समझने के लिए लिखती हैं, तो वह सुरक्षित रूप से प्रोसेस होने जाता है और हमारे पास सेव नहीं होता।'
+            : 'Your logs are saved only on this phone. When you type a note for the app to understand, that text is sent securely for processing and is not stored by us.'}
         </p>
       </section>
 
