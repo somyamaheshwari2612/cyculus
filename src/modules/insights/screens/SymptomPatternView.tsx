@@ -39,7 +39,23 @@ const BAND_LABELS: Record<CycleBand, { en: string; hi: string; color: string; bg
 const BANDS: CycleBand[] = ['period', 'early', 'mid', 'late'];
 
 export const SymptomPatternView: React.FC<SymptomPatternViewProps> = ({ patterns, language }) => {
-  if (patterns.length === 0) return null;
+  if (patterns.length === 0) {
+    return (
+      <Card variant="default" padding="lg">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-sm font-semibold text-ink uppercase tracking-wider flex items-center gap-2">
+            <Activity className="w-4 h-4 text-primary" />
+            {language === 'hi' ? 'लक्षण और चक्र चरण' : 'Symptoms Across Cycle Phases'}
+          </h3>
+        </div>
+        <p className="text-xs sm:text-sm text-ink-muted leading-relaxed">
+          {language === 'hi'
+            ? 'खाली चार्ट कुछ नहीं बताता। OofLog में ऐंठन, थकान या मनोदशा जैसे लक्षण दर्ज करें — कुछ चक्रों के बाद आपके चरण-दर-चरण पैटर्न यहाँ दिखाई देंगे।'
+            : 'An empty chart tells you nothing. Log symptoms like cramps, fatigue, or mood in OofLog — after a few cycles, your patterns across cycle phases will appear here.'}
+        </p>
+      </Card>
+    );
+  }
 
   return (
     <Card variant="default" padding="lg">

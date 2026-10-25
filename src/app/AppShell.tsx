@@ -474,6 +474,7 @@ export const AppShell: React.FC = () => {
                 logs={logs}
                 language={language}
                 onNavigateToLog={() => setActiveTab('ooflog')}
+                onOpenSettings={() => setActiveTab('settings')}
               />
             </div>
           )}
@@ -497,6 +498,7 @@ export const AppShell: React.FC = () => {
               knowledge={knowledgeData.rules as any}
               language={language}
               onLanguageChange={setLanguage}
+              onNavigateToLog={() => setActiveTab('ooflog')}
             />
           )}
 

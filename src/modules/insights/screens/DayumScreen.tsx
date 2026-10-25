@@ -16,12 +16,14 @@ export interface DayumScreenProps {
   logs: LogEntry[];
   language: 'en' | 'hi';
   onNavigateToLog: () => void;
+  onOpenSettings?: () => void;
 }
 
 export const DayumScreen: React.FC<DayumScreenProps> = ({
   logs,
   language,
   onNavigateToLog,
+  onOpenSettings,
 }) => {
   const knowledge = knowledgeData as KnowledgeBase;
   const insights = useInsights(logs);
@@ -53,7 +55,7 @@ export const DayumScreen: React.FC<DayumScreenProps> = ({
     });
   };
 
-  const hasNoData = insights.dataSufficiency === 'none';
+  const hasZeroLogs = logs.length === 0;
 
   return (
     <div className="space-y-6 pb-12 animate-in fade-in duration-300">
@@ -72,12 +74,13 @@ export const DayumScreen: React.FC<DayumScreenProps> = ({
         </p>
       </div>
 
-      {/* If absolutely no data, show EmptyState */}
-      {hasNoData ? (
+      {/* If absolutely no entries yet, show EmptyState saying what to do next */}
+      {hasZeroLogs ? (
         <EmptyState
           language={language}
           dataSufficiency="none"
           onNavigateToLog={onNavigateToLog}
+          onOpenSettings={onOpenSettings}
         />
       ) : (
         <>
@@ -135,11 +138,23 @@ export const DayumScreen: React.FC<DayumScreenProps> = ({
               </div>
             </Card>
           ) : (
-            <Card variant="lavender" padding="md">
-              <p className="text-xs text-ink-muted">
+            <Card variant="lavender" padding="lg" className="border-primary/25 shadow-soft">
+              <div className="flex items-center justify-between text-xs font-semibold text-primary uppercase tracking-wider mb-2">
+                <span className="flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4" />
+                  <span>{language === 'hi' ? 'पहला चक्र प्रगति पर' : 'Cycle 1 in Progress'}</span>
+                </span>
+                <span className="bg-primary/15 text-primary px-2.5 py-0.5 rounded-full text-[11px] font-bold">
+                  {logs.length} {language === 'hi' ? 'दिन दर्ज' : 'days logged'}
+                </span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-serif font-bold text-ink">
+                {language === 'hi' ? 'व्यक्तिगत विंडो का अंशांकन' : 'Calibrating Personal Prediction Window'}
+              </h3>
+              <p className="text-xs sm:text-sm text-ink-muted mt-2 leading-relaxed">
                 {language === 'hi'
-                  ? 'सटीक विंडो अनुमान के लिए कम से कम 1 पूरा चक्र दर्ज करें।'
-                  : 'Log at least 1 completed cycle to calculate your personal prediction window.'}
+                  ? 'खाली चार्ट कुछ नहीं बताता। जब आपका अगला पीरियड शुरू होगा और पहला चक्र पूरा होगा, तब यूटा हाइव मॉडल द्वारा अंशांकित सांख्यिकीय विंडो (~80% कवरेज) यहाँ सक्रिय हो जाएगा।'
+                  : 'An empty chart tells you nothing. When your next period begins to complete Cycle 1, your personalized ±3 day prediction window will be calibrated here.'}
               </p>
             </Card>
           )}

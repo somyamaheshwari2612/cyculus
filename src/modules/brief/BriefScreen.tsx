@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Printer } from 'lucide-react';
+import { Printer, FileText, PlusCircle, Sparkles } from 'lucide-react';
 import type { Insights, KnowledgeRule, LogEntry } from '../../shared/types';
 import { buildBrief } from './buildBrief';
 import { BRIEF_TEXT } from '../../shared/translations';
+import { Card } from '../../app/components/Card';
+import { Button } from '../../app/components/Button';
 
 export interface BriefScreenProps {
   insights: Insights;
@@ -10,6 +12,7 @@ export interface BriefScreenProps {
   knowledge: KnowledgeRule[];
   language?: 'en' | 'hi';
   onLanguageChange?: (lang: 'en' | 'hi') => void;
+  onNavigateToLog?: () => void;
 }
 
 export function BriefScreen({
@@ -18,6 +21,7 @@ export function BriefScreen({
   knowledge,
   language: parentLanguage,
   onLanguageChange,
+  onNavigateToLog,
 }: BriefScreenProps) {
   const [localLanguage, setLocalLanguage] = useState<'en' | 'hi'>(parentLanguage ?? 'en');
   const language = parentLanguage ?? localLanguage;
@@ -27,6 +31,7 @@ export function BriefScreen({
     onLanguageChange?.(lang);
   };
 
+  const hasNoEntries = entries.length === 0;
   const brief = buildBrief(insights, entries, knowledge, language);
   const t = BRIEF_TEXT[language];
 
@@ -79,7 +84,13 @@ export function BriefScreen({
           <button
             type="button"
             onClick={() => window.print()}
-            className="flex min-h-[44px] items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-soft hover:shadow-card hover:bg-primary-dark transition-all cursor-pointer active:scale-95"
+            disabled={hasNoEntries}
+            title={hasNoEntries ? (language === 'hi' ? 'प्रिंट करने के लिए डेटा आवश्यक है' : 'Log data to print / save as PDF') : undefined}
+            className={`flex min-h-[44px] items-center gap-2 rounded-full px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
+              hasNoEntries
+                ? 'bg-ink-muted/20 text-ink-muted cursor-not-allowed border border-surface-border'
+                : 'bg-primary text-white shadow-soft hover:shadow-card hover:bg-primary-dark cursor-pointer active:scale-95'
+            }`}
           >
             <Printer size={16} aria-hidden="true" />
             <span>{language === 'hi' ? 'PDF प्रिंट / डाउनलोड करें' : 'Print / Save as PDF'}</span>
@@ -87,8 +98,82 @@ export function BriefScreen({
         </div>
       </div>
 
-      {/* The brief itself: this part is what gets printed */}
-      <article className="rounded-2xl bg-white p-6 shadow-sm print:shadow-none print:p-0">
+      {/* If no entries yet, show clean Empty State with clear next steps */}
+      {hasNoEntries ? (
+        <Card variant="lavender" padding="lg" className="border-primary/20 shadow-soft">
+          <div className="max-w-xl mx-auto text-center py-4">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-3xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-soft">
+              <FileText className="w-8 h-8 stroke-[2.2]" />
+            </div>
+
+            <h3 className="text-xl sm:text-2xl font-serif font-bold text-ink mb-2">
+              {language === 'hi' ? 'अभी कोई प्रविष्टि नहीं है' : 'No entries yet'}
+            </h3>
+
+            <p className="text-sm sm:text-base text-ink-muted mb-6 max-w-md mx-auto leading-relaxed">
+              {language === 'hi'
+                ? 'आज के बारे में बताएं, और कुछ चक्रों के बाद आपका पैटर्न यहाँ दिखाई देगा।'
+                : 'Tell us about today, and your pattern will appear here after a few cycles.'}
+            </p>
+
+            {onNavigateToLog && (
+              <div className="flex justify-center mb-8">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  icon={<PlusCircle className="w-5 h-5" />}
+                  onClick={onNavigateToLog}
+                  className="shadow-soft px-8 font-bold"
+                >
+                  {language === 'hi' ? 'आज के बारे में बताएं' : 'Tell us about today'}
+                </Button>
+              </div>
+            )}
+
+            <div className="bg-white/80 rounded-2xl p-4 sm:p-5 border border-[#E7DCF8] text-left space-y-3">
+              <p className="text-xs font-bold uppercase tracking-wider text-primary flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>
+                  {language === 'hi'
+                    ? 'खाली चिट्ठी डॉक्टर को कुछ नहीं बताती — लॉग करने पर क्या तैयार होगा:'
+                    : 'An empty chart tells the doctor nothing. Here is what your brief will include:'}
+                </span>
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div className="p-3 bg-tint-lavender/40 rounded-xl border border-[#E7DCF8]">
+                  <span className="font-bold text-ink block mb-0.5">1. {language === 'hi' ? 'FIGO चक्र सांख्यिकी' : 'FIGO Metrics'}</span>
+                  <p className="text-[11px] text-ink-muted leading-snug">
+                    {language === 'hi'
+                      ? 'औसत चक्र अवधि, भिन्नता और रक्तस्राव दिवसों का क्लिनिकल विवरण।'
+                      : 'Average cycle duration, variance, and bleeding duration stats.'}
+                  </p>
+                </div>
+
+                <div className="p-3 bg-tint-rose/30 rounded-xl border border-[#F8DDE5]">
+                  <span className="font-bold text-ink block mb-0.5">2. {language === 'hi' ? 'क्लिनिकल फ़्लैग्स' : 'Clinical Flags'}</span>
+                  <p className="text-[11px] text-ink-muted leading-snug">
+                    {language === 'hi'
+                      ? 'NICE/ACOG दिशानिर्देशों पर आधारित भारी रक्तस्राव या दर्द के संकेत।'
+                      : 'NICE/ACOG cited flags for heavy bleeding or dysmenorrhea.'}
+                  </p>
+                </div>
+
+                <div className="p-3 bg-tint-mint/40 rounded-xl border border-[#D8F0E4]">
+                  <span className="font-bold text-ink block mb-0.5">3. {language === 'hi' ? 'डॉक्टर से पूछने के सवाल' : 'Doctor Questions'}</span>
+                  <p className="text-[11px] text-ink-muted leading-snug">
+                    {language === 'hi'
+                      ? 'आपके लक्षणों के आधार पर डॉक्टर से परामर्श के लिए तैयार प्रश्न।'
+                      : 'Targeted consultation questions customized to your symptoms.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+      ) : (
+        /* The brief itself: this part is what gets printed */
+        <article className="rounded-2xl bg-white p-6 shadow-sm print:shadow-none print:p-0">
         {/* Printable Header - Visible strictly when printing / saving as PDF */}
         <div className="hidden print:block mb-6 pb-3 border-b-2 border-primary">
           <div className="flex items-center justify-between">
@@ -171,18 +256,21 @@ export function BriefScreen({
           )}
         </footer>
       </article>
+      )}
 
-      {/* Print button (hidden when printing) */}
-      <div className="print:hidden">
-        <button
-          type="button"
-          onClick={() => window.print()}
-          className="flex min-h-[44px] items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-white"
-        >
-          <Printer size={18} aria-hidden="true" />
-          {language === 'hi' ? 'PDF के लिए प्रिंट करें' : 'Print / Save as PDF'}
-        </button>
-      </div>
+      {/* Print button (hidden when printing and hidden when no entries) */}
+      {!hasNoEntries && (
+        <div className="print:hidden">
+          <button
+            type="button"
+            onClick={() => window.print()}
+            className="flex min-h-[44px] items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-white shadow-soft hover:bg-primary-dark transition-all cursor-pointer"
+          >
+            <Printer size={18} aria-hidden="true" />
+            {language === 'hi' ? 'PDF के लिए प्रिंट करें' : 'Print / Save as PDF'}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

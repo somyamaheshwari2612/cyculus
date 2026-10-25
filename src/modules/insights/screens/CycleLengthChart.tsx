@@ -12,7 +12,26 @@ interface CycleLengthChartProps {
 
 export const CycleLengthChart: React.FC<CycleLengthChartProps> = ({ cycles, rules, language }) => {
   const completed = cycles.filter(c => c.lengthDays !== null);
-  if (completed.length === 0) return null;
+  if (completed.length === 0) {
+    return (
+      <Card variant="default" padding="lg">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-sm font-semibold text-ink uppercase tracking-wider flex items-center gap-2">
+            <TrendingUp className="w-4 h-4 text-primary" />
+            {language === 'hi' ? 'चक्र अवधि ट्रेंड' : 'Cycle Length Trend'}
+          </h3>
+          <span className="text-[10px] bg-tint-lavender text-primary px-2.5 py-0.5 rounded-full font-bold">
+            {language === 'hi' ? 'चक्र 1 प्रगति पर' : 'Cycle 1 in progress'}
+          </span>
+        </div>
+        <p className="text-xs sm:text-sm text-ink-muted leading-relaxed">
+          {language === 'hi'
+            ? 'खाली चार्ट कुछ नहीं बताता। जब आपका अगला पीरियड शुरू होगा और पहला चक्र पूरा होगा, तब आपकी चक्र अवधि FIGO सामान्य सीमा (24–38 दिन) के साथ यहाँ ट्रेंड लाइन में दिखाई देगी।'
+            : 'An empty chart tells you nothing. When your next period starts to complete Cycle 1, your cycle length will be plotted here against the FIGO normal range (24–38 days).'}
+        </p>
+      </Card>
+    );
+  }
 
   // Get thresholds from rules
   const shortRule = rules.find(r => r.id === 'cycle_short');
@@ -149,6 +168,11 @@ export const CycleLengthChart: React.FC<CycleLengthChartProps> = ({ cycles, rule
         <span>
           {language === 'hi' ? 'कुल चक्र:' : 'Cycles tracked:'}{' '}
           <strong className="text-ink">{completed.length}</strong>
+          {completed.length === 1 && (
+            <span className="ml-2 text-primary">
+              ({language === 'hi' ? '2 चक्रों के बाद ट्रेंड लाइन जुड़ेगी' : 'trend line connects after cycle 2'})
+            </span>
+          )}
         </span>
         <span>
           {language === 'hi' ? 'रेंज:' : 'Range:'}{' '}
