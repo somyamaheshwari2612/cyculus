@@ -1,9 +1,20 @@
+import { useMemo, useState } from 'react';
 import { Printer, FileText, PlusCircle, Sparkles } from 'lucide-react';
 import type { Insights, KnowledgeRule, LogEntry } from '../../shared/types';
 import { buildBrief } from './buildBrief';
 import { BRIEF_TEXT } from '../../shared/translations';
 import { Card } from '../../app/components/Card';
 import { Button } from '../../app/components/Button';
+import { computeInsights } from '../insights';
+import knowledgeJson from '../../shared/knowledge.json';
+
+type Range = 3 | 6 | 'all';
+
+const RANGES: { value: Range; labelEn: string; labelHi: string }[] = [
+  { value: 3, labelEn: 'Last 3 months', labelHi: 'पिछले 3 महीने' },
+  { value: 6, labelEn: 'Last 6 months', labelHi: 'पिछले 6 महीने' },
+  { value: 'all', labelEn: 'All history', labelHi: 'पूरा इतिहास' },
+];
 
 export interface BriefScreenProps {
   insights: Insights;
@@ -22,9 +33,27 @@ export function BriefScreen({
   onNavigateToLog,
 }: BriefScreenProps) {
   const language = parentLanguage ?? 'en';
+  const [range, setRange] = useState<Range>('all');
 
-  const hasNoEntries = entries.length === 0;
-  const brief = buildBrief(insights, entries, knowledge, language);
+  const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
+
+  const visibleEntries = useMemo(() => {
+    if (range === 'all') return entries;
+    const start = new Date(today);
+    start.setMonth(start.getMonth() - range);
+    const from = start.toISOString().slice(0, 10);
+    return entries.filter((e) => e.date >= from && e.date <= today);
+  }, [entries, range, today]);
+
+  const activeInsights = useMemo(() => {
+    if (range === 'all' || visibleEntries.length === entries.length) {
+      return insights;
+    }
+    return computeInsights(visibleEntries, knowledgeJson as any, today);
+  }, [range, visibleEntries, entries.length, insights, today]);
+
+  const hasNoEntries = visibleEntries.length === 0;
+  const brief = buildBrief(activeInsights, visibleEntries, knowledge, language);
   const t = BRIEF_TEXT[language];
 
   return (
@@ -63,6 +92,30 @@ export function BriefScreen({
           <span>{language === 'hi' ? 'PDF प्रिंट / डाउनलोड करें' : 'Print / Save as PDF'}</span>
         </button>
       </div>
+
+      {/* Date-Range Selector (Hidden on print) */}
+      {entries.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2 print:hidden pb-1">
+          <span className="text-xs font-semibold text-ink-muted mr-1">
+            {language === 'hi' ? 'अवधि चुनें:' : 'Consultation period:'}
+          </span>
+          {RANGES.map((r) => (
+            <button
+              key={String(r.value)}
+              type="button"
+              onClick={() => setRange(r.value)}
+              aria-pressed={range === r.value}
+              className={`min-h-[44px] rounded-full px-4 text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                range === r.value
+                  ? 'bg-primary text-white shadow-soft'
+                  : 'bg-primary-soft text-ink hover:bg-primary-soft/80 border border-primary/20'
+              }`}
+            >
+              {language === 'hi' ? r.labelHi : r.labelEn}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* If no entries yet, show clean Empty State with clear next steps */}
       {hasNoEntries ? (

@@ -41,6 +41,17 @@ export const OofLog: React.FC<OofLogProps> = ({
   const [isListening, setIsListening] = useState<boolean>(false);
   const [hasSpeechSupport, setHasSpeechSupport] = useState<boolean>(false);
   const recognitionRef = useRef<any>(null);
+  const confirmCardRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll confirm card into view after extraction (P0-2)
+  useEffect(() => {
+    if (extractedPatches && extractedPatches.length > 0) {
+      const timer = setTimeout(() => {
+        confirmCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [extractedPatches]);
 
   // Update tap logger state if existingEntry changes or is cleared
   useEffect(() => {
@@ -349,31 +360,33 @@ export const OofLog: React.FC<OofLogProps> = ({
           <button
             type="button"
             onClick={() => setNaturalText('kal se pet mein bohot dard hai aur flow heavy hai')}
-            className="shrink-0 px-3 py-1 bg-tint-lavender/60 hover:bg-tint-lavender rounded-full text-primary text-[11px] font-medium border border-[#E7DCF8] transition-all cursor-pointer shadow-pill"
+            className="shrink-0 min-h-[44px] inline-flex items-center px-4 py-2 bg-tint-lavender/60 hover:bg-tint-lavender rounded-full text-primary text-xs font-medium border border-[#E7DCF8] transition-all cursor-pointer shadow-pill"
           >
             "kal se pet mein bohot dard hai..."
           </button>
           <button
             type="button"
             onClick={() => setNaturalText('light spotting and mild backache')}
-            className="shrink-0 px-3 py-1 bg-tint-rose/60 hover:bg-tint-rose rounded-full text-tint-roseText text-[11px] font-medium border border-[#F8D7E0] transition-all cursor-pointer shadow-pill"
+            className="shrink-0 min-h-[44px] inline-flex items-center px-4 py-2 bg-tint-rose/60 hover:bg-tint-rose rounded-full text-tint-roseText text-xs font-medium border border-[#F8D7E0] transition-all cursor-pointer shadow-pill"
           >
             "light spotting and mild backache"
           </button>
         </div>
       </Card>
 
-      {/* Confirm Card Modal/Section */}
+      {/* Confirm Card Modal/Section (P0-2 auto-scrolls into view) */}
       {extractedPatches && (
-        <ConfirmCard
-          initialPatches={extractedPatches}
-          originalText={naturalText}
-          confidence={extractionConfidence}
-          warnings={extractionWarnings}
-          language={language}
-          onConfirm={handleConfirmPatches}
-          onCancel={() => setExtractedPatches(null)}
-        />
+        <div ref={confirmCardRef} className="scroll-mt-6">
+          <ConfirmCard
+            initialPatches={extractedPatches}
+            originalText={naturalText}
+            confidence={extractionConfidence}
+            warnings={extractionWarnings}
+            language={language}
+            onConfirm={handleConfirmPatches}
+            onCancel={() => setExtractedPatches(null)}
+          />
+        </div>
       )}
 
       {/* Quick Tip / Manifesto Card (Screen 2 collage) */}
@@ -385,7 +398,7 @@ export const OofLog: React.FC<OofLogProps> = ({
             <p className="leading-relaxed text-[11px] text-amber-900">
               {language === 'hi'
                 ? 'आप "dard bohot hai", "spotting hui thi", "pet phoola lag raha hai" लिख या बोल सकते हैं। साइकुलस इसे समझ कर सटीक टैग्स में बदलता है।'
-                : 'Cyculus parses colloquial Hinglish and English symptoms locally without ever uploading private text.'}
+                : 'Cyculus parses colloquial Hinglish and English symptoms securely without storing your private text.'}
             </p>
           </div>
         </div>
@@ -417,9 +430,17 @@ export const OofLog: React.FC<OofLogProps> = ({
 
         {/* 1. Flow Selection with Pastel Icon Circles */}
         <div>
-          <label className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-2.5">
-            {language === 'hi' ? '1. पीरियड फ्लो (Flow)' : '1. Bleeding Flow'}
-          </label>
+          <div className="flex flex-wrap items-baseline justify-between gap-1 mb-2.5">
+            <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
+              {language === 'hi' ? '1. पीरियड फ्लो (Bleeding Flow)' : '1. Bleeding Flow'}
+            </label>
+            <span className="text-[11px] text-ink-muted">
+              {language === 'hi'
+                ? 'पीरियड नहीं है तो "नहीं" चुनें या खाली छोड़ें'
+                : 'Leave unselected if not bleeding today'}
+            </span>
+          </div>
+
           <div className="grid grid-cols-5 gap-2">
             {FLOW_LEVELS.map(fl => {
               const meta = FLOW_LABELS[fl];
@@ -444,6 +465,16 @@ export const OofLog: React.FC<OofLogProps> = ({
                 </button>
               );
             })}
+          </div>
+
+          {/* Zero-log helper card (P1-7) */}
+          <div className="mt-2.5 bg-tint-lavender/40 border border-[#E7DCF8] rounded-2xl p-2.5 flex items-center gap-2 text-xs text-ink-muted">
+            <span className="text-sm shrink-0">💡</span>
+            <p className="text-[11px] leading-snug">
+              {language === 'hi'
+                ? 'आज पीरियड नहीं है? आप फिर भी नीचे मूड, क्रैम्प्स या दर्द दर्ज कर सकती हैं।'
+                : 'Not bleeding today? You can still log cramps, mood, or other symptoms below.'}
+            </p>
           </div>
         </div>
 
@@ -481,6 +512,22 @@ export const OofLog: React.FC<OofLogProps> = ({
                 {val}
               </button>
             ))}
+          </div>
+
+          {/* Clinical Pain Anchors (P1-10) */}
+          <div className="grid grid-cols-4 text-[10px] text-ink-muted pt-2 px-1">
+            <div className="text-left">
+              <span className="font-bold text-ink block">0: {language === 'hi' ? 'कोई नहीं' : 'None'}</span>
+            </div>
+            <div className="text-center">
+              <span className="font-bold text-ink block">3: {language === 'hi' ? 'हल्का' : 'Mild'}</span>
+            </div>
+            <div className="text-center">
+              <span className="font-bold text-amber-800 block">7: {language === 'hi' ? 'तेज़ दर्द' : 'Severe'}</span>
+            </div>
+            <div className="text-right">
+              <span className="font-bold text-rose-800 block">10: {language === 'hi' ? 'असहनीय' : 'Incapacitating'}</span>
+            </div>
           </div>
         </div>
 

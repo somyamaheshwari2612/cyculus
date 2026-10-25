@@ -87,8 +87,4 @@
     page-break-inside: avoid !important;
   }
 }
-@media print {
-  @page { size: A4 portrait; margin: 12mm; }
-  .print-avoid-break { break-inside: avoid; }
-}
 

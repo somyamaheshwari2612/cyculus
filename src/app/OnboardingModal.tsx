@@ -335,6 +335,8 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
 
                         <input
                           type="number"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
                           min={15}
                           max={90}
                           value={cycleLengthStr}
