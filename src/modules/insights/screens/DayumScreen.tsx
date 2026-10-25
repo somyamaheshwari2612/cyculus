@@ -105,6 +105,28 @@ export const DayumScreen: React.FC<DayumScreenProps> = ({
                 </div>
 
                 <div className="mt-3">
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    {/* "Based on N cycles" */}
+                    <span className="inline-flex items-center gap-1.5 text-xs font-bold text-primary bg-white/90 px-3 py-1 rounded-full border border-primary/20 shadow-pill">
+                      <span>📊</span>
+                      <span>
+                        {language === 'hi'
+                          ? `${insights.prediction.basedOnCycles} चक्रों पर आधारित`
+                          : `Based on ${insights.prediction.basedOnCycles} ${insights.prediction.basedOnCycles === 1 ? 'cycle' : 'cycles'}`}
+                      </span>
+                    </span>
+
+                    {/* "why am I seeing this?" link */}
+                    <button
+                      type="button"
+                      onClick={() => setShowWhyModal(true)}
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-primary-dark underline underline-offset-2 transition-colors cursor-pointer"
+                    >
+                      <HelpCircle className="w-3.5 h-3.5" />
+                      <span>{language === 'hi' ? 'मुझे यह क्यों दिख रहा है?' : 'why am I seeing this?'}</span>
+                    </button>
+                  </div>
+
                   <h4 className="text-xl sm:text-2xl font-serif font-bold text-ink tracking-tight mb-1">
                     {language === 'hi'
                       ? `आपका अगला पीरियड ${formatDateRange(insights.prediction.earliest, insights.prediction.latest)} के बीच आने का अनुमान है।`
@@ -272,6 +294,7 @@ export const DayumScreen: React.FC<DayumScreenProps> = ({
         onClose={() => setShowWhyModal(false)}
         rules={knowledge.rules}
         activeFlags={insights.flags}
+        prediction={insights.prediction}
         language={language}
       />
     </div>

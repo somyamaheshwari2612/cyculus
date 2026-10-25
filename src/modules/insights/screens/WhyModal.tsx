@@ -1,13 +1,14 @@
 import React from 'react';
-import type { KnowledgeRule, Flag } from '@/shared/types';
+import type { KnowledgeRule, Flag, Prediction } from '@/shared/types';
 import { Button } from '@/app/components/Button';
-import { BookOpen, ExternalLink, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { BookOpen, ExternalLink, ShieldCheck, CheckCircle2, Sparkles } from 'lucide-react';
 
 interface WhyModalProps {
   isOpen: boolean;
   onClose: () => void;
   rules: KnowledgeRule[];
   activeFlags: Flag[];
+  prediction?: Prediction | null;
   language: 'en' | 'hi';
 }
 
@@ -16,6 +17,7 @@ export const WhyModal: React.FC<WhyModalProps> = ({
   onClose,
   rules,
   activeFlags,
+  prediction,
   language,
 }) => {
   if (!isOpen) return null;
@@ -46,6 +48,57 @@ export const WhyModal: React.FC<WhyModalProps> = ({
             ✕
           </button>
         </div>
+
+        {/* Prediction Window Explanation (Why am I seeing this?) */}
+        {prediction && (
+          <div className="mb-4 p-4 rounded-2xl bg-tint-lavender/50 border border-[#E7DCF8] text-xs space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-ink text-sm flex items-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span>
+                  {language === 'hi' ? 'यह अनुमान कैसे निकाला गया?' : 'Why am I seeing this prediction?'}
+                </span>
+              </span>
+              <span className="text-[10px] font-bold text-primary bg-white px-2.5 py-0.5 rounded-full border border-primary/20 shadow-pill">
+                {language === 'hi'
+                  ? `${prediction.basedOnCycles} चक्रों पर आधारित`
+                  : `Based on ${prediction.basedOnCycles} ${prediction.basedOnCycles === 1 ? 'cycle' : 'cycles'}`}
+              </span>
+            </div>
+
+            <p className="text-ink-muted leading-relaxed">
+              {language === 'hi'
+                ? `यह विंडो आपके पिछले ${prediction.basedOnCycles} पूरे चक्रों के व्यक्तिगत विचलन और यूटा हाइव मॉडल के सांख्यिकीय अंशांकन पर आधारित है।`
+                : `This window is calculated from the variance across your last ${prediction.basedOnCycles} completed ${prediction.basedOnCycles === 1 ? 'cycle' : 'cycles'}, calibrated against the Utah Hive empirical model.`}
+            </p>
+
+            <div className="pt-0.5 grid grid-cols-2 gap-2 text-[11px]">
+              <div className="p-2.5 bg-white/90 rounded-xl border border-[#E7DCF8]">
+                <span className="text-ink-muted block text-[10px] font-medium">
+                  {language === 'hi' ? 'अपेक्षित केंद्र:' : 'Expected Center:'}
+                </span>
+                <span className="font-bold text-ink">
+                  {new Date(prediction.expected + 'T00:00:00').toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                </span>
+              </div>
+              <div className="p-2.5 bg-white/90 rounded-xl border border-[#E7DCF8]">
+                <span className="text-ink-muted block text-[10px] font-medium">
+                  {language === 'hi' ? 'अनुमानित विंडो सीमा:' : 'Window Range:'}
+                </span>
+                <span className="font-bold text-primary">
+                  {new Date(prediction.earliest + 'T00:00:00').toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US', { month: 'short', day: 'numeric' })} – {new Date(prediction.latest + 'T00:00:00').toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US', { month: 'short', day: 'numeric' })}
+                </span>
+              </div>
+            </div>
+
+            <p className="text-[11px] text-ink-muted leading-relaxed pt-1">
+              <strong>💡 {language === 'hi' ? 'विंडो क्यों, एक तारीख क्यों नहीं?' : 'Why a window instead of a single day?'}</strong>{' '}
+              {language === 'hi'
+                ? 'महिला चक्रों में स्वाभाविक रूप से ±2 से 4 दिनों का उतार-चढ़ाव होता है। एक निश्चित तारीख का दावा करना भ्रामक है; ~80% संभावना विंडो यथार्थवादी और व्यावहारिक योजना देती है।'
+                : 'Menstrual cycles naturally fluctuate by ±2 to 4 days across months. Pinpointing an exact single day is clinically false; an empirical ±3 day window provides ~80% coverage for realistic preparation.'}
+            </p>
+          </div>
+        )}
 
         {/* Explainability manifesto */}
         <div className="p-3 bg-purple-50/70 rounded-2xl border border-primary/15 text-xs text-ink-muted mb-4 leading-relaxed">
