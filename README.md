@@ -232,3 +232,13 @@ This project is developed for **recHERsion 2026**. Open source code is available
 - **Installable PWA:** works offline after the first visit.
 - **Live link:** [paste your Vercel link]
 - **Limits:** Hindi text is a first draft pending review. The demo uses one persona. This app is not a medical device and does not replace a doctor.
+
+## Known limits (Module C)
+
+- Optional AI polish of Hindi wording is planned, not included in this version. The numeric guard is implemented and tested.
+- CSV export is not included in this version. Data can be exported as JSON.
+- Symptom names appear in English in the Hindi brief. Translating them is planned.
+- Hindi wording is a first draft pending review by a native reader.
+- The demo uses one sample persona and is not a clinical validation.
+- The brief shows "not enough data yet" until at least one completed cycle is logged.
+- This app is not a medical device and does not replace a doctor.
