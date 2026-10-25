@@ -81,8 +81,8 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
               <span className="font-bold text-ink block mb-0.5">3. {language === 'hi' ? 'पीरियड का अंदाज़ा' : 'Calibrated Window'}</span>
               <p className="text-[11px] text-ink-muted leading-snug">
                 {language === 'hi'
-                  ? '3 पीरियड्स के बाद आने वाली तारीखों का सटीक अंदाज़ा।'
-                  : 'After a few cycles, empirical Utah Hive prediction (~80% coverage).'}
+                  ? '3 पूरे पीरियड्स के बाद, आपके अपने पैटर्न के आधार पर आने वाली तारीखों का दायरा।'
+                  : 'After 3 completed cycles, calibrated prediction window based on your personal history.'}
               </p>
             </div>
           </div>

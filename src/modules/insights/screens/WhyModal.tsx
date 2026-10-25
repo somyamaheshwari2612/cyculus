@@ -49,6 +49,39 @@ export const WhyModal: React.FC<WhyModalProps> = ({
           </button>
         </div>
 
+        {/* Quick 3-bullet summary at top (P2-15) */}
+        <div className="mb-4 p-3.5 bg-tint-lavender/35 rounded-2xl border border-primary/20 text-xs text-ink space-y-1.5">
+          <p className="font-bold text-[11px] uppercase tracking-wider text-primary mb-1">
+            {language === 'hi' ? '3 मुख्य बातें:' : 'Key Principles:'}
+          </p>
+          <div className="space-y-1 text-[11px] text-ink-muted">
+            <div className="flex items-start gap-1.5">
+              <span className="text-primary font-bold shrink-0">1.</span>
+              <span>
+                {language === 'hi'
+                  ? 'प्योर क्लिनिकल नियम: सभी अलर्ट FIGO 2018 मानकों से जांचे जाते हैं, किसी AI अंदाज़े से नहीं।'
+                  : 'Deterministic clinical rules: evaluated strictly against FIGO 2018 guidelines, never an LLM guess.'}
+              </span>
+            </div>
+            <div className="flex items-start gap-1.5">
+              <span className="text-primary font-bold shrink-0">2.</span>
+              <span>
+                {language === 'hi'
+                  ? 'संभावना का दायरा: किसी एक तारीख का झूठा दावा करने के बजाय 2-4 दिन का व्यावहारिक दायरा।'
+                  : 'Calibrated window: empirical multi-day range rather than a clinically false single-day prediction.'}
+              </span>
+            </div>
+            <div className="flex items-start gap-1.5">
+              <span className="text-primary font-bold shrink-0">3.</span>
+              <span>
+                {language === 'hi'
+                  ? 'लॉग सिर्फ फोन में: आपकी हिस्ट्री और अलर्ट सीधे फोन में ही प्रोसेस होते हैं।'
+                  : 'Logs saved on phone: mathematical calculations run directly on your device.'}
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Prediction Window Explanation (Why am I seeing this?) */}
         {prediction && (
           <div className="mb-4 p-4 rounded-2xl bg-tint-lavender/50 border border-[#E7DCF8] text-xs space-y-2.5">
