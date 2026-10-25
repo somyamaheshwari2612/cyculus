@@ -32,37 +32,57 @@ export function BriefScreen({
 
   return (
     <div className="space-y-6 pb-12">
-      {/* Header: title and language switch (hidden when printing) */}
+      {/* Header: title and primary action (hidden when printing) */}
       <div className="flex flex-wrap items-center justify-between gap-3 print:hidden">
         <div>
-          <h2 className="text-2xl font-bold text-ink">
-            {language === 'hi' ? 'डॉक्टर ब्रीफ' : 'Doctor Brief'}
-          </h2>
-          <p className="text-xs uppercase tracking-wide text-primary">
-            {language === 'hi' ? 'चिट्ठी' : 'Chitthi'}
+          <div className="flex items-baseline gap-2.5">
+            <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">
+              {language === 'hi' ? 'डॉक्टर ब्रीफ' : 'Doctor Brief'}
+            </h2>
+            <span className="text-[11px] font-bold text-primary bg-tint-lavender px-3 py-1 rounded-full border border-[#E7DCF8]">
+              {language === 'hi' ? 'क्लिनिकल चिट्ठी' : 'clinical chitthi'}
+            </span>
+          </div>
+          <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
+            {language === 'hi'
+              ? 'डॉक्टर से परामर्श हेतु 1-पेज का संक्षिप्त क्लिनिकल सारांश'
+              : '1-page consultation brief formatted with FIGO thresholds & cited guidelines'}
           </p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2.5">
+          {/* Quiet language toggle */}
+          <div className="flex bg-[#F0E6EE]/70 p-1 rounded-full border border-[#E7DCF8]">
+            <button
+              type="button"
+              onClick={() => handleLanguageChange('en')}
+              aria-pressed={language === 'en'}
+              className={`px-3 py-1 text-xs font-semibold rounded-full cursor-pointer transition-all ${
+                language === 'en' ? 'bg-white text-primary shadow-pill' : 'text-ink-muted hover:text-ink'
+              }`}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => handleLanguageChange('hi')}
+              aria-pressed={language === 'hi'}
+              className={`px-3 py-1 text-xs font-semibold rounded-full cursor-pointer transition-all ${
+                language === 'hi' ? 'bg-white text-primary shadow-pill' : 'text-ink-muted hover:text-ink'
+              }`}
+            >
+              हिन्दी
+            </button>
+          </div>
+
+          {/* Primary Obvious Action */}
           <button
             type="button"
-            onClick={() => handleLanguageChange('en')}
-            aria-pressed={language === 'en'}
-            className={`min-h-[44px] rounded-full px-4 text-sm font-semibold cursor-pointer transition-all ${
-              language === 'en' ? 'bg-primary text-white shadow-soft' : 'bg-primary-soft text-ink hover:bg-primary-soft/80'
-            }`}
+            onClick={() => window.print()}
+            className="flex min-h-[44px] items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs sm:text-sm font-bold text-white shadow-soft hover:shadow-card hover:bg-primary-dark transition-all cursor-pointer active:scale-95"
           >
-            English
-          </button>
-          <button
-            type="button"
-            onClick={() => handleLanguageChange('hi')}
-            aria-pressed={language === 'hi'}
-            className={`min-h-[44px] rounded-full px-4 text-sm font-semibold cursor-pointer transition-all ${
-              language === 'hi' ? 'bg-primary text-white shadow-soft' : 'bg-primary-soft text-ink hover:bg-primary-soft/80'
-            }`}
-          >
-            हिन्दी
+            <Printer size={16} aria-hidden="true" />
+            <span>{language === 'hi' ? 'PDF प्रिंट / डाउनलोड करें' : 'Print / Save as PDF'}</span>
           </button>
         </div>
       </div>

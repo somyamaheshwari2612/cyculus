@@ -408,6 +408,11 @@ export const AppShell: React.FC = () => {
               <span className="text-[11px] text-ink-muted font-medium bg-white/70 px-2.5 py-0.5 rounded-full border border-surface-border">
                 {todayStr}
               </span>
+              {currentCycleDay !== null && (
+                <span className="text-[11px] font-bold text-primary bg-tint-lavender/60 px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
+                  🌸 Day {currentCycleDay}
+                </span>
+              )}
             </div>
 
             {/* Right Controls: Storage Badge & Language Toggle */}
@@ -462,112 +467,9 @@ export const AppShell: React.FC = () => {
             </div>
           )}
 
-          {/* Ambient Welcome Banner - When new browser with no profile set, no name is shown, just clear PWA guidance */}
-          <div className="print:hidden bg-gradient-to-r from-tint-rose/40 via-white/80 to-tint-lavender/40 border border-[#F3E8EE] rounded-[2.25rem] p-6 sm:p-7 relative overflow-hidden mb-6 shadow-card">
-            <div className="absolute top-0 right-0 pointer-events-none opacity-60">
-              <BotanicalAccent className="w-36 h-36 lg:w-44 lg:h-44 text-primary" />
-            </div>
-
-            {isFreshBrowser ? (
-              <div className="relative z-10 max-w-xl">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
-                    {language === 'hi' ? '🌸 नया ब्राउज़र · शून्य क्लाउड PWA' : '🌸 New Browser · Zero-Cloud PWA'}
-                  </span>
-                  <span className="text-[11px] text-ink-muted bg-white/80 px-2.5 py-0.5 rounded-full border border-[#F3E8EE]">
-                    {language === 'hi' ? 'कोई प्रोफ़ाइल सेट नहीं (अनाम)' : 'No Profile Set (Private & Anonymous)'}
-                  </span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight font-bold">
-                  {language === 'hi' ? 'साइकुलस PWA · ऑफ़लाइन स्वास्थ्य डायरी' : 'Cyculus PWA · Offline Health Diary'}
-                </h2>
-                <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
-                  {language === 'hi'
-                    ? 'कोई खाता, प्रोफ़ाइल या नाम आवश्यक नहीं है। आपका व्यक्तिगत स्वास्थ्य डेटा 100% केवल इस ब्राउज़र में रहता है। नीचे उपयोग निर्देश एवं इंस्टॉलेशन गाइड देखें।'
-                    : 'No account, profile, or name required. Your health data stays 100% inside this browser. Follow the instructions and PWA usage guide below.'}
-                </p>
-                <div className="mt-4 flex flex-wrap items-center gap-2.5">
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab('home')}
-                    className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full border transition-all cursor-pointer ${activeTab === 'home'
-                        ? 'bg-primary text-white border-primary shadow-soft'
-                        : 'bg-white/90 text-primary border-[#E7DCF8] hover:bg-tint-lavender/50'
-                      }`}
-                  >
-                    📖 {language === 'hi' ? 'PWA उपयोग निर्देश देखें' : 'View PWA Instructions & Guide'}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab('ooflog')}
-                    className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full border transition-all cursor-pointer ${activeTab === 'ooflog'
-                        ? 'bg-primary text-white border-primary shadow-soft'
-                        : 'bg-white/90 text-primary border-[#E7DCF8] hover:bg-tint-lavender/50'
-                      }`}
-                  >
-                    ✍️ {language === 'hi' ? 'आज का चेक-इन (OofLog · आज कैसा रहा)' : 'Log Today (OofLog · aaj kaisa raha)'}
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="relative z-10 max-w-lg">
-                <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">
-                  {language === 'hi' ? 'नमस्ते, साइकुलस में आपका स्वागत है 👋' : 'Hey there, welcome to Cyculus 👋'}
-                </h2>
-                <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
-                  {language === 'hi'
-                    ? 'आज आप कैसा महसूस कर रही हैं? बोलें या 1-टैप से दर्ज करें।'
-                    : 'What would you like to log or explore today? Speak naturally or tap below.'}
-                </p>
-                <div className="mt-3.5 flex flex-wrap items-center gap-2">
-                  {currentCycleDay !== null ? (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-white/90 px-3 py-1 rounded-full border border-[#E7DCF8] shadow-soft">
-                      🌸 Cycle Day {currentCycleDay}
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-white/90 px-3 py-1 rounded-full border border-[#E7DCF8] shadow-soft">
-                      🌸 Longitudinal Cycle Diary
-                    </span>
-                  )}
-                  <span className="text-[11px] text-ink-muted bg-white/70 px-2.5 py-1 rounded-full border border-surface-border">
-                    {logs.length} days recorded
-                  </span>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Active Tab Screen */}
+          {/* Active Tab Screen: One Job Per Screen */}
           {activeTab === 'home' && (
             <div className="space-y-6">
-              {isFreshBrowser && (
-                <div className="p-4 rounded-3xl bg-tint-lavender/40 border border-[#E7DCF8] flex flex-wrap items-center justify-between gap-3 text-xs">
-                  <div className="flex items-center gap-2 text-ink">
-                    <span className="text-base">🌸</span>
-                    <span className="font-medium">
-                      {language === 'hi'
-                        ? 'कोई डेटा नहीं मिला। आप सीधे आज का लक्षण लॉग कर सकती हैं या नीचे डेमो प्रोफाइल आज़मा सकती हैं।'
-                        : 'No logs recorded yet. Start logging symptoms or test with demonstration personas.'}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => requestSeedPersona('riya')}
-                      className="px-3.5 py-1.5 rounded-full bg-white text-primary font-bold border border-[#E7DCF8] hover:bg-primary hover:text-white shadow-soft transition-all cursor-pointer"
-                    >
-                      ✨ {language === 'hi' ? 'रिया का डेटा लोड करें' : 'Try Riya Persona'}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('ooflog')}
-                      className="px-3.5 py-1.5 rounded-full bg-primary text-white font-bold shadow-soft hover:bg-primary-dark transition-all cursor-pointer"
-                    >
-                      ✍️ {language === 'hi' ? 'आज का चेक-इन' : 'Log Today'}
-                    </button>
-                  </div>
-                </div>
-              )}
               <DayumScreen
                 logs={logs}
                 language={language}
@@ -578,25 +480,6 @@ export const AppShell: React.FC = () => {
 
           {activeTab === 'ooflog' && (
             <div className="space-y-4">
-              {isFreshBrowser && (
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-tint-lavender/50 border border-[#E7DCF8] flex flex-wrap items-center justify-between gap-3 text-xs">
-                  <div className="flex items-center gap-2 text-ink">
-                    <span className="text-base">🌸</span>
-                    <span>
-                      {language === 'hi'
-                        ? 'नया ब्राउज़र: कोई प्रोफ़ाइल सेट नहीं है। आप सीधे आज का लक्षण लॉग कर सकती हैं या PWA गाइड देख सकती हैं।'
-                        : 'New browser: No profile is set. You can start logging directly or explore the PWA guide.'}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab('home')}
-                    className="font-bold text-primary hover:underline shrink-0 cursor-pointer"
-                  >
-                    {language === 'hi' ? 'PWA गाइड देखें →' : 'View PWA Guide →'}
-                  </button>
-                </div>
-              )}
               <OofLog
                 todayDate={todayStr}
                 existingEntry={demoPersona ? undefined : todayLog}

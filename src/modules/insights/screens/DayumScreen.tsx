@@ -4,7 +4,6 @@ import { useInsights } from '../hooks/useInsights';
 import knowledgeData from '@/shared/knowledge.json';
 import type { KnowledgeBase } from '@/shared/types';
 import { Card } from '@/app/components/Card';
-import { Button } from '@/app/components/Button';
 import { CycleTimeline } from './CycleTimeline';
 import { CycleLengthChart } from './CycleLengthChart';
 import { SymptomPatternView } from './SymptomPatternView';
@@ -59,24 +58,18 @@ export const DayumScreen: React.FC<DayumScreenProps> = ({
   return (
     <div className="space-y-6 pb-12 animate-in fade-in duration-300">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="flex items-baseline gap-2.5">
-            <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">Dayum</h2>
-            <span className="text-[11px] font-bold text-primary bg-tint-lavender px-3 py-1 rounded-full border border-[#E7DCF8]">
-              {language === 'hi' ? 'चक्र टाइमलाइन' : 'cycle timeline'}
-            </span>
-          </div>
-          <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
-            {language === 'hi'
-              ? 'समय के साथ चक्र के पैटर्न और अंशांकित सांख्यिकीय विंडो'
-              : 'Longitudinal timeline, calibrated prediction windows, & cited flags'}
-          </p>
+      <div>
+        <div className="flex items-baseline gap-2.5">
+          <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">Dayum</h2>
+          <span className="text-[11px] font-bold text-primary bg-tint-lavender px-3 py-1 rounded-full border border-[#E7DCF8]">
+            {language === 'hi' ? 'चक्र टाइमलाइन' : 'cycle timeline'}
+          </span>
         </div>
-
-        <Button variant="secondary" size="sm" onClick={onNavigateToLog}>
-          {language === 'hi' ? '+ चेक-इन' : '+ Log Today'}
-        </Button>
+        <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
+          {language === 'hi'
+            ? 'समय के साथ चक्र के पैटर्न और अंशांकित सांख्यिकीय विंडो'
+            : 'Longitudinal timeline, calibrated prediction windows, & cited flags'}
+        </p>
       </div>
 
       {/* If absolutely no data, show EmptyState */}
