@@ -18,8 +18,8 @@ You own and maintain:
 
 ### Q: Where do I put that dataset? Am I working on it or somebody else?
 - **Dataset location:** `data/external/CrMcyclelength_share.csv` (already configured in `.gitignore` so raw data is never committed).
-- **Who works on it:** **Eva (Module B)** works on the Utah Hive dataset. She runs `scripts/eval-utah.ts` to calibrate cycle predictions and MAE baselines for the PPT.
-- **You do NOT need to evaluate the Utah dataset.** Your focus is making OofLog capture effortless, curating `knowledge.json`, and providing the storage layer that Eva (Module B) and Devyani (Module C) depend on.
+- **Who works on it:** **Devyani (Module B)** works on the Utah Hive dataset. She runs `scripts/eval-utah.ts` to calibrate cycle predictions and MAE baselines for the PPT.
+- **You do NOT need to evaluate the Utah dataset.** Your focus is making OofLog capture effortless, curating `knowledge.json`, and providing the storage layer that Devyani (Module B) depends on.
 
 ---
 

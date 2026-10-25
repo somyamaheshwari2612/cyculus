@@ -47,13 +47,40 @@ export const WhyModal: React.FC<WhyModalProps> = ({
           </button>
         </div>
 
-        {/* Explainability manifesto */}
-        <div className="p-3 bg-purple-50/70 rounded-2xl border border-primary/15 text-xs text-ink-muted mb-4 leading-relaxed">
-          <p>
-            {language === 'hi'
-              ? 'साइकुलस किसी भी प्रकार का चिकित्सीय निदान (डायग्नोसिस) नहीं करता है। सभी अलर्ट सीधे अंतरराष्ट्रीय चिकित्सा दिशानिर्देशों (जैसे FIGO 2018 मानक) के सत्यापन पर आधारित हैं।'
-              : 'Cyculus never attempts medical diagnoses. Every threshold and flag is evaluated directly against peer-reviewed clinical guidelines (such as FIGO 2018 criteria) with cited sources.'}
-          </p>
+        {/* Executive Summary Cards */}
+        <div className="mb-4 space-y-2">
+          <div className="p-3 bg-emerald-50/80 border border-emerald-200/80 rounded-2xl">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full inline-block mb-1.5">
+              {language === 'hi' ? 'मुख्य नैदानिक मानक' : 'Executive Clinical Standards'}
+            </span>
+            <ul className="text-xs text-ink space-y-1.5 font-medium">
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-600 font-bold">•</span>
+                <span>
+                  {language === 'hi'
+                    ? 'सामान्य वयस्क चक्र अवधि: 24 से 38 दिन (FIGO मानक)।'
+                    : 'Normal adult cycle length: 24 to 38 days (FIGO standard).'}
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-emerald-600 font-bold">•</span>
+                <span>
+                  {language === 'hi'
+                    ? 'सामान्य भिन्नता: सबसे छोटे और सबसे लंबे चक्र के बीच 7–9 दिनों से कम का अंतर।'
+                    : 'Normal variability: less than 7–9 days difference between shortest and longest cycle.'}
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Explainability manifesto */}
+          <div className="p-3 bg-purple-50/70 rounded-2xl border border-primary/15 text-xs text-ink-muted leading-relaxed">
+            <p>
+              {language === 'hi'
+                ? 'साइकुलस किसी भी प्रकार का चिकित्सीय निदान (डायग्नोसिस) नहीं करता है। सभी अलर्ट सीधे अंतरराष्ट्रीय चिकित्सा दिशानिर्देशों (जैसे FIGO 2018 मानक) के सत्यापन पर आधारित हैं।'
+                : 'Cyculus never attempts medical diagnoses. Every threshold and flag is evaluated directly against peer-reviewed clinical guidelines (such as FIGO 2018 criteria) with cited sources.'}
+            </p>
+          </div>
         </div>
 
         {/* Active Flags section */}

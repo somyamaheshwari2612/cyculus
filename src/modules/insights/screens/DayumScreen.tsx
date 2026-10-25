@@ -84,6 +84,7 @@ export const DayumScreen: React.FC<DayumScreenProps> = ({
         <EmptyState
           language={language}
           dataSufficiency="none"
+          cycleCount={insights.stats?.cyclesUsed ?? insights.cycles.filter(c => c.lengthDays !== null).length}
           onNavigateToLog={onNavigateToLog}
         />
       ) : (
