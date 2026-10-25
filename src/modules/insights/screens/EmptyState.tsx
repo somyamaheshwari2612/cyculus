@@ -1,92 +1,193 @@
 import React from 'react';
 import { Card } from '@/app/components/Card';
 import { Button } from '@/app/components/Button';
-import { CalendarDays, PlusCircle, Sparkles } from 'lucide-react';
+import { CalendarDays, BarChart3, CheckCircle2, Sparkles, TrendingUp } from 'lucide-react';
 
 interface EmptyStateProps {
   language: 'en' | 'hi';
   dataSufficiency?: 'none' | 'minimal';
+  cycleCount?: number;
   onNavigateToLog: () => void;
   onOpenSettings?: () => void;
 }
 
 export const EmptyState: React.FC<EmptyStateProps> = ({
   language,
+  dataSufficiency = 'none',
+  cycleCount = 0,
   onNavigateToLog,
 }) => {
+  const isNone = dataSufficiency === 'none';
+
+  // Determine which step is currently active (1, 2, or 3)
+  const currentStep = isNone ? 1 : cycleCount === 1 ? 2 : 3;
+
+  const steps = [
+    {
+      num: 1,
+      title: {
+        en: 'Cycle 1 · Baseline',
+        hi: 'पहला चक्र · बेसलाइन',
+      },
+      desc: {
+        en: 'Log period days to detect your first bleeding episode and establish onset date.',
+        hi: 'पीरियड के दिन दर्ज करें ताकि पहला चक्र और शुरुआत की तारीख स्थापित हो सके।',
+      },
+      tag: {
+        en: 'Onset Detection',
+        hi: 'शुरुआत की पहचान',
+      },
+      icon: <CalendarDays className="w-4 h-4" />,
+    },
+    {
+      num: 2,
+      title: {
+        en: 'Cycle 2 · Interval & Variance',
+        hi: 'दूसरा चक्र · अंतराल और बदलाव',
+      },
+      desc: {
+        en: 'First cycle length computed. FIGO variation tracking and preliminary trends begin.',
+        hi: 'पहले चक्र की लंबाई की गणना। FIGO मानकों के अनुसार बदलाव और ट्रेंड्स शुरू होते हैं।',
+      },
+      tag: {
+        en: 'Variance Tracking',
+        hi: 'बदलाव ट्रैकिंग',
+      },
+      icon: <TrendingUp className="w-4 h-4" />,
+    },
+    {
+      num: 3,
+      title: {
+        en: 'Cycle 3+ · Calibrated Window',
+        hi: 'तीसरा चक्र · व्यक्तिगत दायरा',
+      },
+      desc: {
+        en: 'Calibrated prediction window unlocked based on your personal cycle history.',
+        hi: 'आपके अपने पिछले चक्रों के आधार पर आने वाली तारीखों का अनुमानित दायरा।',
+      },
+      tag: {
+        en: 'Prediction Window',
+        hi: 'अनुमानित दायरा',
+      },
+      icon: <Sparkles className="w-4 h-4" />,
+    },
+  ];
+
   return (
-    <Card variant="lavender" padding="lg" className="border-primary/20 shadow-soft">
-      <div className="max-w-xl mx-auto text-center py-4">
-        {/* Soft Lavender Icon badge */}
-        <div className="w-16 h-16 mx-auto mb-4 rounded-3xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-soft">
-          <CalendarDays className="w-8 h-8 stroke-[2.2]" />
+    <Card variant="lavender" padding="lg" className="text-left max-w-xl mx-auto shadow-card">
+      {/* Top Banner Icon & Message */}
+      <div className="flex items-start gap-4 mb-6">
+        <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
+          {isNone ? <CalendarDays className="w-6 h-6" /> : <BarChart3 className="w-6 h-6" />}
         </div>
-
-        {/* Title */}
-        <h3 className="text-xl sm:text-2xl font-serif font-bold text-ink mb-2">
-          {language === 'hi' ? 'अभी कोई एंट्री नहीं है' : 'No entries yet'}
-        </h3>
-
-        {/* Core Prompt Subtitle */}
-        <p className="text-sm sm:text-base text-ink-muted mb-6 max-w-md mx-auto leading-relaxed">
-          {language === 'hi'
-            ? 'आज कैसा रहा यह बताइए—2-3 पीरियड्स के बाद आपका पूरा पैटर्न यहाँ दिखने लगेगा।'
-            : 'Tell us about today, and your pattern will appear here after a few cycles.'}
-        </p>
-
-        {/* Obvious Primary Action Button */}
-        <div className="flex justify-center mb-8">
-          <Button
-            variant="primary"
-            size="lg"
-            icon={<PlusCircle className="w-5 h-5" />}
-            onClick={onNavigateToLog}
-            className="shadow-soft px-8 font-bold"
-          >
-            {language === 'hi' ? 'आज का दिन लॉग करें' : 'Tell us about today'}
-          </Button>
-        </div>
-
-        {/* What to do next & What unlocks (Explaining empty charts) */}
-        <div className="bg-white/80 rounded-2xl p-4 sm:p-5 border border-[#E7DCF8] text-left space-y-3 mb-4">
-          <p className="text-xs font-bold uppercase tracking-wider text-primary flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>
-              {language === 'hi'
-                ? 'खाली चार्ट से कुछ पता नहीं चलता — लॉग करने पर क्या दिखेगा:'
-                : 'An empty chart tells you nothing. Here is what appears as you log:'}
-            </span>
+        <div>
+          <h3 className="text-lg font-bold text-ink">
+            {isNone
+              ? language === 'hi'
+                ? 'अभी तक कोई चक्र दर्ज नहीं है'
+                : 'No cycle data recorded yet'
+              : language === 'hi'
+              ? 'सीमित चक्र डेटा उपलब्ध है'
+              : 'Limited cycle data available'}
+          </h3>
+          <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
+            {isNone
+              ? language === 'hi'
+                ? 'साइकुलस एक निश्चित तारीख का तुक्का नहीं लगाता, बल्कि आपके व्यक्तिगत डेटा से एक दायरा तैयार करता है।'
+                : 'Cyculus avoids single-date guesswork. As you log, our clinical engine unlocks calibrated prediction windows.'
+              : language === 'hi'
+              ? 'सटीक अनुमान के लिए 3 या अधिक पूरे चक्रों का डेटा दर्ज करें।'
+              : 'Log 3 or more complete cycles for fully calibrated prediction windows.'}
           </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-            <div className="p-3 bg-tint-lavender/40 rounded-xl border border-[#E7DCF8]">
-              <span className="font-bold text-ink block mb-0.5">1. {language === 'hi' ? 'दैनिक चेक-इन' : 'Daily Check-in'}</span>
-              <p className="text-[11px] text-ink-muted leading-snug">
-                {language === 'hi'
-                  ? 'पीरियड फ्लो, दर्द और मूड 1-टैप में दर्ज करें।'
-                  : 'Log flow, pain, and mood in 1-tap or your own voice.'}
-              </p>
-            </div>
-
-            <div className="p-3 bg-tint-rose/30 rounded-xl border border-[#F8DDE5]">
-              <span className="font-bold text-ink block mb-0.5">2. {language === 'hi' ? 'टाइमलाइन कैलेंडर' : 'Cycle Timeline'}</span>
-              <p className="text-[11px] text-ink-muted leading-snug">
-                {language === 'hi'
-                  ? 'पहले पीरियड से ही आपकी ब्लीडिंग और दिनों का इतिहास दिखेगा।'
-                  : 'Visual timeline of your cycle days and flow rhythm.'}
-              </p>
-            </div>
-
-            <div className="p-3 bg-tint-mint/40 rounded-xl border border-[#D8F0E4]">
-              <span className="font-bold text-ink block mb-0.5">3. {language === 'hi' ? 'पीरियड का अंदाज़ा' : 'Calibrated Window'}</span>
-              <p className="text-[11px] text-ink-muted leading-snug">
-                {language === 'hi'
-                  ? '3 पूरे पीरियड्स के बाद, आपके अपने पैटर्न के आधार पर आने वाली तारीखों का दायरा।'
-                  : 'After 3 completed cycles, calibrated prediction window based on your personal history.'}
-              </p>
-            </div>
-          </div>
         </div>
+      </div>
+
+      {/* Visual 3-Step Milestone Roadmap */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-primary">
+            {language === 'hi' ? 'चक्र अंतर्दृष्टि रोडमैप' : 'Insight Activation Roadmap'}
+          </span>
+          <span className="text-[10px] text-ink-muted bg-white/80 px-2 py-0.5 rounded-full border border-surface-border">
+            {language === 'hi' ? `चरण ${currentStep} / 3` : `Step ${currentStep} of 3`}
+          </span>
+        </div>
+
+        <div className="space-y-3 relative">
+          {/* Vertical connecting line */}
+          <div className="absolute left-4 top-4 bottom-4 w-0.5 bg-primary/20 pointer-events-none -z-0" />
+
+          {steps.map(s => {
+            const isCompleted = s.num < currentStep;
+            const isCurrent = s.num === currentStep;
+
+            return (
+              <div
+                key={s.num}
+                className={`relative z-10 p-3 sm:p-3.5 rounded-2xl border transition-all duration-200 ${
+                  isCurrent
+                    ? 'bg-white border-primary shadow-sm ring-1 ring-primary/20'
+                    : isCompleted
+                    ? 'bg-emerald-50/60 border-emerald-200'
+                    : 'bg-white/50 border-surface-border opacity-70'
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  {/* Step status circle */}
+                  <div
+                    className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs ${
+                      isCompleted
+                        ? 'bg-emerald-600 text-white'
+                        : isCurrent
+                        ? 'bg-primary text-white shadow-sm'
+                        : 'bg-surface-subtle text-ink-muted'
+                    }`}
+                  >
+                    {isCompleted ? (
+                      <CheckCircle2 className="w-4 h-4" />
+                    ) : (
+                      <span>{s.num}</span>
+                    )}
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-1 flex-wrap mb-0.5">
+                      <h4 className="text-xs sm:text-sm font-bold text-ink">
+                        {s.title[language]}
+                      </h4>
+                      <span
+                        className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+                          isCompleted
+                            ? 'bg-emerald-100 text-emerald-800'
+                            : isCurrent
+                            ? 'bg-primary/10 text-primary'
+                            : 'bg-surface-subtle text-ink-muted'
+                        }`}
+                      >
+                        {s.tag[language]}
+                      </span>
+                    </div>
+                    <p className="text-[11px] sm:text-xs text-ink-muted leading-relaxed">
+                      {s.desc[language]}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Action button */}
+      <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-primary/15">
+        <span className="text-[11px] text-ink-muted text-center sm:text-left">
+          {language === 'hi'
+            ? 'आज के लक्षण और पीरियड फ्लो तुरंत दर्ज करें।'
+            : 'Takes ~10 seconds per day. Zero account required.'}
+        </span>
+        <Button variant="primary" size="md" onClick={onNavigateToLog} className="w-full sm:w-auto">
+          {language === 'hi' ? '+ आज का चेक-इन करें' : '+ Log Today'}
+        </Button>
       </div>
     </Card>
   );

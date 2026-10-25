@@ -1,12 +1,12 @@
 [
   {
     "date": "2026-05-10",
-    "flow": "heavy",
+    "flow": "medium",
     "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -22,35 +22,33 @@
   {
     "date": "2026-05-11",
     "flow": "heavy",
-    "painLevel": 7,
+    "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
       "fatigue",
+      "lower_back_pain",
       "blood_clots"
     ],
     "moods": [
       "low",
       "irritable"
     ],
-    "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
+    "notes": "",
     "sources": [
-      "text",
       "tap"
     ],
-    "rawTexts": [
-      "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"
-    ],
+    "rawTexts": [],
     "updatedAt": "2026-05-11T20:15:00.000Z"
   },
   {
     "date": "2026-05-12",
     "flow": "heavy",
-    "painLevel": 7,
+    "painLevel": 6,
     "symptoms": [
       "cramps",
+      "fatigue",
       "lower_back_pain",
-      "fatigue"
+      "blood_clots"
     ],
     "moods": [
       "low",
@@ -66,11 +64,11 @@
   {
     "date": "2026-05-13",
     "flow": "heavy",
-    "painLevel": 4,
+    "painLevel": 6,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -86,11 +84,11 @@
   {
     "date": "2026-05-14",
     "flow": "medium",
-    "painLevel": 4,
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -106,11 +104,11 @@
   {
     "date": "2026-05-15",
     "flow": "medium",
-    "painLevel": 4,
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -125,12 +123,16 @@
   },
   {
     "date": "2026-05-16",
-    "flow": null,
-    "painLevel": 0,
-    "symptoms": [],
+    "flow": "light",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps",
+      "fatigue",
+      "lower_back_pain"
+    ],
     "moods": [
-      "calm",
-      "happy"
+      "low",
+      "irritable"
     ],
     "notes": "",
     "sources": [
@@ -300,12 +302,12 @@
   },
   {
     "date": "2026-06-07",
-    "flow": "heavy",
+    "flow": "medium",
     "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -321,35 +323,33 @@
   {
     "date": "2026-06-08",
     "flow": "heavy",
-    "painLevel": 7,
+    "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
       "fatigue",
+      "lower_back_pain",
       "blood_clots"
     ],
     "moods": [
       "low",
       "irritable"
     ],
-    "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
+    "notes": "",
     "sources": [
-      "text",
       "tap"
     ],
-    "rawTexts": [
-      "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"
-    ],
+    "rawTexts": [],
     "updatedAt": "2026-06-08T20:15:00.000Z"
   },
   {
     "date": "2026-06-09",
     "flow": "heavy",
-    "painLevel": 7,
+    "painLevel": 6,
     "symptoms": [
       "cramps",
+      "fatigue",
       "lower_back_pain",
-      "fatigue"
+      "blood_clots"
     ],
     "moods": [
       "low",
@@ -365,11 +365,11 @@
   {
     "date": "2026-06-10",
     "flow": "heavy",
-    "painLevel": 4,
+    "painLevel": 6,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -385,11 +385,11 @@
   {
     "date": "2026-06-11",
     "flow": "medium",
-    "painLevel": 4,
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -405,11 +405,11 @@
   {
     "date": "2026-06-12",
     "flow": "medium",
-    "painLevel": 4,
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -424,12 +424,12 @@
   },
   {
     "date": "2026-06-13",
-    "flow": "medium",
-    "painLevel": 4,
+    "flow": "light",
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -603,12 +603,12 @@
   },
   {
     "date": "2026-07-04",
-    "flow": "heavy",
+    "flow": "medium",
     "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -624,35 +624,33 @@
   {
     "date": "2026-07-05",
     "flow": "heavy",
-    "painLevel": 7,
+    "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
       "fatigue",
+      "lower_back_pain",
       "blood_clots"
     ],
     "moods": [
       "low",
       "irritable"
     ],
-    "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
+    "notes": "",
     "sources": [
-      "text",
       "tap"
     ],
-    "rawTexts": [
-      "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"
-    ],
+    "rawTexts": [],
     "updatedAt": "2026-07-05T20:15:00.000Z"
   },
   {
     "date": "2026-07-06",
     "flow": "heavy",
-    "painLevel": 7,
+    "painLevel": 6,
     "symptoms": [
       "cramps",
+      "fatigue",
       "lower_back_pain",
-      "fatigue"
+      "blood_clots"
     ],
     "moods": [
       "low",
@@ -668,11 +666,11 @@
   {
     "date": "2026-07-07",
     "flow": "heavy",
-    "painLevel": 4,
+    "painLevel": 6,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -688,11 +686,11 @@
   {
     "date": "2026-07-08",
     "flow": "medium",
-    "painLevel": 4,
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -708,11 +706,11 @@
   {
     "date": "2026-07-09",
     "flow": "medium",
-    "painLevel": 4,
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -727,12 +725,16 @@
   },
   {
     "date": "2026-07-10",
-    "flow": null,
-    "painLevel": 0,
-    "symptoms": [],
+    "flow": "light",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps",
+      "fatigue",
+      "lower_back_pain"
+    ],
     "moods": [
-      "calm",
-      "happy"
+      "low",
+      "irritable"
     ],
     "notes": "",
     "sources": [
@@ -902,12 +904,12 @@
   },
   {
     "date": "2026-08-01",
-    "flow": "heavy",
+    "flow": "medium",
     "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -923,35 +925,33 @@
   {
     "date": "2026-08-02",
     "flow": "heavy",
-    "painLevel": 7,
+    "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
       "fatigue",
+      "lower_back_pain",
       "blood_clots"
     ],
     "moods": [
       "low",
       "irritable"
     ],
-    "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
+    "notes": "",
     "sources": [
-      "text",
       "tap"
     ],
-    "rawTexts": [
-      "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"
-    ],
+    "rawTexts": [],
     "updatedAt": "2026-08-02T20:15:00.000Z"
   },
   {
     "date": "2026-08-03",
     "flow": "heavy",
-    "painLevel": 7,
+    "painLevel": 6,
     "symptoms": [
       "cramps",
+      "fatigue",
       "lower_back_pain",
-      "fatigue"
+      "blood_clots"
     ],
     "moods": [
       "low",
@@ -967,11 +967,11 @@
   {
     "date": "2026-08-04",
     "flow": "heavy",
-    "painLevel": 4,
+    "painLevel": 6,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -987,11 +987,11 @@
   {
     "date": "2026-08-05",
     "flow": "medium",
-    "painLevel": 4,
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -1007,11 +1007,11 @@
   {
     "date": "2026-08-06",
     "flow": "medium",
-    "painLevel": 4,
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -1026,12 +1026,12 @@
   },
   {
     "date": "2026-08-07",
-    "flow": "medium",
-    "painLevel": 4,
+    "flow": "light",
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -1205,12 +1205,12 @@
   },
   {
     "date": "2026-08-29",
-    "flow": "heavy",
+    "flow": "medium",
     "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -1226,35 +1226,33 @@
   {
     "date": "2026-08-30",
     "flow": "heavy",
-    "painLevel": 7,
+    "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
       "fatigue",
+      "lower_back_pain",
       "blood_clots"
     ],
     "moods": [
       "low",
       "irritable"
     ],
-    "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
+    "notes": "",
     "sources": [
-      "text",
       "tap"
     ],
-    "rawTexts": [
-      "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"
-    ],
+    "rawTexts": [],
     "updatedAt": "2026-08-30T20:15:00.000Z"
   },
   {
     "date": "2026-08-31",
     "flow": "heavy",
-    "painLevel": 7,
+    "painLevel": 6,
     "symptoms": [
       "cramps",
+      "fatigue",
       "lower_back_pain",
-      "fatigue"
+      "blood_clots"
     ],
     "moods": [
       "low",
@@ -1270,11 +1268,11 @@
   {
     "date": "2026-09-01",
     "flow": "heavy",
-    "painLevel": 4,
+    "painLevel": 6,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -1290,11 +1288,11 @@
   {
     "date": "2026-09-02",
     "flow": "medium",
-    "painLevel": 4,
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -1310,11 +1308,11 @@
   {
     "date": "2026-09-03",
     "flow": "medium",
-    "painLevel": 4,
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -1329,12 +1327,16 @@
   },
   {
     "date": "2026-09-04",
-    "flow": null,
-    "painLevel": 0,
-    "symptoms": [],
+    "flow": "light",
+    "painLevel": 3,
+    "symptoms": [
+      "cramps",
+      "fatigue",
+      "lower_back_pain"
+    ],
     "moods": [
-      "calm",
-      "happy"
+      "low",
+      "irritable"
     ],
     "notes": "",
     "sources": [
@@ -1504,12 +1506,12 @@
   },
   {
     "date": "2026-09-25",
-    "flow": "heavy",
+    "flow": "medium",
     "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -1525,35 +1527,33 @@
   {
     "date": "2026-09-26",
     "flow": "heavy",
-    "painLevel": 7,
+    "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
       "fatigue",
+      "lower_back_pain",
       "blood_clots"
     ],
     "moods": [
       "low",
       "irritable"
     ],
-    "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
+    "notes": "",
     "sources": [
-      "text",
       "tap"
     ],
-    "rawTexts": [
-      "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"
-    ],
+    "rawTexts": [],
     "updatedAt": "2026-09-26T20:15:00.000Z"
   },
   {
     "date": "2026-09-27",
     "flow": "heavy",
-    "painLevel": 7,
+    "painLevel": 6,
     "symptoms": [
       "cramps",
+      "fatigue",
       "lower_back_pain",
-      "fatigue"
+      "blood_clots"
     ],
     "moods": [
       "low",
@@ -1569,11 +1569,11 @@
   {
     "date": "2026-09-28",
     "flow": "heavy",
-    "painLevel": 4,
+    "painLevel": 6,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -1589,11 +1589,11 @@
   {
     "date": "2026-09-29",
     "flow": "medium",
-    "painLevel": 4,
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -1609,11 +1609,11 @@
   {
     "date": "2026-09-30",
     "flow": "medium",
-    "painLevel": 4,
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -1628,12 +1628,12 @@
   },
   {
     "date": "2026-10-01",
-    "flow": "medium",
-    "painLevel": 4,
+    "flow": "light",
+    "painLevel": 3,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -1807,12 +1807,12 @@
   },
   {
     "date": "2026-10-23",
-    "flow": "heavy",
+    "flow": "medium",
     "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
-      "fatigue"
+      "fatigue",
+      "lower_back_pain"
     ],
     "moods": [
       "low",
@@ -1828,11 +1828,11 @@
   {
     "date": "2026-10-24",
     "flow": "heavy",
-    "painLevel": 7,
+    "painLevel": 8,
     "symptoms": [
       "cramps",
-      "lower_back_pain",
       "fatigue",
+      "lower_back_pain",
       "blood_clots"
     ],
     "moods": [
@@ -1841,8 +1841,8 @@
     ],
     "notes": "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai",
     "sources": [
-      "text",
-      "tap"
+      "tap",
+      "text"
     ],
     "rawTexts": [
       "Bohat zyada bleeding ho rahi hai aur kamar mein dard hai"

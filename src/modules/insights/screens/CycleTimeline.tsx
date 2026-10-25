@@ -157,7 +157,7 @@ export const CycleTimeline: React.FC<CycleTimelineProps> = ({
       <div className="grid grid-cols-7 gap-1">
         {days.map((day, idx) => {
           if (!day.isCurrentMonth) {
-            return <div key={`empty-${idx}`} className="h-10 sm:h-12 rounded-xl" />;
+            return <div key={`empty-${idx}`} className="min-h-[44px] sm:min-h-[48px] min-w-[36px] rounded-xl" />;
           }
 
           const entry = logMap.get(day.dateStr);
@@ -204,22 +204,22 @@ export const CycleTimeline: React.FC<CycleTimelineProps> = ({
               key={day.dateStr}
               type="button"
               onClick={() => setSelectedDate(day.dateStr)}
-              className={`h-10 sm:h-12 rounded-xl flex flex-col items-center justify-between p-1 transition-all cursor-pointer relative ${bgClass} ${borderClass}`}
+              className={`min-h-[44px] sm:min-h-[48px] min-w-[36px] rounded-xl flex flex-col items-center justify-between p-1 sm:p-1.5 transition-all cursor-pointer relative active:scale-95 touch-manipulation ${bgClass} ${borderClass}`}
             >
-              <span className={`text-xs ${textClass}`}>
+              <span className={`text-xs font-semibold leading-none pt-0.5 ${textClass}`}>
                 {day.dayNum}
               </span>
 
-              {/* Indicators */}
-              <div className="flex items-center gap-0.5 justify-center w-full">
+              {/* Centered Indicators */}
+              <div className="flex items-center gap-1 justify-center w-full min-h-[6px] pb-0.5">
                 {pred === 'expected' && (
-                  <Sparkles className="w-2.5 h-2.5 text-primary" />
+                  <Sparkles className="w-2.5 h-2.5 text-primary shrink-0" />
                 )}
                 {entry?.symptoms && entry.symptoms.length > 0 && !hasFlow && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
                 )}
                 {entry?.painLevel !== null && entry?.painLevel !== undefined && entry.painLevel > 4 && !hasFlow && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0" />
                 )}
               </div>
             </button>

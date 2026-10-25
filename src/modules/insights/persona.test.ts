@@ -53,12 +53,13 @@ describe('Persona Snapshot & Flag Invariance Tests', () => {
 
       expect(insights.cycles.length).toBeGreaterThanOrEqual(3);
 
-      // Assert heavy flow persistent flag (>= 4 heavy days in a cycle)
+      // Assert heavy flow persistent flag (>= 3 consecutive heavy days per NICE/ACOG criteria)
       const heavyFlag = insights.flags.find(f => f.ruleId === 'heavy_flow_persistent');
       expect(heavyFlag).toBeDefined();
       expect(heavyFlag?.severity).toBe('soon');
-      const heavyDays = (heavyFlag?.evidence as any)?.maxTotalHeavyDays ?? (heavyFlag?.evidence as any)?.maxHeavyDays;
-      expect(heavyDays).toBeGreaterThanOrEqual(4);
+      const consecHeavy = (heavyFlag?.evidence as any)?.maxConsecutiveHeavyDays ?? 0;
+      const totalHeavy = (heavyFlag?.evidence as any)?.maxTotalHeavyDays ?? 0;
+      expect(consecHeavy >= 3 || totalHeavy >= 4).toBe(true);
     });
   });
 });
