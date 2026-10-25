@@ -60,8 +60,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
     await onClearSetup();
     onToast(
       language === 'hi'
-        ? 'आरंभिक सेटअप प्रायर हटा दिया गया। अब केवल लॉग प्रविष्टियों का उपयोग होगा।'
-        : 'Setup prior removed. Engine will rely purely on logged entries.'
+        ? 'आरंभिक चक्र अनुमान हटा दिया गया। अब केवल वास्तविक लॉग प्रविष्टियों का उपयोग होगा।'
+        : 'Initial estimate removed. Cyculus will rely purely on your logged entries.'
     );
   };
 
@@ -79,23 +79,22 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
         </p>
       </div>
 
-      {/* 1. Cycle Setup Prior Card (Self-Reported Prior, Separate Table) */}
+      {/* 1. Cycle Setup Baseline Card */}
       <div className="bg-white/95 backdrop-blur-sm rounded-[2.25rem] p-6 sm:p-7 border border-[#F3E8EE] shadow-card space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#F3E8EE] pb-4">
           <div>
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
-                Self-Reported Prior
+                {language === 'hi' ? 'आरंभिक अनुमान' : 'Initial Estimate'}
               </span>
-              <span className="text-[11px] text-ink-muted">Dexie `userSetup` Table</span>
             </div>
             <h3 className="font-serif font-bold text-ink text-lg sm:text-xl mt-1">
-              {language === 'hi' ? 'आरंभिक चक्र सेटअप' : 'Initial Cycle Setup & Prior'}
+              {language === 'hi' ? 'आरंभिक चक्र अनुमान' : 'Initial Cycle Estimate'}
             </h3>
             <p className="text-xs text-ink-muted mt-0.5">
               {language === 'hi'
-                ? 'यह डेटा केवल आरंभिक प्रेडिक्शन विंडो को दिशा देता है। यह कभी क्लिनिकल फ़्लैग ट्रिगर नहीं करता।'
-                : 'Acts as a shrinkage prior fading as real cycles accumulate. Never creates fake logs or triggers flags.'}
+                ? 'यह केवल आरंभिक अनुमान प्रदान करता है और वास्तविक चक्र दर्ज होने पर स्वतः अपडेट हो जाता है।'
+                : 'Calibrates initial predictions until you log real cycles. Never creates synthetic entries or triggers false flags.'}
             </p>
           </div>
 
@@ -107,7 +106,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
               onClick={onOpenSetup}
               className="rounded-full shadow-pill text-xs"
             >
-              {userSetup ? (language === 'hi' ? 'सेटअप बदलें' : 'Edit Prior') : (language === 'hi' ? 'सेटअप जोड़ें' : 'Set Up Prior')}
+              {userSetup ? (language === 'hi' ? 'अनुमान बदलें' : 'Edit Baseline') : (language === 'hi' ? 'अनुमान जोड़ें' : 'Set Up Baseline')}
             </Button>
 
             {userSetup && (
@@ -118,7 +117,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 onClick={handleClearSetupOnly}
                 className="rounded-full text-xs text-ink-muted hover:text-ink"
               >
-                {language === 'hi' ? 'प्रायर हटाएं' : 'Clear Prior'}
+                {language === 'hi' ? 'अनुमान हटाएं' : 'Clear Baseline'}
               </Button>
             )}
           </div>

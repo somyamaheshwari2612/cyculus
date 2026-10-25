@@ -279,7 +279,7 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
                 </div>
                 <div className="flex-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-white/90 px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
-                    {language === 'hi' ? 'डेटा पर्याप्तता: कम' : 'Data Sufficiency: Minimal'}
+                    {language === 'hi' ? 'प्रारंभिक चरण (1-2 चक्र)' : 'Early Stage (1-2 cycles)'}
                   </span>
                   <h4 className="text-sm sm:text-base font-serif font-bold text-ink mt-2 leading-snug">
                     {language === 'hi'

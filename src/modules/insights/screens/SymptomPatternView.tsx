@@ -57,29 +57,59 @@ export const SymptomPatternView: React.FC<SymptomPatternViewProps> = ({ patterns
     );
   }
 
+  // Calculate top symptom and peak phase for dynamic takeaway headline
+  const topPattern = [...patterns].sort((a, b) => b.totalDays - a.totalDays)[0];
+  let topSymptomDominantPhase: CycleBand = 'period';
+  let topMaxCount = -1;
+  for (const band of BANDS) {
+    const count = topPattern.byBand[band] || 0;
+    if (count > topMaxCount) {
+      topMaxCount = count;
+      topSymptomDominantPhase = band;
+    }
+  }
+  const topSymptomMeta = SYMPTOM_LABELS[topPattern.symptom] || {
+    en: topPattern.symptom.replace(/_/g, ' '),
+    hi: topPattern.symptom,
+    emoji: '🩺',
+  };
+  const topName = topSymptomMeta[language];
+  const phaseName = BAND_LABELS[topSymptomDominantPhase][language];
+
+  const headline = language === 'hi'
+    ? `${topName} आपका सबसे आम लक्षण रहा (${topPattern.totalDays} दिन), जो मुख्य रूप से ${phaseName} के दौरान देखा गया।`
+    : `${topName} was your most frequent symptom (${topPattern.totalDays} days), occurring mostly during ${phaseName}.`;
+
   return (
     <Card variant="default" padding="lg">
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-ink uppercase tracking-wider flex items-center gap-2">
-          <Activity className="w-4 h-4 text-primary" />
-          {language === 'hi' ? 'लक्षण और चक्र चरण' : 'Symptoms Across Cycle Phases'}
-        </h3>
-        <span className="text-[10px] text-ink-muted">
-          {patterns.length} {language === 'hi' ? 'लक्षण ट्रैक किए गए' : 'symptoms tracked'}
-        </span>
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-1.5">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-ink-muted flex items-center gap-2">
+            <Activity className="w-4 h-4 text-primary" />
+            <span>{language === 'hi' ? 'लक्षण और चक्र चरण' : 'Symptoms Across Cycle Phases'}</span>
+          </h3>
+          <span className="text-[11px] text-ink-muted font-medium">
+            {patterns.length} {language === 'hi' ? 'लक्षण ट्रैक किए गए' : 'symptoms tracked'}
+          </span>
+        </div>
+
+        {/* Dynamic takeaway headline */}
+        <h4 className="text-lg sm:text-xl font-serif font-bold text-ink tracking-tight">
+          {headline}
+        </h4>
       </div>
 
-      {/* Safety notice: no ovulation claims */}
+      {/* Safety notice: no ovulation claims (without internal term 'band') */}
       <div className="flex items-start gap-2 p-2.5 bg-surface-subtle rounded-xl border border-surface-border mb-4 text-[11px] text-ink-muted">
         <Info className="w-4 h-4 text-primary shrink-0 mt-0.5" />
         <p className="leading-relaxed">
           {language === 'hi'
-            ? 'चक्र चरण अनुमानित समय-सीमाएं हैं (पीरियड, शुरुआती, मध्य और पूर्व-पीरियड)। यह प्रजनन क्षमता या ओव्यूलेशन का दावा नहीं है।'
-            : 'Phases are statistical timeline bands relative to your period start. No ovulation or fertility claims are made.'}
+            ? 'चक्र चरण (पीरियड, पीरियड बाद, मध्य चक्र और पीरियड पूर्व) आपके पीरियड शुरू होने के सापेक्ष समय-सीमाएं हैं। यह ओव्यूलेशन का दावा नहीं है।'
+            : 'Phases are cycle stages (period, post-period, mid-cycle, pre-period) relative to your period start. No ovulation or fertility claims are made.'}
         </p>
       </div>
 
-      {/* Band Legend */}
+      {/* Phase Legend */}
       <div className="grid grid-cols-4 gap-1 sm:gap-2 mb-4 text-center">
         {BANDS.map(band => {
           const cfg = BAND_LABELS[band];

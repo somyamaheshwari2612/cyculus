@@ -78,8 +78,8 @@ export const AppShell: React.FC = () => {
     setShowOnboarding(false);
     setToastMessage(
       language === 'hi'
-        ? 'आरंभिक चक्र सेटअप सहेजा गया! यह प्रायर के रूप में कार्य करेगा।'
-        : 'Cycle prior saved! Real logs will refine predictions with shrinkage.'
+        ? 'आरंभिक चक्र अनुमान सहेजा गया! वास्तविक चक्र दर्ज होने पर अनुमान स्वतः अंशांकित हो जाएगा।'
+        : 'Initial cycle baseline saved! Predictions will automatically calibrate as you log real cycles.'
     );
   };
 

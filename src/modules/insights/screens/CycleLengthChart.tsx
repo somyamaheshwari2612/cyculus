@@ -51,19 +51,47 @@ export const CycleLengthChart: React.FC<CycleLengthChartProps> = ({ cycles, rule
   const minY = Math.min(Math.min(...allLengths) - 3, minNormal - 2);
   const maxY = Math.max(Math.max(...allLengths) + 3, maxNormal + 2);
 
+  const count = completed.length;
+  const minDays = Math.min(...allLengths);
+  const maxDays = Math.max(...allLengths);
+
+  // Dynamic plain takeaway headline sentence:
+  // e.g. "Your last 5 cycles ranged from 28 to 41 days."
+  let headline = '';
+  if (count === 1) {
+    headline = language === 'hi'
+      ? `आपका नवीनतम चक्र ${minDays} दिनों का रहा।`
+      : `Your latest cycle was ${minDays} days.`;
+  } else if (minDays === maxDays) {
+    headline = language === 'hi'
+      ? `आपके पिछले ${count} चक्र निरंतर ${minDays} दिनों के रहे।`
+      : `Your last ${count} cycles were consistently ${minDays} days.`;
+  } else {
+    headline = language === 'hi'
+      ? `आपके पिछले ${count} चक्र ${minDays} से ${maxDays} दिनों के बीच रहे।`
+      : `Your last ${count} cycles ranged from ${minDays} to ${maxDays} days.`;
+  }
+
   return (
     <Card variant="default" padding="lg">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-ink uppercase tracking-wider flex items-center gap-2">
-          <TrendingUp className="w-4 h-4 text-primary" />
-          {language === 'hi' ? 'चक्र अवधि ट्रेंड' : 'Cycle Length Trend'}
-        </h3>
-        <div className="flex items-center gap-3 text-[10px] text-ink-muted">
-          <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-sm bg-green-100 border border-green-300" />
-            {language === 'hi' ? 'सामान्य सीमा' : `Normal (${minNormal}-${maxNormal}d)`}
-          </span>
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-1.5">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-ink-muted flex items-center gap-2">
+            <TrendingUp className="w-4 h-4 text-primary" />
+            <span>{language === 'hi' ? 'चक्र अवधि ट्रेंड' : 'Cycle Length Trend'}</span>
+          </h3>
+          <div className="flex items-center gap-3 text-[11px] text-ink-muted">
+            <span className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-sm bg-green-200 border border-green-400" />
+              <span>{language === 'hi' ? `सामान्य सीमा (${minNormal}–${maxNormal} दिन)` : `Normal range (${minNormal}–${maxNormal}d)`}</span>
+            </span>
+          </div>
         </div>
+
+        {/* Prominent Takeaway Headline */}
+        <h4 className="text-lg sm:text-xl font-serif font-bold text-ink tracking-tight">
+          {headline}
+        </h4>
       </div>
 
       <div className="h-48 sm:h-56">

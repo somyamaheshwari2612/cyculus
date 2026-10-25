@@ -105,10 +105,12 @@ export const DayumScreen: React.FC<DayumScreenProps> = ({
                 </div>
 
                 <div className="mt-3">
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">
-                    {formatDateRange(insights.prediction.earliest, insights.prediction.latest)}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-ink-muted mt-1.5 leading-relaxed">
+                  <h4 className="text-xl sm:text-2xl font-serif font-bold text-ink tracking-tight mb-1">
+                    {language === 'hi'
+                      ? `आपका अगला पीरियड ${formatDateRange(insights.prediction.earliest, insights.prediction.latest)} के बीच आने का अनुमान है।`
+                      : `Your next period is predicted between ${formatDateRange(insights.prediction.earliest, insights.prediction.latest)}.`}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-ink-muted leading-relaxed">
                     {language === 'hi'
                       ? `अपेक्षित केंद्र: ${formatSingleDate(insights.prediction.expected)} (आपके पिछले ${insights.prediction.basedOnCycles} चक्रों के विचलन पर आधारित)`
                       : `Expected center: ${formatSingleDate(insights.prediction.expected)} (Calibrated window based on last ${insights.prediction.basedOnCycles} cycles)`}
@@ -189,10 +191,17 @@ export const DayumScreen: React.FC<DayumScreenProps> = ({
           {/* 6. Recent Cycle Intervals Log */}
           {insights.cycles.length > 0 && (
             <Card variant="default" padding="lg">
-              <h3 className="text-sm font-semibold text-ink uppercase tracking-wider mb-3 flex items-center gap-2">
-                <History className="w-4 h-4 text-primary" />
-                {language === 'hi' ? 'हालिया चक्र इतिहास' : 'Recent Cycle Intervals'}
-              </h3>
+              <div className="mb-3">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-ink-muted flex items-center gap-2 mb-1">
+                  <History className="w-4 h-4 text-primary" />
+                  <span>{language === 'hi' ? 'हालिया चक्र इतिहास' : 'Recent Cycle Intervals'}</span>
+                </h3>
+                <h4 className="text-lg sm:text-xl font-serif font-bold text-ink tracking-tight">
+                  {language === 'hi'
+                    ? `आपके पिछले ${insights.cycles.length} चक्रों के अंतराल और रक्तस्राव का इतिहास।`
+                    : `Tracking your last ${insights.cycles.length} cycle intervals and bleeding durations.`}
+                </h4>
+              </div>
 
               <div className="space-y-2.5">
                 {[...insights.cycles].reverse().map((c, i) => {
