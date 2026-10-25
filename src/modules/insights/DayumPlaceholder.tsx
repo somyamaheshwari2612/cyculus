@@ -67,8 +67,8 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
         <div>
           <div className="flex items-baseline gap-2.5">
             <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">Dayum</h2>
-            <span className="text-[11px] font-bold text-primary uppercase tracking-widest bg-tint-lavender px-3 py-1 rounded-full border border-[#E7DCF8]">
-              {language === 'hi' ? 'चक्र ट्रैकर' : 'Cycle Tracker'}
+            <span className="text-[11px] font-bold text-primary bg-tint-lavender px-3 py-1 rounded-full border border-[#E7DCF8]">
+              {language === 'hi' ? 'चक्र टाइमलाइन' : 'cycle timeline'}
             </span>
           </div>
           <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">

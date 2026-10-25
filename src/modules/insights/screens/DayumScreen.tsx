@@ -61,13 +61,13 @@ export const DayumScreen: React.FC<DayumScreenProps> = ({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-baseline gap-2">
-            <h2 className="text-2xl font-bold text-ink tracking-tight">Dayum</h2>
-            <span className="text-xs font-semibold text-primary uppercase tracking-wider bg-primary-soft/60 px-2.5 py-0.5 rounded-full">
-              {language === 'hi' ? 'चक्र अंतर्दृष्टि' : 'Cycle Insights'}
+          <div className="flex items-baseline gap-2.5">
+            <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">Dayum</h2>
+            <span className="text-[11px] font-bold text-primary bg-tint-lavender px-3 py-1 rounded-full border border-[#E7DCF8]">
+              {language === 'hi' ? 'चक्र टाइमलाइन' : 'cycle timeline'}
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-ink-muted mt-1">
+          <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
             {language === 'hi'
               ? 'समय के साथ चक्र के पैटर्न और अंशांकित सांख्यिकीय विंडो'
               : 'Longitudinal timeline, calibrated prediction windows, & cited flags'}

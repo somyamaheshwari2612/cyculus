@@ -256,6 +256,23 @@ export const OofLog: React.FC<OofLogProps> = ({
         />
       )}
 
+      {/* Header with Brand & Plain Subtitle */}
+      <div className="flex items-center justify-between pb-1">
+        <div>
+          <div className="flex items-baseline gap-2.5">
+            <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">OofLog</h2>
+            <span className="text-[11px] font-bold text-primary bg-tint-lavender px-3 py-1 rounded-full border border-[#E7DCF8]">
+              {language === 'hi' ? 'आज कैसा रहा' : 'aaj kaisa raha'}
+            </span>
+          </div>
+          <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
+            {language === 'hi'
+              ? '1-टैप या बोलकर आज के लक्षण, दर्द और मूड दर्ज करें'
+              : 'Log today’s flow, symptoms, pain, and mood in 1-tap or your own voice'}
+          </p>
+        </div>
+      </div>
+
       {/* Quick Category Circle Pills (Screen 2 of Madhya collage) */}
       <div className="bg-white/80 backdrop-blur-sm p-4 rounded-[2rem] border border-[#F3E8EE] shadow-soft">
         <div className="flex items-center justify-between mb-2.5 px-1">

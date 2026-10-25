@@ -278,7 +278,7 @@ export const AppShell: React.FC = () => {
 
           {/* Desktop Navigation Links */}
           <nav className="space-y-2">
-            {/* OofLog (Daily Diary) */}
+            {/* OofLog (Daily Check-in) */}
             <button
               type="button"
               onClick={() => setActiveTab('ooflog')}
@@ -291,12 +291,12 @@ export const AppShell: React.FC = () => {
               <div>
                 <span className="block font-bold">OofLog</span>
                 <span className={`text-[10px] block ${activeTab === 'ooflog' ? 'text-white/80' : 'text-ink-muted'}`}>
-                  {language === 'hi' ? 'दैनिक लक्षण डायरी' : 'Daily Symptom Diary'}
+                  {language === 'hi' ? 'आज कैसा रहा' : 'aaj kaisa raha'}
                 </span>
               </div>
             </button>
 
-            {/* Dayum (Cycle Tracker & PWA Guide) */}
+            {/* Dayum (Cycle Timeline) */}
             <button
               type="button"
               onClick={() => setActiveTab('home')}
@@ -308,12 +308,10 @@ export const AppShell: React.FC = () => {
               <Calendar className={`w-4 h-4 ${activeTab === 'home' ? 'stroke-[2.5]' : ''}`} />
               <div>
                 <span className="block font-bold">
-                  {isFreshBrowser ? 'Guide & Dayum' : 'Dayum'}
+                  {isFreshBrowser ? (language === 'hi' ? 'गाइड व Dayum' : 'Guide & Dayum') : 'Dayum'}
                 </span>
                 <span className={`text-[10px] block ${activeTab === 'home' ? 'text-white/80' : 'text-ink-muted'}`}>
-                  {isFreshBrowser
-                    ? (language === 'hi' ? 'PWA गाइड एवं निर्देश' : 'PWA Guide & Timeline')
-                    : (language === 'hi' ? 'चक्र ट्रैकर व अनुमान' : 'Cycle Timeline & Window')}
+                  {language === 'hi' ? 'चक्र टाइमलाइन' : 'cycle timeline'}
                 </span>
               </div>
             </button>
@@ -329,9 +327,9 @@ export const AppShell: React.FC = () => {
             >
               <FileText className={`w-4 h-4 ${activeTab === 'brief' ? 'stroke-[2.5]' : ''}`} />
               <div>
-                <span className="block font-bold">{language === 'hi' ? 'चिट्ठी (Doctor Brief)' : 'Doctor Brief'}</span>
+                <span className="block font-bold">Doctor Brief</span>
                 <span className={`text-[10px] block ${activeTab === 'brief' ? 'text-white/80' : 'text-ink-muted'}`}>
-                  {language === 'hi' ? '1-पेज क्लिनिकल रिपोर्ट' : '1-Page Clinical Summary'}
+                  {language === 'hi' ? 'क्लिनिकल चिट्ठी' : 'clinical chitthi'}
                 </span>
               </div>
             </button>
@@ -401,10 +399,10 @@ export const AppShell: React.FC = () => {
             {/* Desktop Breadcrumb / Tab Indicator */}
             <div className="hidden lg:flex items-center gap-2 text-xs">
               <span className="font-serif font-bold text-ink text-base">
-                {activeTab === 'ooflog' && 'OofLog · Daily Diary'}
-                {activeTab === 'home' && (isFreshBrowser ? 'Guide & Instructions · PWA' : 'Dayum · Cycle Timeline')}
-                {activeTab === 'brief' && 'Doctor Brief · Chitthi'}
-                {activeTab === 'settings' && 'Privacy & Settings'}
+                {activeTab === 'ooflog' && (language === 'hi' ? 'OofLog · आज कैसा रहा' : 'OofLog · aaj kaisa raha')}
+                {activeTab === 'home' && (isFreshBrowser ? (language === 'hi' ? 'गाइड · PWA निर्देश' : 'Guide · PWA Instructions') : (language === 'hi' ? 'Dayum · चक्र टाइमलाइन' : 'Dayum · cycle timeline'))}
+                {activeTab === 'brief' && (language === 'hi' ? 'Doctor Brief · क्लिनिकल चिट्ठी' : 'Doctor Brief · chitthi')}
+                {activeTab === 'settings' && (language === 'hi' ? 'सेटिंग्स · गोपनीयता व डेटा' : 'Settings · privacy & data')}
               </span>
               <span className="text-ink-muted/50">•</span>
               <span className="text-[11px] text-ink-muted font-medium bg-white/70 px-2.5 py-0.5 rounded-full border border-surface-border">
@@ -507,7 +505,7 @@ export const AppShell: React.FC = () => {
                         : 'bg-white/90 text-primary border-[#E7DCF8] hover:bg-tint-lavender/50'
                       }`}
                   >
-                    ✍️ {language === 'hi' ? 'दैनिक चेक-इन शुरू करें (OofLog)' : 'Start Daily Check-in (OofLog)'}
+                    ✍️ {language === 'hi' ? 'आज का चेक-इन (OofLog · आज कैसा रहा)' : 'Log Today (OofLog · aaj kaisa raha)'}
                   </button>
                 </div>
               </div>
@@ -640,7 +638,7 @@ export const AppShell: React.FC = () => {
       {/* MOBILE / PHONE BOTTOM NAVIGATION BAR (Visible on all phone & tablet screens < lg) */}
       <nav className="print:hidden lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/92 backdrop-blur-xl border-t border-[#F0E6EE] px-3 py-2 shadow-sheet safe-area-bottom">
         <div className="max-w-md mx-auto grid grid-cols-4 gap-1.5">
-          {/* OofLog (Daily Diary) */}
+          {/* Log / Check-in */}
           <button
             type="button"
             onClick={() => setActiveTab('ooflog')}
@@ -650,10 +648,12 @@ export const AppShell: React.FC = () => {
               }`}
           >
             <PlusCircle className={`w-5 h-5 ${activeTab === 'ooflog' ? 'stroke-[2.5] text-primary fill-primary-soft' : ''}`} />
-            <span className="text-[10px] mt-1 font-semibold tracking-tight">OofLog</span>
+            <span className="text-[10px] mt-1 font-semibold tracking-tight">
+              {language === 'hi' ? 'लॉग' : 'Log'}
+            </span>
           </button>
 
-          {/* Dayum / Cycle Tracker & Guide */}
+          {/* Cycle Timeline */}
           <button
             type="button"
             onClick={() => setActiveTab('home')}
@@ -664,7 +664,7 @@ export const AppShell: React.FC = () => {
           >
             <Calendar className={`w-5 h-5 ${activeTab === 'home' ? 'stroke-[2.5] text-primary' : ''}`} />
             <span className="text-[10px] mt-1 font-semibold tracking-tight">
-              {isFreshBrowser ? (language === 'hi' ? 'गाइड' : 'Guide') : 'Dayum'}
+              {isFreshBrowser ? (language === 'hi' ? 'गाइड' : 'Guide') : (language === 'hi' ? 'चक्र' : 'Cycle')}
             </span>
           </button>
 

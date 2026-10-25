@@ -113,7 +113,7 @@ export const PwaUsageGuide: React.FC<PwaUsageGuideProps> = ({
                 onClick={onNavigateToLog}
                 className="rounded-full shadow-soft text-xs"
               >
-                {language === 'hi' ? 'दैनिक डायरी दर्ज करें (OofLog)' : 'Start Daily Check-in (OofLog)'}
+                {language === 'hi' ? 'आज का चेक-इन (OofLog · आज कैसा रहा)' : 'Log Today (OofLog · aaj kaisa raha)'}
               </Button>
             )}
 
@@ -163,7 +163,7 @@ export const PwaUsageGuide: React.FC<PwaUsageGuideProps> = ({
               </div>
               <div>
                 <h4 className="font-serif font-bold text-ink text-sm sm:text-base">
-                  {language === 'hi' ? 'OofLog · 1-टैप व आवाज़ से डायरी' : 'OofLog · 1-Tap & Voice Daily Diary'}
+                  {language === 'hi' ? 'OofLog · आज कैसा रहा' : 'OofLog · aaj kaisa raha'}
                 </h4>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
                   {language === 'hi' ? 'दैनिक लक्षण एवं रक्तस्राव' : 'Daily Capture · Works Offline'}
@@ -185,7 +185,7 @@ export const PwaUsageGuide: React.FC<PwaUsageGuideProps> = ({
               </div>
               <div>
                 <h4 className="font-serif font-bold text-ink text-sm sm:text-base">
-                  {language === 'hi' ? 'Dayum · चक्र टाइमलाइन व प्रेडिक्शन' : 'Dayum · Evidence-Based Timeline'}
+                  {language === 'hi' ? 'Dayum · चक्र टाइमलाइन' : 'Dayum · cycle timeline'}
                 </h4>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
                   {language === 'hi' ? '28-दिन के भ्रम से मुक्त' : 'No 28-Day Myth · Shrinkage Prior'}
