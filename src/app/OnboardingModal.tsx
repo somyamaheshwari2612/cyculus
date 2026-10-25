@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from './components/Button';
-import { HeartHandshake, Lock, ArrowRight, ArrowLeft, Calendar, Sparkles, Check, Minus, Plus } from 'lucide-react';
+import { HeartHandshake, Lock, ArrowRight, ArrowLeft, Calendar, Sparkles, Minus, Plus, PlusCircle } from 'lucide-react';
 import { UserSetup } from '@/shared/types';
 
 export interface OnboardingModalProps {
@@ -192,7 +192,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 onClick={onSkip}
                 className="w-full text-center text-xs text-ink-muted hover:text-ink py-2 transition-colors cursor-pointer"
               >
-                {language === 'hi' ? 'अभी छोड़ें (PWA गाइड एवं निर्देश देखें) →' : 'Skip setup (Explore PWA guide & start fresh) →'}
+                {language === 'hi' ? 'सीधे पहला दिन दर्ज करें →' : 'Skip to: Log your first day →'}
               </button>
             </div>
           </div>
@@ -452,38 +452,32 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="pt-2 space-y-2">
+            {/* Actions: Log your first day as the only next step */}
+            <div className="pt-3">
               <div className="flex items-center gap-3">
                 <Button
                   variant="ghost"
                   size="md"
                   icon={<ArrowLeft className="w-4 h-4" />}
                   onClick={() => setStep(1)}
-                  className="rounded-full"
+                  className="rounded-full shrink-0"
                 >
                   {language === 'hi' ? 'पीछे' : 'Back'}
                 </Button>
 
                 <Button
                   variant="primary"
-                  size="md"
+                  size="lg"
                   fullWidth
-                  icon={<Check className="w-4 h-4" />}
+                  icon={<PlusCircle className="w-4 h-4 stroke-[2.5]" />}
                   onClick={handleSave}
-                  className="shadow-soft hover:shadow-card font-medium tracking-wide"
+                  className="shadow-soft hover:shadow-card font-bold tracking-wide text-sm py-3"
                 >
-                  {language === 'hi' ? 'सेटअप सहेजें 🌸' : 'Save Prior & Enter 🌸'}
+                  {isAlreadyOnboarded
+                    ? (language === 'hi' ? 'अनुमान सहेजें' : 'Save Baseline')
+                    : (language === 'hi' ? 'पहला दिन दर्ज करें' : 'Log your first day')}
                 </Button>
               </div>
-
-              <button
-                type="button"
-                onClick={onSkip}
-                className="w-full text-center text-xs text-ink-muted hover:text-ink py-1.5 transition-colors cursor-pointer"
-              >
-                {language === 'hi' ? 'सेटअप छोड़ें (Skip for now)' : 'Skip setup (I will rely purely on logged cycles)'}
-              </button>
             </div>
           </div>
         )}

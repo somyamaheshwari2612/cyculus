@@ -19,7 +19,7 @@ import heavyData from '@/shared/mocks/entries.heavy.json';
 export type Tab = 'home' | 'ooflog' | 'brief' | 'settings';
 
 export const AppShell: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Tab>('home');
+  const [activeTab, setActiveTab] = useState<Tab>('ooflog');
   const [language, setLanguage] = useState<'en' | 'hi'>('en');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [showOnboarding, setShowOnboarding] = useState<boolean>(false);
@@ -76,10 +76,11 @@ export const AppShell: React.FC = () => {
     await saveSetup(setup);
     localStorage.setItem('cyculus_onboarding_done', 'true');
     setShowOnboarding(false);
+    setActiveTab('ooflog');
     setToastMessage(
       language === 'hi'
-        ? 'आरंभिक चक्र अनुमान सहेजा गया! वास्तविक चक्र दर्ज होने पर अनुमान स्वतः अंशांकित हो जाएगा।'
-        : 'Initial cycle baseline saved! Predictions will automatically calibrate as you log real cycles.'
+        ? 'आरंभिक चक्र अनुमान सहेजा गया! अब आज का दिन दर्ज करें।'
+        : 'Initial cycle baseline saved! Now log your first day.'
     );
   };
 
@@ -103,10 +104,16 @@ export const AppShell: React.FC = () => {
     return savePatch(patch, source, rawText);
   };
 
-  // Skip setup
+  // Skip setup directly to logging first day
   const handleSkipSetup = () => {
     localStorage.setItem('cyculus_onboarding_done', 'true');
     setShowOnboarding(false);
+    setActiveTab('ooflog');
+    setToastMessage(
+      language === 'hi'
+        ? 'स्वागत है! आज का अपना पहला दिन दर्ज करें।'
+        : 'Welcome! Tell us about today to start your diary.'
+    );
   };
 
   const requestSeedPersona = (type: 'riya' | 'regular' | 'heavy') => {
@@ -175,8 +182,6 @@ export const AppShell: React.FC = () => {
     localStorage.removeItem('cyculus_demo_persona');
     setDemoPersona(null);
   };
-
-  const isFreshBrowser = logs.length === 0 && !userSetup;
 
   return (
     <div className="min-h-screen bg-surface-bg flex font-sans selection:bg-primary-soft selection:text-ink">
@@ -307,9 +312,7 @@ export const AppShell: React.FC = () => {
             >
               <Calendar className={`w-4 h-4 ${activeTab === 'home' ? 'stroke-[2.5]' : ''}`} />
               <div>
-                <span className="block font-bold">
-                  {isFreshBrowser ? (language === 'hi' ? 'गाइड व Dayum' : 'Guide & Dayum') : 'Dayum'}
-                </span>
+                <span className="block font-bold">Dayum</span>
                 <span className={`text-[10px] block ${activeTab === 'home' ? 'text-white/80' : 'text-ink-muted'}`}>
                   {language === 'hi' ? 'चक्र टाइमलाइन' : 'cycle timeline'}
                 </span>
@@ -402,7 +405,7 @@ export const AppShell: React.FC = () => {
             <div className="hidden lg:flex items-center gap-2 text-xs">
               <span className="font-serif font-bold text-ink text-base">
                 {activeTab === 'ooflog' && (language === 'hi' ? 'OofLog · आज कैसा रहा' : 'OofLog · aaj kaisa raha')}
-                {activeTab === 'home' && (isFreshBrowser ? (language === 'hi' ? 'गाइड · PWA निर्देश' : 'Guide · PWA Instructions') : (language === 'hi' ? 'Dayum · चक्र टाइमलाइन' : 'Dayum · cycle timeline'))}
+                {activeTab === 'home' && (language === 'hi' ? 'Dayum · चक्र टाइमलाइन' : 'Dayum · cycle timeline')}
                 {activeTab === 'brief' && (language === 'hi' ? 'Doctor Brief · क्लिनिकल चिट्ठी' : 'Doctor Brief · chitthi')}
                 {activeTab === 'settings' && (language === 'hi' ? 'सेटिंग्स · गोपनीयता व डेटा' : 'Settings · privacy & data')}
               </span>
@@ -567,7 +570,7 @@ export const AppShell: React.FC = () => {
           >
             <Calendar className={`w-5 h-5 ${activeTab === 'home' ? 'stroke-[2.5] text-primary' : ''}`} />
             <span className="text-[11px] mt-1 font-semibold tracking-tight">
-              {isFreshBrowser ? (language === 'hi' ? 'गाइड' : 'Guide') : (language === 'hi' ? 'चक्र' : 'Cycle')}
+              {language === 'hi' ? 'चक्र' : 'Cycle'}
             </span>
           </button>
 
