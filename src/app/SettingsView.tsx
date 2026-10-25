@@ -74,8 +74,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
         </h2>
         <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
           {language === 'hi'
-            ? 'आपका डेटा, आपका कंट्रोल — 100% आपके फोन पर सुरक्षित।'
-            : 'Complete ownership of your personal health data. 100% on-device.'}
+            ? 'आपका डेटा, आपका कंट्रोल — लॉग सिर्फ इसी फोन में सुरक्षित।'
+            : 'Complete ownership of your personal health data. Logs saved only on this phone.'}
         </p>
       </div>
 
@@ -160,12 +160,12 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           </div>
           <div>
             <h3 className="text-base font-serif font-bold text-ink">
-              {language === 'hi' ? 'ज़ीरो-क्लाउड गारंटी (Zero-Cloud)' : 'Zero-Cloud Architecture'}
+              {language === 'hi' ? 'ऑन-डिवाइस लॉग और सुरक्षित प्रोसेसिंग' : 'On-Device Storage & Secure Processing'}
             </h3>
             <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
               {language === 'hi'
-                ? 'साइकुलस में कोई अकाउंट या पासवर्ड नहीं है। आपका सारा डेटा आपके इसी फोन/ब्राउज़र में सुरक्षित रहता है। कोई भी पर्सनल हेल्थ डेटा कभी किसी सर्वर पर नहीं जाता।'
-                : 'Cyculus has no user accounts or cloud databases. All daily entries stay inside your device’s IndexedDB storage. No health details are ever uploaded.'}
+                ? 'आपके लॉग सिर्फ इसी फोन में सेव रहते हैं। जब आप कोई नोट समझने के लिए लिखती हैं, तो वह सुरक्षित रूप से प्रोसेस होने जाता है और हमारे पास कभी सेव नहीं होता। कोई यूजर अकाउंट या क्लाउड डेटाबेस नहीं है।'
+                : 'Your logs are saved only on this phone. When you type a note for the app to understand, that text is sent securely for processing and is not stored by us. Cyculus has no user accounts or persistent cloud databases.'}
             </p>
             <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 border border-[#E7DCF8] text-xs font-semibold text-primary">
               <span>🔒 {logsCount} real logged days in this browser</span>

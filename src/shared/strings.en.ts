@@ -12,11 +12,11 @@ export const STRINGS_EN = {
     cycleSub: 'cycle timeline',
     briefSub: 'clinical chitthi',
     settingsTitle: 'Settings & Privacy',
-    settingsSub: '100% On-Device',
-    onDeviceBadge: '100% On-Device',
+    settingsSub: 'Phone-First Privacy',
+    onDeviceBadge: 'Phone-First Privacy',
     tagline: 'Making health make sense.',
     sidebarPromise: 'Your health. Your questions. Our priority.',
-    sidebarZeroCloud: '100% on-device · Zero cloud',
+    sidebarZeroCloud: 'Logs saved on phone · Zero tracking',
     offlinePwa: 'Offline Ready PWA',
   },
 
@@ -63,7 +63,7 @@ export const STRINGS_EN = {
     // Confirm Card
     confirmTitle: 'This is what I understood.',
     confirmSubtitle: "Change anything that's wrong, then save.",
-    trustNote: '100% on-device IndexedDB · Never sent to any cloud',
+    trustNote: 'Your logs are saved only on this phone. When you type a note for the app to understand, that text is sent securely for processing and is not stored by us.',
     confirmSaveButton: 'Yes, save this entry',
     confirmEditButton: 'Edit',
     confirmCancelButton: 'Cancel',
@@ -143,8 +143,8 @@ export const STRINGS_EN = {
     whyPoint1Text: 'We show an 80% statistical coverage window rather than a single guessing date. Menstrual biology naturally varies.',
     whyPoint2Title: 'Adapts to your real body',
     whyPoint2Text: 'We start with a clinical prior and smoothly transition to your personal empirical distribution after 3 completed cycles.',
-    whyPoint3Title: '100% on-device private',
-    whyPoint3Text: 'All mathematical calculations happen right in your browser. Nothing is ever sent to a remote server.',
+    whyPoint3Title: 'Saved only on this phone',
+    whyPoint3Text: 'Your cycle logs and predictions are computed and saved only on this phone. When you type a note for the app to understand, that text is sent securely for processing and is not stored by us.',
   },
 
   // Doctor Brief (Chitthi)
@@ -154,7 +154,7 @@ export const STRINGS_EN = {
     subtitle: '1-page consultation brief formatted with FIGO thresholds & cited guidelines',
     printButton: 'Print / Save as PDF',
     printHeaderTitle: 'Clinical Menstrual Health Summary (Doctor Brief)',
-    verifiedBadge: '100% On-Device · FIGO Verified',
+    verifiedBadge: 'Phone-First Storage · FIGO Verified',
 
     // Empty state
     emptyTitle: 'No entries yet',
@@ -195,13 +195,13 @@ export const STRINGS_EN = {
 
   // Onboarding Modal (First Minute)
   onboarding: {
-    badge: 'Cyculus · 100% On-Device',
+    badge: 'Cyculus · Phone-First Privacy',
     welcomeTitle: 'Welcome to Cyculus',
     welcomeSubtitle: 'Your private, phone-first cycle diary & doctor-ready brief',
 
     // Step 1 Guarantees
-    card1Title: '100% On-Device PWA (No Profile Needed)',
-    card1Body: 'No account, profile, or name required. Everything stays locally in your browser IndexedDB with offline caching.',
+    card1Title: 'Logs Saved Only on This Phone',
+    card1Body: 'Your logs are saved only on this phone. When you type a note for the app to understand, that text is sent securely for processing and is not stored by us.',
     card2Title: 'Facts ready for your clinician',
     card2Body: 'Log symptoms in your own words. Generate a clear 1-page PDF for medical appointments.',
     card3Title: 'Non-Diagnostic Wellness Tool',
@@ -242,7 +242,7 @@ export const STRINGS_EN = {
   // Settings & Privacy
   settings: {
     title: 'Settings & Privacy',
-    subtitle: 'Your health data, completely under your control — 100% on-device.',
+    subtitle: 'Your health data, completely under your control — logs saved only on this phone.',
 
     // Baseline Card
     baselineBadge: 'Baseline Setup',
@@ -257,8 +257,8 @@ export const STRINGS_EN = {
     noneField: 'None',
 
     // Zero-Cloud Guarantee
-    zeroCloudTitle: 'Zero-Cloud Guarantee (100% On-Device)',
-    zeroCloudBody: 'No telemetry, zero cloud database. All logs are stored strictly inside your browser’s IndexedDB sandbox.',
+    zeroCloudTitle: 'On-Device Logs & Secure Processing',
+    zeroCloudBody: 'Your logs are saved only on this phone. When you type a note for the app to understand, that text is sent securely for processing and is not stored by us.',
     loggedDaysCount: (count: number) => `${count} real logged days in this browser`,
 
     // PWA Guide

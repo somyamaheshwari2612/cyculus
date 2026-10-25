@@ -24,7 +24,7 @@ export const WhyModal: React.FC<WhyModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/40 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto bg-white rounded-3xl p-5 sm:p-6 shadow-2xl border border-surface-border">
+      <div className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto bg-surface rounded-3xl p-5 sm:p-6 shadow-2xl border border-surface-border">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-surface-border pb-3 mb-4">
           <div className="flex items-center gap-2">
@@ -59,7 +59,7 @@ export const WhyModal: React.FC<WhyModalProps> = ({
                   {language === 'hi' ? 'यह अंदाज़ा कैसे निकाला गया?' : 'Why am I seeing this prediction?'}
                 </span>
               </span>
-              <span className="text-[10px] font-bold text-primary bg-white px-2.5 py-0.5 rounded-full border border-primary/20 shadow-pill">
+              <span className="text-[10px] font-bold text-primary bg-surface px-2.5 py-0.5 rounded-full border border-primary/20 shadow-pill">
                 {language === 'hi'
                   ? `पिछले ${prediction.basedOnCycles} पीरियड्स के हिसाब से`
                   : `Based on ${prediction.basedOnCycles} ${prediction.basedOnCycles === 1 ? 'cycle' : 'cycles'}`}
@@ -73,7 +73,7 @@ export const WhyModal: React.FC<WhyModalProps> = ({
             </p>
 
             <div className="pt-0.5 grid grid-cols-2 gap-2 text-[11px]">
-              <div className="p-2.5 bg-white/90 rounded-xl border border-[#E7DCF8]">
+              <div className="p-2.5 bg-surface/90 rounded-xl border border-surface-border">
                 <span className="text-ink-muted block text-[10px] font-medium">
                   {language === 'hi' ? 'अनुमानित केंद्र:' : 'Expected Center:'}
                 </span>
@@ -81,7 +81,7 @@ export const WhyModal: React.FC<WhyModalProps> = ({
                   {new Date(prediction.expected + 'T00:00:00').toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                 </span>
               </div>
-              <div className="p-2.5 bg-white/90 rounded-xl border border-[#E7DCF8]">
+              <div className="p-2.5 bg-surface/90 rounded-xl border border-surface-border">
                 <span className="text-ink-muted block text-[10px] font-medium">
                   {language === 'hi' ? 'अनुमानित दायरा:' : 'Window Range:'}
                 </span>

@@ -78,7 +78,7 @@ export const ConfirmCard: React.FC<ConfirmCardProps> = ({
           <div>
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-wider mb-1">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>{language === 'hi' ? '100% आपके फ़ोन में' : 'On-Device Interpretation'}</span>
+              <span>{language === 'hi' ? 'सुरक्षित प्रोसेसिंग' : 'Secure Extraction'}</span>
             </div>
             <h3 className="font-serif font-bold text-ink text-lg sm:text-xl leading-tight">
               {language === 'hi' ? 'मैंने यह समझा।' : 'This is what I understood.'}
@@ -108,12 +108,12 @@ export const ConfirmCard: React.FC<ConfirmCardProps> = ({
         </div>
         <div className="text-xs space-y-0.5">
           <div className="font-bold text-ink flex items-center gap-1.5">
-            <span>{language === 'hi' ? '🔒 100% ऑन-डिवाइस · पूर्ण गोपनीयता' : '🔒 100% On-Device · Complete Privacy'}</span>
+            <span>{language === 'hi' ? '🔒 सुरक्षित प्राइवेसी' : '🔒 Safe & Private'}</span>
           </div>
           <p className="text-ink-muted leading-relaxed text-[11px] sm:text-xs">
             {language === 'hi'
-              ? 'यह समझ केवल आपका समय बचाने के लिए आपके फोन पर ही निकाली गई है। जब तक आप नीचे "सहेजें" नहीं दबातीं, यह आपकी स्थायी डायरी में दर्ज नहीं होता।'
-              : 'This extraction ran 100% locally on your phone to save you typing. Nothing is committed to your medical history until you click Save.'}
+              ? 'आपके लॉग सिर्फ इसी फोन में सेव रहते हैं। जब आप कोई नोट समझने के लिए लिखती हैं, तो वह सुरक्षित रूप से प्रोसेस होने जाता है और हमारे पास सेव नहीं होता। जब तक आप नीचे "सेव करें" नहीं दबातीं, यह आपकी डायरी में दर्ज नहीं होता।'
+              : 'Your logs are saved only on this phone. When you type a note for the app to understand, that text is sent securely for processing and is not stored by us. Nothing is saved to your diary until you tap Save below.'}
           </p>
         </div>
       </div>

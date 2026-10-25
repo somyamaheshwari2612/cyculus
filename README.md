@@ -30,8 +30,9 @@ Most menstrual tracking applications suffer from three critical flaws:
                                   CYCULUS ARCHITECTURE
                                   
    ┌────────────────────────────────────────────────────────────────────────┐
-   │                  100% On-Device Local Storage (Dexie / IndexedDB)       │
-   │           No Cloud Sync · No User Accounts · Health Data Stays on Phone│
+   │                  Phone-First Storage & Secure Ephemeral Processing     │
+   │  Logs Stored On-Device (Dexie / IndexedDB) · Notes Processed Securely   │
+   │           No Cloud User Database · Zero Storage of Extracted Notes     │
    └───────────────────────────────────┬────────────────────────────────────┘
                                        │
         ┌──────────────────────────────┼──────────────────────────────┐
@@ -71,7 +72,7 @@ Most menstrual tracking applications suffer from three critical flaws:
 
 | Principle | Implementation |
 |---|---|
-| **Zero-Cloud Privacy** | All daily logs, cycle calculations, and user preferences are stored strictly on-device in **IndexedDB via Dexie**. No server databases, no analytics tracking, no data leaves the phone. |
+| **Phone-First Storage & Secure Processing** | All logs, cycle metrics, and user setups are saved only on the user's phone in **IndexedDB via Dexie**. When conversational notes are submitted for extraction, text is processed securely via HTTPS by the schema-bound backend and is **never stored by us**. |
 | **Zero-Hallucination Guard** | LLMs never diagnose conditions or calculate statistics. All stats, predictions, and flags are computed deterministically by pure TypeScript functions against thresholds in [`knowledge.json`](file:///c:/Users/somya/cyculus/src/shared/knowledge.json). |
 | **Strict Numeric Whitelist** | Generated clinician briefs pass through [`passesNumericGuard`](file:///c:/Users/somya/cyculus/src/modules/brief/numericGuard.ts), rejecting any number or date not present in local logs. |
 | **Descriptive, Not Diagnostic** | The interface uses clear, supportive phrasing (*"outside commonly cited ranges, worth discussing with a doctor"*), strictly avoiding medical diagnoses. |

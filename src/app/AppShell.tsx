@@ -353,7 +353,7 @@ export const AppShell: React.FC = () => {
             <div className="min-w-0">
               <span className="block font-semibold truncate">{language === 'hi' ? 'सेटिंग्स व डेटा' : 'Settings & Privacy'}</span>
               <span className="text-[10px] block text-ink-muted truncate">
-                {language === 'hi' ? '100% ऑन-डिवाइस' : '100% On-Device'}
+                {language === 'hi' ? 'फोन में सुरक्षित' : 'Phone-First Privacy'}
               </span>
             </div>
           </button>
@@ -370,7 +370,7 @@ export const AppShell: React.FC = () => {
                   : 'Your health. Your questions. Our priority.'}
               </p>
               <p className="text-[10px] text-ink-muted mt-1">
-                100% on-device · Zero cloud
+                {language === 'hi' ? 'लॉग सिर्फ फोन में सेव · कोई ट्रैकिंग नहीं' : 'Logs saved on phone · Zero tracking'}
               </p>
               <div className="mt-3 flex items-center gap-1.5 text-[10px] font-semibold text-primary">
                 <ShieldCheck className="w-3.5 h-3.5" />
@@ -423,7 +423,7 @@ export const AppShell: React.FC = () => {
             {/* Right Controls: Storage Badge, Language Toggle & Quiet Settings */}
             <div className="flex items-center gap-2">
               <div className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-semibold text-primary bg-tint-lavender/60 px-3 py-1 rounded-full border border-[#E7DCF8]">
-                <span>🔒 100% On-Device</span>
+                <span>🔒 {language === 'hi' ? 'फोन में सुरक्षित' : 'Phone-First Privacy'}</span>
               </div>
 
               {/* Language toggle stays visible */}

@@ -73,10 +73,10 @@ export const PwaUsageGuide: React.FC<PwaUsageGuideProps> = ({
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <span className="text-[11px] font-bold uppercase tracking-wider text-primary bg-white/95 px-3 py-1 rounded-full border border-[#E7DCF8] shadow-soft flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>{language === 'hi' ? '100% ऑन-डिवाइस PWA' : '100% On-Device PWA'}</span>
+              <span>{language === 'hi' ? 'फोन-फर्स्ट प्राइवेसी' : 'Phone-First Privacy'}</span>
             </span>
             <span className="text-[11px] text-ink-muted bg-white/70 px-2.5 py-1 rounded-full border border-surface-border">
-              {language === 'hi' ? 'शून्य क्लाउड · पूर्ण गोपनीयता' : 'Zero Cloud · Zero Tracking'}
+              {language === 'hi' ? 'सुरक्षित लॉग · शून्य ट्रैकिंग' : 'Secure Logs · Zero Tracking'}
             </span>
           </div>
 
@@ -87,8 +87,8 @@ export const PwaUsageGuide: React.FC<PwaUsageGuideProps> = ({
           </h2>
           <p className="text-xs sm:text-sm text-ink-muted mt-2 leading-relaxed">
             {language === 'hi'
-              ? 'साइकुलस एक प्रोग्रेसिव वेब ऐप (PWA) है जो बिना किसी इंटरनेट या सर्वर के सीधे आपके फोन/ब्राउज़र में सुरक्षित चलता है। कोई अकाउंट, पासवर्ड या क्लाउड डेटाबेस नहीं है।'
-              : 'Cyculus is an installable, offline-first Progressive Web App. It stores all symptom notes, cycles, and clinical summaries directly in your browser’s IndexedDB. No login, no password, and zero data uploads.'}
+              ? 'साइकुलस एक प्रोग्रेसिव वेब ऐप (PWA) है। आपके लॉग सिर्फ इसी फोन में सेव रहते हैं। जब आप कोई नोट समझने के लिए लिखती हैं, तो वह सुरक्षित रूप से प्रोसेस होने जाता है और हमारे पास कभी सेव नहीं होता।'
+              : 'Cyculus is an installable, offline-first Progressive Web App. Your logs are saved only on this phone. When you type a note for the app to understand, that text is sent securely for processing and is not stored by us.'}
           </p>
 
           {/* Quick Action Bar */}

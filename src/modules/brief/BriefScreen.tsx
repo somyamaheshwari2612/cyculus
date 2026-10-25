@@ -156,7 +156,9 @@ export function BriefScreen({
               <div className="font-semibold text-ink">
                 {new Date().toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US', { dateStyle: 'medium' })}
               </div>
-              <div className="text-[10px] text-primary font-bold">100% On-Device · FIGO Verified</div>
+              <div className="text-[10px] text-primary font-bold">
+                {language === 'hi' ? 'फोन में सुरक्षित · FIGO सत्यापित' : 'Phone-First Storage · FIGO Verified'}
+              </div>
             </div>
           </div>
         </div>
