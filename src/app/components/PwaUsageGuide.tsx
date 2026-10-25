@@ -82,12 +82,12 @@ export const PwaUsageGuide: React.FC<PwaUsageGuideProps> = ({
 
           <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight font-bold">
             {language === 'hi' 
-              ? 'साइकुलस PWA उपयोग गाइड एवं निर्देश' 
+              ? 'साइकुलस PWA गाइड और निर्देश' 
               : 'Cyculus PWA: Instructions & Usage Guide'}
           </h2>
           <p className="text-xs sm:text-sm text-ink-muted mt-2 leading-relaxed">
             {language === 'hi'
-              ? 'साइकुलस एक प्रोग्रेसिव वेब ऐप (PWA) है जो बिना किसी इंटरनेट कनेक्शन या सर्वर के सीधे आपके ब्राउज़र में सुरक्षित रूप से चलता है। कोई खाता, पासवर्ड या क्लाउड डेटाबेस नहीं है।'
+              ? 'साइकुलस एक प्रोग्रेसिव वेब ऐप (PWA) है जो बिना किसी इंटरनेट या सर्वर के सीधे आपके फोन/ब्राउज़र में सुरक्षित चलता है। कोई अकाउंट, पासवर्ड या क्लाउड डेटाबेस नहीं है।'
               : 'Cyculus is an installable, offline-first Progressive Web App. It stores all symptom notes, cycles, and clinical summaries directly in your browser’s IndexedDB. No login, no password, and zero data uploads.'}
           </p>
 
@@ -113,7 +113,7 @@ export const PwaUsageGuide: React.FC<PwaUsageGuideProps> = ({
                 onClick={onNavigateToLog}
                 className="rounded-full shadow-soft text-xs"
               >
-                {language === 'hi' ? 'दैनिक डायरी दर्ज करें (OofLog)' : 'Start Daily Check-in (OofLog)'}
+                {language === 'hi' ? 'आज का चेक-इन (OofLog · आज कैसा रहा)' : 'Log Today (OofLog · aaj kaisa raha)'}
               </Button>
             )}
 
@@ -163,16 +163,16 @@ export const PwaUsageGuide: React.FC<PwaUsageGuideProps> = ({
               </div>
               <div>
                 <h4 className="font-serif font-bold text-ink text-sm sm:text-base">
-                  {language === 'hi' ? 'OofLog · 1-टैप व आवाज़ से डायरी' : 'OofLog · 1-Tap & Voice Daily Diary'}
+                  {language === 'hi' ? 'OofLog · आज कैसा रहा' : 'OofLog · aaj kaisa raha'}
                 </h4>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
-                  {language === 'hi' ? 'दैनिक लक्षण एवं रक्तस्राव' : 'Daily Capture · Works Offline'}
+                  {language === 'hi' ? 'रोज़ के लक्षण और फ्लो' : 'Daily Capture · Works Offline'}
                 </span>
               </div>
             </div>
             <p className="text-xs text-ink-muted leading-relaxed">
               {language === 'hi'
-                ? 'माहवारी का बहाव (Spotting, Light, Medium, Heavy), दर्द स्तर (0–10) और लक्षण 1-टैप में दर्ज करें। आप माइक दबाकर अपनी सहज भाषा (हिन्दी/अंग्रेज़ी) में बोल भी सकती हैं। पुष्टि कार्ड में जांच के बाद ही डेटा सहेजा जाता है।'
+                ? 'पीरियड का फ्लो (Spotting, Light, Medium, Heavy), दर्द (0–10) और लक्षण 1-टैप में लॉग करें। आप माइक दबाकर अपनी रोज़मर्रा की भाषा में बोल भी सकती हैं। कन्फर्म कार्ड में चेक करने के बाद ही डेटा सेव होता है।'
                 : 'Log flow (Spotting to Heavy), pain scale (0–10), and symptoms in one tap. Or tap the mic to speak naturally in Hindi or English. Cyculus formats an editable confirm card so nothing is auto-saved without your approval.'}
             </p>
           </div>
@@ -185,7 +185,7 @@ export const PwaUsageGuide: React.FC<PwaUsageGuideProps> = ({
               </div>
               <div>
                 <h4 className="font-serif font-bold text-ink text-sm sm:text-base">
-                  {language === 'hi' ? 'Dayum · चक्र टाइमलाइन व प्रेडिक्शन' : 'Dayum · Evidence-Based Timeline'}
+                  {language === 'hi' ? 'Dayum · पीरियड टाइमलाइन' : 'Dayum · cycle timeline'}
                 </h4>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
                   {language === 'hi' ? '28-दिन के भ्रम से मुक्त' : 'No 28-Day Myth · Shrinkage Prior'}
@@ -194,7 +194,7 @@ export const PwaUsageGuide: React.FC<PwaUsageGuideProps> = ({
             </div>
             <p className="text-xs text-ink-muted leading-relaxed">
               {language === 'hi'
-                ? 'हम काल्पनिक 28-दिन का चक्र नहीं मानते। आरंभ में यह जनसंख्या औसत (29.3 दिन, Bull et al. 2019) या आपके दिए गए प्रायर का उपयोग करता है। जैसे-जैसे वास्तविक चक्र दर्ज होते हैं, श्रिंकेज विधि से अनुमान सटीक होता जाता है।'
+                ? 'हम काल्पनिक 28-दिन का चक्र नहीं मानते। शुरुआत में यह जनसंख्या औसत (29.3 दिन, Bull et al. 2019) या आपके दिए गए अंदाज़े का उपयोग करता है। जैसे-जैसे असली पीरियड्स लॉग होते हैं, अंदाज़ा और सटीक होता जाता है।'
                 : 'We reject the mythical 28-day default. Starting with a realistic population prior (29.3 days, Bull et al. 2019) or your own estimate, prediction smoothly shrinks towards your actual observed cycles as real logs accumulate.'}
             </p>
           </div>
@@ -216,7 +216,7 @@ export const PwaUsageGuide: React.FC<PwaUsageGuideProps> = ({
             </div>
             <p className="text-xs text-ink-muted leading-relaxed">
               {language === 'hi'
-                ? 'डॉक्टर से परामर्श के लिए 1-क्लिक में क्लिनिकल सारांश और पीडीएफ बनाएं। यह केवल आपके द्वारा वास्तव में दर्ज किए गए तथ्यों को दर्शाता है—कभी भी अनुमानित रक्तस्राव नहीं जोड़ता।'
+                ? 'डॉक्टर से बात करने के लिए 1-क्लिक में 1-पेज चिट्ठी और PDF बनाएं। यह सिर्फ आपके लॉग किए गए असली तथ्यों को दिखाती है—कोई मनगढ़ंत डेटा नहीं।'
                 : 'Generate a print-ready 1-page clinical sheet for your doctor appointment. FIGO-grounded observations restate only what you actually logged; self-reported answers remain clearly marked as unverified estimates.'}
             </p>
           </div>
@@ -229,16 +229,16 @@ export const PwaUsageGuide: React.FC<PwaUsageGuideProps> = ({
               </div>
               <div>
                 <h4 className="font-serif font-bold text-ink text-sm sm:text-base">
-                  {language === 'hi' ? 'गोपनीयता एवं डेटा बैकअप' : 'Privacy & Full Data Ownership'}
+                  {language === 'hi' ? 'प्राइवेसी और डेटा बैकअप' : 'Privacy & Full Data Ownership'}
                 </h4>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800">
-                  {language === 'hi' ? 'JSON एक्सपोर्ट एवं डिलीट' : 'IndexedDB · Export / Clear Anytime'}
+                  {language === 'hi' ? 'JSON डाउनलोड और डिलीट' : 'IndexedDB · Export / Clear Anytime'}
                 </span>
               </div>
             </div>
             <p className="text-xs text-ink-muted leading-relaxed">
               {language === 'hi'
-                ? 'आपका डेटा केवल आपके इस फ़ोन/ब्राउज़र में है। सेटिंग्स से कभी भी पूरा डेटा JSON फ़ाइल में डाउनलोड करें या एक क्लिक में सभी डेटा को हमेशा के लिए मिटा दें।'
+                ? 'आपका डेटा सिर्फ आपके इसी फोन/ब्राउज़र में है। सेटिंग्स से कभी भी सारा डेटा JSON फाइल में डाउनलोड करें या एक क्लिक में सारा डेटा मिटाएं।'
                 : 'Your health history is strictly in your hands. Head to Settings anytime to export a full JSON backup of your records or wipe local storage with one click.'}
             </p>
           </div>
@@ -420,11 +420,11 @@ export const PwaUsageGuide: React.FC<PwaUsageGuideProps> = ({
               </span>
             </div>
             <h4 className="font-serif font-bold text-ink text-sm sm:text-base">
-              {language === 'hi' ? '6 महीने का यथार्थवादी डेमो डेटा लोड करें' : 'Explore with Preloaded Evaluation Logs'}
+              {language === 'hi' ? '6 महीने का डेमो डेटा लोड करें' : 'Explore with Preloaded Evaluation Logs'}
             </h4>
             <p className="text-xs text-ink-muted">
               {language === 'hi'
-                ? 'निर्णायकों के मूल्यांकन के लिए: अनियमित चक्र (Riya), नियमित चक्र या अत्यधिक रक्तस्राव का डेटा तुरंत लोड करें।'
+                ? 'ऐप को टेस्ट करने के लिए: अनियमित पीरियड (Riya), नियमित पीरियड या हैवी फ्लो का डेटा तुरंत लोड करें।'
                 : 'Instantly populate 6 months of realistic longitudinal entries to evaluate cycle shrinkage and clinician brief generation.'}
             </p>
           </div>

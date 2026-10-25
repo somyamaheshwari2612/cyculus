@@ -170,12 +170,26 @@ export const FlagList: React.FC<FlagListProps> = ({ flags, rules, language }) =>
   const severityOrder: Record<Severity, number> = { urgent: 0, soon: 1, discuss: 2, info: 3 };
   const sorted = [...flags].sort((a, b) => severityOrder[a.severity] - severityOrder[b.severity]);
 
+  const count = sorted.length;
+  const headline = count === 1
+    ? (language === 'hi'
+        ? 'आपके चक्र डेटा में 1 पैटर्न डॉक्टर से चर्चा योग्य पाया गया है।'
+        : '1 pattern in your cycle data is worth discussing with your doctor.')
+    : (language === 'hi'
+        ? `आपके चक्र डेटा में ${count} पैटर्न डॉक्टर से चर्चा योग्य पाए गए हैं।`
+        : `${count} patterns in your cycle data are worth discussing with your doctor.`);
+
   return (
     <div className="space-y-3">
-      <h3 className="text-sm font-semibold text-ink uppercase tracking-wider flex items-center gap-2">
-        <AlertTriangle className="w-4 h-4 text-severity-discuss" />
-        {language === 'hi' ? 'डॉक्टर के साथ चर्चा योग्य बातें' : 'Worth Discussing with Your Doctor'}
-      </h3>
+      <div>
+        <h3 className="text-xs font-bold uppercase tracking-wider text-severity-discuss flex items-center gap-2 mb-1">
+          <AlertTriangle className="w-4 h-4 text-severity-discuss" />
+          <span>{language === 'hi' ? 'चिकित्सीय अंतर्दृष्टि' : 'Clinical Insights'}</span>
+        </h3>
+        <h4 className="text-lg sm:text-xl font-serif font-bold text-ink tracking-tight">
+          {headline}
+        </h4>
+      </div>
       {sorted.map(flag => {
         const rule = rules.find(r => r.id === flag.ruleId);
         if (!rule) return null;

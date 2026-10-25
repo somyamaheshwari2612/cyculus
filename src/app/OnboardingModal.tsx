@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from './components/Button';
-import { HeartHandshake, Lock, ArrowRight, ArrowLeft, Calendar, Sparkles, Check } from 'lucide-react';
+import { HeartHandshake, Lock, ArrowRight, ArrowLeft, Calendar, Sparkles, Minus, Plus, PlusCircle } from 'lucide-react';
 import { UserSetup } from '@/shared/types';
 
 export interface OnboardingModalProps {
@@ -16,15 +16,28 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
   onSaveSetup,
   onSkip
 }) => {
-  const [step, setStep] = useState<1 | 2>(1);
+  // If editing an existing setup, open directly on step 2 (Date & Prior Setup)
+  const isAlreadyOnboarded = Boolean(initialSetup) || Boolean(localStorage.getItem('cyculus_onboarding_done'));
+  const [step, setStep] = useState<1 | 2>(isAlreadyOnboarded ? 2 : 1);
   const todayStr = new Date().toISOString().split('T')[0];
 
-  // Form states: No '28' default! Starts empty.
+  // Form states:
   const [lastPeriodStart, setLastPeriodStart] = useState<string>(initialSetup?.lastPeriodStart || '');
+
+  // Cycle choice mode: 'know' (default) or 'not_sure' — never default to not sure!
+  const [cycleMode, setCycleMode] = useState<'know' | 'not_sure'>(() => {
+    if (initialSetup && initialSetup.typicalCycleLength === undefined && initialSetup.lastPeriodStart) {
+      return 'not_sure';
+    }
+    return 'know';
+  });
+
+  const [cycleLength, setCycleLength] = useState<number>(() => {
+    return initialSetup?.typicalCycleLength ?? 29;
+  });
   const [cycleLengthStr, setCycleLengthStr] = useState<string>(
-    initialSetup?.typicalCycleLength ? String(initialSetup.typicalCycleLength) : ''
+    initialSetup?.typicalCycleLength ? String(initialSetup.typicalCycleLength) : '29'
   );
-  const [isNotSureLength, setIsNotSureLength] = useState<boolean>(false);
 
   // Optional earlier period starts for real intervals
   const [showEarlierDates, setShowEarlierDates] = useState<boolean>(
@@ -43,21 +56,21 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
     if (lastPeriodStart && lastPeriodStart > todayStr) {
       setValidationError(
         language === 'hi'
-          ? 'माहवारी शुरू होने की तारीख भविष्य की नहीं हो सकती।'
+          ? 'पीरियड शुरू होने की तारीख आने वाले कल या भविष्य की नहीं हो सकती।'
           : 'Last period start date cannot be in the future.'
       );
       return;
     }
 
-    // Validate cycle length if provided
+    // Validate cycle length if in 'know' mode
     let typicalCycleLength: number | undefined = undefined;
-    if (!isNotSureLength && cycleLengthStr.trim() !== '') {
+    if (cycleMode === 'know') {
       const parsed = parseInt(cycleLengthStr, 10);
       if (isNaN(parsed) || parsed < 15 || parsed > 90) {
         setValidationError(
           language === 'hi'
-            ? 'कृपया चक्र की लंबाई 15 से 90 दिनों के बीच दर्ज करें।'
-            : 'Please enter a typical cycle length between 15 and 90 days.'
+            ? 'कृपया पीरियड का गैप 15 से 90 दिन के बीच लिखें (या "पक्का नहीं पता" चुनें)।'
+            : 'Please enter a typical cycle length between 15 and 90 days, or select "Not sure / Irregular".'
         );
         return;
       }
@@ -105,7 +118,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
               </h2>
               <p className="text-xs sm:text-sm text-ink-muted mt-1.5 font-sans leading-relaxed">
                 {language === 'hi'
-                  ? 'आपकी निजी, सुरक्षित मासिक चक्र डायरी एवं क्लिनिकल चिट्ठी'
+                  ? 'आपकी प्राइवेट, सुरक्षित पीरियड डायरी और डॉक्टर के लिए चिट्ठी'
                   : 'Your private, phone-first cycle diary & doctor-ready brief'}
               </p>
             </div>
@@ -118,11 +131,11 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-semibold text-ink">
-                    {language === 'hi' ? '100% ऑन-डिवाइस PWA (कोई नाम या प्रोफ़ाइल नहीं)' : '100% On-Device PWA (No Profile Needed)'}
+                    {language === 'hi' ? '100% ऑन-डिवाइस (कोई अकाउंट या नाम नहीं)' : '100% On-Device PWA (No Profile Needed)'}
                   </h4>
                   <p className="text-[11px] sm:text-xs text-ink-muted mt-0.5 leading-relaxed">
                     {language === 'hi'
-                      ? 'कोई खाता, पासवर्ड या नाम आवश्यक नहीं। आपका व्यक्तिगत स्वास्थ्य डेटा केवल आपके इस फ़ोन/ब्राउज़र में रहता है। पूर्ण रूप से ऑफ़लाइन कार्य करता है।'
+                      ? 'कोई अकाउंट, पासवर्ड या नाम की ज़रूरत नहीं। आपका हेल्थ डेटा सिर्फ आपके इस फोन/ब्राउज़र में सुरक्षित रहता है और बिना इंटरनेट भी काम करता है।'
                       : 'No account, profile, or name required. Everything stays locally in your browser IndexedDB. Installable on phone & desktop with offline caching.'}
                   </p>
                 </div>
@@ -134,11 +147,11 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-semibold text-ink">
-                    {language === 'hi' ? 'डॉक्टर के लिए तथ्य-आधारित चिट्ठी' : 'Facts ready for your clinician'}
+                    {language === 'hi' ? 'डॉक्टर के लिए 1-पेज की चिट्ठी' : 'Facts ready for your clinician'}
                   </h4>
                   <p className="text-[11px] sm:text-xs text-ink-muted mt-0.5 leading-relaxed">
                     {language === 'hi'
-                      ? 'हिंग्लिश या सामान्य शब्दों में बोलें। क्लिनिक में दिखाने हेतु 1-पेज पीडीएफ चिट्ठी तैयार करें।'
+                      ? 'अपनी रोज़मर्रा की भाषा में बोलें या लिखें। डॉक्टर को दिखाने के लिए 1-पेज PDF चिट्ठी तैयार हो जाएगी।'
                       : 'Log symptoms in your own words. Generate a clear 1-page PDF for medical appointments.'}
                   </p>
                 </div>
@@ -150,11 +163,11 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-semibold text-amber-950">
-                    {language === 'hi' ? 'चिकित्सकीय अस्वीकरण (Disclaimer)' : 'Non-Diagnostic Wellness Tool'}
+                    {language === 'hi' ? 'ज़रूरी बात (Disclaimer)' : 'Non-Diagnostic Wellness Tool'}
                   </h4>
                   <p className="text-[11px] text-amber-900 mt-0.5 leading-relaxed">
                     {language === 'hi'
-                      ? 'यह ऐप कोई रोग निदान नहीं करता। यह केवल आपके चक्र के रुझान समझने और डॉक्टर से सवाल पूछने में सहायक है।'
+                      ? 'यह ऐप कोई मेडिकल बीमारी डायग्नोज़ नहीं करता। यह सिर्फ आपके पीरियड्स का पैटर्न समझने और डॉक्टर से बात करने में मदद करता है।'
                       : 'Cyculus evaluates clinical standards (FIGO/ACOG) to help you discuss patterns with your doctor.'}
                   </p>
                 </div>
@@ -171,7 +184,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 onClick={() => setStep(2)}
                 className="shadow-soft hover:shadow-card font-medium tracking-wide"
               >
-                {language === 'hi' ? 'चक्र सेटअप (ऐच्छिक) →' : 'Next: Set Up Cycle Prior →'}
+                {language === 'hi' ? 'पीरियड का अंदाज़ा बताएं (ऐच्छिक) →' : 'Next: Set Up Cycle Prior →'}
               </Button>
 
               <button
@@ -179,7 +192,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 onClick={onSkip}
                 className="w-full text-center text-xs text-ink-muted hover:text-ink py-2 transition-colors cursor-pointer"
               >
-                {language === 'hi' ? 'अभी छोड़ें (PWA गाइड एवं निर्देश देखें) →' : 'Skip setup (Explore PWA guide & start fresh) →'}
+                {language === 'hi' ? 'सीधे पहला दिन लॉग करें →' : 'Skip to: Log your first day →'}
               </button>
             </div>
           </div>
@@ -192,16 +205,16 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-3 py-0.5 rounded-full border border-[#E7DCF8]">
-                  {language === 'hi' ? 'कदम 2 · चक्र अनुमान सेटअप' : 'Step 2 · Initial Prior Setup'}
+                  {language === 'hi' ? 'कदम 2 · पीरियड का अंदाज़ा' : 'Step 2 · Initial Prior Setup'}
                 </span>
                 <span className="text-[11px] text-ink-muted">Self-Reported Prior</span>
               </div>
               <h3 className="text-2xl font-serif text-ink tracking-tight mt-2">
-                {language === 'hi' ? 'अपने चक्र का अनुमान बताएं' : 'Calibrate Your Cycle Prior'}
+                {language === 'hi' ? 'अपने पीरियड का अंदाज़ा बताएं' : 'Calibrate Your Cycle Prior'}
               </h3>
               <p className="text-xs text-ink-muted mt-1 leading-relaxed">
                 {language === 'hi'
-                  ? 'यह डेटा केवल एक आरंभिक अनुमान (Prior) के रूप में कार्य करता है और वास्तविक लॉग बढ़ने पर स्वतः हट जाता है। यह कभी कोई क्लिनिकल फ़्लैग ट्रिगर नहीं करता।'
+                  ? 'यह सिर्फ एक शुरुआती अंदाज़ा है। जैसे-जैसे आप लॉग करेंगी, यह खुद सटीक होता जाएगा। इससे कोई गलत मेडिकल फ़्लैग नहीं बनेगा।'
                   : 'This self-reported prior seeds early predictions, fading as real logs accumulate. It never triggers clinical flags or fabricates log entries.'}
               </p>
             </div>
@@ -232,60 +245,149 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 </div>
               </div>
 
-              {/* Field 2: Typical Cycle Length (NO 28 DEFAULT) */}
-              <div className="p-4 bg-tint-lavender/30 rounded-2xl border border-[#E7DCF8] space-y-2.5">
+              {/* Field 2: Typical Cycle Length (Explicit choice, never not-sure by default) */}
+              <div className="p-4 bg-tint-lavender/30 rounded-2xl border border-[#E7DCF8] space-y-3">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-semibold text-ink">
-                    {language === 'hi' ? 'सामान्य चक्र की लंबाई' : 'Typical Cycle Length'}
+                    {language === 'hi' ? 'आमतौर पर पीरियड्स में कितना गैप रहता है?' : 'Typical Cycle Length'}
                   </label>
                   <span className="text-[10px] text-primary font-bold">28 is a myth</span>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <input
-                    type="number"
-                    min={15}
-                    max={90}
-                    placeholder="e.g. 31"
-                    value={cycleLengthStr}
-                    onFocus={() => {
-                      if (isNotSureLength) {
-                        setIsNotSureLength(false);
-                      }
-                    }}
-                    onChange={e => {
-                      setCycleLengthStr(e.target.value);
-                      setIsNotSureLength(false);
-                    }}
-                    className={`w-24 px-3 py-2 rounded-xl bg-white border text-xs sm:text-sm font-bold text-center text-ink focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-soft transition-all ${
-                      isNotSureLength ? 'opacity-50 border-dashed border-[#E7DCF8]' : 'border-surface-border'
-                    }`}
-                  />
-                  <span className="text-xs text-ink-muted">{language === 'hi' ? 'दिन' : 'days'}</span>
-
+                {/* Two explicit segment choices */}
+                <div className="grid grid-cols-2 gap-2 p-1 bg-white/80 rounded-xl border border-[#E7DCF8]">
                   <button
                     type="button"
                     onClick={() => {
-                      const next = !isNotSureLength;
-                      setIsNotSureLength(next);
-                      if (next) setCycleLengthStr('');
+                      setCycleMode('know');
+                      if (!cycleLengthStr) {
+                        setCycleLength(29);
+                        setCycleLengthStr('29');
+                      }
                     }}
-                    className={`ml-auto px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                      isNotSureLength
+                    className={`py-2 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                      cycleMode === 'know'
                         ? 'bg-primary text-white shadow-soft'
-                        : 'bg-white border border-[#E7DCF8] text-ink-muted hover:text-ink'
+                        : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
                     }`}
                   >
-                    {language === 'hi' ? 'पक्का नहीं पता' : 'Not sure'}
+                    <span>🗓️</span>
+                    <span>{language === 'hi' ? 'मुझे अपना गैप पता है' : 'I know my cycle'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setCycleMode('not_sure')}
+                    className={`py-2 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                      cycleMode === 'not_sure'
+                        ? 'bg-primary text-white shadow-soft'
+                        : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
+                    }`}
+                  >
+                    <span>❓</span>
+                    <span>{language === 'hi' ? 'पक्का नहीं पता / ऊपर-नीचे होता है' : 'Not sure / Irregular'}</span>
                   </button>
                 </div>
 
-                {isNotSureLength && (
-                  <p className="text-[11px] text-ink-muted leading-relaxed">
-                    {language === 'hi'
-                      ? 'कोई बात नहीं! हम जनसंख्या औसत (29.3 दिन, Bull et al. 2019) और व्यापक विंडो का उपयोग करेंगे।'
-                      : 'We’ll use the population average (29.3 days from Bull et al.) and show a wide, low-confidence window until your own logs build up.'}
-                  </p>
+                {cycleMode === 'know' ? (
+                  <div className="space-y-3 pt-1 animate-fade-in">
+                    {/* Quick Select Chips */}
+                    <div>
+                      <span className="block text-[11px] text-ink-muted mb-1.5 font-medium">
+                        {language === 'hi' ? 'आमतौर पर कितने दिन:' : 'Quick select typical days:'}
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {[26, 27, 28, 29, 30, 31, 32, 35].map(days => (
+                          <button
+                            key={days}
+                            type="button"
+                            onClick={() => {
+                              setCycleLength(days);
+                              setCycleLengthStr(String(days));
+                            }}
+                            className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                              cycleLength === days && cycleLengthStr === String(days)
+                                ? 'bg-primary text-white shadow-soft ring-2 ring-primary/20 scale-105'
+                                : 'bg-white border border-[#E7DCF8] text-ink hover:border-primary/50'
+                            }`}
+                          >
+                            {days}d
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Stepper + Direct Numeric Input */}
+                    <div className="flex items-center justify-between gap-3 bg-white p-2.5 rounded-xl border border-surface-border shadow-soft">
+                      <span className="text-xs text-ink-muted font-medium">
+                        {language === 'hi' ? 'दिन बदलें:' : 'Adjust exact days:'}
+                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const val = Math.max(15, (parseInt(cycleLengthStr, 10) || cycleLength || 29) - 1);
+                            setCycleLength(val);
+                            setCycleLengthStr(String(val));
+                          }}
+                          className="w-8 h-8 rounded-lg bg-surface-bg border border-surface-border text-ink hover:bg-tint-lavender flex items-center justify-center transition-all active:scale-95 cursor-pointer"
+                          aria-label="Decrease cycle length"
+                        >
+                          <Minus className="w-3.5 h-3.5" />
+                        </button>
+
+                        <input
+                          type="number"
+                          min={15}
+                          max={90}
+                          value={cycleLengthStr}
+                          onChange={e => {
+                            setCycleLengthStr(e.target.value);
+                            const parsed = parseInt(e.target.value, 10);
+                            if (!isNaN(parsed)) {
+                              setCycleLength(parsed);
+                            }
+                          }}
+                          className="w-16 px-2 py-1.5 rounded-lg bg-surface-bg border border-surface-border text-xs sm:text-sm font-bold text-center text-ink focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                        />
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const val = Math.min(90, (parseInt(cycleLengthStr, 10) || cycleLength || 29) + 1);
+                            setCycleLength(val);
+                            setCycleLengthStr(String(val));
+                          }}
+                          className="w-8 h-8 rounded-lg bg-surface-bg border border-surface-border text-ink hover:bg-tint-lavender flex items-center justify-center transition-all active:scale-95 cursor-pointer"
+                          aria-label="Increase cycle length"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                        </button>
+
+                        <span className="text-xs font-semibold text-ink pl-1">
+                          {language === 'hi' ? 'दिन' : 'days'}
+                        </span>
+                      </div>
+                    </div>
+
+                    <p className="text-[11px] text-ink-muted leading-relaxed">
+                      {language === 'hi'
+                        ? 'मेडिकल रिसर्च के मुताबिक 24–38 दिन का गैप सामान्य माना जाता है। जैसे-जैसे आप लॉग करेंगी, अंदाज़ा और बेहतर होगा।'
+                        : 'Normal clinical range is 24–38 days (FIGO standard). Cyculus refines prediction as real logs accumulate.'}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="p-3.5 bg-white/90 rounded-xl border border-[#E7DCF8] space-y-1.5 animate-fade-in">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-primary">
+                      <Sparkles className="w-3.5 h-3.5 text-primary" />
+                      <span>{language === 'hi' ? 'औसत अंदाज़े का इस्तेमाल' : 'Population Average Fallback'}</span>
+                    </div>
+                    <p className="text-[11px] text-ink-muted leading-relaxed">
+                      {language === 'hi'
+                        ? 'कोई बात नहीं! जब तक आप कुछ पीरियड्स लॉग नहीं कर लेतीं, हम सामान्य औसत (29 दिन) के हिसाब से एक सुरक्षित दायरा मानकर चलेंगे।'
+                        : 'No problem! Cyculus will use the clinical population average (29.3 days from Bull et al. 2019) with a wide, low-confidence prediction window until your own logs build up.'}
+                    </p>
+                  </div>
                 )}
               </div>
 
@@ -295,7 +397,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                   <div className="flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-primary" />
                     <label className="text-xs font-semibold text-ink">
-                      {language === 'hi' ? 'पिछली तारीखें (सटीकता बढ़ाएं)' : 'Earlier Period Dates (Improve Accuracy)'}
+                      {language === 'hi' ? 'पिछली तारीखें (अंदाज़ा और सटीक बनाएं)' : 'Earlier Period Dates (Improve Accuracy)'}
                     </label>
                   </div>
                   <button
@@ -309,7 +411,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
 
                 <p className="text-[11px] text-ink-muted leading-relaxed">
                   {language === 'hi'
-                    ? 'कैलेंडर से 2-3 पिछली माहवारी शुरू होने की तारीखें दर्ज करने से अनुमानित अवधि के बजाय वास्तविक अंतराल प्राप्त होते हैं।'
+                    ? 'कैलेंडर देखकर पिछले 2–3 पीरियड्स की तारीखें जोड़ेंगी, तो अंदाज़ा और सटीक रहेगा।'
                     : '2 or 3 earlier start dates provide real observed intervals rather than a rough estimate.'}
                 </p>
 
@@ -350,38 +452,32 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="pt-2 space-y-2">
+            {/* Actions: Log your first day as the only next step */}
+            <div className="pt-3">
               <div className="flex items-center gap-3">
                 <Button
                   variant="ghost"
                   size="md"
                   icon={<ArrowLeft className="w-4 h-4" />}
                   onClick={() => setStep(1)}
-                  className="rounded-full"
+                  className="rounded-full shrink-0"
                 >
                   {language === 'hi' ? 'पीछे' : 'Back'}
                 </Button>
 
                 <Button
                   variant="primary"
-                  size="md"
+                  size="lg"
                   fullWidth
-                  icon={<Check className="w-4 h-4" />}
+                  icon={<PlusCircle className="w-4 h-4 stroke-[2.5]" />}
                   onClick={handleSave}
-                  className="shadow-soft hover:shadow-card font-medium tracking-wide"
+                  className="shadow-soft hover:shadow-card font-bold tracking-wide text-sm py-3"
                 >
-                  {language === 'hi' ? 'सेटअप सहेजें 🌸' : 'Save Prior & Enter 🌸'}
+                  {isAlreadyOnboarded
+                    ? (language === 'hi' ? 'अंदाज़ा सेव करें' : 'Save Baseline')
+                    : (language === 'hi' ? 'पहला दिन लॉग करें' : 'Log your first day')}
                 </Button>
               </div>
-
-              <button
-                type="button"
-                onClick={onSkip}
-                className="w-full text-center text-xs text-ink-muted hover:text-ink py-1.5 transition-colors cursor-pointer"
-              >
-                {language === 'hi' ? 'सेटअप छोड़ें (Skip for now)' : 'Skip setup (I will rely purely on logged cycles)'}
-              </button>
             </div>
           </div>
         )}

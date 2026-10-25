@@ -1,27 +1,27 @@
 import { FlowLevel, Symptom, Mood } from './types';
 
 export const FLOW_LABELS: Record<FlowLevel, { en: string; hi: string; color: string; icon: string }> = {
-  none: { en: 'None', hi: 'कोई नहीं', color: '#CBD5E1', icon: '⚪' },
+  none: { en: 'None', hi: 'नहीं', color: '#CBD5E1', icon: '⚪' },
   spotting: { en: 'Spotting', hi: 'स्पॉटिंग', color: '#F9A8D4', icon: '🌸' },
   light: { en: 'Light', hi: 'हल्का', color: '#F472B6', icon: '💧' },
-  medium: { en: 'Medium', hi: 'मध्यम', color: '#E11D48', icon: '🩸' },
+  medium: { en: 'Medium', hi: 'मीडियम', color: '#E11D48', icon: '🩸' },
   heavy: { en: 'Heavy', hi: 'भारी', color: '#9F1239', icon: '🌊' }
 };
 
 export const SYMPTOM_LABELS: Record<Symptom, { en: string; hi: string; emoji: string }> = {
-  cramps: { en: 'Cramps', hi: 'ऐंठन / क्रैम्प्स', emoji: '⚡' },
+  cramps: { en: 'Cramps', hi: 'क्रैम्प्स / पेट दर्द', emoji: '⚡' },
   lower_back_pain: { en: 'Lower Back Pain', hi: 'कमर दर्द', emoji: '🦴' },
   pelvic_pain: { en: 'Pelvic Pain', hi: 'पेल्विक दर्द', emoji: '🩺' },
   headache: { en: 'Headache', hi: 'सिर दर्द', emoji: '🤕' },
-  nausea: { en: 'Nausea', hi: 'मतली / जी घबराना', emoji: '🤢' },
+  nausea: { en: 'Nausea', hi: 'जी मिचलाना', emoji: '🤢' },
   bloating: { en: 'Bloating', hi: 'पेट फूलना', emoji: '🎈' },
-  breast_tenderness: { en: 'Breast Tenderness', hi: 'स्तनों में दर्द', emoji: '🎀' },
-  fatigue: { en: 'Fatigue', hi: 'थकान / सुस्ती', emoji: '🥱' },
+  breast_tenderness: { en: 'Breast Tenderness', hi: 'स्तनों में भारीपन', emoji: '🎀' },
+  fatigue: { en: 'Fatigue', hi: 'थकान', emoji: '🥱' },
   acne: { en: 'Acne', hi: 'मुंहासे', emoji: '✨' },
   dizziness: { en: 'Dizziness', hi: 'चक्कर आना', emoji: '💫' },
   blood_clots: { en: 'Blood Clots', hi: 'खून के थक्के', emoji: '🩸' },
-  discharge_change: { en: 'Discharge Change', hi: 'स्राव में बदलाव', emoji: '💧' },
-  sleep_trouble: { en: 'Sleep Trouble', hi: 'नींद की समस्या', emoji: '🌙' },
+  discharge_change: { en: 'Discharge Change', hi: 'डिस्चार्ज में बदलाव', emoji: '💧' },
+  sleep_trouble: { en: 'Sleep Trouble', hi: 'नींद न आना', emoji: '🌙' },
   cravings: { en: 'Food Cravings', hi: 'क्रेविंग्स', emoji: '🍫' },
   diarrhea: { en: 'Diarrhea', hi: 'दस्त', emoji: '🚽' },
   constipation: { en: 'Constipation', hi: 'कब्ज', emoji: '⏳' },
@@ -31,10 +31,10 @@ export const SYMPTOM_LABELS: Record<Symptom, { en: string; hi: string; emoji: st
 export const MOOD_LABELS: Record<Mood, { en: string; hi: string; emoji: string }> = {
   calm: { en: 'Calm', hi: 'शांत', emoji: '🧘‍♀️' },
   happy: { en: 'Happy', hi: 'खुश', emoji: '😊' },
-  anxious: { en: 'Anxious', hi: 'घबराहट / चिंता', emoji: '😰' },
+  anxious: { en: 'Anxious', hi: 'घबराहट', emoji: '😰' },
   irritable: { en: 'Irritable', hi: 'चिड़चिड़ा', emoji: '😤' },
   low: { en: 'Low / Down', hi: 'उदास / लो', emoji: '😔' },
-  mood_swings: { en: 'Mood Swings', hi: 'मूड बदलना', emoji: '🎭' }
+  mood_swings: { en: 'Mood Swings', hi: 'मूड स्विंग्स', emoji: '🎭' }
 };
 
 export const BRIEF_TEXT = {
@@ -54,18 +54,18 @@ export const BRIEF_TEXT = {
     completedCycles: 'completed cycle(s), your average cycle length is',
   },
   hi: {
-    notEnoughData: 'अभी पर्याप्त डेटा नहीं है। अपने चक्र का पैटर्न देखने के लिए लिखते रहें।',
-    disclaimer: 'यह ऐप कोई चिकित्सा उपकरण नहीं है और डॉक्टर की जगह नहीं लेता। यह निदान नहीं करता।',
-    cycleCount: 'उपयोग किए गए चक्र',
-    avgLength: 'चक्र की औसत लंबाई',
-    range: 'सबसे छोटा से सबसे लंबा',
-    avgBleeding: 'औसत रक्तस्राव के दिन',
-    latestCycle: 'नवीनतम पूरा चक्र',
+    notEnoughData: 'अभी ज़्यादा डेटा नहीं है। रोज़ थोड़ा-बहुत लॉग करते रहिए, जल्द ही आपके पीरियड का पैटर्न यहाँ दिखने लगेगा।',
+    disclaimer: 'यह ऐप कोई मेडिकल डिवाइस नहीं है और डॉक्टर की सलाह का विकल्प नहीं है। यह किसी बीमारी की जांच या इलाज नहीं करता।',
+    cycleCount: 'जितने पीरियड चक्र शामिल हैं',
+    avgLength: 'पीरियड्स के बीच का औसत गैप',
+    range: 'सबसे कम से सबसे ज़्यादा गैप',
+    avgBleeding: 'पीरियड में ब्लीडिंग के औसत दिन',
+    latestCycle: 'पिछला पूरा पीरियड गैप',
     days: 'दिन',
-    earlyPicture: 'यह केवल एक या दो चक्रों पर आधारित है, इसलिए यह शुरुआती तस्वीर है।',
-    flagsFound: 'बिंदु डॉक्टर से चर्चा के लायक हैं।',
-    noFlags: 'इस अवधि में चर्चा के लिए कोई बिंदु चिह्नित नहीं हुआ।',
-    summaryStart: 'के आधार पर',
-    completedCycles: 'पूरे चक्र, आपकी औसत चक्र लंबाई है',
+    earlyPicture: 'यह अभी सिर्फ 1 या 2 पीरियड्स पर आधारित है, इसलिए यह शुरुआती तस्वीर है।',
+    flagsFound: 'बातें ऐसी हैं जिन पर डॉक्टर से बात कर लेना अच्छा रहेगा।',
+    noFlags: 'इस दौरान ऐसी कोई बात सामने नहीं आई जिस पर डॉक्टर से अलग से बात करनी पड़े।',
+    summaryStart: 'पिछले',
+    completedCycles: 'पूरे पीरियड्स के हिसाब से, आपका औसत गैप',
   },
 } as const;

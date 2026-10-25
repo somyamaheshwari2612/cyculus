@@ -77,6 +77,3 @@ This checklist tracks real manual user tests you can run directly in your browse
 | :--- | :--- | :--- | :--- | :--- |
 | **PROF-01** | **Personal Profile Setup & Zero-Cloud Storage** | 1. Navigate to Settings & click "Re-open Guided Setup Wizard".<br>2. Step 1: Click "Set Up Your Profile →".<br>3. Step 2: Enter Name = `Somya`, Last Period = `2026-10-11`, Cycle = `28`, Bleed = `5`, Past 3 cycles = `28, 29, 28`.<br>4. Click "Save & Enter Diary". | Saved 100% locally to browser `localStorage` & IndexedDB.<br>Zero remote database needed.<br>Header updates to `Hey there, Somya 👋` and avatar pill `S`. | ✅ Pass |
 | **PROF-02** | **Dynamic Cycle Calculation & Reactive Recalibration** | 1. Inspect Dayum after saving profile.<br>2. Verify Predicted Period Window center and range.<br>3. Check Cycle Day pill and phase band.<br>4. Log an early bleeding episode in OofLog. | Dayum dynamically computes prediction window based on rolling average.<br>Cycle Day and phase band (Early Follicular, Mid-Cycle, Luteal) update reactively without page reloads.<br>Doctor Brief displays personalized cycle characteristics and evidence-grounded questions. | ✅ Pass |
-
-
-

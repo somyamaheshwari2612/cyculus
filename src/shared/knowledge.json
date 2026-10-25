@@ -8,15 +8,15 @@
       },
       "title": {
         "en": "Shorter cycle intervals observed",
-        "hi": "मासिक धर्म चक्र सामान्य से छोटा पाया गया"
+        "hi": "पीरियड्स के बीच का गैप छोटा रहा"
       },
       "explanation": {
         "en": "Your recent menstrual cycle was shorter than 24 days. While occasional variation is common, frequent short cycles can indicate changes in hormone balance or ovulation.",
-        "hi": "आपका हालिया मासिक चक्र 24 दिनों से कम का रहा। कभी-कभार ऐसा होना सामान्य है, लेकिन लगातार छोटे चक्र हार्मोनल बदलाव या ओव्यूलेशन से जुड़े हो सकते हैं।"
+        "hi": "आपका हालिया पीरियड 24 दिन से कम के गैप पर आया। कभी-कभार ऐसा होना नॉर्मल है, लेकिन बार-बार जल्दी पीरियड आना हॉर्मोनल बदलाव से जुड़ा हो सकता है।"
       },
       "discussWithDoctor": {
         "en": "Mention these shorter intervals to your healthcare provider to understand if any cycle monitoring is helpful.",
-        "hi": "अपने डॉक्टर से इस बारे में बात करें ताकि वे समझ सकें कि क्या किसी जांच की आवश्यकता है।"
+        "hi": "एक बार डॉक्टर से बात कर लेना अच्छा रहेगा ताकि वे देख सकें कि किसी जांच की ज़रूरत है या नहीं।"
       },
       "questionsForDoctor": {
         "en": [
@@ -24,8 +24,8 @@
           "Are there specific days in my cycle I should track more closely?"
         ],
         "hi": [
-          "क्या मेरे छोटे चक्र का कारण तनाव या हार्मोन में बदलाव हो सकता है?",
-          "क्या मुझे अपने चक्र के किसी विशेष दिन पर अधिक ध्यान देना चाहिए?"
+          "क्या पीरियड जल्दी आने की वजह तनाव या हॉर्मोनल बदलाव हो सकते हैं?",
+          "क्या मुझे अपने पीरियड के किसी खास दिन पर ज़्यादा ध्यान देना चाहिए?"
         ]
       },
       "sources": [
@@ -49,15 +49,15 @@
       },
       "title": {
         "en": "Longer cycle intervals observed",
-        "hi": "मासिक धर्म चक्र सामान्य से लंबा पाया गया"
+        "hi": "पीरियड्स के बीच का गैप लंबा रहा"
       },
       "explanation": {
         "en": "Your recent cycle exceeded 38 days. Cycles longer than 38 days are outside the standard clinical range and are worth reviewing with a doctor.",
-        "hi": "आपका हालिया चक्र 38 दिनों से अधिक लंबा था। 38 दिनों से लंबे चक्र सामान्य सीमा से बाहर होते हैं और डॉक्टर से सलाह लेना उपयोगी रहता है।"
+        "hi": "आपके पीरियड्स के बीच का गैप आमतौर पर माने जाने वाले दायरे (38 दिन) से ज़्यादा है। एक बार डॉक्टर से बात कर लेना अच्छा रहेगा।"
       },
       "discussWithDoctor": {
         "en": "Share your cycle history with your doctor so they can evaluate potential causes such as PCOS, thyroid changes, or lifestyle factors.",
-        "hi": "अपने डॉक्टर को यह इतिहास दिखाएं ताकि वे पीसीओएस (PCOS), थायरॉइड या जीवनशैली से जुड़े कारणों की जांच कर सकें।"
+        "hi": "डॉक्टर को यह हिस्ट्री दिखाएं ताकि वे पीसीओएस (PCOS), थायरॉइड या लाइफस्टाइल से जुड़े कारणों की जांच कर सकें।"
       },
       "questionsForDoctor": {
         "en": [
@@ -65,8 +65,8 @@
           "What symptoms should I monitor if my cycles continue to be over 38 days?"
         ],
         "hi": [
-          "क्या मुझे अल्ट्रासाउंड या थायरॉइड टेस्ट करवाने की सलाह देंगे?",
-          "यदि मेरा चक्र 38 दिन से अधिक लंबा रहता है तो मुझे किन लक्षणों पर ध्यान देना चाहिए?"
+          "क्या मुझे पेल्विक अल्ट्रासाउंड या थायरॉइड टेस्ट करवाने की सलाह देंगे?",
+          "अगर पीरियड 38 दिन से ज़्यादा लेट होते रहें तो मुझे किन बातों पर ध्यान देना चाहिए?"
         ]
       },
       "sources": [
@@ -91,15 +91,15 @@
       },
       "title": {
         "en": "High variation between cycle lengths",
-        "hi": "मासिक चक्रों की अवधि में अधिक अंतर"
+        "hi": "पीरियड आने के दिनों में काफी अंतर"
       },
       "explanation": {
         "en": "The difference between your longest and shortest cycles was greater than 9 days across recorded cycles. High variability suggests irregular cycles.",
-        "hi": "आपके सबसे लंबे और सबसे छोटे चक्र के बीच 9 दिनों से अधिक का अंतर देखा गया है। इतनी भिन्नता चक्र की अनियमितता की ओर संकेत करती है।"
+        "hi": "आपके सबसे लंबे और सबसे छोटे पीरियड गैप में 9 दिन से ज़्यादा का फर्क रहा है। इतना फर्क पीरियड्स के अनियमित होने का इशारा करता है।"
       },
       "discussWithDoctor": {
         "en": "Discussing cycle variability helps your doctor identify whether anovulatory cycles or hormonal patterns are present.",
-        "hi": "डॉक्टर के साथ चक्र के इस उतार-चढ़ाव पर चर्चा करने से हार्मोनल संतुलन समझने में मदद मिलती है।"
+        "hi": "डॉक्टर को यह वेरिएशन बताएं ताकि वे जान सकें कि पीरियड साइकिल क्यों बदल रही है।"
       },
       "questionsForDoctor": {
         "en": [
@@ -107,8 +107,8 @@
           "Are there tracking practices or tests you advise for irregular cycles?"
         ],
         "hi": [
-          "क्या मेरी उम्र में चक्र की अवधि में इतना उतार-चढ़ाव सामान्य है?",
-          "अनियमित चक्र के लिए क्या कोई विशेष जांच या जीवनशैली बदलाव उपयुक्त रहेगा?"
+          "क्या मेरी उम्र में पीरियड्स के दिनों में इतना फर्क आना नॉर्मल है?",
+          "अनियमित पीरियड्स के लिए क्या कोई खास टेस्ट या लाइफस्टाइल में बदलाव करना चाहिए?"
         ]
       },
       "sources": [
@@ -128,15 +128,15 @@
       },
       "title": {
         "en": "Prolonged bleeding duration",
-        "hi": "रक्तस्राव की अवधि सामान्य से अधिक (8 दिन से अधिक)"
+        "hi": "पीरियड 8 दिन से ज़्यादा चला"
       },
       "explanation": {
         "en": "Bleeding lasted for more than 8 consecutive days during your period. Prolonged menstrual bleeding warrants clinical evaluation.",
-        "hi": "आपके पीरियड में रक्तस्राव लगातार 8 दिनों से अधिक समय तक रहा। लंबे समय तक रक्तस्राव होने पर डॉक्टर से जांच करवाना आवश्यक है।"
+        "hi": "आपकी ब्लीडिंग लगातार 8 दिन से ज़्यादा रही। आम तौर पर पीरियड 4 से 8 दिन रहता है, इसलिए लंबे समय तक ब्लीडिंग होने पर डॉक्टर को दिखाना ज़रूरी होता है।"
       },
       "discussWithDoctor": {
         "en": "Bring your bleeding duration log to your healthcare provider to check for iron deficiency, fibroids, or hormonal causes.",
-        "hi": "अपने डॉक्टर से मिलकर आयरन की कमी या गर्भाशय से संबंधित कारणों की जांच करवाएं।"
+        "hi": "डॉक्टर से मिलकर हीमोग्लोबिन और ब्लीडिंग के कारणों की जांच करवाएं।"
       },
       "questionsForDoctor": {
         "en": [
@@ -144,8 +144,8 @@
           "What diagnostic imaging or blood work would you suggest?"
         ],
         "hi": [
-          "क्या 8 दिन से अधिक रक्तस्राव से खून की कमी (एनीमिया) हो सकती है?",
-          "इसके लिए आप कौन से टेस्ट या सोनोग्राफी की सलाह देंगे?"
+          "क्या 8 दिन से ज़्यादा ब्लीडिंग होने से शरीर में खून की कमी (एनीमिया) हो सकती है?",
+          "इसके लिए आप कौन से टेस्ट या अल्ट्रासाउंड की सलाह देंगे?"
         ]
       },
       "sources": [
@@ -166,15 +166,15 @@
       },
       "title": {
         "en": "Persistent heavy menstrual flow",
-        "hi": "लगातार कई दिनों तक भारी रक्तस्राव (हेवी फ्लो)"
+        "hi": "लगातार कई दिन भारी फ्लो रहा"
       },
       "explanation": {
         "en": "You logged heavy bleeding for 3 or more consecutive days (or 4+ days in a single cycle). Persistent heavy flow can increase your risk of fatigue and anemia.",
-        "hi": "आपने लगातार 3 दिन या उससे अधिक (या एक चक्र में 4+ दिन) भारी रक्तस्राव दर्ज किया है। इससे थकान और खून की कमी का जोखिम हो सकता है।"
+        "hi": "आपने लगातार 3 दिन या एक पीरियड में 4+ दिन भारी ब्लीडिंग लॉग की है। इससे शरीर में कमज़ोरी, थकान और खून की कमी हो सकती है।"
       },
       "discussWithDoctor": {
         "en": "Consult a doctor soon to test your complete blood count (CBC) and discuss treatment options for heavy menstrual bleeding.",
-        "hi": "जल्द डॉक्टर से परामर्श लें ताकि वे सीबीसी (CBC/हीमोग्लोबिन) टेस्ट और हेवी ब्लीडिंग के समाधान पर बात कर सकें।"
+        "hi": "जल्द ही डॉक्टर से मिलकर सीबीसी (CBC) टेस्ट और हेवी ब्लीडिंग के इलाज पर बात करें।"
       },
       "questionsForDoctor": {
         "en": [
@@ -183,7 +183,7 @@
         ],
         "hi": [
           "क्या मुझे हीमोग्लोबिन और आयरन लेवल चेक करवाना चाहिए?",
-          "पीरियड्स के भारी फ्लो को सुरक्षित रूप से कम करने के क्या उपाय हैं?"
+          "पीरियड्स के भारी फ्लो को सुरक्षित तरीके से कम करने के क्या उपाय हैं?"
         ]
       },
       "sources": [
@@ -207,15 +207,15 @@
       },
       "title": {
         "en": "Recurring severe pain recorded",
-        "hi": "चक्र में बार-बार तेज दर्द दर्ज किया गया"
+        "hi": "पीरियड में बार-बार बहुत तेज़ दर्द रहा"
       },
       "explanation": {
         "en": "Pain levels of 8/10 or higher were logged across multiple cycles. Intense dysmenorrhea that interferes with daily tasks deserves clinical attention.",
-        "hi": "कई चक्रों में दर्द का स्तर 8/10 या उससे अधिक रहा है। अत्यधिक दर्द जो दैनिक दिनचर्या को प्रभावित करे, उसके लिए चिकित्सकीय सलाह जरूरी है।"
+        "hi": "आपने कई पीरियड्स में दर्द का स्तर 8/10 या उससे ज़्यादा दर्ज किया है। इतना तेज़ दर्द जो रोज़ के कामों में रुकावट डाले, उसके लिए डॉक्टर को दिखाना ज़रूरी है।"
       },
       "discussWithDoctor": {
         "en": "Schedule an appointment soon to evaluate secondary causes of dysmenorrhea, including endometriosis or adenomyosis.",
-        "hi": "जल्द डॉक्टर से संपर्क करें ताकि दर्द के कारणों (जैसे एंडोमेट्रियोसिस) की समय पर जांच हो सके।"
+        "hi": "जल्द डॉक्टर से मिलकर दर्द के कारणों (जैसे एंडोमेट्रियोसिस) की जांच करवाएं।"
       },
       "questionsForDoctor": {
         "en": [
@@ -223,8 +223,8 @@
           "What targeted pain management or lifestyle protocols do you recommend?"
         ],
         "hi": [
-          "क्या यह तेज दर्द एंडोमेट्रियोसिस या किसी अन्य स्थिति का संकेत हो सकता है?",
-          "दर्द से सुरक्षित राहत के लिए कौन से प्रभावी उपचार उपलब्ध हैं?"
+          "क्या यह तेज़ दर्द एंडोमेट्रियोसिस या किसी और समस्या का संकेत हो सकता है?",
+          "दर्द से सेफ और असरदार राहत पाने के लिए क्या उपाय सही रहेंगे?"
         ]
       },
       "sources": [
@@ -243,15 +243,15 @@
       },
       "title": {
         "en": "No period recorded for over 60 days",
-        "hi": "60 दिनों से अधिक समय से पीरियड नहीं आया"
+        "hi": "60 दिन से ज़्यादा से पीरियड नहीं आया"
       },
       "explanation": {
         "en": "It has been over 60 days since your last recorded bleeding episode. Absent menstruation (amenorrhea or oligomenorrhea) should be checked by a physician.",
-        "hi": "आपके पिछले पीरियड को 60 से अधिक दिन बीत चुके हैं। लंबे समय तक पीरियड न आने पर डॉक्टर से परामर्श अवश्य लें।"
+        "hi": "आपके पिछले पीरियड को 60 दिन से ज़्यादा बीत चुके हैं। इतने समय तक पीरियड न आने पर डॉक्टर से सलाह ज़रूर लेनी चाहिए।"
       },
       "discussWithDoctor": {
         "en": "A physician can check for pregnancy, endocrine issues (prolactin, thyroid, PCOS), or nutritional and stress causes.",
-        "hi": "डॉक्टर थायरॉइड, प्रोलैक्टिन, पीसीओएस या अन्य कारणों की जांच कर सकते हैं।"
+        "hi": "डॉक्टर से मिलकर थायरॉइड, पीसीओएस या तनाव जैसे कारणों की जांच करवाएं।"
       },
       "questionsForDoctor": {
         "en": [
@@ -279,15 +279,15 @@
       },
       "title": {
         "en": "Intermenstrual spotting logged",
-        "hi": "पीरियड्स के बीच में हल्की ब्लीडिंग (स्पॉटिंग)"
+        "hi": "पीरियड्स के बीच में हल्की स्पॉटिंग"
       },
       "explanation": {
         "en": "You recorded spotting days well outside your usual period bleeding window. While often harmless, spotting between periods should be tracked.",
-        "hi": "आपने सामान्य पीरियड के अलावा बीच के दिनों में भी हल्की स्पॉटिंग दर्ज की है। यद्यपि यह कई बार सामान्य हो सकती है, फिर भी इस पर ध्यान देना जरूरी है।"
+        "hi": "आपने नॉर्मल पीरियड के अलावा बीच के दिनों में भी हल्की स्पॉटिंग दर्ज की है। कभी-कभार यह नॉर्मल होती है, पर इस पर ध्यान देना अच्छा रहता है।"
       },
       "discussWithDoctor": {
         "en": "Let your doctor know when intermenstrual spotting occurs during your cycle.",
-        "hi": "अपने डॉक्टर को बताएं कि चक्र के किन दिनों में यह स्पॉटिंग हुई।"
+        "hi": "डॉक्टर को बताएं कि साइकिल के किन दिनों में यह स्पॉटिंग हुई।"
       },
       "questionsForDoctor": {
         "en": [
@@ -295,8 +295,8 @@
           "Should I continue tracking or do we need an exam?"
         ],
         "hi": [
-          "क्या यह स्पॉटिंग ओव्यूलेशन, दवाओं या गर्भाशय ग्रीवा से संबंधित है?",
-          "क्या इसके लिए किसी विशेष जांच की आवश्यकता है?"
+          "क्या यह स्पॉटिंग ओव्यूलेशन, दवाओं या किसी इन्फेक्शन से जुड़ी हो सकती है?",
+          "क्या इसके लिए किसी जांच की ज़रूरत पड़ेगी?"
         ]
       },
       "sources": [
@@ -314,15 +314,15 @@
       "params": {},
       "title": {
         "en": "Immediate Medical Attention Advised: Very Heavy Bleeding",
-        "hi": "तत्काल डॉक्टरी परामर्श आवश्यक: अत्यधिक भारी रक्तस्राव"
+        "hi": "तुरंत डॉक्टर को दिखाएं: बहुत भारी ब्लीडिंग"
       },
       "explanation": {
         "en": "Soaking through one or more pads/tampons every hour for consecutive hours, or passing large blood clots (quarter-sized or larger), requires prompt clinical evaluation.",
-        "hi": "यदि हर 1-2 घंटे में पैड पूरी तरह भीग रहा हो या बड़े थक्के (क्लॉट्स) आ रहे हों, तो बिना देर किए नजदीकी डॉक्टर या अस्पताल से संपर्क करें।"
+        "hi": "अगर हर 1-2 घंटे में पैड पूरी तरह भीग रहा हो या बड़े क्लॉट्स (खून के थक्के) आ रहे हों, तो बिना देर किए पास के डॉक्टर या इमरजेंसी में जाएं।"
       },
       "discussWithDoctor": {
         "en": "Please seek urgent in-person medical care or visit the nearest emergency room immediately.",
-        "hi": "कृपया तुरंत नजदीकी डॉक्टर, अस्पताल या आपातकालीन सेवा (Emergency) से संपर्क करें।"
+        "hi": "कृपया तुरंत पास के डॉक्टर या अस्पताल की इमरजेंसी सर्विस में जाएं।"
       },
       "questionsForDoctor": {
         "en": [
@@ -330,8 +330,8 @@
           "Do I need an emergency blood count or fluid support?"
         ],
         "hi": [
-          "तीव्र रक्तस्राव रोकने के लिए तुरंत क्या उपाय जरूरी हैं?",
-          "क्या मुझे तुरंत हीमोग्लोबिन टेस्ट या ड्रिप की आवश्यकता है?"
+          "ब्लीडिंग तुरंत रोकने के लिए कौन से कदम उठाने होंगे?",
+          "क्या मुझे तुरंत हीमोग्लोबिन टेस्ट या ड्रिप की ज़रूरत है?"
         ]
       },
       "sources": [
@@ -352,15 +352,15 @@
       "params": {},
       "title": {
         "en": "Immediate Medical Attention Advised: Sudden Severe Pain",
-        "hi": "तत्काल डॉक्टरी परामर्श आवश्यक: अचानक अत्यधिक तीव्र दर्द"
+        "hi": "तुरंत डॉक्टर को दिखाएं: अचानक बहुत तेज़ दर्द"
       },
       "explanation": {
         "en": "Sudden, excruciating, or incapacitating pelvic or abdominal pain can signal medical emergencies such as ovarian torsion, ruptured cyst, or ectopic pregnancy.",
-        "hi": "पेट या पेल्विक क्षेत्र में अचानक असहनीय या तीव्र दर्द होना किसी गंभीर आपातकालीन स्थिति (जैसे सिस्ट का फटना या अस्थानिक गर्भ) का संकेत हो सकता है।"
+        "hi": "पेट या पेल्विक हिस्से में अचानक असहनीय या बहुत तेज़ दर्द होना इमरजेंसी का संकेत हो सकता है (जैसे सिस्ट का फटना या एक्टोपिक प्रेगनेंसी)।"
       },
       "discussWithDoctor": {
         "en": "Please seek emergency medical care immediately. Do not wait for symptoms to worsen.",
-        "hi": "कृपया तुरंत आपातकालीन चिकित्सा सहायता लें। स्थिति बिगड़ने का इंतजार न करें।"
+        "hi": "कृपया तुरंत इमरजेंसी मेडिकल सहायता लें। दर्द के और बढ़ने का इंतज़ार न करें।"
       },
       "questionsForDoctor": {
         "en": [
@@ -368,8 +368,8 @@
           "What emergency imaging is required right away?"
         ],
         "hi": [
-          "क्या यह दर्द ओवेरियन टॉर्शन या पेट की किसी गंभीर आपात स्थिति का लक्षण है?",
-          "तुरंत कौन सा अल्ट्रासाउंड या टेस्ट आवश्यक है?"
+          "क्या यह दर्द ओवेरियन टॉर्शन या पेट की किसी गंभीर इमरजेंसी का लक्षण है?",
+          "तुरंत कौन सा अल्ट्रासाउंड या टेस्ट करवाना चाहिए?"
         ]
       },
       "sources": [
@@ -386,15 +386,15 @@
       "params": {},
       "title": {
         "en": "Immediate Medical Attention Advised: Fainting or Collapse",
-        "hi": "तत्काल डॉक्टरी परामर्श आवश्यक: बेहोशी या चक्कर आकर गिरना"
+        "hi": "तुरंत डॉक्टर को दिखाएं: बेहोशी या चक्कर आना"
       },
       "explanation": {
         "en": "Fainting (syncope), severe dizziness with inability to stand, or confusion alongside menstrual symptoms requires immediate in-person clinical assessment.",
-        "hi": "पीरियड्स के दौरान बेहोश हो जाना, खड़े न हो पाना या अत्यधिक चक्कर आना शरीर में गंभीर कमजोरी या तीव्र रक्तस्राव का संकेत हो सकता है।"
+        "hi": "पीरियड के दौरान बेहोश हो जाना, खड़े न हो पाना या बहुत चक्कर आना शरीर में खून की अचानक कमी या गंभीर कमज़ोरी का संकेत हो सकता है।"
       },
       "discussWithDoctor": {
         "en": "Please have someone accompany you to the nearest emergency medical facility right away.",
-        "hi": "कृपया तुरंत किसी परिजन के साथ नजदीकी अस्पताल या आपातकालीन केंद्र पहुंचे।"
+        "hi": "कृपया तुरंत किसी के साथ नज़दीकी अस्पताल या इमरजेंसी में जाएं।"
       },
       "questionsForDoctor": {
         "en": [
@@ -402,8 +402,8 @@
           "What immediate vitals and blood tests are needed?"
         ],
         "hi": [
-          "क्या बेहोशी का कारण अत्यधिक खून की कमी या अचानक बीपी गिरना है?",
-          "तुरंत कौन से टेस्ट आवश्यक हैं?"
+          "क्या बेहोशी की वजह खून की अचानक कमी या बीपी गिरना है?",
+          "तुरंत कौन से टेस्ट करवाने होंगे?"
         ]
       },
       "sources": [

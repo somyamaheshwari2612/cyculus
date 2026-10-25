@@ -47,21 +47,21 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    onToast(language === 'hi' ? 'डेटा JSON फ़ाइल के रूप में डाउनलोड हुआ!' : 'Logs exported to JSON file!');
+    onToast(language === 'hi' ? 'डेटा JSON फाइल में डाउनलोड हो गया!' : 'Logs exported to JSON file!');
   };
 
   const handleDelete = async () => {
     await onClearAll();
     setShowConfirmDelete(false);
-    onToast(language === 'hi' ? 'सभी डेटा और सेटअप हटा दिया गया।' : 'All local logs and setup cleared.');
+    onToast(language === 'hi' ? 'सारा डेटा और सेटिंग्स मिटा दी गईं।' : 'All local logs and setup cleared.');
   };
 
   const handleClearSetupOnly = async () => {
     await onClearSetup();
     onToast(
       language === 'hi'
-        ? 'आरंभिक सेटअप प्रायर हटा दिया गया। अब केवल लॉग प्रविष्टियों का उपयोग होगा।'
-        : 'Setup prior removed. Engine will rely purely on logged entries.'
+        ? 'शुरुआती अंदाज़ा हटा दिया गया। अब सिर्फ आपके लॉग किए गए पीरियड्स का इस्तेमाल होगा।'
+        : 'Initial estimate removed. Cyculus will rely purely on your logged entries.'
     );
   };
 
@@ -70,32 +70,31 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
       {/* Header */}
       <div>
         <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">
-          {language === 'hi' ? 'गोपनीयता एवं सेटिंग्स' : 'Privacy & Settings'}
+          {language === 'hi' ? 'प्राइवेसी और सेटिंग्स' : 'Privacy & Settings'}
         </h2>
         <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
           {language === 'hi'
-            ? 'आपका डेटा, आपका नियंत्रण — पूर्ण रूप से ऑन-डिवाइस सुरक्षित।'
+            ? 'आपका डेटा, आपका कंट्रोल — 100% आपके फोन पर सुरक्षित।'
             : 'Complete ownership of your personal health data. 100% on-device.'}
         </p>
       </div>
 
-      {/* 1. Cycle Setup Prior Card (Self-Reported Prior, Separate Table) */}
+      {/* 1. Cycle Setup Baseline Card */}
       <div className="bg-white/95 backdrop-blur-sm rounded-[2.25rem] p-6 sm:p-7 border border-[#F3E8EE] shadow-card space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#F3E8EE] pb-4">
           <div>
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
-                Self-Reported Prior
+                {language === 'hi' ? 'शुरुआती अंदाज़ा' : 'Initial Estimate'}
               </span>
-              <span className="text-[11px] text-ink-muted">Dexie `userSetup` Table</span>
             </div>
             <h3 className="font-serif font-bold text-ink text-lg sm:text-xl mt-1">
-              {language === 'hi' ? 'आरंभिक चक्र सेटअप' : 'Initial Cycle Setup & Prior'}
+              {language === 'hi' ? 'पीरियड का शुरुआती अंदाज़ा' : 'Initial Cycle Estimate'}
             </h3>
             <p className="text-xs text-ink-muted mt-0.5">
               {language === 'hi'
-                ? 'यह डेटा केवल आरंभिक प्रेडिक्शन विंडो को दिशा देता है। यह कभी क्लिनिकल फ़्लैग ट्रिगर नहीं करता।'
-                : 'Acts as a shrinkage prior fading as real cycles accumulate. Never creates fake logs or triggers flags.'}
+                ? 'यह सिर्फ शुरुआती अंदाज़ा है। जैसे-जैसे आप पीरियड्स लॉग करेंगी, यह खुद अपडेट हो जाएगा।'
+                : 'Calibrates initial predictions until you log real cycles. Never creates synthetic entries or triggers false flags.'}
             </p>
           </div>
 
@@ -107,7 +106,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
               onClick={onOpenSetup}
               className="rounded-full shadow-pill text-xs"
             >
-              {userSetup ? (language === 'hi' ? 'सेटअप बदलें' : 'Edit Prior') : (language === 'hi' ? 'सेटअप जोड़ें' : 'Set Up Prior')}
+              {userSetup ? (language === 'hi' ? 'अंदाज़ा बदलें' : 'Edit Baseline') : (language === 'hi' ? 'अंदाज़ा जोड़ें' : 'Set Up Baseline')}
             </Button>
 
             {userSetup && (
@@ -118,7 +117,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 onClick={handleClearSetupOnly}
                 className="rounded-full text-xs text-ink-muted hover:text-ink"
               >
-                {language === 'hi' ? 'प्रायर हटाएं' : 'Clear Prior'}
+                {language === 'hi' ? 'अंदाज़ा हटाएं' : 'Clear Baseline'}
               </Button>
             )}
           </div>
@@ -129,7 +128,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           <div className="p-3.5 bg-tint-lavender/40 rounded-2xl border border-[#E7DCF8]">
             <span className="text-ink-muted block text-[11px] font-medium">Last Period Start</span>
             <span className="text-base font-serif font-bold text-ink mt-0.5 block">
-              {userSetup?.lastPeriodStart || (language === 'hi' ? 'दर्ज नहीं' : 'Not recorded')}
+              {userSetup?.lastPeriodStart || (language === 'hi' ? 'लॉग नहीं' : 'Not recorded')}
             </span>
           </div>
 
@@ -161,11 +160,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           </div>
           <div>
             <h3 className="text-base font-serif font-bold text-ink">
-              {language === 'hi' ? 'शून्य-क्लाउड गारंटी (Zero-Cloud)' : 'Zero-Cloud Architecture'}
+              {language === 'hi' ? 'ज़ीरो-क्लाउड गारंटी (Zero-Cloud)' : 'Zero-Cloud Architecture'}
             </h3>
             <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
               {language === 'hi'
-                ? 'साइकुलस में कोई खाता या पासवर्ड नहीं है। आपकी सारी प्रविष्टियाँ आपके ब्राउज़र की एन्क्रिप्टेड IndexedDB मेमोरी में रहती हैं। कोई भी व्यक्तिगत स्वास्थ्य डेटा कभी भी किसी सर्वर पर नहीं भेजा जाता।'
+                ? 'साइकुलस में कोई अकाउंट या पासवर्ड नहीं है। आपका सारा डेटा आपके इसी फोन/ब्राउज़र में सुरक्षित रहता है। कोई भी पर्सनल हेल्थ डेटा कभी किसी सर्वर पर नहीं जाता।'
                 : 'Cyculus has no user accounts or cloud databases. All daily entries stay inside your device’s IndexedDB storage. No health details are ever uploaded.'}
             </p>
             <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 border border-[#E7DCF8] text-xs font-semibold text-primary">
@@ -184,7 +183,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
             </div>
             <div>
               <h3 className="font-serif font-bold text-ink text-base">
-                {language === 'hi' ? 'PWA इंस्टॉलेशन एवं ऑफ़लाइन गाइड' : 'PWA Installation & Offline Usage Guide'}
+                {language === 'hi' ? 'ऐप इंस्टॉल करें और बिना इंटरनेट चलाएं' : 'PWA Installation & Offline Usage Guide'}
               </h3>
               <p className="text-xs text-ink-muted">
                 {language === 'hi' ? 'बिना इंटरनेट के होम स्क्रीन पर चलाएं' : 'Run full-screen from home screen without internet'}
@@ -224,128 +223,142 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
         </div>
       </div>
 
-      {/* 3. Demo Personas (Evaluation Tool for Hackathon Judges) */}
-      <Card variant="default" padding="lg" className="space-y-4">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-full bg-tint-peach flex items-center justify-center text-primary">
-            <Sparkles className="w-4 h-4" />
-          </div>
-          <div>
-            <h3 className="text-sm font-bold text-ink uppercase tracking-wider">
-              {language === 'hi' ? 'डेमो डेटा लोड करें (Quick Personas)' : 'Demo Personas (Evaluation Tool)'}
-            </h3>
-            <p className="text-xs text-ink-muted">
-              {language === 'hi'
-                ? 'निर्णायकों और परीक्षण के लिए 6 महीने का यथार्थवादी डेटा एक क्लिक में लोड करें (सेटअप स्वतः बाईपास होता है):'
-                : 'Preload 6 months of realistic longitudinal logs for hackathon evaluation (bypasses setup):'}
-            </p>
-          </div>
-        </div>
-
-        {demoPersona && (
-          <div className="p-3.5 bg-amber-50 rounded-2xl border border-amber-200 flex flex-wrap items-center justify-between gap-2.5 text-xs">
-            <div className="flex items-center gap-2 text-amber-900">
-              <span className="font-bold uppercase tracking-wider text-[10px] bg-amber-100 px-2 py-0.5 rounded-full border border-amber-300">
-                Active Demo
-              </span>
-              <span className="font-semibold">{demoPersona}</span>
+      {/* 3. Demo Personas (Developer & Evaluator Tools) - Collapsible, pushed out of main path */}
+      <details className="group bg-surface-subtle/80 rounded-[2.25rem] border border-surface-border p-6 transition-all">
+        <summary className="flex items-center justify-between cursor-pointer list-none select-none">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-2xl bg-tint-peach flex items-center justify-center text-primary text-sm shadow-soft">
+              <Sparkles className="w-4 h-4" />
             </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm font-bold text-ink uppercase tracking-wider">
+                  {language === 'hi' ? 'डेमो डेटा (टेस्टिंग के लिए)' : 'Developer & Evaluator Tools (Demo Personas)'}
+                </h3>
+                {demoPersona && (
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-900 bg-amber-100 px-2 py-0.5 rounded-full border border-amber-300">
+                    Active Demo
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-ink-muted">
+                {language === 'hi'
+                  ? 'ऐप को आज़माने के लिए 6 महीने का बना-बनाया डेटा'
+                  : 'Preload synthetic longitudinal logs for evaluation (not needed for private diary use)'}
+              </p>
+            </div>
+          </div>
+          <span className="text-xs font-semibold text-primary px-3 py-1.5 rounded-full bg-white border border-surface-border shadow-pill group-open:bg-primary group-open:text-white transition-all shrink-0">
+            {language === 'hi' ? 'डेमो डेटा देखें ▾' : 'Demo Tools ▾'}
+          </span>
+        </summary>
+
+        <div className="pt-5 space-y-4 border-t border-surface-border/60 mt-4">
+          {demoPersona && (
+            <div className="p-3.5 bg-amber-50 rounded-2xl border border-amber-200 flex flex-wrap items-center justify-between gap-2.5 text-xs">
+              <div className="flex items-center gap-2 text-amber-900">
+                <span className="font-bold uppercase tracking-wider text-[10px] bg-amber-100 px-2 py-0.5 rounded-full border border-amber-300">
+                  Active Demo
+                </span>
+                <span className="font-semibold">{demoPersona}</span>
+              </div>
+              <button
+                type="button"
+                onClick={onRemoveDemoData}
+                className="text-xs text-rose-700 font-bold hover:underline cursor-pointer flex items-center gap-1"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>{language === 'hi' ? 'डेमो डेटा हटाएं' : 'Remove Demo Data'}</span>
+              </button>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+            {/* Persona A: Riya */}
             <button
               type="button"
-              onClick={onRemoveDemoData}
-              className="text-xs text-rose-700 font-bold hover:underline cursor-pointer flex items-center gap-1"
+              onClick={() => onRequestSeedPersona('riya')}
+              className="p-4 rounded-3xl bg-tint-lavender/40 border border-[#E7DCF8] hover:border-primary hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
             >
-              <Trash2 className="w-3.5 h-3.5" />
-              <span>{language === 'hi' ? 'डेमो डेटा हटाएं' : 'Remove Demo Data'}</span>
+              <div>
+                <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-primary bg-white/90 px-2 py-0.5 rounded-full border border-[#E7DCF8] mb-2">
+                  Scenario A · FIGO Flag
+                </span>
+                <h4 className="font-serif font-bold text-ink text-sm sm:text-base group-hover:text-primary transition-colors">
+                  ✨ Riya (Irregular)
+                </h4>
+                <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
+                  Latest 41 days · High cycle variability (27–41d) · {(irregularData as LogEntry[]).length} days logged
+                </p>
+              </div>
+              <div className="mt-3 text-[11px] font-semibold text-primary">
+                Load Persona →
+              </div>
+            </button>
+
+            {/* Persona B: Regular */}
+            <button
+              type="button"
+              onClick={() => onRequestSeedPersona('regular')}
+              className="p-4 rounded-3xl bg-tint-mint/40 border border-[#D8F0E4] hover:border-emerald-600 hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
+            >
+              <div>
+                <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-white/90 px-2 py-0.5 rounded-full border border-[#D8F0E4] mb-2">
+                  Scenario B · Baseline
+                </span>
+                <h4 className="font-serif font-bold text-ink text-sm sm:text-base group-hover:text-emerald-800 transition-colors">
+                  🌿 Regular Cycles
+                </h4>
+                <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
+                  Consistent 28–29 days · Low variability · {(regularData as LogEntry[]).length} days logged
+                </p>
+              </div>
+              <div className="mt-3 text-[11px] font-semibold text-emerald-800">
+                Load Persona →
+              </div>
+            </button>
+
+            {/* Persona C: Heavy Flow */}
+            <button
+              type="button"
+              onClick={() => onRequestSeedPersona('heavy')}
+              className="p-4 rounded-3xl bg-tint-peach/40 border border-[#FADCD0] hover:border-amber-700 hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
+            >
+              <div>
+                <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-amber-900 bg-white/90 px-2 py-0.5 rounded-full border border-[#FADCD0] mb-2">
+                  Scenario C · High Pain
+                </span>
+                <h4 className="font-serif font-bold text-ink text-sm sm:text-base group-hover:text-amber-900 transition-colors">
+                  🩸 Heavy Bleeding
+                </h4>
+                <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
+                  4+ heavy bleeding days · Severe dysmenorrhea (pain 8/10) · {(heavyData as LogEntry[]).length} days logged
+                </p>
+              </div>
+              <div className="mt-3 text-[11px] font-semibold text-amber-900">
+                Load Persona →
+              </div>
             </button>
           </div>
-        )}
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-          {/* Persona A: Riya */}
-          <button
-            type="button"
-            onClick={() => onRequestSeedPersona('riya')}
-            className="p-4 rounded-3xl bg-tint-lavender/40 border border-[#E7DCF8] hover:border-primary hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
-          >
-            <div>
-              <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-primary bg-white/90 px-2 py-0.5 rounded-full border border-[#E7DCF8] mb-2">
-                Scenario A · FIGO Flag
-              </span>
-              <h4 className="font-serif font-bold text-ink text-sm sm:text-base group-hover:text-primary transition-colors">
-                ✨ Riya (Irregular)
-              </h4>
-              <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
-                Latest 41 days · High cycle variability (27–41d) · {(irregularData as LogEntry[]).length} days logged
-              </p>
-            </div>
-            <div className="mt-3 text-[11px] font-semibold text-primary">
-              Load Persona →
-            </div>
-          </button>
-
-          {/* Persona B: Regular */}
-          <button
-            type="button"
-            onClick={() => onRequestSeedPersona('regular')}
-            className="p-4 rounded-3xl bg-tint-mint/40 border border-[#D8F0E4] hover:border-emerald-600 hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
-          >
-            <div>
-              <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-white/90 px-2 py-0.5 rounded-full border border-[#D8F0E4] mb-2">
-                Scenario B · Baseline
-              </span>
-              <h4 className="font-serif font-bold text-ink text-sm sm:text-base group-hover:text-emerald-800 transition-colors">
-                🌿 Regular Cycles
-              </h4>
-              <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
-                Consistent 28–29 days · Low variability · {(regularData as LogEntry[]).length} days logged
-              </p>
-            </div>
-            <div className="mt-3 text-[11px] font-semibold text-emerald-800">
-              Load Persona →
-            </div>
-          </button>
-
-          {/* Persona C: Heavy Flow */}
-          <button
-            type="button"
-            onClick={() => onRequestSeedPersona('heavy')}
-            className="p-4 rounded-3xl bg-tint-peach/40 border border-[#FADCD0] hover:border-amber-700 hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
-          >
-            <div>
-              <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-amber-900 bg-white/90 px-2 py-0.5 rounded-full border border-[#FADCD0] mb-2">
-                Scenario C · High Pain
-              </span>
-              <h4 className="font-serif font-bold text-ink text-sm sm:text-base group-hover:text-amber-900 transition-colors">
-                🩸 Heavy Bleeding
-              </h4>
-              <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
-                4+ heavy bleeding days · Severe dysmenorrhea (pain 8/10) · {(heavyData as LogEntry[]).length} days logged
-              </p>
-            </div>
-            <div className="mt-3 text-[11px] font-semibold text-amber-900">
-              Load Persona →
-            </div>
-          </button>
         </div>
-      </Card>
+      </details>
 
       {/* Responsive Grid for Data Management & Clinical References on Desktop (lg:) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
         {/* 4. Data Export and Deletion */}
         <Card variant="default" padding="lg" className="space-y-4">
           <h3 className="text-xs font-bold text-ink uppercase tracking-wider">
-            {language === 'hi' ? 'डेटा प्रबंधन' : 'Data Management & Export'}
+            {language === 'hi' ? 'डेटा और बैकअप' : 'Data Management & Export'}
           </h3>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
             <div>
               <p className="text-xs font-semibold text-ink">
-                {language === 'hi' ? 'सभी लॉग निर्यात करें (JSON)' : 'Export Full Health Data'}
+                {language === 'hi' ? 'डेटा डाउनलोड करें (JSON)' : 'Export Full Health Data'}
               </p>
               <p className="text-[11px] text-ink-muted mt-0.5">
                 {language === 'hi'
-                  ? 'अपने पूरे डेटा की एक JSON प्रति अपने पास सुरक्षित रखें।'
+                  ? 'अपने सारे डेटा की एक JSON फाइल अपने पास सुरक्षित डाउनलोड करें।'
                   : 'Download a complete JSON backup of all daily entries.'}
               </p>
             </div>
@@ -356,18 +369,18 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
               onClick={handleDownload}
               className="rounded-full shadow-pill"
             >
-              {language === 'hi' ? 'निर्यात करें' : 'Export JSON'}
+              {language === 'hi' ? 'डाउनलोड करें' : 'Export JSON'}
             </Button>
           </div>
 
           <div className="border-t border-surface-border pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <div>
               <p className="text-xs font-semibold text-rose-700">
-                {language === 'hi' ? 'सभी डेटा मिटाएं' : 'Delete All Data'}
+                {language === 'hi' ? 'सारा डेटा मिटाएं' : 'Delete All Data'}
               </p>
               <p className="text-[11px] text-ink-muted mt-0.5">
                 {language === 'hi'
-                  ? 'डिवाइस से सभी प्रविष्टियाँ और सेटअप हमेशा के लिए हटा दें।'
+                  ? 'इस फोन/ब्राउज़र से सारा डेटा और सेटिंग्स हमेशा के लिए मिटाएं।'
                   : 'Permanently wipe all logs and setup from this browser.'}
               </p>
             </div>
@@ -380,7 +393,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 onClick={() => setShowConfirmDelete(true)}
                 className="text-rose-600 hover:bg-rose-50 hover:text-rose-700 rounded-full"
               >
-                {language === 'hi' ? 'डेटा हटाएं' : 'Wipe Data'}
+                {language === 'hi' ? 'सारा डेटा मिटाएं' : 'Wipe Data'}
               </Button>
             ) : (
               <div className="flex items-center gap-2">
@@ -398,7 +411,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                   onClick={handleDelete}
                   className="rounded-full"
                 >
-                  {language === 'hi' ? 'हाँ, सब हटाएं' : 'Yes, Wipe All'}
+                  {language === 'hi' ? 'हाँ, सारा डेटा मिटाएं' : 'Yes, Wipe All'}
                 </Button>
               </div>
             )}
@@ -408,7 +421,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
         {/* 5. Clinical Evidence & References */}
         <div className="rounded-3xl bg-white/70 p-5 border border-surface-border text-xs text-ink-muted space-y-2">
           <h4 className="font-bold text-ink text-xs uppercase tracking-wider">
-            {language === 'hi' ? 'क्लिनिकल स्रोत एवं संदर्भ' : 'Clinical Sources & Academic References'}
+            {language === 'hi' ? 'मेडिकल रिसर्च और संदर्भ' : 'Clinical Sources & Academic References'}
           </h4>
           <p className="leading-relaxed">
             • <strong>Utah Hive Menstrual Dataset (2023)</strong>: Stanford & Najmabadi, University of Utah Repository.

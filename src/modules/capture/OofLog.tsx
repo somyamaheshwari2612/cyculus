@@ -188,7 +188,7 @@ export const OofLog: React.FC<OofLogProps> = ({
       setExtractionConfidence(0.8);
       setExtractionWarnings([
         language === 'hi'
-          ? 'ऑफ़लाइन नियमों द्वारा समझा गया। पुष्टि करें।'
+          ? 'ऑफ़लाइन समझ लिया है। नीचे देखकर चेक कर लीजिए।'
           : 'Understood via local rules. Please verify below.'
       ]);
     } finally {
@@ -205,7 +205,7 @@ export const OofLog: React.FC<OofLogProps> = ({
     setNaturalText('');
     if (onSuccessToast) {
       onSuccessToast(
-        language === 'hi' ? 'लॉग सफलतापूर्वक सहेज लिया गया!' : 'Log saved successfully!'
+        language === 'hi' ? 'आज का लॉग सेव हो गया!' : 'Log saved successfully!'
       );
     }
   };
@@ -225,7 +225,7 @@ export const OofLog: React.FC<OofLogProps> = ({
       await onSavePatch(patch, 'tap');
       if (onSuccessToast) {
         onSuccessToast(
-          language === 'hi' ? 'आज का चेक-इन सहेज लिया गया!' : 'Daily check-in saved!'
+          language === 'hi' ? 'आज का चेक-इन सेव हो गया!' : 'Daily check-in saved!'
         );
       }
     } finally {
@@ -256,98 +256,20 @@ export const OofLog: React.FC<OofLogProps> = ({
         />
       )}
 
-      {/* Quick Category Circle Pills (Screen 2 of Madhya collage) */}
-      <div className="bg-white/80 backdrop-blur-sm p-4 rounded-[2rem] border border-[#F3E8EE] shadow-soft">
-        <div className="flex items-center justify-between mb-2.5 px-1">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-ink-muted">
-            {language === 'hi' ? 'त्वरित श्रेणियां (Quick Categories)' : 'Quick Categories'}
+      {/* Header with Brand & Plain Subtitle */}
+      <div className="flex items-center justify-between pb-1">
+        <div>
+          <div className="flex items-baseline gap-2.5">
+            <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">OofLog</h2>
+            <span className="text-[11px] font-bold text-primary bg-tint-lavender px-3 py-1 rounded-full border border-[#E7DCF8]">
+              {language === 'hi' ? 'आज कैसा रहा' : 'aaj kaisa raha'}
+            </span>
+          </div>
+          <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
+            {language === 'hi'
+              ? '1-टैप में या बोलकर आज के लक्षण, फ्लो और मूड दर्ज करें'
+              : 'Log today’s flow, symptoms, pain, and mood in 1-tap or your own voice'}
           </p>
-          <span className="text-[10px] text-primary font-semibold">1-Tap Select</span>
-        </div>
-        <div className="flex items-center gap-3 sm:gap-4 overflow-x-auto pb-1 px-1">
-          {/* Periods / Flow */}
-          <button
-            type="button"
-            onClick={() => setSelectedFlow(selectedFlow ? null : 'medium')}
-            className="flex flex-col items-center gap-1.5 shrink-0 group cursor-pointer"
-          >
-            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-              selectedFlow ? 'bg-primary text-white shadow-soft scale-105' : 'bg-tint-rose text-primary border border-[#F8DDE5] group-hover:scale-105'
-            }`}>
-              <span className="text-lg">🩸</span>
-            </div>
-            <span className="text-[11px] font-medium text-ink">Periods</span>
-          </button>
-
-          {/* Cramps */}
-          <button
-            type="button"
-            onClick={() => toggleSymptom('cramps')}
-            className="flex flex-col items-center gap-1.5 shrink-0 group cursor-pointer"
-          >
-            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-              selectedSymptoms.includes('cramps') ? 'bg-primary text-white shadow-soft scale-105' : 'bg-tint-lavender text-primary border border-[#E7DCF8] group-hover:scale-105'
-            }`}>
-              <span className="text-lg">⚡</span>
-            </div>
-            <span className="text-[11px] font-medium text-ink">Cramps</span>
-          </button>
-
-          {/* Mood */}
-          <button
-            type="button"
-            onClick={() => toggleMood('anxious')}
-            className="flex flex-col items-center gap-1.5 shrink-0 group cursor-pointer"
-          >
-            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-              selectedMoods.includes('anxious') ? 'bg-primary text-white shadow-soft scale-105' : 'bg-tint-peach text-amber-900 border border-[#FADCD0] group-hover:scale-105'
-            }`}>
-              <span className="text-lg">💭</span>
-            </div>
-            <span className="text-[11px] font-medium text-ink">Mood</span>
-          </button>
-
-          {/* Fatigue */}
-          <button
-            type="button"
-            onClick={() => toggleSymptom('fatigue')}
-            className="flex flex-col items-center gap-1.5 shrink-0 group cursor-pointer"
-          >
-            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-              selectedSymptoms.includes('fatigue') ? 'bg-primary text-white shadow-soft scale-105' : 'bg-tint-mint text-emerald-800 border border-[#D8F0E4] group-hover:scale-105'
-            }`}>
-              <span className="text-lg">😴</span>
-            </div>
-            <span className="text-[11px] font-medium text-ink">Energy</span>
-          </button>
-
-          {/* Bloating */}
-          <button
-            type="button"
-            onClick={() => toggleSymptom('bloating')}
-            className="flex flex-col items-center gap-1.5 shrink-0 group cursor-pointer"
-          >
-            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-              selectedSymptoms.includes('bloating') ? 'bg-primary text-white shadow-soft scale-105' : 'bg-[#EBF7F8] text-teal-800 border border-[#D2EEF0] group-hover:scale-105'
-            }`}>
-              <span className="text-lg">🌿</span>
-            </div>
-            <span className="text-[11px] font-medium text-ink">Bloating</span>
-          </button>
-
-          {/* Headache */}
-          <button
-            type="button"
-            onClick={() => toggleSymptom('headache')}
-            className="flex flex-col items-center gap-1.5 shrink-0 group cursor-pointer"
-          >
-            <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-              selectedSymptoms.includes('headache') ? 'bg-primary text-white shadow-soft scale-105' : 'bg-tint-rose/40 text-rose-900 border border-[#F8DDE5] group-hover:scale-105'
-            }`}>
-              <span className="text-lg">🤕</span>
-            </div>
-            <span className="text-[11px] font-medium text-ink">Headache</span>
-          </button>
         </div>
       </div>
 
@@ -363,7 +285,7 @@ export const OofLog: React.FC<OofLogProps> = ({
             </div>
             <label className="text-xs sm:text-sm font-semibold text-ink">
               {language === 'hi'
-                ? 'आज के बारे में बताएं:'
+                ? 'आज कैसा रहा? अपनी भाषा में लिख दीजिए'
                 : 'Tell me about today, in your own words:'}
             </label>
           </div>
@@ -381,7 +303,7 @@ export const OofLog: React.FC<OofLogProps> = ({
             rows={3}
             placeholder={
               language === 'hi'
-                ? 'उदा. "कल से पेट में बहुत दर्द है और flow heavy है..."'
+                ? 'जैसे: "कल से पेट में बहुत दर्द है और flow heavy है..."'
                 : 'e.g. "Cramps started yesterday, flow is heavy and feeling low..."'
             }
             className="w-full text-sm sm:text-base p-4 pr-24 rounded-2xl border border-surface-border bg-[#FDFBFD] focus:bg-white focus:ring-2 focus:ring-primary/25 focus:border-primary/40 focus:outline-none transition-all placeholder:text-ink-light leading-relaxed"
@@ -484,7 +406,7 @@ export const OofLog: React.FC<OofLogProps> = ({
           <div className="flex items-center gap-2">
             {existingEntry && (
               <span className="text-[11px] font-semibold text-primary bg-tint-lavender px-3 py-1 rounded-full border border-[#E7DCF8] shadow-pill">
-                {language === 'hi' ? '✓ आज दर्ज है' : '✓ Logged today'}
+                {language === 'hi' ? '✓ आज सेव है' : '✓ Logged today'}
               </span>
             )}
             <span className="text-[11px] font-medium text-emerald-800 bg-tint-mint px-3 py-1 rounded-full border border-[#D4F2E3] shadow-pill">
@@ -496,7 +418,7 @@ export const OofLog: React.FC<OofLogProps> = ({
         {/* 1. Flow Selection with Pastel Icon Circles */}
         <div>
           <label className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-2.5">
-            {language === 'hi' ? '1. रक्तस्राव का स्तर (Flow)' : '1. Bleeding Flow'}
+            {language === 'hi' ? '1. पीरियड फ्लो (Flow)' : '1. Bleeding Flow'}
           </label>
           <div className="grid grid-cols-5 gap-2">
             {FLOW_LEVELS.map(fl => {
@@ -529,7 +451,7 @@ export const OofLog: React.FC<OofLogProps> = ({
         <div>
           <div className="flex items-center justify-between mb-2.5">
             <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
-              {language === 'hi' ? '2. दर्द का पैमाना (0–10)' : '2. Pain Level (0–10)'}
+              {language === 'hi' ? '2. दर्द कैसा है? (0–10)' : '2. Pain Level (0–10)'}
             </label>
             <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
               painLevel && painLevel >= 8
@@ -538,7 +460,7 @@ export const OofLog: React.FC<OofLogProps> = ({
                 ? 'bg-tint-lavender text-primary'
                 : 'text-ink-muted'
             }`}>
-              {painLevel !== null ? `${painLevel}/10` : language === 'hi' ? 'शून्य' : 'None'}
+              {painLevel !== null ? `${painLevel}/10` : language === 'hi' ? 'बिल्कुल नहीं' : 'None'}
             </span>
           </div>
 
@@ -565,7 +487,7 @@ export const OofLog: React.FC<OofLogProps> = ({
         {/* 3. Symptoms Chips */}
         <div>
           <label className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-2.5">
-            {language === 'hi' ? '3. शारीरिक लक्षण (Symptoms)' : '3. Symptoms Experienced'}
+            {language === 'hi' ? '3. लक्षण (Symptoms)' : '3. Symptoms Experienced'}
           </label>
           <div className="flex flex-wrap gap-2">
             {SYMPTOMS.map(sym => {
@@ -586,7 +508,7 @@ export const OofLog: React.FC<OofLogProps> = ({
         {/* 4. Mood Chips */}
         <div>
           <label className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-2.5">
-            {language === 'hi' ? '4. मन की स्थिति (Mood)' : '4. Mood'}
+            {language === 'hi' ? '4. मूड (Mood)' : '4. Mood'}
           </label>
           <div className="flex flex-wrap gap-2">
             {MOODS.map(m => {
@@ -607,13 +529,13 @@ export const OofLog: React.FC<OofLogProps> = ({
         {/* 5. Notes */}
         <div>
           <label className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-1.5">
-            {language === 'hi' ? '5. व्यक्तिगत नोट्स (वैकल्पिक)' : '5. Personal Notes (Optional)'}
+            {language === 'hi' ? '5. कुछ और लिखना चाहें तो (ऑप्शनल)' : '5. Personal Notes (Optional)'}
           </label>
           <input
             type="text"
             value={notes}
             onChange={e => setNotes(e.target.value)}
-            placeholder={language === 'hi' ? 'दवा, व्यायाम, नींद आदि...' : 'Medication, sleep, exercise, etc.'}
+            placeholder={language === 'hi' ? 'दवा, वॉक, कैसा लगा वगैरह...' : 'Medication, sleep, exercise, etc.'}
             className="w-full text-xs sm:text-sm p-3.5 rounded-full border border-surface-border bg-white focus:ring-2 focus:ring-primary/25 focus:border-primary/40 focus:outline-none shadow-pill"
           />
         </div>
@@ -627,7 +549,7 @@ export const OofLog: React.FC<OofLogProps> = ({
           icon={<CheckCircle2 className="w-5 h-5" />}
           onClick={handleSaveTap}
         >
-          {language === 'hi' ? 'आज का चेक-इन सुरक्षित करें' : 'Save Today’s Check-in'}
+          {language === 'hi' ? 'आज का लॉग सेव करें' : 'Save Today’s Check-in'}
         </Button>
       </Card>
         </div>

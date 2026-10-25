@@ -19,7 +19,7 @@ import heavyData from '@/shared/mocks/entries.heavy.json';
 export type Tab = 'home' | 'ooflog' | 'brief' | 'settings';
 
 export const AppShell: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Tab>('home');
+  const [activeTab, setActiveTab] = useState<Tab>('ooflog');
   const [language, setLanguage] = useState<'en' | 'hi'>('en');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [showOnboarding, setShowOnboarding] = useState<boolean>(false);
@@ -76,10 +76,11 @@ export const AppShell: React.FC = () => {
     await saveSetup(setup);
     localStorage.setItem('cyculus_onboarding_done', 'true');
     setShowOnboarding(false);
+    setActiveTab('ooflog');
     setToastMessage(
       language === 'hi'
-        ? 'आरंभिक चक्र सेटअप सहेजा गया! यह प्रायर के रूप में कार्य करेगा।'
-        : 'Cycle prior saved! Real logs will refine predictions with shrinkage.'
+        ? 'शुरुआती अंदाज़ा सेव हो गया! अब आज का दिन लॉग करें।'
+        : 'Initial cycle baseline saved! Now log your first day.'
     );
   };
 
@@ -96,17 +97,23 @@ export const AppShell: React.FC = () => {
       setDemoPersona(null);
       setToastMessage(
         language === 'hi'
-          ? 'डेमो डेटा हटा दिया गया और आपकी वास्तविक प्रविष्टि सहेजी गई!'
+          ? 'डेमो डेटा हटा दिया गया और आपकी एंट्री सेव हो गई!'
           : 'Demo data removed. Your real health entry has been saved!'
       );
     }
     return savePatch(patch, source, rawText);
   };
 
-  // Skip setup
+  // Skip setup directly to logging first day
   const handleSkipSetup = () => {
     localStorage.setItem('cyculus_onboarding_done', 'true');
     setShowOnboarding(false);
+    setActiveTab('ooflog');
+    setToastMessage(
+      language === 'hi'
+        ? 'स्वागत है! आज कैसा रहा, लिखकर या बोलकर बताएं।'
+        : 'Welcome! Tell us about today to start your diary.'
+    );
   };
 
   const requestSeedPersona = (type: 'riya' | 'regular' | 'heavy') => {
@@ -115,7 +122,7 @@ export const AppShell: React.FC = () => {
         type: 'riya',
         name: 'Riya (Irregular / 41-day cycle)',
         description: language === 'hi'
-          ? '41-दिन का लंबा चक्र, उच्च चक्र परिवर्तनशीलता (27–41 दिन) और FIGO cycle_long फ़्लैग का प्रदर्शन।'
+          ? '41 दिन का लंबा चक्र, 27 से 41 दिन का भारी उतार-चढ़ाव और FIGO cycle_long फ़्लैग का उदाहरण।'
           : 'Demonstrates a 41-day cycle, high cycle variability (27–41 days), and FIGO cycle_long clinical flag.',
         daysCount: (irregularData as LogEntry[]).length
       });
@@ -124,7 +131,7 @@ export const AppShell: React.FC = () => {
         type: 'heavy',
         name: 'Heavy Menstrual Bleeding',
         description: language === 'hi'
-          ? 'प्रति चक्र 4+ भारी रक्तस्राव दिवस एवं तीव्र कष्टार्तव (दर्द 8/10), NICE व ACOG फ़्लैग का प्रदर्शन।'
+          ? 'हर पीरियड में 4+ दिन हैवी फ्लो और तेज़ क्रैम्प्स (दर्द 8/10), NICE व ACOG फ़्लैग का उदाहरण।'
           : 'Demonstrates 4+ heavy bleeding days per cycle and severe dysmenorrhea (pain 8/10), triggering NICE/ACOG heavy flow flag.',
         daysCount: (heavyData as LogEntry[]).length
       });
@@ -133,7 +140,7 @@ export const AppShell: React.FC = () => {
         type: 'regular',
         name: 'Regular Cycles Baseline',
         description: language === 'hi'
-          ? 'नियमित 28–29 दिन के चक्र, निम्न परिवर्तनशीलता, कोई क्लिनिकल फ़्लैग नहीं।'
+          ? '28–29 दिन का नियमित पीरियड, बिल्कुल सामान्य गैप और कोई क्लिनिकल फ़्लैग नहीं।'
           : 'Demonstrates consistent 28–29 day physiological rhythms with low variability and 0 clinical flags.',
         daysCount: (regularData as LogEntry[]).length
       });
@@ -165,7 +172,7 @@ export const AppShell: React.FC = () => {
     setDemoPersona(null);
     setToastMessage(
       language === 'hi'
-        ? 'डेमो डेटा हटा दिया गया। अब डायरी पूरी तरह से साफ़ है।'
+        ? 'डेमो डेटा हटा दिया गया। अब डायरी एकदम खाली और आपकी अपनी है।'
         : 'Demo data removed. Returned to clean, private diary.'
     );
   };
@@ -175,8 +182,6 @@ export const AppShell: React.FC = () => {
     localStorage.removeItem('cyculus_demo_persona');
     setDemoPersona(null);
   };
-
-  const isFreshBrowser = logs.length === 0 && !userSetup;
 
   return (
     <div className="min-h-screen bg-surface-bg flex font-sans selection:bg-primary-soft selection:text-ink">
@@ -200,10 +205,10 @@ export const AppShell: React.FC = () => {
               </div>
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
-                  {language === 'hi' ? 'डेमो डेटा लोड' : 'Seed Demo Data'}
+                  {language === 'hi' ? 'डेमो डेटा' : 'Seed Demo Data'}
                 </span>
                 <h3 className="text-lg sm:text-xl font-serif font-bold text-ink mt-0.5">
-                  {language === 'hi' ? 'क्या आप डेमो डेटा लोड करना चाहती हैं?' : 'Load Demonstration Persona?'}
+                  {language === 'hi' ? 'क्या आप डेमो डेटा लोड करना चाहते हैं?' : 'Load Demonstration Persona?'}
                 </h3>
               </div>
             </div>
@@ -225,7 +230,7 @@ export const AppShell: React.FC = () => {
             <div className="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-[11px] text-amber-900 leading-relaxed">
               <strong>⚠️ {language === 'hi' ? 'कृपया ध्यान दें:' : 'Notice:'}</strong>{' '}
               {language === 'hi'
-                ? 'यह क्रिया आपके ब्राउज़र में डेमो डेटा लोड करेगी ताकि आप क्लिनिकल अंतर्दृष्टि का परीक्षण कर सकें। आप कभी भी "डेमो डेटा हटाएं" बटन से इसे साफ़ कर सकती हैं।'
+                ? 'इससे आपके फोन/ब्राउज़र में टेस्ट करने के लिए डेमो डेटा लोड हो जाएगा ताकि आप देख सकें कि डॉक्टर की चिट्ठी और टाइमलाइन कैसी दिखती है। आप इसे कभी भी हटा सकते हैं।'
                 : 'This will seed mock entries into your local IndexedDB for clinical rule evaluation. A persistent banner will allow you to remove it at any time.'}
             </div>
 
@@ -276,9 +281,9 @@ export const AppShell: React.FC = () => {
             </div>
           </div>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Navigation Links (Main Path: 3 Core Jobs) */}
           <nav className="space-y-2">
-            {/* OofLog (Daily Diary) */}
+            {/* OofLog (Daily Check-in) */}
             <button
               type="button"
               onClick={() => setActiveTab('ooflog')}
@@ -291,12 +296,12 @@ export const AppShell: React.FC = () => {
               <div>
                 <span className="block font-bold">OofLog</span>
                 <span className={`text-[10px] block ${activeTab === 'ooflog' ? 'text-white/80' : 'text-ink-muted'}`}>
-                  {language === 'hi' ? 'दैनिक लक्षण डायरी' : 'Daily Symptom Diary'}
+                  {language === 'hi' ? 'आज कैसा रहा' : 'aaj kaisa raha'}
                 </span>
               </div>
             </button>
 
-            {/* Dayum (Cycle Tracker & PWA Guide) */}
+            {/* Dayum (Cycle Timeline) */}
             <button
               type="button"
               onClick={() => setActiveTab('home')}
@@ -307,13 +312,9 @@ export const AppShell: React.FC = () => {
             >
               <Calendar className={`w-4 h-4 ${activeTab === 'home' ? 'stroke-[2.5]' : ''}`} />
               <div>
-                <span className="block font-bold">
-                  {isFreshBrowser ? 'Guide & Dayum' : 'Dayum'}
-                </span>
+                <span className="block font-bold">Dayum</span>
                 <span className={`text-[10px] block ${activeTab === 'home' ? 'text-white/80' : 'text-ink-muted'}`}>
-                  {isFreshBrowser
-                    ? (language === 'hi' ? 'PWA गाइड एवं निर्देश' : 'PWA Guide & Timeline')
-                    : (language === 'hi' ? 'चक्र ट्रैकर व अनुमान' : 'Cycle Timeline & Window')}
+                  {language === 'hi' ? 'चक्र टाइमलाइन' : 'cycle timeline'}
                 </span>
               </div>
             </button>
@@ -329,50 +330,52 @@ export const AppShell: React.FC = () => {
             >
               <FileText className={`w-4 h-4 ${activeTab === 'brief' ? 'stroke-[2.5]' : ''}`} />
               <div>
-                <span className="block font-bold">{language === 'hi' ? 'चिट्ठी (Doctor Brief)' : 'Doctor Brief'}</span>
+                <span className="block font-bold">Doctor Brief</span>
                 <span className={`text-[10px] block ${activeTab === 'brief' ? 'text-white/80' : 'text-ink-muted'}`}>
-                  {language === 'hi' ? '1-पेज क्लिनिकल रिपोर्ट' : '1-Page Clinical Summary'}
-                </span>
-              </div>
-            </button>
-
-            {/* Settings & Privacy */}
-            <button
-              type="button"
-              onClick={() => setActiveTab('settings')}
-              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${activeTab === 'settings'
-                  ? 'bg-primary text-white shadow-soft'
-                  : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/50'
-                }`}
-            >
-              <Settings className={`w-4 h-4 ${activeTab === 'settings' ? 'stroke-[2.5]' : ''}`} />
-              <div>
-                <span className="block font-bold">{language === 'hi' ? 'गोपनीयता व सेटिंग्स' : 'Privacy & Settings'}</span>
-                <span className={`text-[10px] block ${activeTab === 'settings' ? 'text-white/80' : 'text-ink-muted'}`}>
-                  {language === 'hi' ? '100% ऑन-डिवाइस डेटा' : 'Zero-Cloud & Data'}
+                  {language === 'hi' ? 'क्लिनिकल चिट्ठी' : 'clinical chitthi'}
                 </span>
               </div>
             </button>
           </nav>
         </div>
 
-        {/* Sidebar Footer Card */}
-        <div className="bg-tint-rose/40 rounded-3xl p-4 border border-[#F8DDE5] relative overflow-hidden">
-          <div className="absolute -bottom-4 -right-4 pointer-events-none opacity-40">
-            <BotanicalAccent className="w-24 h-24 text-primary" />
-          </div>
-          <div className="relative z-10">
-            <p className="text-[11px] font-serif font-bold text-ink leading-snug">
-              {language === 'hi'
-                ? 'आपका स्वास्थ्य। आपके सवाल। पूर्ण गोपनीयता।'
-                : 'Your health. Your questions. Our priority.'}
-            </p>
-            <p className="text-[10px] text-ink-muted mt-1">
-              100% on-device · Zero cloud
-            </p>
-            <div className="mt-3 flex items-center gap-1.5 text-[10px] font-semibold text-primary">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Offline Ready PWA</span>
+        {/* Secondary Utility: Quiet Settings Link (Pushed out of main path) */}
+        <div className="space-y-3">
+          <button
+            type="button"
+            onClick={() => setActiveTab('settings')}
+            className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl text-xs font-medium transition-all cursor-pointer text-left ${activeTab === 'settings'
+                ? 'bg-tint-lavender text-primary font-bold shadow-soft border border-[#E7DCF8]'
+                : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/40'
+              }`}
+          >
+            <Settings className="w-4 h-4 text-ink-muted shrink-0" />
+            <div className="min-w-0">
+              <span className="block font-semibold truncate">{language === 'hi' ? 'सेटिंग्स व डेटा' : 'Settings & Privacy'}</span>
+              <span className="text-[10px] block text-ink-muted truncate">
+                {language === 'hi' ? '100% ऑन-डिवाइस' : '100% On-Device'}
+              </span>
+            </div>
+          </button>
+
+          {/* Sidebar Footer Card */}
+          <div className="bg-tint-rose/40 rounded-3xl p-4 border border-[#F8DDE5] relative overflow-hidden">
+            <div className="absolute -bottom-4 -right-4 pointer-events-none opacity-40">
+              <BotanicalAccent className="w-24 h-24 text-primary" />
+            </div>
+            <div className="relative z-10">
+              <p className="text-[11px] font-serif font-bold text-ink leading-snug">
+                {language === 'hi'
+                  ? 'आपका स्वास्थ्य। आपके सवाल। पूर्ण गोपनीयता।'
+                  : 'Your health. Your questions. Our priority.'}
+              </p>
+              <p className="text-[10px] text-ink-muted mt-1">
+                100% on-device · Zero cloud
+              </p>
+              <div className="mt-3 flex items-center gap-1.5 text-[10px] font-semibold text-primary">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Offline Ready PWA</span>
+              </div>
             </div>
           </div>
         </div>
@@ -401,27 +404,48 @@ export const AppShell: React.FC = () => {
             {/* Desktop Breadcrumb / Tab Indicator */}
             <div className="hidden lg:flex items-center gap-2 text-xs">
               <span className="font-serif font-bold text-ink text-base">
-                {activeTab === 'ooflog' && 'OofLog · Daily Diary'}
-                {activeTab === 'home' && (isFreshBrowser ? 'Guide & Instructions · PWA' : 'Dayum · Cycle Timeline')}
-                {activeTab === 'brief' && 'Doctor Brief · Chitthi'}
-                {activeTab === 'settings' && 'Privacy & Settings'}
+                {activeTab === 'ooflog' && (language === 'hi' ? 'OofLog · आज कैसा रहा' : 'OofLog · aaj kaisa raha')}
+                {activeTab === 'home' && (language === 'hi' ? 'Dayum · पीरियड टाइमलाइन' : 'Dayum · cycle timeline')}
+                {activeTab === 'brief' && (language === 'hi' ? 'Doctor Brief · क्लिनिकल चिट्ठी' : 'Doctor Brief · chitthi')}
+                {activeTab === 'settings' && (language === 'hi' ? 'सेटिंग्स · प्राइवेसी और डेटा' : 'Settings · privacy & data')}
               </span>
               <span className="text-ink-muted/50">•</span>
               <span className="text-[11px] text-ink-muted font-medium bg-white/70 px-2.5 py-0.5 rounded-full border border-surface-border">
                 {todayStr}
               </span>
+              {currentCycleDay !== null && (
+                <span className="text-[11px] font-bold text-primary bg-tint-lavender/60 px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
+                  🌸 Day {currentCycleDay}
+                </span>
+              )}
             </div>
 
-            {/* Right Controls: Storage Badge & Language Toggle */}
-            <div className="flex items-center gap-2.5">
+            {/* Right Controls: Storage Badge, Language Toggle & Quiet Settings */}
+            <div className="flex items-center gap-2">
               <div className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-semibold text-primary bg-tint-lavender/60 px-3 py-1 rounded-full border border-[#E7DCF8]">
                 <span>🔒 100% On-Device</span>
               </div>
 
+              {/* Language toggle stays visible */}
               <LanguageToggle
                 language={language}
                 onToggle={setLanguage}
               />
+
+              {/* Quiet Settings button pushed out of main path */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('settings')}
+                aria-label={language === 'hi' ? 'सेटिंग्स और डेटा' : 'Settings & Privacy'}
+                title={language === 'hi' ? 'सेटिंग्स और डेटा' : 'Settings & Privacy'}
+                className={`p-2 rounded-full border transition-all cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center ${
+                  activeTab === 'settings'
+                    ? 'bg-primary text-white border-primary shadow-soft'
+                    : 'bg-white/90 text-ink-muted hover:text-ink hover:bg-surface-subtle border-surface-border shadow-pill'
+                }`}
+              >
+                <Settings className="w-4 h-4" />
+              </button>
             </div>
           </div>
         </header>
@@ -438,7 +462,7 @@ export const AppShell: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-900 bg-amber-200/90 px-2 py-0.5 rounded-full border border-amber-300">
-                      {language === 'hi' ? 'डेमो डेटा सक्रिय' : 'Demo Data Active'}
+                      {language === 'hi' ? 'डेमो डेटा चालू है' : 'Demo Data Active'}
                     </span>
                     <span className="text-xs sm:text-sm font-serif font-bold text-ink">
                       {demoPersona}
@@ -446,7 +470,7 @@ export const AppShell: React.FC = () => {
                   </div>
                   <p className="text-[11px] text-ink-muted mt-0.5 leading-snug">
                     {language === 'hi'
-                      ? 'सिंथेटिक डेमो डेटा लोड है (फ्लैग LogEntry के बाहर localStorage में सुरक्षित)। कभी भी हटाएं:'
+                      ? 'टेस्टिंग के लिए डेमो डेटा लोड है। आप इसे कभी भी हटा सकते हैं:'
                       : 'Mock longitudinal logs loaded for testing. Flag stored strictly outside LogEntry in localStorage.'}
                   </p>
                 </div>
@@ -464,141 +488,20 @@ export const AppShell: React.FC = () => {
             </div>
           )}
 
-          {/* Ambient Welcome Banner - When new browser with no profile set, no name is shown, just clear PWA guidance */}
-          <div className="print:hidden bg-gradient-to-r from-tint-rose/40 via-white/80 to-tint-lavender/40 border border-[#F3E8EE] rounded-[2.25rem] p-6 sm:p-7 relative overflow-hidden mb-6 shadow-card">
-            <div className="absolute top-0 right-0 pointer-events-none opacity-60">
-              <BotanicalAccent className="w-36 h-36 lg:w-44 lg:h-44 text-primary" />
-            </div>
-
-            {isFreshBrowser ? (
-              <div className="relative z-10 max-w-xl">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
-                    {language === 'hi' ? '🌸 नया ब्राउज़र · शून्य क्लाउड PWA' : '🌸 New Browser · Zero-Cloud PWA'}
-                  </span>
-                  <span className="text-[11px] text-ink-muted bg-white/80 px-2.5 py-0.5 rounded-full border border-[#F3E8EE]">
-                    {language === 'hi' ? 'कोई प्रोफ़ाइल सेट नहीं (अनाम)' : 'No Profile Set (Private & Anonymous)'}
-                  </span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight font-bold">
-                  {language === 'hi' ? 'साइकुलस PWA · ऑफ़लाइन स्वास्थ्य डायरी' : 'Cyculus PWA · Offline Health Diary'}
-                </h2>
-                <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
-                  {language === 'hi'
-                    ? 'कोई खाता, प्रोफ़ाइल या नाम आवश्यक नहीं है। आपका व्यक्तिगत स्वास्थ्य डेटा 100% केवल इस ब्राउज़र में रहता है। नीचे उपयोग निर्देश एवं इंस्टॉलेशन गाइड देखें।'
-                    : 'No account, profile, or name required. Your health data stays 100% inside this browser. Follow the instructions and PWA usage guide below.'}
-                </p>
-                <div className="mt-4 flex flex-wrap items-center gap-2.5">
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab('home')}
-                    className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full border transition-all cursor-pointer ${activeTab === 'home'
-                        ? 'bg-primary text-white border-primary shadow-soft'
-                        : 'bg-white/90 text-primary border-[#E7DCF8] hover:bg-tint-lavender/50'
-                      }`}
-                  >
-                    📖 {language === 'hi' ? 'PWA उपयोग निर्देश देखें' : 'View PWA Instructions & Guide'}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab('ooflog')}
-                    className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full border transition-all cursor-pointer ${activeTab === 'ooflog'
-                        ? 'bg-primary text-white border-primary shadow-soft'
-                        : 'bg-white/90 text-primary border-[#E7DCF8] hover:bg-tint-lavender/50'
-                      }`}
-                  >
-                    ✍️ {language === 'hi' ? 'दैनिक चेक-इन शुरू करें (OofLog)' : 'Start Daily Check-in (OofLog)'}
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="relative z-10 max-w-lg">
-                <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">
-                  {language === 'hi' ? 'नमस्ते, साइकुलस में आपका स्वागत है 👋' : 'Hey there, welcome to Cyculus 👋'}
-                </h2>
-                <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
-                  {language === 'hi'
-                    ? 'आज आप कैसा महसूस कर रही हैं? बोलें या 1-टैप से दर्ज करें।'
-                    : 'What would you like to log or explore today? Speak naturally or tap below.'}
-                </p>
-                <div className="mt-3.5 flex flex-wrap items-center gap-2">
-                  {currentCycleDay !== null ? (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-white/90 px-3 py-1 rounded-full border border-[#E7DCF8] shadow-soft">
-                      🌸 Cycle Day {currentCycleDay}
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-primary bg-white/90 px-3 py-1 rounded-full border border-[#E7DCF8] shadow-soft">
-                      🌸 Longitudinal Cycle Diary
-                    </span>
-                  )}
-                  <span className="text-[11px] text-ink-muted bg-white/70 px-2.5 py-1 rounded-full border border-surface-border">
-                    {logs.length} days recorded
-                  </span>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Active Tab Screen */}
+          {/* Active Tab Screen: One Job Per Screen */}
           {activeTab === 'home' && (
             <div className="space-y-6">
-              {isFreshBrowser && (
-                <div className="p-4 rounded-3xl bg-tint-lavender/40 border border-[#E7DCF8] flex flex-wrap items-center justify-between gap-3 text-xs">
-                  <div className="flex items-center gap-2 text-ink">
-                    <span className="text-base">🌸</span>
-                    <span className="font-medium">
-                      {language === 'hi'
-                        ? 'कोई डेटा नहीं मिला। आप सीधे आज का लक्षण लॉग कर सकती हैं या नीचे डेमो प्रोफाइल आज़मा सकती हैं।'
-                        : 'No logs recorded yet. Start logging symptoms or test with demonstration personas.'}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => requestSeedPersona('riya')}
-                      className="px-3.5 py-1.5 rounded-full bg-white text-primary font-bold border border-[#E7DCF8] hover:bg-primary hover:text-white shadow-soft transition-all cursor-pointer"
-                    >
-                      ✨ {language === 'hi' ? 'रिया का डेटा लोड करें' : 'Try Riya Persona'}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('ooflog')}
-                      className="px-3.5 py-1.5 rounded-full bg-primary text-white font-bold shadow-soft hover:bg-primary-dark transition-all cursor-pointer"
-                    >
-                      ✍️ {language === 'hi' ? 'आज का चेक-इन' : 'Log Today'}
-                    </button>
-                  </div>
-                </div>
-              )}
               <DayumScreen
                 logs={logs}
                 language={language}
                 onNavigateToLog={() => setActiveTab('ooflog')}
+                onOpenSettings={() => setActiveTab('settings')}
               />
             </div>
           )}
 
           {activeTab === 'ooflog' && (
             <div className="space-y-4">
-              {isFreshBrowser && (
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-tint-lavender/50 border border-[#E7DCF8] flex flex-wrap items-center justify-between gap-3 text-xs">
-                  <div className="flex items-center gap-2 text-ink">
-                    <span className="text-base">🌸</span>
-                    <span>
-                      {language === 'hi'
-                        ? 'नया ब्राउज़र: कोई प्रोफ़ाइल सेट नहीं है। आप सीधे आज का लक्षण लॉग कर सकती हैं या PWA गाइड देख सकती हैं।'
-                        : 'New browser: No profile is set. You can start logging directly or explore the PWA guide.'}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab('home')}
-                    className="font-bold text-primary hover:underline shrink-0 cursor-pointer"
-                  >
-                    {language === 'hi' ? 'PWA गाइड देखें →' : 'View PWA Guide →'}
-                  </button>
-                </div>
-              )}
               <OofLog
                 todayDate={todayStr}
                 existingEntry={demoPersona ? undefined : todayLog}
@@ -616,6 +519,7 @@ export const AppShell: React.FC = () => {
               knowledge={knowledgeData.rules as any}
               language={language}
               onLanguageChange={setLanguage}
+              onNavigateToLog={() => setActiveTab('ooflog')}
             />
           )}
 
@@ -637,10 +541,10 @@ export const AppShell: React.FC = () => {
         </main>
       </div>
 
-      {/* MOBILE / PHONE BOTTOM NAVIGATION BAR (Visible on all phone & tablet screens < lg) */}
-      <nav className="print:hidden lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/92 backdrop-blur-xl border-t border-[#F0E6EE] px-3 py-2 shadow-sheet safe-area-bottom">
-        <div className="max-w-md mx-auto grid grid-cols-4 gap-1.5">
-          {/* OofLog (Daily Diary) */}
+      {/* MOBILE / PHONE BOTTOM NAVIGATION BAR (Main Path: 3 Core Jobs) */}
+      <nav className="print:hidden lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/92 backdrop-blur-xl border-t border-[#F0E6EE] px-4 py-2 shadow-sheet safe-area-bottom">
+        <div className="max-w-md mx-auto grid grid-cols-3 gap-2">
+          {/* Log / Check-in */}
           <button
             type="button"
             onClick={() => setActiveTab('ooflog')}
@@ -650,10 +554,12 @@ export const AppShell: React.FC = () => {
               }`}
           >
             <PlusCircle className={`w-5 h-5 ${activeTab === 'ooflog' ? 'stroke-[2.5] text-primary fill-primary-soft' : ''}`} />
-            <span className="text-[10px] mt-1 font-semibold tracking-tight">OofLog</span>
+            <span className="text-[11px] mt-1 font-semibold tracking-tight">
+              {language === 'hi' ? 'लॉग' : 'Log'}
+            </span>
           </button>
 
-          {/* Dayum / Cycle Tracker & Guide */}
+          {/* Cycle Timeline */}
           <button
             type="button"
             onClick={() => setActiveTab('home')}
@@ -663,8 +569,8 @@ export const AppShell: React.FC = () => {
               }`}
           >
             <Calendar className={`w-5 h-5 ${activeTab === 'home' ? 'stroke-[2.5] text-primary' : ''}`} />
-            <span className="text-[10px] mt-1 font-semibold tracking-tight">
-              {isFreshBrowser ? (language === 'hi' ? 'गाइड' : 'Guide') : 'Dayum'}
+            <span className="text-[11px] mt-1 font-semibold tracking-tight">
+              {language === 'hi' ? 'चक्र' : 'Cycle'}
             </span>
           </button>
 
@@ -678,23 +584,8 @@ export const AppShell: React.FC = () => {
               }`}
           >
             <FileText className={`w-5 h-5 ${activeTab === 'brief' ? 'stroke-[2.5] text-primary' : ''}`} />
-            <span className="text-[10px] mt-1 font-semibold tracking-tight">
+            <span className="text-[11px] mt-1 font-semibold tracking-tight">
               {language === 'hi' ? 'चिट्ठी' : 'Brief'}
-            </span>
-          </button>
-
-          {/* Settings */}
-          <button
-            type="button"
-            onClick={() => setActiveTab('settings')}
-            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${activeTab === 'settings'
-                ? 'bg-tint-lavender text-primary font-bold shadow-soft'
-                : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
-              }`}
-          >
-            <Settings className={`w-5 h-5 ${activeTab === 'settings' ? 'stroke-[2.5] text-primary' : ''}`} />
-            <span className="text-[10px] mt-1 font-semibold tracking-tight">
-              {language === 'hi' ? 'सेटिंग्स' : 'Settings'}
             </span>
           </button>
         </div>

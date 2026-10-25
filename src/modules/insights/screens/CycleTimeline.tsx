@@ -88,34 +88,60 @@ export const CycleTimeline: React.FC<CycleTimelineProps> = ({
     ? ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि']
     : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+  const currentMonthYearPrefix = `${year}-${String(month + 1).padStart(2, '0')}`;
+  const monthLogs = logs.filter(l => l.date.startsWith(currentMonthYearPrefix));
+  const bleedDays = monthLogs.filter(l => l.flow && l.flow !== 'none').length;
+
+  let headline = '';
+  if (monthLogs.length === 0) {
+    headline = language === 'hi'
+      ? `${monthName} में अभी कोई एंट्री लॉग नहीं है।`
+      : `No daily entries recorded for ${monthName}.`;
+  } else if (bleedDays > 0) {
+    headline = language === 'hi'
+      ? `${monthName} में पीरियड के ${bleedDays} दिन और कुल ${monthLogs.length} दिन लॉग हुए हैं।`
+      : `${bleedDays} bleeding days and ${monthLogs.length} daily entries recorded in ${monthName}.`;
+  } else {
+    headline = language === 'hi'
+      ? `${monthName} में ${monthLogs.length} दिन लक्षण लॉग किए गए हैं।`
+      : `${monthLogs.length} daily symptom entries recorded in ${monthName}.`;
+  }
+
   return (
     <Card variant="default" padding="lg">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-ink uppercase tracking-wider flex items-center gap-2">
-          <Calendar className="w-4 h-4 text-primary" />
-          {language === 'hi' ? 'चक्र कैलेंडर और टाइमलाइन' : 'Cycle Calendar & Timeline'}
-        </h3>
-        <div className="flex items-center gap-1.5">
-          <button
-            type="button"
-            onClick={prevMonth}
-            className="p-1.5 rounded-xl hover:bg-surface-subtle text-ink-muted hover:text-ink cursor-pointer"
-            aria-label="Previous month"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-          <span className="text-xs font-bold text-ink min-w-[110px] text-center">
-            {monthName}
-          </span>
-          <button
-            type="button"
-            onClick={nextMonth}
-            className="p-1.5 rounded-xl hover:bg-surface-subtle text-ink-muted hover:text-ink cursor-pointer"
-            aria-label="Next month"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-1.5">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-ink-muted flex items-center gap-2">
+            <Calendar className="w-4 h-4 text-primary" />
+            <span>{language === 'hi' ? 'चक्र कैलेंडर और टाइमलाइन' : 'Cycle Calendar & Timeline'}</span>
+          </h3>
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={prevMonth}
+              className="p-1.5 rounded-xl hover:bg-surface-subtle text-ink-muted hover:text-ink cursor-pointer"
+              aria-label="Previous month"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <span className="text-xs font-bold text-ink min-w-[110px] text-center">
+              {monthName}
+            </span>
+            <button
+              type="button"
+              onClick={nextMonth}
+              className="p-1.5 rounded-xl hover:bg-surface-subtle text-ink-muted hover:text-ink cursor-pointer"
+              aria-label="Next month"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
+
+        {/* Dynamic takeaway headline */}
+        <h4 className="text-lg sm:text-xl font-serif font-bold text-ink tracking-tight">
+          {headline}
+        </h4>
       </div>
 
       {/* Weekday headers */}
@@ -219,7 +245,7 @@ export const CycleTimeline: React.FC<CycleTimelineProps> = ({
         </div>
         {prediction && (
           <span className="text-primary font-medium">
-            {language === 'hi' ? '±3d अंशांकित विंडो' : 'Calibrated Window'}
+            {language === 'hi' ? '±3 दिन का सटीक दायरा' : 'Calibrated Window'}
           </span>
         )}
       </div>
@@ -257,7 +283,7 @@ export const CycleTimeline: React.FC<CycleTimelineProps> = ({
               )}
               {selectedEntry.painLevel !== null && (
                 <div className="flex items-center gap-2">
-                  <span className="text-ink-muted">{language === 'hi' ? 'दर्द स्तर:' : 'Pain Level:'}</span>
+                  <span className="text-ink-muted">{language === 'hi' ? 'दर्द (0–10):' : 'Pain Level:'}</span>
                   <span className="font-semibold text-ink">{selectedEntry.painLevel}/10</span>
                 </div>
               )}
@@ -286,15 +312,15 @@ export const CycleTimeline: React.FC<CycleTimelineProps> = ({
             <p className="text-xs text-primary font-medium">
               {isSelectedDatePredicted === 'expected'
                 ? language === 'hi'
-                  ? 'अपेक्षित पीरियड की तारीख (सांख्यिकीय केंद्र)'
+                  ? 'पीरियड की अंदाज़ित तारीख'
                   : 'Expected period center date based on cycle history'
                 : language === 'hi'
-                ? 'अनुमानित पीरियड विंडो का हिस्सा'
+                ? 'पीरियड के अंदाज़ित दायरे में'
                 : 'Within your predicted period window'}
             </p>
           ) : (
             <p className="text-xs text-ink-muted italic">
-              {language === 'hi' ? 'इस दिन कोई प्रविष्टि नहीं है।' : 'No entries logged on this day.'}
+              {language === 'hi' ? 'इस दिन कोई एंट्री लॉग नहीं है।' : 'No entries logged on this day.'}
             </p>
           )}
         </div>

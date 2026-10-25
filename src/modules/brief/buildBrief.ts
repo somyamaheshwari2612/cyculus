@@ -92,15 +92,19 @@ export function buildBrief(
     )
   );
 
-  // Summary: a few plain sentences built from the numbers above.
-  // Word order differs between English and Hindi, so each has its own sentence.
+  // Summary: natural full sentence templates (never piecemeal concatenation)
   const cycleSentence =
     language === 'hi'
-      ? `${stats.cyclesUsed} ${t.completedCycles} ${stats.avgCycleLength} ${t.days}।`
-      : `${t.summaryStart} ${stats.cyclesUsed} ${t.completedCycles} ${stats.avgCycleLength} ${t.days}.`;
+      ? `पिछले ${stats.cyclesUsed} पूरे पीरियड्स के हिसाब से, आपका औसत गैप ${stats.avgCycleLength} दिन रहा है।`
+      : `Based on ${stats.cyclesUsed} completed cycle(s), your average cycle length is ${stats.avgCycleLength} days.`;
 
   const early = insights.dataSufficiency === 'minimal' ? ' ' + t.earlyPicture : '';
-  const flagLine = flags.length > 0 ? `${flags.length} ${t.flagsFound}` : t.noFlags;
+  const flagLine =
+    flags.length > 0
+      ? language === 'hi'
+        ? `${flags.length} बातें ऐसी हैं जिन पर डॉक्टर से बात कर लेना अच्छा रहेगा।`
+        : `${flags.length} ${t.flagsFound}`
+      : t.noFlags;
 
   const summary = cycleSentence + early + ' ' + flagLine;
 

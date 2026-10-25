@@ -67,8 +67,8 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
         <div>
           <div className="flex items-baseline gap-2.5">
             <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">Dayum</h2>
-            <span className="text-[11px] font-bold text-primary uppercase tracking-widest bg-tint-lavender px-3 py-1 rounded-full border border-[#E7DCF8]">
-              {language === 'hi' ? 'चक्र ट्रैकर' : 'Cycle Tracker'}
+            <span className="text-[11px] font-bold text-primary bg-tint-lavender px-3 py-1 rounded-full border border-[#E7DCF8]">
+              {language === 'hi' ? 'चक्र टाइमलाइन' : 'cycle timeline'}
             </span>
           </div>
           <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
@@ -148,7 +148,7 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
               {/* Data Sufficiency Badge */}
               <div className="mt-5 pt-3.5 border-t border-[#E7DCF8]/80 flex flex-wrap items-center justify-between gap-2 text-xs">
                 <span className="text-ink-muted">
-                  {language === 'hi' ? 'वास्तविक दर्ज प्रविष्टियाँ:' : 'Real logged entries:'}{' '}
+                  {language === 'hi' ? 'आपके लॉग किए गए दिन:' : 'Real logged entries:'}{' '}
                   <strong className="text-ink font-semibold">{logs.length} days</strong>
                 </span>
                 <span className="text-primary font-medium text-[11px] bg-white/70 px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
@@ -172,7 +172,7 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="text-[11px] font-bold uppercase tracking-wider text-primary bg-white/90 px-3 py-0.5 rounded-full border border-[#F8DDE5]">
-                      {language === 'hi' ? 'डॉक्टर से चर्चा योग्य' : 'Worth Discussing with Doctor'}
+                      {language === 'hi' ? 'डॉक्टर से बात करने योग्य' : 'Worth Discussing with Doctor'}
                     </span>
                     <span className="text-[11px] text-ink-muted font-medium">FIGO Clinical Standard</span>
                   </div>
@@ -180,34 +180,34 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
                   <h4 className="text-base sm:text-lg font-serif font-bold text-ink mt-2.5 leading-snug">
                     {flags[0].ruleId === 'cycle_long' && (
                       language === 'hi'
-                        ? `मासिक चक्र सामान्य अवधि (38 दिन) से अधिक लंबा रहा (${stats?.longest} दिन)`
+                        ? `पीरियड्स के बीच सामान्य से ज़्यादा गैप रहा (${stats?.longest} दिन)`
                         : `Observed cycle interval longer than typical range (${stats?.longest} days)`
                     )}
                     {flags[0].ruleId === 'cycle_short' && (
                       language === 'hi'
-                        ? `मासिक चक्र सामान्य अवधि (24 दिन) से छोटा रहा (${stats?.shortest} दिन)`
+                        ? `पीरियड्स के बीच सामान्य से कम गैप रहा (${stats?.shortest} दिन)`
                         : `Observed cycle interval shorter than typical range (${stats?.shortest} days)`
                     )}
                     {flags[0].ruleId === 'cycle_variability_high' && (
                       language === 'hi'
-                        ? 'चक्रों की लंबाई में उच्च परिवर्तनशीलता (>9 दिन)'
+                        ? 'पीरियड्स के गैप में काफी उतार-चढ़ाव रहा (>9 दिन)'
                         : `Cycle variability exceeds clinical threshold (${(stats?.longest || 0) - (stats?.shortest || 0)}d spread)`
                     )}
                     {flags[0].ruleId === 'heavy_flow_persistent' && (
                       language === 'hi'
-                        ? 'लगातार कई दिनों तक भारी रक्तस्राव'
+                        ? 'लगातार कई दिनों तक हैवी फ्लो रहा'
                         : 'Persistent heavy menstrual flow identified'
                     )}
                     {flags[0].ruleId === 'period_long' && (
                       language === 'hi'
-                        ? 'रक्तस्राव की अवधि 8 दिनों से अधिक रही'
+                        ? 'पीरियड 8 दिन से ज़्यादा चला'
                         : 'Bleeding episode duration longer than 8 days'
                     )}
                   </h4>
 
                   <p className="text-xs sm:text-sm text-ink-muted mt-1.5 leading-relaxed">
                     {language === 'hi'
-                      ? 'अंतरराष्ट्रीय दिशा-निर्देशों (FIGO 2018) के अनुसार 24 से 38 दिन का चक्र और ≤7-9 दिन का विचलन सामान्य माना जाता है।'
+                      ? 'मेडिकल गाइडलाइन्स (FIGO) के अनुसार पीरियड्स के बीच 24 से 38 दिन का गैप सामान्य माना जाता है।'
                       : 'FIGO criteria define normal adult menstrual frequency as 24 to 38 days, with cycle length variability ≤7–9 days.'}
                   </p>
 
@@ -279,7 +279,7 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
                 </div>
                 <div className="flex-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-white/90 px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
-                    {language === 'hi' ? 'डेटा पर्याप्तता: कम' : 'Data Sufficiency: Minimal'}
+                    {language === 'hi' ? 'प्रारंभिक चरण (1-2 चक्र)' : 'Early Stage (1-2 cycles)'}
                   </span>
                   <h4 className="text-sm sm:text-base font-serif font-bold text-ink mt-2 leading-snug">
                     {language === 'hi'
