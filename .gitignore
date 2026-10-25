@@ -31,6 +31,7 @@ lerna-debug.log*
 *.png
 !public/*.png
 !public/**/*.png
+!src/assets/*.png
 
 # Editor & OS files
 .vscode/*
