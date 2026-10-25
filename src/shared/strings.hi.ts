@@ -103,7 +103,7 @@ export const STRINGS_HI = {
       'अभी चार्ट खाली है। जैसे ही आप अगला पीरियड लॉग करेंगी और एक पूरा चक्र हो जाएगा, यहाँ अगली तारीख का अंदाज़ा दिखने लगेगा।',
 
     basedOnCycles: (count: number) => `पिछले ${count} पीरियड्स के हिसाब से`,
-    whyAmISeeingThis: 'यह अंदाज़ा कैसे लगाया जाता है? →',
+    whyAmISeeingThis: 'यह अंदाज़ा कैसे लगाया जाता है?',
     predictionWindowCoverage: '~80% संभावना का दायरा',
 
     // Calendar & Timeline
@@ -215,8 +215,8 @@ export const STRINGS_HI = {
     card3Title: 'यह ऐप क्या करता है और क्या नहीं',
     card3Body: 'यह ऐप किसी बीमारी की पहचान नहीं करता। यह आपके पीरियड्स का पैटर्न समझने और डॉक्टर से सही सवाल पूछने में मदद करता है।',
 
-    nextSetupButton: 'पीरियड का अंदाज़ा सेट करें →',
-    skipToFirstDayButton: 'सीधे पहला दिन लॉग करें →',
+    nextSetupButton: 'पीरियड का अंदाज़ा बताएं (ऐच्छिक)',
+    skipToFirstDayButton: 'सीधे पहला दिन लॉग करें',
 
     // Step 2 Prior Calibration
     step2Badge: 'कदम 2 · पीरियड का अंदाज़ा',

@@ -198,7 +198,7 @@ export const AppShell: React.FC = () => {
       {/* Confirm Demo Seeding Modal */}
       {confirmPersonaSeed && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/40 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-[2rem] max-w-md w-full p-6 sm:p-7 shadow-modal border border-[#F3E8EE] space-y-5 animate-in zoom-in-95 duration-200">
+          <div className="bg-white rounded-[2rem] max-w-md w-full max-h-[calc(100vh-2rem)] overflow-y-auto p-6 sm:p-7 shadow-modal border border-[#F3E8EE] space-y-5 animate-in zoom-in-95 duration-200">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-2xl bg-tint-peach flex items-center justify-center text-primary text-xl shadow-soft border border-[#FADCD0] shrink-0">
                 ✨

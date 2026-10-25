@@ -96,27 +96,27 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/40 backdrop-blur-md animate-fade-in overflow-y-auto">
-      <div className="w-full max-w-lg bg-white/95 backdrop-blur-xl rounded-[2.25rem] p-6 sm:p-8 shadow-card border border-[#F3E8EE] space-y-6 animate-scale-up relative overflow-hidden my-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-ink/40 backdrop-blur-md animate-fade-in overflow-y-auto">
+      <div className="w-full max-w-lg max-h-[calc(100vh-1.5rem)] sm:max-h-[calc(100vh-2rem)] flex flex-col bg-white/95 backdrop-blur-xl rounded-[2rem] p-5 sm:p-6 shadow-card border border-[#F3E8EE] animate-scale-up relative overflow-hidden my-auto">
         {/* Soft background aura */}
         <div className="absolute -top-16 -right-16 w-44 h-44 bg-tint-peach/40 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-16 -left-16 w-44 h-44 bg-tint-lavender/40 rounded-full blur-3xl pointer-events-none" />
 
         {/* STEP 1: WELCOME & PRIVACY ARCHITECTURE */}
         {step === 1 && (
-          <div className="space-y-6 relative z-10 animate-fade-in">
+          <div className="space-y-4 relative z-10 animate-fade-in flex flex-col my-auto">
             {/* Header with Floral Brand Emblem */}
-            <div className="text-center pt-2">
-              <div className="w-16 h-16 bg-tint-rose text-primary rounded-full mx-auto flex items-center justify-center mb-4 shadow-pill border border-[#F8DDE5]">
-                <span className="text-2xl animate-pulse-subtle">🌸</span>
+            <div className="text-center pt-1">
+              <div className="w-12 h-12 bg-tint-rose text-primary rounded-full mx-auto flex items-center justify-center mb-2.5 shadow-pill border border-[#F8DDE5]">
+                <span className="text-xl animate-pulse-subtle">🌸</span>
               </div>
-              <span className="inline-block text-[11px] font-semibold uppercase tracking-widest text-primary bg-tint-lavender/80 px-3 py-1 rounded-full border border-[#E7DCF8] mb-2">
+              <span className="inline-block text-[10px] font-semibold uppercase tracking-widest text-primary bg-tint-lavender/80 px-2.5 py-0.5 rounded-full border border-[#E7DCF8] mb-1.5">
                 Cyculus · 100% On-Device
               </span>
-              <h2 className="text-2xl sm:text-3xl font-serif text-ink tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-serif text-ink tracking-tight">
                 {language === 'hi' ? 'साइकुलस में आपका स्वागत है' : 'Welcome to Cyculus'}
               </h2>
-              <p className="text-xs sm:text-sm text-ink-muted mt-1.5 font-sans leading-relaxed">
+              <p className="text-xs text-ink-muted mt-1 font-sans leading-relaxed">
                 {language === 'hi'
                   ? 'आपकी प्राइवेट, सुरक्षित पीरियड डायरी और डॉक्टर के लिए चिट्ठी'
                   : 'Your private, phone-first cycle diary & doctor-ready brief'}
@@ -124,16 +124,16 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
             </div>
 
             {/* 3 Core Guarantees with Pastel Card Accents */}
-            <div className="space-y-3">
-              <div className="p-3.5 bg-tint-mint/40 rounded-2xl flex items-start gap-3 border border-[#D8F0E4]">
-                <div className="p-2 bg-emerald-100 text-emerald-800 rounded-xl shrink-0 mt-0.5">
+            <div className="space-y-2 sm:space-y-2.5">
+              <div className="p-2.5 sm:p-3 bg-tint-mint/40 rounded-2xl flex items-start gap-2.5 border border-[#D8F0E4]">
+                <div className="p-1.5 bg-emerald-100 text-emerald-800 rounded-xl shrink-0 mt-0.5">
                   <Lock className="w-4 h-4" />
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-semibold text-ink">
                     {language === 'hi' ? '100% ऑन-डिवाइस (कोई अकाउंट या नाम नहीं)' : '100% On-Device PWA (No Profile Needed)'}
                   </h4>
-                  <p className="text-[11px] sm:text-xs text-ink-muted mt-0.5 leading-relaxed">
+                  <p className="text-[11px] text-ink-muted mt-0.5 leading-relaxed">
                     {language === 'hi'
                       ? 'कोई अकाउंट, पासवर्ड या नाम की ज़रूरत नहीं। आपका हेल्थ डेटा सिर्फ आपके इस फोन/ब्राउज़र में सुरक्षित रहता है और बिना इंटरनेट भी काम करता है।'
                       : 'No account, profile, or name required. Everything stays locally in your browser IndexedDB. Installable on phone & desktop with offline caching.'}
@@ -141,15 +141,15 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 </div>
               </div>
 
-              <div className="p-3.5 bg-tint-lavender/40 rounded-2xl flex items-start gap-3 border border-[#E7DCF8]">
-                <div className="p-2 bg-primary-soft text-primary rounded-xl shrink-0 mt-0.5">
+              <div className="p-2.5 sm:p-3 bg-tint-lavender/40 rounded-2xl flex items-start gap-2.5 border border-[#E7DCF8]">
+                <div className="p-1.5 bg-primary-soft text-primary rounded-xl shrink-0 mt-0.5">
                   <HeartHandshake className="w-4 h-4" />
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-semibold text-ink">
                     {language === 'hi' ? 'डॉक्टर के लिए 1-पेज की चिट्ठी' : 'Facts ready for your clinician'}
                   </h4>
-                  <p className="text-[11px] sm:text-xs text-ink-muted mt-0.5 leading-relaxed">
+                  <p className="text-[11px] text-ink-muted mt-0.5 leading-relaxed">
                     {language === 'hi'
                       ? 'अपनी रोज़मर्रा की भाषा में बोलें या लिखें। डॉक्टर को दिखाने के लिए 1-पेज PDF चिट्ठी तैयार हो जाएगी।'
                       : 'Log symptoms in your own words. Generate a clear 1-page PDF for medical appointments.'}
@@ -157,8 +157,8 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 </div>
               </div>
 
-              <div className="p-3.5 bg-tint-peach/40 rounded-2xl flex items-start gap-3 border border-[#FADCD0]">
-                <div className="p-2 bg-amber-100 text-amber-900 rounded-xl shrink-0 mt-0.5 font-bold text-xs">
+              <div className="p-2.5 sm:p-3 bg-tint-peach/40 rounded-2xl flex items-start gap-2.5 border border-[#FADCD0]">
+                <div className="p-1.5 bg-amber-100 text-amber-900 rounded-xl shrink-0 mt-0.5 font-bold text-xs">
                   🌿
                 </div>
                 <div>
@@ -175,24 +175,25 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
             </div>
 
             {/* Step 1 Actions */}
-            <div className="pt-2 space-y-2">
+            <div className="pt-1.5 space-y-1.5">
               <Button
                 variant="primary"
-                size="lg"
+                size="md"
                 fullWidth
                 icon={<ArrowRight className="w-4 h-4" />}
+                iconPosition="right"
                 onClick={() => setStep(2)}
-                className="shadow-soft hover:shadow-card font-medium tracking-wide"
+                className="shadow-soft hover:shadow-card font-medium tracking-wide py-2.5"
               >
-                {language === 'hi' ? 'पीरियड का अंदाज़ा बताएं (ऐच्छिक) →' : 'Next: Set Up Cycle Prior →'}
+                {language === 'hi' ? 'पीरियड का अंदाज़ा बताएं (ऐच्छिक)' : 'Next: Set Up Cycle Prior'}
               </Button>
 
               <button
                 type="button"
                 onClick={onSkip}
-                className="w-full text-center text-xs text-ink-muted hover:text-ink py-2 transition-colors cursor-pointer"
+                className="w-full text-center text-xs text-ink-muted hover:text-ink py-1 transition-colors cursor-pointer"
               >
-                {language === 'hi' ? 'सीधे पहला दिन लॉग करें →' : 'Skip to: Log your first day →'}
+                {language === 'hi' ? 'सीधे पहला दिन लॉग करें' : 'Skip to: Log your first day'}
               </button>
             </div>
           </div>
@@ -200,19 +201,19 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
 
         {/* STEP 2: USER SETUP (OPTIONAL PRIOR, NO 28 DEFAULT) */}
         {step === 2 && (
-          <div className="space-y-5 relative z-10 animate-fade-in">
+          <div className="space-y-3.5 relative z-10 animate-fade-in flex flex-col flex-1 min-h-0">
             {/* Header */}
-            <div>
+            <div className="shrink-0">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-3 py-0.5 rounded-full border border-[#E7DCF8]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
                   {language === 'hi' ? 'कदम 2 · पीरियड का अंदाज़ा' : 'Step 2 · Initial Prior Setup'}
                 </span>
                 <span className="text-[11px] text-ink-muted">Self-Reported Prior</span>
               </div>
-              <h3 className="text-2xl font-serif text-ink tracking-tight mt-2">
+              <h3 className="text-xl sm:text-2xl font-serif text-ink tracking-tight mt-1">
                 {language === 'hi' ? 'अपने पीरियड का अंदाज़ा बताएं' : 'Calibrate Your Cycle Prior'}
               </h3>
-              <p className="text-xs text-ink-muted mt-1 leading-relaxed">
+              <p className="text-xs text-ink-muted mt-0.5 leading-relaxed">
                 {language === 'hi'
                   ? 'यह सिर्फ एक शुरुआती अंदाज़ा है। जैसे-जैसे आप लॉग करेंगी, यह खुद सटीक होता जाएगा। इससे कोई गलत मेडिकल फ़्लैग नहीं बनेगा।'
                   : 'This self-reported prior seeds early predictions, fading as real logs accumulate. It never triggers clinical flags or fabricates log entries.'}
@@ -221,15 +222,15 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
 
             {/* Validation Alert */}
             {validationError && (
-              <div className="p-3 bg-rose-50 border border-rose-200 rounded-2xl text-xs text-rose-800">
+              <div className="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800 shrink-0">
                 {validationError}
               </div>
             )}
 
-            <div className="space-y-4 max-h-[55vh] overflow-y-auto pr-1">
+            <div className="space-y-2.5 overflow-y-auto pr-1 flex-1 min-h-0">
               {/* Field 1: Last Period Start Date */}
               <div>
-                <label className="block text-xs font-semibold text-ink mb-1.5 flex items-center justify-between">
+                <label className="block text-xs font-semibold text-ink mb-1 flex items-center justify-between">
                   <span>{language === 'hi' ? 'पिछला पीरियड कब शुरू हुआ था?' : 'When did your last period start?'}</span>
                   <span className="text-[10px] text-ink-muted">Optional</span>
                 </label>
@@ -239,14 +240,14 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                     max={todayStr}
                     value={lastPeriodStart}
                     onChange={e => setLastPeriodStart(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-2xl bg-white border border-surface-border text-xs sm:text-sm text-ink focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-soft"
+                    className="w-full px-3 py-1.5 sm:py-2 rounded-xl bg-white border border-surface-border text-xs sm:text-sm text-ink focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-soft"
                   />
-                  <Calendar className="w-4 h-4 text-ink-muted absolute right-3.5 top-3 pointer-events-none" />
+                  <Calendar className="w-4 h-4 text-ink-muted absolute right-3 top-2 sm:top-2.5 pointer-events-none" />
                 </div>
               </div>
 
-              {/* Field 2: Typical Cycle Length (Explicit choice, never not-sure by default) */}
-              <div className="p-4 bg-tint-lavender/30 rounded-2xl border border-[#E7DCF8] space-y-3">
+              {/* Field 2: Typical Cycle Length */}
+              <div className="p-3 bg-tint-lavender/30 rounded-2xl border border-[#E7DCF8] space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-semibold text-ink">
                     {language === 'hi' ? 'आमतौर पर पीरियड्स में कितना गैप रहता है?' : 'Typical Cycle Length'}
@@ -255,7 +256,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 </div>
 
                 {/* Two explicit segment choices */}
-                <div className="grid grid-cols-2 gap-2 p-1 bg-white/80 rounded-xl border border-[#E7DCF8]">
+                <div className="grid grid-cols-2 gap-1.5 p-1 bg-white/80 rounded-xl border border-[#E7DCF8]">
                   <button
                     type="button"
                     onClick={() => {
@@ -265,7 +266,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                         setCycleLengthStr('29');
                       }
                     }}
-                    className={`py-2 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                    className={`py-1.5 px-2.5 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       cycleMode === 'know'
                         ? 'bg-primary text-white shadow-soft'
                         : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
@@ -278,25 +279,25 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                   <button
                     type="button"
                     onClick={() => setCycleMode('not_sure')}
-                    className={`py-2 px-3 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                    className={`py-1.5 px-2.5 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       cycleMode === 'not_sure'
                         ? 'bg-primary text-white shadow-soft'
                         : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
                     }`}
                   >
                     <span>❓</span>
-                    <span>{language === 'hi' ? 'पक्का नहीं पता / ऊपर-नीचे होता है' : 'Not sure / Irregular'}</span>
+                    <span>{language === 'hi' ? 'पक्का नहीं पता / अनियमित' : 'Not sure / Irregular'}</span>
                   </button>
                 </div>
 
                 {cycleMode === 'know' ? (
-                  <div className="space-y-3 pt-1 animate-fade-in">
+                  <div className="space-y-2 pt-0.5 animate-fade-in">
                     {/* Quick Select Chips */}
-                    <div>
-                      <span className="block text-[11px] text-ink-muted mb-1.5 font-medium">
-                        {language === 'hi' ? 'आमतौर पर कितने दिन:' : 'Quick select typical days:'}
+                    <div className="flex items-center justify-between gap-1 flex-wrap">
+                      <span className="text-[10px] sm:text-[11px] text-ink-muted font-medium">
+                        {language === 'hi' ? 'आमतौर पर दिन:' : 'Common days:'}
                       </span>
-                      <div className="flex flex-wrap gap-1.5">
+                      <div className="flex flex-wrap gap-1">
                         {[26, 27, 28, 29, 30, 31, 32, 35].map(days => (
                           <button
                             key={days}
@@ -305,9 +306,9 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                               setCycleLength(days);
                               setCycleLengthStr(String(days));
                             }}
-                            className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                            className={`px-2 py-0.5 rounded-lg text-[11px] font-semibold transition-all cursor-pointer ${
                               cycleLength === days && cycleLengthStr === String(days)
-                                ? 'bg-primary text-white shadow-soft ring-2 ring-primary/20 scale-105'
+                                ? 'bg-primary text-white shadow-soft scale-105'
                                 : 'bg-white border border-[#E7DCF8] text-ink hover:border-primary/50'
                             }`}
                           >
@@ -318,9 +319,9 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                     </div>
 
                     {/* Stepper + Direct Numeric Input */}
-                    <div className="flex items-center justify-between gap-3 bg-white p-2.5 rounded-xl border border-surface-border shadow-soft">
+                    <div className="flex items-center justify-between gap-2 bg-white px-3 py-1.5 rounded-xl border border-surface-border shadow-soft">
                       <span className="text-xs text-ink-muted font-medium">
-                        {language === 'hi' ? 'दिन बदलें:' : 'Adjust exact days:'}
+                        {language === 'hi' ? 'सटीक दिन सेट करें:' : 'Adjust exact days:'}
                       </span>
                       <div className="flex items-center gap-1.5">
                         <button
@@ -330,10 +331,10 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                             setCycleLength(val);
                             setCycleLengthStr(String(val));
                           }}
-                          className="w-8 h-8 rounded-lg bg-surface-bg border border-surface-border text-ink hover:bg-tint-lavender flex items-center justify-center transition-all active:scale-95 cursor-pointer"
+                          className="w-7 h-7 rounded-lg bg-surface-bg border border-surface-border text-ink hover:bg-tint-lavender flex items-center justify-center transition-all active:scale-95 cursor-pointer"
                           aria-label="Decrease cycle length"
                         >
-                          <Minus className="w-3.5 h-3.5" />
+                          <Minus className="w-3 h-3" />
                         </button>
 
                         <input
@@ -348,7 +349,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                               setCycleLength(parsed);
                             }
                           }}
-                          className="w-16 px-2 py-1.5 rounded-lg bg-surface-bg border border-surface-border text-xs sm:text-sm font-bold text-center text-ink focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                          className="w-14 px-1 py-1 rounded-lg bg-surface-bg border border-surface-border text-xs sm:text-sm font-bold text-center text-ink focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
                         />
 
                         <button
@@ -358,46 +359,46 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                             setCycleLength(val);
                             setCycleLengthStr(String(val));
                           }}
-                          className="w-8 h-8 rounded-lg bg-surface-bg border border-surface-border text-ink hover:bg-tint-lavender flex items-center justify-center transition-all active:scale-95 cursor-pointer"
+                          className="w-7 h-7 rounded-lg bg-surface-bg border border-surface-border text-ink hover:bg-tint-lavender flex items-center justify-center transition-all active:scale-95 cursor-pointer"
                           aria-label="Increase cycle length"
                         >
-                          <Plus className="w-3.5 h-3.5" />
+                          <Plus className="w-3 h-3" />
                         </button>
 
-                        <span className="text-xs font-semibold text-ink pl-1">
+                        <span className="text-xs font-semibold text-ink pl-0.5">
                           {language === 'hi' ? 'दिन' : 'days'}
                         </span>
                       </div>
                     </div>
 
-                    <p className="text-[11px] text-ink-muted leading-relaxed">
+                    <p className="text-[10px] text-ink-muted leading-tight">
                       {language === 'hi'
-                        ? 'मेडिकल रिसर्च के मुताबिक 24–38 दिन का गैप सामान्य माना जाता है। जैसे-जैसे आप लॉग करेंगी, अंदाज़ा और बेहतर होगा।'
-                        : 'Normal clinical range is 24–38 days (FIGO standard). Cyculus refines prediction as real logs accumulate.'}
+                        ? 'सामान्य क्लिनिकल रेंज 24–38 दिन है (FIGO मानक)। लॉग करने से अंदाज़ा खुद बेहतर होगा।'
+                        : 'FIGO standard clinical range is 24–38 days. Real logs will automatically refine predictions.'}
                     </p>
                   </div>
                 ) : (
-                  <div className="p-3.5 bg-white/90 rounded-xl border border-[#E7DCF8] space-y-1.5 animate-fade-in">
-                    <div className="flex items-center gap-2 text-xs font-semibold text-primary">
+                  <div className="p-2.5 bg-white/90 rounded-xl border border-[#E7DCF8] space-y-1 animate-fade-in">
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-primary">
                       <Sparkles className="w-3.5 h-3.5 text-primary" />
                       <span>{language === 'hi' ? 'औसत अंदाज़े का इस्तेमाल' : 'Population Average Fallback'}</span>
                     </div>
-                    <p className="text-[11px] text-ink-muted leading-relaxed">
+                    <p className="text-[10px] sm:text-[11px] text-ink-muted leading-tight">
                       {language === 'hi'
                         ? 'कोई बात नहीं! जब तक आप कुछ पीरियड्स लॉग नहीं कर लेतीं, हम सामान्य औसत (29 दिन) के हिसाब से एक सुरक्षित दायरा मानकर चलेंगे।'
-                        : 'No problem! Cyculus will use the clinical population average (29.3 days from Bull et al. 2019) with a wide, low-confidence prediction window until your own logs build up.'}
+                        : 'No problem! Cyculus will use the clinical population average (29.3 days from Bull et al. 2019) with a wide prediction window until your logs build up.'}
                     </p>
                   </div>
                 )}
               </div>
 
-              {/* Field 3: Earlier Period Starts (Better Input for Real Intervals) */}
-              <div className="bg-white/80 p-4 rounded-2xl border border-surface-border space-y-3">
+              {/* Field 3: Earlier Period Starts (Optional calibration) */}
+              <div className="bg-white/80 p-2.5 sm:p-3 rounded-xl border border-surface-border space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-primary" />
                     <label className="text-xs font-semibold text-ink">
-                      {language === 'hi' ? 'पिछली तारीखें (अंदाज़ा और सटीक बनाएं)' : 'Earlier Period Dates (Improve Accuracy)'}
+                      {language === 'hi' ? 'पिछली तारीखें (ऐच्छिक)' : 'Earlier Period Dates (Optional)'}
                     </label>
                   </div>
                   <button
@@ -409,43 +410,44 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                   </button>
                 </div>
 
-                <p className="text-[11px] text-ink-muted leading-relaxed">
-                  {language === 'hi'
-                    ? 'कैलेंडर देखकर पिछले 2–3 पीरियड्स की तारीखें जोड़ेंगी, तो अंदाज़ा और सटीक रहेगा।'
-                    : '2 or 3 earlier start dates provide real observed intervals rather than a rough estimate.'}
-                </p>
-
                 {showEarlierDates && (
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 animate-fade-in">
-                    <div>
-                      <span className="block text-[10px] text-ink-muted mb-0.5">Period -1</span>
-                      <input
-                        type="date"
-                        max={todayStr}
-                        value={prevStart1}
-                        onChange={e => setPrevStart1(e.target.value)}
-                        className="w-full px-2 py-1.5 rounded-xl bg-surface-bg border border-surface-border text-xs text-ink focus:outline-none focus:border-primary"
-                      />
-                    </div>
-                    <div>
-                      <span className="block text-[10px] text-ink-muted mb-0.5">Period -2</span>
-                      <input
-                        type="date"
-                        max={todayStr}
-                        value={prevStart2}
-                        onChange={e => setPrevStart2(e.target.value)}
-                        className="w-full px-2 py-1.5 rounded-xl bg-surface-bg border border-surface-border text-xs text-ink focus:outline-none focus:border-primary"
-                      />
-                    </div>
-                    <div>
-                      <span className="block text-[10px] text-ink-muted mb-0.5">Period -3</span>
-                      <input
-                        type="date"
-                        max={todayStr}
-                        value={prevStart3}
-                        onChange={e => setPrevStart3(e.target.value)}
-                        className="w-full px-2 py-1.5 rounded-xl bg-surface-bg border border-surface-border text-xs text-ink focus:outline-none focus:border-primary"
-                      />
+                  <div className="space-y-1.5 animate-fade-in pt-1">
+                    <p className="text-[10px] text-ink-muted leading-tight">
+                      {language === 'hi'
+                        ? 'पिछले 2–3 पीरियड्स की तारीखें जोड़ने से अंदाज़ा और सटीक रहेगा।'
+                        : '2 or 3 earlier start dates provide real observed intervals rather than a rough estimate.'}
+                    </p>
+                    <div className="grid grid-cols-3 gap-2">
+                      <div>
+                        <span className="block text-[9px] text-ink-muted mb-0.5">Period -1</span>
+                        <input
+                          type="date"
+                          max={todayStr}
+                          value={prevStart1}
+                          onChange={e => setPrevStart1(e.target.value)}
+                          className="w-full px-2 py-1 rounded-lg bg-surface-bg border border-surface-border text-xs text-ink focus:outline-none focus:border-primary"
+                        />
+                      </div>
+                      <div>
+                        <span className="block text-[9px] text-ink-muted mb-0.5">Period -2</span>
+                        <input
+                          type="date"
+                          max={todayStr}
+                          value={prevStart2}
+                          onChange={e => setPrevStart2(e.target.value)}
+                          className="w-full px-2 py-1 rounded-lg bg-surface-bg border border-surface-border text-xs text-ink focus:outline-none focus:border-primary"
+                        />
+                      </div>
+                      <div>
+                        <span className="block text-[9px] text-ink-muted mb-0.5">Period -3</span>
+                        <input
+                          type="date"
+                          max={todayStr}
+                          value={prevStart3}
+                          onChange={e => setPrevStart3(e.target.value)}
+                          className="w-full px-2 py-1 rounded-lg bg-surface-bg border border-surface-border text-xs text-ink focus:outline-none focus:border-primary"
+                        />
+                      </div>
                     </div>
                   </div>
                 )}
@@ -453,8 +455,8 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
             </div>
 
             {/* Actions: Log your first day as the only next step */}
-            <div className="pt-3">
-              <div className="flex items-center gap-3">
+            <div className="pt-2 shrink-0">
+              <div className="flex items-center gap-2.5">
                 <Button
                   variant="ghost"
                   size="md"
@@ -467,11 +469,11 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
 
                 <Button
                   variant="primary"
-                  size="lg"
+                  size="md"
                   fullWidth
                   icon={<PlusCircle className="w-4 h-4 stroke-[2.5]" />}
                   onClick={handleSave}
-                  className="shadow-soft hover:shadow-card font-bold tracking-wide text-sm py-3"
+                  className="shadow-soft hover:shadow-card font-bold tracking-wide text-xs sm:text-sm py-2.5"
                 >
                   {isAlreadyOnboarded
                     ? (language === 'hi' ? 'अंदाज़ा सेव करें' : 'Save Baseline')
