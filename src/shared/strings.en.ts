@@ -95,7 +95,7 @@ export const STRINGS_EN = {
       'An empty chart tells you nothing. When your next period arrives and completes your first full cycle, your personalized statistical prediction window (~80% coverage) will activate here.',
 
     basedOnCycles: (count: number) => `Based on ${count} cycles`,
-    whyAmISeeingThis: 'Why am I seeing this? (Statistical bounds) →',
+    whyAmISeeingThis: 'Why am I seeing this? (Statistical bounds)',
     predictionWindowCoverage: '~80% confidence window',
 
     // Calendar & Timeline
@@ -207,8 +207,8 @@ export const STRINGS_EN = {
     card3Title: 'Non-Diagnostic Wellness Tool',
     card3Body: 'Cyculus evaluates clinical standards (FIGO/ACOG) to help you discuss patterns with your doctor.',
 
-    nextSetupButton: 'Next: Set Up Cycle Prior →',
-    skipToFirstDayButton: 'Skip to: Log your first day →',
+    nextSetupButton: 'Next: Set Up Cycle Prior',
+    skipToFirstDayButton: 'Skip to: Log your first day',
 
     // Step 2 Prior Calibration
     step2Badge: 'Step 2 · Initial Prior Setup',

@@ -8,6 +8,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   fullWidth?: boolean;
   isLoading?: boolean;
   icon?: React.ReactNode;
+  iconPosition?: 'left' | 'right';
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -17,6 +18,7 @@ export const Button: React.FC<ButtonProps> = ({
   fullWidth = false,
   isLoading = false,
   icon,
+  iconPosition = 'left',
   className,
   disabled,
   ...props
@@ -61,8 +63,9 @@ export const Button: React.FC<ButtonProps> = ({
         </span>
       ) : (
         <span className="inline-flex items-center gap-2">
-          {icon && <span className="shrink-0">{icon}</span>}
+          {icon && iconPosition === 'left' && <span className="shrink-0">{icon}</span>}
           <span>{children}</span>
+          {icon && iconPosition === 'right' && <span className="shrink-0">{icon}</span>}
         </span>
       )}
     </button>

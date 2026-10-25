@@ -123,7 +123,7 @@ export const DayumScreen: React.FC<DayumScreenProps> = ({
                       className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-primary-dark underline underline-offset-2 transition-colors cursor-pointer"
                     >
                       <HelpCircle className="w-3.5 h-3.5" />
-                      <span>{language === 'hi' ? 'हम यह अंदाज़ा कैसे लगाते हैं? (सटीक दायरा) →' : 'why am I seeing this?'}</span>
+                      <span>{language === 'hi' ? 'हम यह अंदाज़ा कैसे लगाते हैं? (सटीक दायरा)' : 'why am I seeing this?'}</span>
                     </button>
                   </div>
 
@@ -279,7 +279,7 @@ export const DayumScreen: React.FC<DayumScreenProps> = ({
               <HelpCircle className="w-3.5 h-3.5" />
               <span>
                 {language === 'hi'
-                  ? 'हम यह अंदाज़ा कैसे लगाते हैं? (मेडिकल गाइडलाइन्स देखें) →'
+                  ? 'हम यह अंदाज़ा कैसे लगाते हैं? (मेडिकल गाइडलाइन्स देखें)'
                   : 'How does this algorithm work? (Clinical guidelines & references)'}
               </span>
               <ChevronRight className="w-3 h-3" />

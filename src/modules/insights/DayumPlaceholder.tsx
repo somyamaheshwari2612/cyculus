@@ -138,7 +138,7 @@ export const DayumPlaceholder: React.FC<DayumPlaceholderProps> = ({
                         onClick={onOpenSetup}
                         className="mt-2 text-xs font-semibold text-primary hover:underline cursor-pointer"
                       >
-                        + Set up cycle prior →
+                        {language === 'hi' ? '+ शुरुआती अंदाज़ा जोड़ें' : '+ Set up cycle prior'}
                       </button>
                     )}
                   </>
