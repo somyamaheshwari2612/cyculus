@@ -66,11 +66,22 @@ export function mergeDayPatch(
     rawTexts.push(rawText.trim());
   }
 
+  // Sleep hours
+  const sleepHours = patch.sleepHours !== undefined ? patch.sleepHours : existing.sleepHours ?? null;
+
+  // Symptom severities
+  const symptomSeverities = {
+    ...(existing.symptomSeverities || {}),
+    ...(patch.symptomSeverities || {})
+  };
+
   return {
     date: existing.date,
     flow,
     painLevel,
     symptoms: Array.from(symptomSet),
+    symptomSeverities,
+    sleepHours,
     moods: Array.from(moodSet),
     notes,
     sources,

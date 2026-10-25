@@ -17,6 +17,8 @@ export interface LogEntry {
   flow: FlowLevel | null;       // null = not recorded
   painLevel: number | null;     // 0-10, null = not recorded
   symptoms: Symptom[];
+  symptomSeverities?: Partial<Record<string, 1 | 2 | 3>>;
+  sleepHours?: number | null;
   moods: Mood[];
   notes: string;                // '' if none
   sources: ('tap' | 'text' | 'voice')[];
@@ -26,10 +28,17 @@ export interface LogEntry {
 
 /** Optional user setup answers, tagged as self-reported prior. Kept separate from logged entries. */
 export interface UserSetup {
+  name?: string;                   // User's name or nickname
   lastPeriodStart?: string;        // 'YYYY-MM-DD'
-  typicalCycleLength?: number;     // user's own estimate
+  typicalCycleLength?: number | null;     // user's own estimate
   previousStarts?: string[];       // optional, up to 3 earlier period start dates
   updatedAt: string;
+}
+
+export interface DoctorQuestion {
+  id: string;
+  text: string;
+  createdAt: string;
 }
 
 /** Merge semantics when a new patch hits an existing day:

@@ -1,14 +1,19 @@
 import Dexie, { type Table } from 'dexie';
-import { DayPatch, LogEntry, LogStore, UserSetup } from '@/shared/types';
+import { DayPatch, LogEntry, LogStore, UserSetup, DoctorQuestion } from '@/shared/types';
 import { mergeDayPatch } from './mergePatch';
 
 export interface StoredUserSetup extends UserSetup {
   id: string; // 'current'
 }
 
+export interface StoredDoctorQuestion extends DoctorQuestion {
+  id: string;
+}
+
 export class CyculusDatabase extends Dexie {
   logs!: Table<LogEntry, string>;
   userSetup!: Table<StoredUserSetup, string>;
+  doctorQuestions!: Table<StoredDoctorQuestion, string>;
 
   constructor() {
     super('CyculusDatabase');
@@ -18,6 +23,11 @@ export class CyculusDatabase extends Dexie {
     this.version(2).stores({
       logs: 'date, updatedAt, flow, painLevel',
       userSetup: 'id, updatedAt'
+    });
+    this.version(3).stores({
+      logs: 'date, updatedAt, flow, painLevel',
+      userSetup: 'id, updatedAt',
+      doctorQuestions: 'id, createdAt'
     });
   }
 }
@@ -42,6 +52,10 @@ export class DexieLogStore implements LogStore {
       .sortBy('date');
   }
 
+  async deleteLog(date: string): Promise<void> {
+    await this.database.logs.delete(date);
+  }
+
   async upsertPatch(patch: DayPatch, source: 'tap' | 'text' | 'voice', rawText?: string): Promise<LogEntry> {
     return this.database.transaction('rw', this.database.logs, async () => {
       const existing = await this.database.logs.get(patch.date);
@@ -53,13 +67,16 @@ export class DexieLogStore implements LogStore {
 
   async exportAll(): Promise<string> {
     const all = await this.getAll();
-    return JSON.stringify(all, null, 2);
+    const setup = await this.getUserSetup();
+    const questions = await this.getDoctorQuestions();
+    return JSON.stringify({ profile: setup, entries: all, questions }, null, 2);
   }
 
   async deleteAll(): Promise<void> {
-    await this.database.transaction('rw', [this.database.logs, this.database.userSetup], async () => {
+    await this.database.transaction('rw', [this.database.logs, this.database.userSetup, this.database.doctorQuestions], async () => {
       await this.database.logs.clear();
       await this.database.userSetup.clear();
+      await this.database.doctorQuestions.clear();
     });
   }
 
@@ -78,6 +95,7 @@ export class DexieLogStore implements LogStore {
     const stored = await this.database.userSetup.get('current');
     if (!stored) return null;
     return {
+      name: stored.name,
       lastPeriodStart: stored.lastPeriodStart,
       typicalCycleLength: stored.typicalCycleLength,
       previousStarts: stored.previousStarts,
@@ -94,6 +112,20 @@ export class DexieLogStore implements LogStore {
 
   async clearUserSetup(): Promise<void> {
     await this.database.userSetup.delete('current');
+  }
+
+  async getDoctorQuestions(): Promise<DoctorQuestion[]> {
+    return this.database.doctorQuestions.orderBy('createdAt').toArray();
+  }
+
+  async saveDoctorQuestions(questions: DoctorQuestion[]): Promise<DoctorQuestion[]> {
+    await this.database.transaction('rw', this.database.doctorQuestions, async () => {
+      await this.database.doctorQuestions.clear();
+      if (questions.length > 0) {
+        await this.database.doctorQuestions.bulkPut(questions);
+      }
+    });
+    return questions;
   }
 
   /**

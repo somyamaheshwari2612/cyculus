@@ -28,8 +28,6 @@ lerna-debug.log*
 *.log
 
 # Internal prompt notes & mockups
-instructions.md
-recHERsion_starter_prompts.md
 *.png
 !public/*.png
 !public/**/*.png

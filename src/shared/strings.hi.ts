@@ -155,13 +155,13 @@ export const STRINGS_HI = {
     whyPoint3Text: 'आपके लॉग सिर्फ इसी फोन में सेव रहते हैं। जब आप कोई नोट समझने के लिए लिखती हैं, तो वह सुरक्षित रूप से प्रोसेस होने जाता है और हमारे पास सेव नहीं होता।',
   },
 
-  // Doctor Brief (Chitthi)
+  // Summary for Doctor
   brief: {
-    title: 'डॉक्टर ब्रीफ',
-    badge: 'क्लिनिकल चिट्ठी',
-    subtitle: 'डॉक्टर को दिखाने के लिए 1 पेज का आसान सारांश',
+    title: 'Summary for Doctor',
+    badge: 'Clinical Brief',
+    subtitle: 'Doctor ko dikhane ke liye 1 page ka clean summary',
     printButton: 'PDF प्रिंट / डाउनलोड करें',
-    printHeaderTitle: 'सेहत का सारांश (डॉक्टर के लिए)',
+    printHeaderTitle: 'Period Health Record — Summary for Doctor',
     verifiedBadge: 'फोन में सुरक्षित · FIGO मानकों पर आधारित',
 
     // Empty state

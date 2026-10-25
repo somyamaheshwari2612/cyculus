@@ -147,13 +147,13 @@ export const STRINGS_EN = {
     whyPoint3Text: 'Your cycle logs and predictions are computed and saved only on this phone. When you type a note for the app to understand, that text is sent securely for processing and is not stored by us.',
   },
 
-  // Doctor Brief (Chitthi)
+  // Summary for Doctor
   brief: {
-    title: 'Doctor Brief',
-    badge: 'clinical chitthi',
-    subtitle: '1-page consultation brief formatted with FIGO thresholds & cited guidelines',
+    title: 'Summary for Doctor',
+    badge: 'Clinical Summary',
+    subtitle: '1-page consultation summary formatted with FIGO thresholds & cited guidelines',
     printButton: 'Print / Save as PDF',
-    printHeaderTitle: 'Clinical Menstrual Health Summary (Doctor Brief)',
+    printHeaderTitle: 'Period Health Record — Summary for Doctor',
     verifiedBadge: 'Phone-First Storage · FIGO Verified',
 
     // Empty state

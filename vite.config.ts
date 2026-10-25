@@ -113,6 +113,9 @@ export default defineConfig(({ mode }) => {
       alias: {
         '@': path.resolve(__dirname, './src')
       }
+    },
+    test: {
+      include: ['src/**/*.{test,spec}.{ts,tsx}']
     }
   };
 });

@@ -7,39 +7,60 @@ export default {
   theme: {
     extend: {
       colors: {
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        plum: 'var(--plum)',
+        card: {
+          DEFAULT: 'var(--card)',
+          foreground: 'var(--card-foreground)',
+        },
+        popover: {
+          DEFAULT: 'var(--popover)',
+          foreground: 'var(--popover-foreground)',
+        },
         primary: {
-          DEFAULT: '#7B5EA7',
-          hover: '#694B96',
-          soft: '#F1EAFD',
-          light: '#FAF6FE',
+          DEFAULT: 'var(--primary)',
+          foreground: 'var(--primary-foreground)',
+          soft: 'var(--primary-soft)',
         },
-        blush: {
-          DEFAULT: '#FDEEF2',
-          dark: '#F8D7E0',
-          soft: '#FFF6F8',
+        secondary: {
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)',
         },
-        ink: {
-          DEFAULT: '#2E2140',
-          muted: '#75678A',
-          light: '#A79AB8',
-          faint: '#EBE3EF',
+        muted: {
+          DEFAULT: 'var(--muted)',
+          foreground: 'var(--muted-foreground)',
         },
-        surface: {
-          DEFAULT: '#FFFFFF',
-          bg: '#FAF5F7',
-          subtle: '#FDF9FA',
-          border: '#F0E6EE',
+        accent: {
+          DEFAULT: 'var(--accent)',
+          foreground: 'var(--accent-foreground)',
         },
-        // Pastel tint backings matching showcase mockup
-        tint: {
-          rose: '#FDEEF2',
-          roseText: '#B8506E',
-          lavender: '#F1EAFD',
-          lavenderText: '#7B5EA7',
-          peach: '#FEF2E8',
-          peachText: '#B86F3B',
-          mint: '#EBF8F2',
-          mintText: '#3B916E',
+        lavender: 'var(--lavender)',
+        rose: {
+          DEFAULT: 'var(--rose)',
+          soft: 'var(--rose-soft)',
+          deep: 'var(--rose-deep)',
+        },
+        sage: {
+          DEFAULT: 'var(--sage)',
+          soft: 'var(--sage-soft)',
+        },
+        destructive: {
+          DEFAULT: 'var(--destructive)',
+          foreground: 'var(--destructive-foreground)',
+        },
+        border: 'var(--border)',
+        input: 'var(--input)',
+        ring: 'var(--ring)',
+        sidebar: {
+          DEFAULT: 'var(--sidebar)',
+          foreground: 'var(--sidebar-foreground)',
+          primary: 'var(--sidebar-primary)',
+          'primary-foreground': 'var(--sidebar-primary-foreground)',
+          accent: 'var(--sidebar-accent)',
+          'accent-foreground': 'var(--sidebar-accent-foreground)',
+          border: 'var(--sidebar-border)',
+          ring: 'var(--sidebar-ring)',
         },
         // Clinical severity tokens
         severity: {
@@ -52,30 +73,21 @@ export default {
           urgent: '#EF4444',
           'urgent-bg': '#FEE2E2',
         },
-        // Flow indicator colors
-        flow: {
-          none: '#E8E1EA',
-          spotting: '#F9A8D4',
-          light: '#F472B6',
-          medium: '#E11D48',
-          heavy: '#9F1239',
-        }
       },
       fontFamily: {
-        sans: ['Inter', 'Noto Sans Devanagari', 'system-ui', '-apple-system', 'sans-serif'],
-        serif: ['"DM Serif Display"', '"Playfair Display"', 'Georgia', 'serif'],
-        devanagari: ['Noto Sans Devanagari', 'system-ui', 'sans-serif'],
+        sans: ['Figtree', 'Inter', 'Noto Sans Devanagari', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Cormorant Garamond"', 'Times New Roman', 'serif'],
+        serif: ['"Cormorant Garamond"', 'Times New Roman', 'serif'],
+        devanagari: ['"Noto Sans Devanagari"', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        'soft': '0 8px 24px -4px rgba(123, 94, 167, 0.16)',
-        'card': '0 4px 25px rgba(46, 33, 64, 0.04)',
-        'float': '0 10px 30px -5px rgba(46, 33, 64, 0.08)',
-        'sheet': '0 -8px 30px rgba(46, 33, 64, 0.12)',
-        'pill': '0 2px 10px rgba(46, 33, 64, 0.05)',
+        soft: 'var(--shadow-soft-v)',
+        lift: 'var(--shadow-lift-v)',
       },
       borderRadius: {
-        '3xl': '1.75rem',
-        '4xl': '2.25rem',
+        'xl': 'calc(var(--radius) + 4px)',
+        '2xl': 'calc(var(--radius) + 8px)',
+        '3xl': 'calc(var(--radius) + 12px)',
       }
     },
   },

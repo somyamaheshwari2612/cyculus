@@ -7,36 +7,109 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --radius: 1rem;
+  --background: oklch(0.985 0.006 60);          /* warm ivory */
+  --foreground: oklch(0.3 0.06 320);            /* deep plum */
+  --plum: oklch(0.3 0.06 320);
+  --card: oklch(0.995 0.004 60);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.995 0.004 60);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.5 0.11 290);               /* muted purple */
+  --primary-foreground: oklch(0.99 0.004 60);
+  --primary-soft: oklch(0.92 0.035 295);
+  --lavender: oklch(0.95 0.018 295);            /* soft lavender */
+  --secondary: oklch(0.95 0.018 295);
+  --secondary-foreground: oklch(0.38 0.09 295);
+  --muted: oklch(0.965 0.01 320);
+  --muted-foreground: oklch(0.52 0.035 315);
+  --accent: oklch(0.94 0.03 350);
+  --accent-foreground: oklch(0.38 0.08 350);
+  --rose: oklch(0.85 0.05 355);                 /* dusty rose */
+  --rose-soft: oklch(0.95 0.022 355);
+  --rose-deep: oklch(0.58 0.12 0);
+  --sage: oklch(0.75 0.04 135);                 /* muted sage */
+  --sage-soft: oklch(0.94 0.02 135);
+  --destructive: oklch(0.55 0.17 22);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.91 0.015 320);
+  --input: oklch(0.89 0.02 320);
+  --ring: oklch(0.6 0.1 290);
+  --chart-1: oklch(0.5 0.11 290);
+  --chart-2: oklch(0.7 0.09 0);
+  --chart-3: oklch(0.68 0.05 135);
+  --chart-4: oklch(0.78 0.06 295);
+  --chart-5: oklch(0.8 0.07 60);
+  --sidebar: oklch(0.975 0.012 330);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: oklch(0.93 0.03 300);
+  --sidebar-accent-foreground: oklch(0.38 0.09 295);
+  --sidebar-border: oklch(0.92 0.015 320);
+  --sidebar-ring: var(--ring);
+  --shadow-soft-v: 0 1px 2px oklch(0.3 0.06 320 / 0.04), 0 8px 24px -12px oklch(0.5 0.11 290 / 0.14);
+  --shadow-lift-v: 0 18px 40px -18px oklch(0.5 0.11 290 / 0.35);
+  --gradient-wash: radial-gradient(1200px 600px at 10% -10%, oklch(0.94 0.03 350 / 0.7), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, oklch(0.94 0.025 295 / 0.8), transparent 55%);
+}
+
 @layer base {
+  * {
+    border-color: var(--border);
+  }
   html {
+    font-family: 'Figtree', 'Inter', 'Noto Sans Devanagari', system-ui, sans-serif;
     -webkit-tap-highlight-color: transparent;
   }
-
   body {
-    background-color: #FAF5F7;
-    background-image: 
-      radial-gradient(at 0% 0%, rgba(253, 238, 242, 0.7) 0px, transparent 50%),
-      radial-gradient(at 100% 10%, rgba(241, 234, 253, 0.6) 0px, transparent 50%),
-      radial-gradient(at 50% 100%, rgba(254, 242, 232, 0.5) 0px, transparent 60%);
+    background-color: var(--background);
+    background-image: var(--gradient-wash);
     background-attachment: fixed;
-    color: #2E2140;
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
     touch-action: manipulation;
   }
-
-  /* Support reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    *, ::before, ::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
+  h1, h2, h3 {
+    letter-spacing: -0.01em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 }
 
-/* Safe area inset for modern mobile phone bottom navigation */
-.safe-area-bottom {
-  padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 8px));
+.font-display {
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-weight: 500;
+}
+
+.bg-wash {
+  background-image: var(--gradient-wash);
+}
+
+.card-soft {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft-v);
+}
+
+.shadow-soft {
+  box-shadow: var(--shadow-soft-v);
+}
+
+.shadow-lift {
+  box-shadow: var(--shadow-lift-v);
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted-foreground);
 }
 
 /* Custom smooth scroll and refined pastel scrollbar */
@@ -48,43 +121,32 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #E8DCF3;
+  background: var(--lavender);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #7B5EA7;
+  background: var(--primary);
 }
 
-/* Print Stylesheet for Doctor Brief (Chitthi) Export */
+/* Print Stylesheet for Doctor Brief / Summary Export */
 @media print {
-  @page {
-    margin: 12mm 15mm;
-    size: A4 portrait;
+  .no-print {
+    display: none !important;
   }
-  
   body {
     background: white !important;
     background-image: none !important;
     color: #1a1a1a !important;
-    font-family: 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   }
-
-  main {
-    padding: 0 !important;
-    margin: 0 !important;
-    max-width: 100% !important;
-  }
-
-  article {
-    border: none !important;
+  .print-area {
     box-shadow: none !important;
+    border: none !important;
+    max-width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
   }
-
-  .print-avoid-break {
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
+  @page {
+    margin: 12mm 15mm;
+    size: A4 portrait;
   }
 }
-
