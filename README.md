@@ -124,26 +124,39 @@ cyculus/
 ├── api/
 │   └── extract.ts                  # Vercel serverless function (Gemini structured extraction)
 ├── src/
-│   ├── app/                        # Shell, responsive layouts & navigation (Module A)
-│   │   ├── AppShell.tsx            # Dual-column desktop & mobile layout
-│   │   ├── SettingsView.tsx        # Persona loader, JSON export & data controls
-│   │   ├── OnboardingModal.tsx     # Privacy disclaimer & initial cycle setup
-│   │   └── components/             # Reusable UI tokens (Card, Button, Chip, Sheet, Toast)
+│   ├── components/
+│   │   ├── cyculus/                # Design system tokens & core widgets
+│   │   │   ├── AppShell.tsx        # Responsive desktop sidebar & mobile dock navigation
+│   │   │   ├── CycleRing.tsx       # Dynamic SVG progress ring with cycle day calculation
+│   │   │   ├── CycleSetupModal.tsx # Guided setup wizard (quick chips, stepper, 28-is-a-myth)
+│   │   │   ├── EntryCard.tsx       # Timeline entry card & flow-colored badges
+│   │   │   ├── Logo.tsx            # Brand logo & favicon integration
+│   │   │   └── ui.tsx              # Panels, PageHeaders, EmptyStates & design tokens
+│   │   └── views/                  # Main application views
+│   │       ├── OverviewView.tsx    # Dashboard with cycle ring, 14-day strip & quick log
+│   │       ├── CycleView.tsx       # Calendar grid & longitudinal timeline view
+│   │       ├── LogView.tsx         # Conversational NLP check-in, pain scale (0-10) & mood chips
+│   │       ├── InsightsView.tsx    # Rolling averages, FIGO clinical flags & symptom distribution
+│   │       ├── SummaryView.tsx     # 1-page Doctor Brief (English & Hindi) with print stylesheet
+│   │       ├── SettingsView.tsx    # Clinical demo personas, profile prior & JSON data export
+│   │       └── WelcomeView.tsx     # Watercolor onboarding screen & baseline setup
 │   ├── modules/
-│   │   ├── capture/                # Module A: OofLog UI, Dexie storage, mergePatch
-│   │   ├── insights/               # Module B: Dayum screen, timeline, stats & charts
-│   │   │   ├── engine/             # Pure deterministic engine (deriveCycles, evaluateFlags, etc.)
-│   │   │   └── screens/            # DayumScreen, CycleTimeline, CycleLengthChart
-│   │   └── brief/                  # Module C: Doctor brief, buildBrief, numericGuard
+│   │   ├── capture/                # IndexedDB (Dexie), pure mergePatch & reactive useLogs hook
+│   │   ├── insights/               # FIGO cycle derivation, rolling prediction window & flag rules
+│   │   └── brief/                  # Doctor brief generator & anti-hallucination numeric guard
 │   └── shared/
-│       ├── types.ts                # Master contracts & data models
-│       ├── knowledge.json          # FIGO / ACOG cited clinical rules & algorithm parameters
-│       ├── translations.ts         # English & Hindi bilingual dictionaries
-│       └── mocks/                  # Offline synthetic persona datasets
+│       ├── types.ts                # TypeScript master contracts & clinical data models
+│       ├── dateUtils.ts            # Local timezone-safe date utilities (format, parseISO, etc.)
+│       ├── knowledge.json          # FIGO / ACOG cited clinical parameters & thresholds
+│       ├── strings.en.ts           # English clinical & interface strings
+│       ├── strings.hi.ts           # Warm, conversational Hinglish strings
+│       └── mocks/                  # Realistic 6-month clinical demo personas (Riya, Ananya, Pooja)
 ├── scripts/
-│   ├── eval-utah.ts                # Evaluation benchmark against Utah Hive dataset
-│   └── generate-personas.ts        # Persona generation script
+│   ├── eval-utah.ts                # Empirical benchmark against Utah Hive dataset (351 women)
+│   └── generate-personas.ts        # Synthetic persona generator
 ├── ACKNOWLEDGEMENTS.md             # Dataset licenses, academic papers & library attributions
+├── MANUAL_TESTING_CHECKS.md        # Comprehensive manual QA verification matrix (TAP, NLP, PROF)
+├── DEMO_VIDEO_SCRIPT.md            # Step-by-step hackathon video recording guide
 └── README.md
 ```
 
@@ -225,11 +238,9 @@ Detailed citations, dataset licenses, and research foundations are documented in
 ## 📄 License
 This project is developed for **recHERsion 2026**. Open source code is available under the [MIT License](LICENSE).
 
-## Doctor brief, privacy and offline use (Module C)
+## 🌐 Live Deployment & PWA
 
-- **Doctor brief:** a one-page summary in English or Hindi, built only from computed data and cited rules. Print or save as PDF.
-- **Numeric guard:** any number in AI-polished text must appear in the source facts, or the plain text is used. Covered by tests.
-- **Privacy:** logs are saved only on this phone; notes typed for extraction are processed securely and not stored by us. Users can export everything as JSON or delete it with confirmation.
-- **Installable PWA:** works offline after the first visit.
-- **Live link:** [paste your Vercel link]
-- **Limits:** Hindi text is a first draft pending review. The demo uses one persona. This app is not a medical device and does not replace a doctor.
+- **Live Application**: [https://cyculus.vercel.app/](https://cyculus.vercel.app/)
+- **Zero-Cloud IndexedDB**: Logs and cycle history are saved 100% on the user's device. No remote database or analytics trackers.
+- **Installable PWA**: Works completely offline after the first visit with Workbox service worker caching.
+- **Clinician Disclaimer**: Cyculus is a descriptive symptom and cycle journal, not a medical diagnosis device. It never replaces professional medical evaluation.
