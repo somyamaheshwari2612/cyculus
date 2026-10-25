@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from '@/app/components/Card';
 import { Button } from '@/app/components/Button';
-import { CalendarDays, PlusCircle, Sparkles, ArrowRight } from 'lucide-react';
+import { CalendarDays, PlusCircle, Sparkles } from 'lucide-react';
 
 interface EmptyStateProps {
   language: 'en' | 'hi';
@@ -13,7 +13,6 @@ interface EmptyStateProps {
 export const EmptyState: React.FC<EmptyStateProps> = ({
   language,
   onNavigateToLog,
-  onOpenSettings,
 }) => {
   return (
     <Card variant="lavender" padding="lg" className="border-primary/20 shadow-soft">
@@ -88,22 +87,6 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
             </div>
           </div>
         </div>
-
-        {/* Optional Explore Demo Persona hint */}
-        {onOpenSettings && (
-          <button
-            type="button"
-            onClick={onOpenSettings}
-            className="inline-flex items-center gap-1 text-xs text-ink-muted hover:text-primary transition-colors cursor-pointer pt-1"
-          >
-            <span>
-              {language === 'hi'
-                ? 'पहले देखना चाहती हैं कि यह कैसा दिखता है? सेटिंग्स में डेमो डेटा लोड करें'
-                : 'Prefer to preview with sample clinical data first? Load demo in Settings'}
-            </span>
-            <ArrowRight className="w-3 h-3" />
-          </button>
-        )}
       </div>
     </Card>
   );

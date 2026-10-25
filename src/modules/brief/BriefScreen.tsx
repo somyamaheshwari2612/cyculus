@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Printer, FileText, PlusCircle, Sparkles } from 'lucide-react';
 import type { Insights, KnowledgeRule, LogEntry } from '../../shared/types';
 import { buildBrief } from './buildBrief';
@@ -20,16 +19,9 @@ export function BriefScreen({
   entries,
   knowledge,
   language: parentLanguage,
-  onLanguageChange,
   onNavigateToLog,
 }: BriefScreenProps) {
-  const [localLanguage, setLocalLanguage] = useState<'en' | 'hi'>(parentLanguage ?? 'en');
-  const language = parentLanguage ?? localLanguage;
-
-  const handleLanguageChange = (lang: 'en' | 'hi') => {
-    setLocalLanguage(lang);
-    onLanguageChange?.(lang);
-  };
+  const language = parentLanguage ?? 'en';
 
   const hasNoEntries = entries.length === 0;
   const brief = buildBrief(insights, entries, knowledge, language);
@@ -55,47 +47,21 @@ export function BriefScreen({
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5">
-          {/* Quiet language toggle */}
-          <div className="flex bg-[#F0E6EE]/70 p-1 rounded-full border border-[#E7DCF8]">
-            <button
-              type="button"
-              onClick={() => handleLanguageChange('en')}
-              aria-pressed={language === 'en'}
-              className={`px-3 py-1 text-xs font-semibold rounded-full cursor-pointer transition-all ${
-                language === 'en' ? 'bg-white text-primary shadow-pill' : 'text-ink-muted hover:text-ink'
-              }`}
-            >
-              EN
-            </button>
-            <button
-              type="button"
-              onClick={() => handleLanguageChange('hi')}
-              aria-pressed={language === 'hi'}
-              className={`px-3 py-1 text-xs font-semibold rounded-full cursor-pointer transition-all ${
-                language === 'hi' ? 'bg-white text-primary shadow-pill' : 'text-ink-muted hover:text-ink'
-              }`}
-            >
-              हिन्दी
-            </button>
-          </div>
-
-          {/* Primary Obvious Action */}
-          <button
-            type="button"
-            onClick={() => window.print()}
-            disabled={hasNoEntries}
-            title={hasNoEntries ? (language === 'hi' ? 'प्रिंट करने के लिए डेटा आवश्यक है' : 'Log data to print / save as PDF') : undefined}
-            className={`flex min-h-[44px] items-center gap-2 rounded-full px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
-              hasNoEntries
-                ? 'bg-ink-muted/20 text-ink-muted cursor-not-allowed border border-surface-border'
-                : 'bg-primary text-white shadow-soft hover:shadow-card hover:bg-primary-dark cursor-pointer active:scale-95'
-            }`}
-          >
-            <Printer size={16} aria-hidden="true" />
-            <span>{language === 'hi' ? 'PDF प्रिंट / डाउनलोड करें' : 'Print / Save as PDF'}</span>
-          </button>
-        </div>
+        {/* Primary Obvious Action */}
+        <button
+          type="button"
+          onClick={() => window.print()}
+          disabled={hasNoEntries}
+          title={hasNoEntries ? (language === 'hi' ? 'प्रिंट करने के लिए डेटा आवश्यक है' : 'Log data to print / save as PDF') : undefined}
+          className={`flex min-h-[44px] items-center gap-2 rounded-full px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
+            hasNoEntries
+              ? 'bg-ink-muted/20 text-ink-muted cursor-not-allowed border border-surface-border'
+              : 'bg-primary text-white shadow-soft hover:shadow-card hover:bg-primary-dark cursor-pointer active:scale-95'
+          }`}
+        >
+          <Printer size={16} aria-hidden="true" />
+          <span>{language === 'hi' ? 'PDF प्रिंट / डाउनलोड करें' : 'Print / Save as PDF'}</span>
+        </button>
       </div>
 
       {/* If no entries yet, show clean Empty State with clear next steps */}

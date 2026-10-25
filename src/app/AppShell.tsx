@@ -276,7 +276,7 @@ export const AppShell: React.FC = () => {
             </div>
           </div>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Navigation Links (Main Path: 3 Core Jobs) */}
           <nav className="space-y-2">
             {/* OofLog (Daily Check-in) */}
             <button
@@ -333,44 +333,46 @@ export const AppShell: React.FC = () => {
                 </span>
               </div>
             </button>
-
-            {/* Settings & Privacy */}
-            <button
-              type="button"
-              onClick={() => setActiveTab('settings')}
-              className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-xs font-semibold transition-all cursor-pointer text-left ${activeTab === 'settings'
-                  ? 'bg-primary text-white shadow-soft'
-                  : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/50'
-                }`}
-            >
-              <Settings className={`w-4 h-4 ${activeTab === 'settings' ? 'stroke-[2.5]' : ''}`} />
-              <div>
-                <span className="block font-bold">{language === 'hi' ? 'गोपनीयता व सेटिंग्स' : 'Privacy & Settings'}</span>
-                <span className={`text-[10px] block ${activeTab === 'settings' ? 'text-white/80' : 'text-ink-muted'}`}>
-                  {language === 'hi' ? '100% ऑन-डिवाइस डेटा' : 'Zero-Cloud & Data'}
-                </span>
-              </div>
-            </button>
           </nav>
         </div>
 
-        {/* Sidebar Footer Card */}
-        <div className="bg-tint-rose/40 rounded-3xl p-4 border border-[#F8DDE5] relative overflow-hidden">
-          <div className="absolute -bottom-4 -right-4 pointer-events-none opacity-40">
-            <BotanicalAccent className="w-24 h-24 text-primary" />
-          </div>
-          <div className="relative z-10">
-            <p className="text-[11px] font-serif font-bold text-ink leading-snug">
-              {language === 'hi'
-                ? 'आपका स्वास्थ्य। आपके सवाल। पूर्ण गोपनीयता।'
-                : 'Your health. Your questions. Our priority.'}
-            </p>
-            <p className="text-[10px] text-ink-muted mt-1">
-              100% on-device · Zero cloud
-            </p>
-            <div className="mt-3 flex items-center gap-1.5 text-[10px] font-semibold text-primary">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Offline Ready PWA</span>
+        {/* Secondary Utility: Quiet Settings Link (Pushed out of main path) */}
+        <div className="space-y-3">
+          <button
+            type="button"
+            onClick={() => setActiveTab('settings')}
+            className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl text-xs font-medium transition-all cursor-pointer text-left ${activeTab === 'settings'
+                ? 'bg-tint-lavender text-primary font-bold shadow-soft border border-[#E7DCF8]'
+                : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/40'
+              }`}
+          >
+            <Settings className="w-4 h-4 text-ink-muted shrink-0" />
+            <div className="min-w-0">
+              <span className="block font-semibold truncate">{language === 'hi' ? 'सेटिंग्स व डेटा' : 'Settings & Privacy'}</span>
+              <span className="text-[10px] block text-ink-muted truncate">
+                {language === 'hi' ? '100% ऑन-डिवाइस' : '100% On-Device'}
+              </span>
+            </div>
+          </button>
+
+          {/* Sidebar Footer Card */}
+          <div className="bg-tint-rose/40 rounded-3xl p-4 border border-[#F8DDE5] relative overflow-hidden">
+            <div className="absolute -bottom-4 -right-4 pointer-events-none opacity-40">
+              <BotanicalAccent className="w-24 h-24 text-primary" />
+            </div>
+            <div className="relative z-10">
+              <p className="text-[11px] font-serif font-bold text-ink leading-snug">
+                {language === 'hi'
+                  ? 'आपका स्वास्थ्य। आपके सवाल। पूर्ण गोपनीयता।'
+                  : 'Your health. Your questions. Our priority.'}
+              </p>
+              <p className="text-[10px] text-ink-muted mt-1">
+                100% on-device · Zero cloud
+              </p>
+              <div className="mt-3 flex items-center gap-1.5 text-[10px] font-semibold text-primary">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Offline Ready PWA</span>
+              </div>
             </div>
           </div>
         </div>
@@ -415,16 +417,32 @@ export const AppShell: React.FC = () => {
               )}
             </div>
 
-            {/* Right Controls: Storage Badge & Language Toggle */}
-            <div className="flex items-center gap-2.5">
+            {/* Right Controls: Storage Badge, Language Toggle & Quiet Settings */}
+            <div className="flex items-center gap-2">
               <div className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-semibold text-primary bg-tint-lavender/60 px-3 py-1 rounded-full border border-[#E7DCF8]">
                 <span>🔒 100% On-Device</span>
               </div>
 
+              {/* Language toggle stays visible */}
               <LanguageToggle
                 language={language}
                 onToggle={setLanguage}
               />
+
+              {/* Quiet Settings button pushed out of main path */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('settings')}
+                aria-label={language === 'hi' ? 'सेटिंग्स व डेटा' : 'Settings & Privacy'}
+                title={language === 'hi' ? 'सेटिंग्स व डेटा' : 'Settings & Privacy'}
+                className={`p-2 rounded-full border transition-all cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center ${
+                  activeTab === 'settings'
+                    ? 'bg-primary text-white border-primary shadow-soft'
+                    : 'bg-white/90 text-ink-muted hover:text-ink hover:bg-surface-subtle border-surface-border shadow-pill'
+                }`}
+              >
+                <Settings className="w-4 h-4" />
+              </button>
             </div>
           </div>
         </header>
@@ -520,9 +538,9 @@ export const AppShell: React.FC = () => {
         </main>
       </div>
 
-      {/* MOBILE / PHONE BOTTOM NAVIGATION BAR (Visible on all phone & tablet screens < lg) */}
-      <nav className="print:hidden lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/92 backdrop-blur-xl border-t border-[#F0E6EE] px-3 py-2 shadow-sheet safe-area-bottom">
-        <div className="max-w-md mx-auto grid grid-cols-4 gap-1.5">
+      {/* MOBILE / PHONE BOTTOM NAVIGATION BAR (Main Path: 3 Core Jobs) */}
+      <nav className="print:hidden lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/92 backdrop-blur-xl border-t border-[#F0E6EE] px-4 py-2 shadow-sheet safe-area-bottom">
+        <div className="max-w-md mx-auto grid grid-cols-3 gap-2">
           {/* Log / Check-in */}
           <button
             type="button"
@@ -533,7 +551,7 @@ export const AppShell: React.FC = () => {
               }`}
           >
             <PlusCircle className={`w-5 h-5 ${activeTab === 'ooflog' ? 'stroke-[2.5] text-primary fill-primary-soft' : ''}`} />
-            <span className="text-[10px] mt-1 font-semibold tracking-tight">
+            <span className="text-[11px] mt-1 font-semibold tracking-tight">
               {language === 'hi' ? 'लॉग' : 'Log'}
             </span>
           </button>
@@ -548,7 +566,7 @@ export const AppShell: React.FC = () => {
               }`}
           >
             <Calendar className={`w-5 h-5 ${activeTab === 'home' ? 'stroke-[2.5] text-primary' : ''}`} />
-            <span className="text-[10px] mt-1 font-semibold tracking-tight">
+            <span className="text-[11px] mt-1 font-semibold tracking-tight">
               {isFreshBrowser ? (language === 'hi' ? 'गाइड' : 'Guide') : (language === 'hi' ? 'चक्र' : 'Cycle')}
             </span>
           </button>
@@ -563,23 +581,8 @@ export const AppShell: React.FC = () => {
               }`}
           >
             <FileText className={`w-5 h-5 ${activeTab === 'brief' ? 'stroke-[2.5] text-primary' : ''}`} />
-            <span className="text-[10px] mt-1 font-semibold tracking-tight">
+            <span className="text-[11px] mt-1 font-semibold tracking-tight">
               {language === 'hi' ? 'चिट्ठी' : 'Brief'}
-            </span>
-          </button>
-
-          {/* Settings */}
-          <button
-            type="button"
-            onClick={() => setActiveTab('settings')}
-            className={`flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[50px] transition-all cursor-pointer active:scale-95 ${activeTab === 'settings'
-                ? 'bg-tint-lavender text-primary font-bold shadow-soft'
-                : 'text-ink-muted hover:text-ink hover:bg-tint-lavender/30'
-              }`}
-          >
-            <Settings className={`w-5 h-5 ${activeTab === 'settings' ? 'stroke-[2.5] text-primary' : ''}`} />
-            <span className="text-[10px] mt-1 font-semibold tracking-tight">
-              {language === 'hi' ? 'सेटिंग्स' : 'Settings'}
             </span>
           </button>
         </div>

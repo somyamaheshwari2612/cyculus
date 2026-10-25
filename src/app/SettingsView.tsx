@@ -223,111 +223,125 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
         </div>
       </div>
 
-      {/* 3. Demo Personas (Evaluation Tool for Hackathon Judges) */}
-      <Card variant="default" padding="lg" className="space-y-4">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-full bg-tint-peach flex items-center justify-center text-primary">
-            <Sparkles className="w-4 h-4" />
-          </div>
-          <div>
-            <h3 className="text-sm font-bold text-ink uppercase tracking-wider">
-              {language === 'hi' ? 'डेमो डेटा लोड करें (Quick Personas)' : 'Demo Personas (Evaluation Tool)'}
-            </h3>
-            <p className="text-xs text-ink-muted">
-              {language === 'hi'
-                ? 'निर्णायकों और परीक्षण के लिए 6 महीने का यथार्थवादी डेटा एक क्लिक में लोड करें (सेटअप स्वतः बाईपास होता है):'
-                : 'Preload 6 months of realistic longitudinal logs for hackathon evaluation (bypasses setup):'}
-            </p>
-          </div>
-        </div>
-
-        {demoPersona && (
-          <div className="p-3.5 bg-amber-50 rounded-2xl border border-amber-200 flex flex-wrap items-center justify-between gap-2.5 text-xs">
-            <div className="flex items-center gap-2 text-amber-900">
-              <span className="font-bold uppercase tracking-wider text-[10px] bg-amber-100 px-2 py-0.5 rounded-full border border-amber-300">
-                Active Demo
-              </span>
-              <span className="font-semibold">{demoPersona}</span>
+      {/* 3. Demo Personas (Developer & Evaluator Tools) - Collapsible, pushed out of main path */}
+      <details className="group bg-surface-subtle/80 rounded-[2.25rem] border border-surface-border p-6 transition-all">
+        <summary className="flex items-center justify-between cursor-pointer list-none select-none">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-2xl bg-tint-peach flex items-center justify-center text-primary text-sm shadow-soft">
+              <Sparkles className="w-4 h-4" />
             </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm font-bold text-ink uppercase tracking-wider">
+                  {language === 'hi' ? 'डेवलपर व मूल्यांकन टूल (डेमो डेटा)' : 'Developer & Evaluator Tools (Demo Personas)'}
+                </h3>
+                {demoPersona && (
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-900 bg-amber-100 px-2 py-0.5 rounded-full border border-amber-300">
+                    Active Demo
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-ink-muted">
+                {language === 'hi'
+                  ? 'निर्णायकों हेतु 6 महीने का सिंथेटिक डेटा (सामान्य उपयोग के लिए आवश्यक नहीं)'
+                  : 'Preload synthetic longitudinal logs for evaluation (not needed for private diary use)'}
+              </p>
+            </div>
+          </div>
+          <span className="text-xs font-semibold text-primary px-3 py-1.5 rounded-full bg-white border border-surface-border shadow-pill group-open:bg-primary group-open:text-white transition-all shrink-0">
+            {language === 'hi' ? 'टूल खोलें ▾' : 'Demo Tools ▾'}
+          </span>
+        </summary>
+
+        <div className="pt-5 space-y-4 border-t border-surface-border/60 mt-4">
+          {demoPersona && (
+            <div className="p-3.5 bg-amber-50 rounded-2xl border border-amber-200 flex flex-wrap items-center justify-between gap-2.5 text-xs">
+              <div className="flex items-center gap-2 text-amber-900">
+                <span className="font-bold uppercase tracking-wider text-[10px] bg-amber-100 px-2 py-0.5 rounded-full border border-amber-300">
+                  Active Demo
+                </span>
+                <span className="font-semibold">{demoPersona}</span>
+              </div>
+              <button
+                type="button"
+                onClick={onRemoveDemoData}
+                className="text-xs text-rose-700 font-bold hover:underline cursor-pointer flex items-center gap-1"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>{language === 'hi' ? 'डेमो डेटा हटाएं' : 'Remove Demo Data'}</span>
+              </button>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+            {/* Persona A: Riya */}
             <button
               type="button"
-              onClick={onRemoveDemoData}
-              className="text-xs text-rose-700 font-bold hover:underline cursor-pointer flex items-center gap-1"
+              onClick={() => onRequestSeedPersona('riya')}
+              className="p-4 rounded-3xl bg-tint-lavender/40 border border-[#E7DCF8] hover:border-primary hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
             >
-              <Trash2 className="w-3.5 h-3.5" />
-              <span>{language === 'hi' ? 'डेमो डेटा हटाएं' : 'Remove Demo Data'}</span>
+              <div>
+                <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-primary bg-white/90 px-2 py-0.5 rounded-full border border-[#E7DCF8] mb-2">
+                  Scenario A · FIGO Flag
+                </span>
+                <h4 className="font-serif font-bold text-ink text-sm sm:text-base group-hover:text-primary transition-colors">
+                  ✨ Riya (Irregular)
+                </h4>
+                <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
+                  Latest 41 days · High cycle variability (27–41d) · {(irregularData as LogEntry[]).length} days logged
+                </p>
+              </div>
+              <div className="mt-3 text-[11px] font-semibold text-primary">
+                Load Persona →
+              </div>
+            </button>
+
+            {/* Persona B: Regular */}
+            <button
+              type="button"
+              onClick={() => onRequestSeedPersona('regular')}
+              className="p-4 rounded-3xl bg-tint-mint/40 border border-[#D8F0E4] hover:border-emerald-600 hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
+            >
+              <div>
+                <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-white/90 px-2 py-0.5 rounded-full border border-[#D8F0E4] mb-2">
+                  Scenario B · Baseline
+                </span>
+                <h4 className="font-serif font-bold text-ink text-sm sm:text-base group-hover:text-emerald-800 transition-colors">
+                  🌿 Regular Cycles
+                </h4>
+                <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
+                  Consistent 28–29 days · Low variability · {(regularData as LogEntry[]).length} days logged
+                </p>
+              </div>
+              <div className="mt-3 text-[11px] font-semibold text-emerald-800">
+                Load Persona →
+              </div>
+            </button>
+
+            {/* Persona C: Heavy Flow */}
+            <button
+              type="button"
+              onClick={() => onRequestSeedPersona('heavy')}
+              className="p-4 rounded-3xl bg-tint-peach/40 border border-[#FADCD0] hover:border-amber-700 hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
+            >
+              <div>
+                <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-amber-900 bg-white/90 px-2 py-0.5 rounded-full border border-[#FADCD0] mb-2">
+                  Scenario C · High Pain
+                </span>
+                <h4 className="font-serif font-bold text-ink text-sm sm:text-base group-hover:text-amber-900 transition-colors">
+                  🩸 Heavy Bleeding
+                </h4>
+                <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
+                  4+ heavy bleeding days · Severe dysmenorrhea (pain 8/10) · {(heavyData as LogEntry[]).length} days logged
+                </p>
+              </div>
+              <div className="mt-3 text-[11px] font-semibold text-amber-900">
+                Load Persona →
+              </div>
             </button>
           </div>
-        )}
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-          {/* Persona A: Riya */}
-          <button
-            type="button"
-            onClick={() => onRequestSeedPersona('riya')}
-            className="p-4 rounded-3xl bg-tint-lavender/40 border border-[#E7DCF8] hover:border-primary hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
-          >
-            <div>
-              <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-primary bg-white/90 px-2 py-0.5 rounded-full border border-[#E7DCF8] mb-2">
-                Scenario A · FIGO Flag
-              </span>
-              <h4 className="font-serif font-bold text-ink text-sm sm:text-base group-hover:text-primary transition-colors">
-                ✨ Riya (Irregular)
-              </h4>
-              <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
-                Latest 41 days · High cycle variability (27–41d) · {(irregularData as LogEntry[]).length} days logged
-              </p>
-            </div>
-            <div className="mt-3 text-[11px] font-semibold text-primary">
-              Load Persona →
-            </div>
-          </button>
-
-          {/* Persona B: Regular */}
-          <button
-            type="button"
-            onClick={() => onRequestSeedPersona('regular')}
-            className="p-4 rounded-3xl bg-tint-mint/40 border border-[#D8F0E4] hover:border-emerald-600 hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
-          >
-            <div>
-              <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-emerald-800 bg-white/90 px-2 py-0.5 rounded-full border border-[#D8F0E4] mb-2">
-                Scenario B · Baseline
-              </span>
-              <h4 className="font-serif font-bold text-ink text-sm sm:text-base group-hover:text-emerald-800 transition-colors">
-                🌿 Regular Cycles
-              </h4>
-              <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
-                Consistent 28–29 days · Low variability · {(regularData as LogEntry[]).length} days logged
-              </p>
-            </div>
-            <div className="mt-3 text-[11px] font-semibold text-emerald-800">
-              Load Persona →
-            </div>
-          </button>
-
-          {/* Persona C: Heavy Flow */}
-          <button
-            type="button"
-            onClick={() => onRequestSeedPersona('heavy')}
-            className="p-4 rounded-3xl bg-tint-peach/40 border border-[#FADCD0] hover:border-amber-700 hover:shadow-soft text-left transition-all cursor-pointer flex flex-col justify-between group"
-          >
-            <div>
-              <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-amber-900 bg-white/90 px-2 py-0.5 rounded-full border border-[#FADCD0] mb-2">
-                Scenario C · High Pain
-              </span>
-              <h4 className="font-serif font-bold text-ink text-sm sm:text-base group-hover:text-amber-900 transition-colors">
-                🩸 Heavy Bleeding
-              </h4>
-              <p className="text-[11px] text-ink-muted mt-1 leading-relaxed">
-                4+ heavy bleeding days · Severe dysmenorrhea (pain 8/10) · {(heavyData as LogEntry[]).length} days logged
-              </p>
-            </div>
-            <div className="mt-3 text-[11px] font-semibold text-amber-900">
-              Load Persona →
-            </div>
-          </button>
         </div>
-      </Card>
+      </details>
 
       {/* Responsive Grid for Data Management & Clinical References on Desktop (lg:) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
