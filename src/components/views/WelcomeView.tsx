@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowRight, Lock, Minus, Plus, ChevronDown, ChevronUp } from "lucide-react";
-import { Logo, CycleMark } from "../cyculus/Logo";
+import { Logo } from "../cyculus/Logo";
 import hero from "@/assets/hero-woman.png";
 import { UserSetup } from "@/shared/types";
 import { today } from "@/shared/dateUtils";
@@ -76,11 +76,8 @@ export function WelcomeView({
           <Logo />
 
           {step === "intro" ? (
-            <div className="mt-14 animate-in fade-in slide-in-from-bottom-2 duration-700">
-              <p className="eyebrow">
-                {language === "hi" ? "Cycle + Calculus" : "Cycle + Calculus"}
-              </p>
-              <h1 className="mt-4 font-display text-5xl leading-[0.98] text-foreground md:text-7xl">
+            <div className="mt-8 sm:mt-12 animate-in fade-in slide-in-from-bottom-2 duration-700">
+              <h1 className="font-display text-5xl leading-[0.98] text-foreground md:text-7xl">
                 {language === "hi" ? (
                   <>
                     Aapke cycle patterns,<br />
@@ -93,13 +90,13 @@ export function WelcomeView({
                   </>
                 )}
               </h1>
-              <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
+              <p className="mt-5 max-w-md text-base sm:text-lg leading-relaxed text-muted-foreground">
                 {language === "hi"
                   ? "Ek private aur serene jagah jahan aap apne symptoms track kar sakein, changes notice karein, aur doctor visit ke liye better prepare karein."
                   : "A private space to track how you feel, notice changes over time, and prepare for more informed health conversations."}
               </p>
 
-              <div className="mt-10 flex flex-wrap items-center gap-4">
+              <div className="mt-8 flex flex-wrap items-center gap-4">
                 {userSetup?.name ? (
                   <button
                     onClick={onComplete}
@@ -119,7 +116,7 @@ export function WelcomeView({
                 )}
               </div>
 
-              <p className="mt-10 flex max-w-sm items-start gap-2 text-sm text-muted-foreground">
+              <p className="mt-8 flex max-w-sm items-start gap-2 text-xs sm:text-sm text-muted-foreground">
                 <Lock className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                 <span>
                   {language === "hi"
@@ -131,7 +128,7 @@ export function WelcomeView({
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="mt-14 max-w-md animate-in fade-in slide-in-from-bottom-2 duration-500"
+              className="mt-8 sm:mt-12 max-w-md animate-in fade-in slide-in-from-bottom-2 duration-500"
             >
               <p className="eyebrow">
                 {language === "hi" ? "Two quick things" : "Two small things"}
@@ -152,7 +149,7 @@ export function WelcomeView({
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="mt-2 w-full rounded-xl border border-input bg-card px-4 py-3 outline-none focus:border-primary text-foreground"
-                  placeholder="e.g. Somya"
+                  placeholder="e.g. Medhya"
                 />
               </label>
 
@@ -370,7 +367,6 @@ export function WelcomeView({
           />
         </div>
       </div>
-      <CycleMark className="pointer-events-none absolute -bottom-24 -left-24 h-96 w-96 text-primary/5" />
     </div>
   );
 }

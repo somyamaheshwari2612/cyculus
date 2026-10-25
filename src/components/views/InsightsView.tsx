@@ -141,7 +141,7 @@ export function InsightsView({
   return (
     <>
       <PageHeader
-        eyebrow={language === "hi" ? "Calculus" : "The calculus"}
+        eyebrow={language === "hi" ? "Cycle Patterns" : "Cycle Patterns"}
         title={language === "hi" ? "Insights" : "Insights"}
         subtitle={
           language === "hi"

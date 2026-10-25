@@ -150,7 +150,7 @@ export function CycleSetupModal({
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Somya"
+              placeholder="e.g. Medhya"
               className="w-full rounded-xl border border-input bg-card px-4 py-2.5 text-sm text-foreground outline-none focus:border-primary font-sans"
             />
           </div>
