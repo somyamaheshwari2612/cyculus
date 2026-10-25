@@ -188,7 +188,7 @@ export const OofLog: React.FC<OofLogProps> = ({
       setExtractionConfidence(0.8);
       setExtractionWarnings([
         language === 'hi'
-          ? 'ऑफ़लाइन नियमों द्वारा समझा गया। पुष्टि करें।'
+          ? 'ऑफ़लाइन समझ लिया है। नीचे देखकर चेक कर लीजिए।'
           : 'Understood via local rules. Please verify below.'
       ]);
     } finally {
@@ -205,7 +205,7 @@ export const OofLog: React.FC<OofLogProps> = ({
     setNaturalText('');
     if (onSuccessToast) {
       onSuccessToast(
-        language === 'hi' ? 'लॉग सफलतापूर्वक सहेज लिया गया!' : 'Log saved successfully!'
+        language === 'hi' ? 'आज का लॉग सेव हो गया!' : 'Log saved successfully!'
       );
     }
   };
@@ -225,7 +225,7 @@ export const OofLog: React.FC<OofLogProps> = ({
       await onSavePatch(patch, 'tap');
       if (onSuccessToast) {
         onSuccessToast(
-          language === 'hi' ? 'आज का चेक-इन सहेज लिया गया!' : 'Daily check-in saved!'
+          language === 'hi' ? 'आज का चेक-इन सेव हो गया!' : 'Daily check-in saved!'
         );
       }
     } finally {
@@ -267,7 +267,7 @@ export const OofLog: React.FC<OofLogProps> = ({
           </div>
           <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
             {language === 'hi'
-              ? '1-टैप या बोलकर आज के लक्षण, दर्द और मूड दर्ज करें'
+              ? '1-टैप में या बोलकर आज के लक्षण, फ्लो और मूड दर्ज करें'
               : 'Log today’s flow, symptoms, pain, and mood in 1-tap or your own voice'}
           </p>
         </div>
@@ -285,7 +285,7 @@ export const OofLog: React.FC<OofLogProps> = ({
             </div>
             <label className="text-xs sm:text-sm font-semibold text-ink">
               {language === 'hi'
-                ? 'आज के बारे में बताएं:'
+                ? 'आज कैसा रहा? अपनी भाषा में लिख दीजिए'
                 : 'Tell me about today, in your own words:'}
             </label>
           </div>
@@ -303,7 +303,7 @@ export const OofLog: React.FC<OofLogProps> = ({
             rows={3}
             placeholder={
               language === 'hi'
-                ? 'उदा. "कल से पेट में बहुत दर्द है और flow heavy है..."'
+                ? 'जैसे: "कल से पेट में बहुत दर्द है और flow heavy है..."'
                 : 'e.g. "Cramps started yesterday, flow is heavy and feeling low..."'
             }
             className="w-full text-sm sm:text-base p-4 pr-24 rounded-2xl border border-surface-border bg-[#FDFBFD] focus:bg-white focus:ring-2 focus:ring-primary/25 focus:border-primary/40 focus:outline-none transition-all placeholder:text-ink-light leading-relaxed"
@@ -406,7 +406,7 @@ export const OofLog: React.FC<OofLogProps> = ({
           <div className="flex items-center gap-2">
             {existingEntry && (
               <span className="text-[11px] font-semibold text-primary bg-tint-lavender px-3 py-1 rounded-full border border-[#E7DCF8] shadow-pill">
-                {language === 'hi' ? '✓ आज दर्ज है' : '✓ Logged today'}
+                {language === 'hi' ? '✓ आज सेव है' : '✓ Logged today'}
               </span>
             )}
             <span className="text-[11px] font-medium text-emerald-800 bg-tint-mint px-3 py-1 rounded-full border border-[#D4F2E3] shadow-pill">
@@ -418,7 +418,7 @@ export const OofLog: React.FC<OofLogProps> = ({
         {/* 1. Flow Selection with Pastel Icon Circles */}
         <div>
           <label className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-2.5">
-            {language === 'hi' ? '1. रक्तस्राव का स्तर (Flow)' : '1. Bleeding Flow'}
+            {language === 'hi' ? '1. पीरियड फ्लो (Flow)' : '1. Bleeding Flow'}
           </label>
           <div className="grid grid-cols-5 gap-2">
             {FLOW_LEVELS.map(fl => {
@@ -451,7 +451,7 @@ export const OofLog: React.FC<OofLogProps> = ({
         <div>
           <div className="flex items-center justify-between mb-2.5">
             <label className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
-              {language === 'hi' ? '2. दर्द का पैमाना (0–10)' : '2. Pain Level (0–10)'}
+              {language === 'hi' ? '2. दर्द कैसा है? (0–10)' : '2. Pain Level (0–10)'}
             </label>
             <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
               painLevel && painLevel >= 8
@@ -460,7 +460,7 @@ export const OofLog: React.FC<OofLogProps> = ({
                 ? 'bg-tint-lavender text-primary'
                 : 'text-ink-muted'
             }`}>
-              {painLevel !== null ? `${painLevel}/10` : language === 'hi' ? 'शून्य' : 'None'}
+              {painLevel !== null ? `${painLevel}/10` : language === 'hi' ? 'बिल्कुल नहीं' : 'None'}
             </span>
           </div>
 
@@ -487,7 +487,7 @@ export const OofLog: React.FC<OofLogProps> = ({
         {/* 3. Symptoms Chips */}
         <div>
           <label className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-2.5">
-            {language === 'hi' ? '3. शारीरिक लक्षण (Symptoms)' : '3. Symptoms Experienced'}
+            {language === 'hi' ? '3. लक्षण (Symptoms)' : '3. Symptoms Experienced'}
           </label>
           <div className="flex flex-wrap gap-2">
             {SYMPTOMS.map(sym => {
@@ -508,7 +508,7 @@ export const OofLog: React.FC<OofLogProps> = ({
         {/* 4. Mood Chips */}
         <div>
           <label className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-2.5">
-            {language === 'hi' ? '4. मन की स्थिति (Mood)' : '4. Mood'}
+            {language === 'hi' ? '4. मूड (Mood)' : '4. Mood'}
           </label>
           <div className="flex flex-wrap gap-2">
             {MOODS.map(m => {
@@ -529,13 +529,13 @@ export const OofLog: React.FC<OofLogProps> = ({
         {/* 5. Notes */}
         <div>
           <label className="block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-1.5">
-            {language === 'hi' ? '5. व्यक्तिगत नोट्स (वैकल्पिक)' : '5. Personal Notes (Optional)'}
+            {language === 'hi' ? '5. कुछ और लिखना चाहें तो (ऑप्शनल)' : '5. Personal Notes (Optional)'}
           </label>
           <input
             type="text"
             value={notes}
             onChange={e => setNotes(e.target.value)}
-            placeholder={language === 'hi' ? 'दवा, व्यायाम, नींद आदि...' : 'Medication, sleep, exercise, etc.'}
+            placeholder={language === 'hi' ? 'दवा, वॉक, कैसा लगा वगैरह...' : 'Medication, sleep, exercise, etc.'}
             className="w-full text-xs sm:text-sm p-3.5 rounded-full border border-surface-border bg-white focus:ring-2 focus:ring-primary/25 focus:border-primary/40 focus:outline-none shadow-pill"
           />
         </div>
@@ -549,7 +549,7 @@ export const OofLog: React.FC<OofLogProps> = ({
           icon={<CheckCircle2 className="w-5 h-5" />}
           onClick={handleSaveTap}
         >
-          {language === 'hi' ? 'आज का चेक-इन सुरक्षित करें' : 'Save Today’s Check-in'}
+          {language === 'hi' ? 'आज का लॉग सेव करें' : 'Save Today’s Check-in'}
         </Button>
       </Card>
         </div>

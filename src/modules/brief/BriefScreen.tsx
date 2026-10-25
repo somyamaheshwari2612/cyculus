@@ -42,7 +42,7 @@ export function BriefScreen({
           </div>
           <p className="text-xs sm:text-sm text-ink-muted mt-1 leading-relaxed">
             {language === 'hi'
-              ? 'डॉक्टर से परामर्श हेतु 1-पेज का संक्षिप्त क्लिनिकल सारांश'
+              ? 'डॉक्टर को दिखाने के लिए 1-पेज की क्लिनिकल चिट्ठी'
               : '1-page consultation brief formatted with FIGO thresholds & cited guidelines'}
           </p>
         </div>
@@ -73,12 +73,12 @@ export function BriefScreen({
             </div>
 
             <h3 className="text-xl sm:text-2xl font-serif font-bold text-ink mb-2">
-              {language === 'hi' ? 'अभी कोई प्रविष्टि नहीं है' : 'No entries yet'}
+              {language === 'hi' ? 'अभी कोई एंट्री नहीं है' : 'No entries yet'}
             </h3>
 
             <p className="text-sm sm:text-base text-ink-muted mb-6 max-w-md mx-auto leading-relaxed">
               {language === 'hi'
-                ? 'आज के बारे में बताएं, और कुछ चक्रों के बाद आपका पैटर्न यहाँ दिखाई देगा।'
+                ? 'आज कैसा रहा यह बताइए—2-3 पीरियड्स के बाद आपका पूरा पैटर्न यहाँ दिखने लगेगा।'
                 : 'Tell us about today, and your pattern will appear here after a few cycles.'}
             </p>
 
@@ -91,7 +91,7 @@ export function BriefScreen({
                   onClick={onNavigateToLog}
                   className="shadow-soft px-8 font-bold"
                 >
-                  {language === 'hi' ? 'आज के बारे में बताएं' : 'Tell us about today'}
+                  {language === 'hi' ? 'आज का दिन लॉग करें' : 'Tell us about today'}
                 </Button>
               </div>
             )}
@@ -108,19 +108,19 @@ export function BriefScreen({
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                 <div className="p-3 bg-tint-lavender/40 rounded-xl border border-[#E7DCF8]">
-                  <span className="font-bold text-ink block mb-0.5">1. {language === 'hi' ? 'FIGO चक्र सांख्यिकी' : 'FIGO Metrics'}</span>
+                  <span className="font-bold text-ink block mb-0.5">1. {language === 'hi' ? 'पीरियड का पूरा हिसाब' : 'FIGO Metrics'}</span>
                   <p className="text-[11px] text-ink-muted leading-snug">
                     {language === 'hi'
-                      ? 'औसत चक्र अवधि, भिन्नता और रक्तस्राव दिवसों का क्लिनिकल विवरण।'
+                      ? 'औसत गैप, ब्लीडिंग के दिन और तारीखों में कितना बदलाव रहा।'
                       : 'Average cycle duration, variance, and bleeding duration stats.'}
                   </p>
                 </div>
 
                 <div className="p-3 bg-tint-rose/30 rounded-xl border border-[#F8DDE5]">
-                  <span className="font-bold text-ink block mb-0.5">2. {language === 'hi' ? 'क्लिनिकल फ़्लैग्स' : 'Clinical Flags'}</span>
+                  <span className="font-bold text-ink block mb-0.5">2. {language === 'hi' ? 'ध्यान देने वाली बातें (Flags)' : 'Clinical Flags'}</span>
                   <p className="text-[11px] text-ink-muted leading-snug">
                     {language === 'hi'
-                      ? 'NICE/ACOG दिशानिर्देशों पर आधारित भारी रक्तस्राव या दर्द के संकेत।'
+                      ? 'अगर ब्लीडिंग बहुत ज़्यादा रही या दर्द बहुत रहा, तो मेडिकल गाइडलाइन्स के आधार पर संकेत।'
                       : 'NICE/ACOG cited flags for heavy bleeding or dysmenorrhea.'}
                   </p>
                 </div>
@@ -129,7 +129,7 @@ export function BriefScreen({
                   <span className="font-bold text-ink block mb-0.5">3. {language === 'hi' ? 'डॉक्टर से पूछने के सवाल' : 'Doctor Questions'}</span>
                   <p className="text-[11px] text-ink-muted leading-snug">
                     {language === 'hi'
-                      ? 'आपके लक्षणों के आधार पर डॉक्टर से परामर्श के लिए तैयार प्रश्न।'
+                      ? 'आपके लक्षणों के आधार पर डॉक्टर से बात करने के लिए तैयार प्रश्न।'
                       : 'Targeted consultation questions customized to your symptoms.'}
                   </p>
                 </div>
@@ -174,7 +174,7 @@ export function BriefScreen({
 
         {brief.symptoms.length > 0 && (
           <section className="mt-6 print-avoid-break">
-            <h3 className="font-semibold text-ink">{language === 'hi' ? 'लक्षण' : 'Symptoms'}</h3>
+            <h3 className="font-semibold text-ink">{language === 'hi' ? 'मुख्य लक्षण' : 'Symptoms'}</h3>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink">
               {brief.symptoms.map((line) => (
                 <li key={line}>{line}</li>
@@ -186,7 +186,7 @@ export function BriefScreen({
         {brief.flags.length > 0 && (
           <section className="mt-6 print-avoid-break">
             <h3 className="font-semibold text-ink">
-              {language === 'hi' ? 'डॉक्टर से चर्चा करें' : 'Worth discussing with a doctor'}
+              {language === 'hi' ? 'डॉक्टर से बात करने योग्य बातें' : 'Worth discussing with a doctor'}
             </h3>
             <div className="mt-2 space-y-3">
               {brief.flags.map((flag) => (
@@ -216,7 +216,7 @@ export function BriefScreen({
           <p>{brief.disclaimer}</p>
           {brief.sourcesUsed.length > 0 && (
             <p className="mt-2">
-              {language === 'hi' ? 'स्रोत: ' : 'Sources: '}
+              {language === 'hi' ? 'मेडिकल संदर्भ: ' : 'Sources: '}
               {brief.sourcesUsed.join(', ')}
             </p>
           )}
@@ -233,7 +233,7 @@ export function BriefScreen({
             className="flex min-h-[44px] items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-white shadow-soft hover:bg-primary-dark transition-all cursor-pointer"
           >
             <Printer size={18} aria-hidden="true" />
-            {language === 'hi' ? 'PDF के लिए प्रिंट करें' : 'Print / Save as PDF'}
+            {language === 'hi' ? 'PDF प्रिंट / डाउनलोड करें' : 'Print / Save as PDF'}
           </button>
         </div>
       )}

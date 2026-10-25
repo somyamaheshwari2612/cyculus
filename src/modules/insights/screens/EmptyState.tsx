@@ -24,13 +24,13 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 
         {/* Title */}
         <h3 className="text-xl sm:text-2xl font-serif font-bold text-ink mb-2">
-          {language === 'hi' ? 'अभी कोई प्रविष्टि नहीं है' : 'No entries yet'}
+          {language === 'hi' ? 'अभी कोई एंट्री नहीं है' : 'No entries yet'}
         </h3>
 
         {/* Core Prompt Subtitle */}
         <p className="text-sm sm:text-base text-ink-muted mb-6 max-w-md mx-auto leading-relaxed">
           {language === 'hi'
-            ? 'आज के बारे में बताएं, और कुछ चक्रों के बाद आपका पैटर्न यहाँ दिखाई देगा।'
+            ? 'आज कैसा रहा यह बताइए—2-3 पीरियड्स के बाद आपका पूरा पैटर्न यहाँ दिखने लगेगा।'
             : 'Tell us about today, and your pattern will appear here after a few cycles.'}
         </p>
 
@@ -43,7 +43,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
             onClick={onNavigateToLog}
             className="shadow-soft px-8 font-bold"
           >
-            {language === 'hi' ? 'आज के बारे में बताएं' : 'Tell us about today'}
+            {language === 'hi' ? 'आज का दिन लॉग करें' : 'Tell us about today'}
           </Button>
         </div>
 
@@ -53,7 +53,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
             <Sparkles className="w-3.5 h-3.5" />
             <span>
               {language === 'hi'
-                ? 'खाली चार्ट कुछ नहीं बताता — लॉग करने पर क्या दिखेगा:'
+                ? 'खाली चार्ट से कुछ पता नहीं चलता — लॉग करने पर क्या दिखेगा:'
                 : 'An empty chart tells you nothing. Here is what appears as you log:'}
             </span>
           </p>
@@ -63,7 +63,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
               <span className="font-bold text-ink block mb-0.5">1. {language === 'hi' ? 'दैनिक चेक-इन' : 'Daily Check-in'}</span>
               <p className="text-[11px] text-ink-muted leading-snug">
                 {language === 'hi'
-                  ? 'रक्तस्राव, दर्द, और लक्षण 1-टैप में दर्ज करें।'
+                  ? 'पीरियड फ्लो, दर्द और मूड 1-टैप में दर्ज करें।'
                   : 'Log flow, pain, and mood in 1-tap or your own voice.'}
               </p>
             </div>
@@ -72,16 +72,16 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
               <span className="font-bold text-ink block mb-0.5">2. {language === 'hi' ? 'टाइमलाइन कैलेंडर' : 'Cycle Timeline'}</span>
               <p className="text-[11px] text-ink-muted leading-snug">
                 {language === 'hi'
-                  ? 'पहले चक्र से ही आपके रक्तस्राव का इतिहास दिखेगा।'
+                  ? 'पहले पीरियड से ही आपकी ब्लीडिंग और दिनों का इतिहास दिखेगा।'
                   : 'Visual timeline of your cycle days and flow rhythm.'}
               </p>
             </div>
 
             <div className="p-3 bg-tint-mint/40 rounded-xl border border-[#D8F0E4]">
-              <span className="font-bold text-ink block mb-0.5">3. {language === 'hi' ? 'अंशांकित विंडो' : 'Calibrated Window'}</span>
+              <span className="font-bold text-ink block mb-0.5">3. {language === 'hi' ? 'पीरियड का अंदाज़ा' : 'Calibrated Window'}</span>
               <p className="text-[11px] text-ink-muted leading-snug">
                 {language === 'hi'
-                  ? '3+ चक्रों के बाद यूटा हाइव मॉडल का ±3 दिन का सटीक अनुमान।'
+                  ? '3 पीरियड्स के बाद आने वाली तारीखों का सटीक अंदाज़ा।'
                   : 'After a few cycles, empirical Utah Hive prediction (~80% coverage).'}
               </p>
             </div>

@@ -56,7 +56,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
     if (lastPeriodStart && lastPeriodStart > todayStr) {
       setValidationError(
         language === 'hi'
-          ? 'माहवारी शुरू होने की तारीख भविष्य की नहीं हो सकती।'
+          ? 'पीरियड शुरू होने की तारीख आने वाले कल या भविष्य की नहीं हो सकती।'
           : 'Last period start date cannot be in the future.'
       );
       return;
@@ -69,7 +69,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
       if (isNaN(parsed) || parsed < 15 || parsed > 90) {
         setValidationError(
           language === 'hi'
-            ? 'कृपया चक्र की लंबाई 15 से 90 दिनों के बीच दर्ज करें (या "पक्का नहीं पता" चुनें)।'
+            ? 'कृपया पीरियड का गैप 15 से 90 दिन के बीच लिखें (या "पक्का नहीं पता" चुनें)।'
             : 'Please enter a typical cycle length between 15 and 90 days, or select "Not sure / Irregular".'
         );
         return;
@@ -118,7 +118,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
               </h2>
               <p className="text-xs sm:text-sm text-ink-muted mt-1.5 font-sans leading-relaxed">
                 {language === 'hi'
-                  ? 'आपकी निजी, सुरक्षित मासिक चक्र डायरी एवं क्लिनिकल चिट्ठी'
+                  ? 'आपकी प्राइवेट, सुरक्षित पीरियड डायरी और डॉक्टर के लिए चिट्ठी'
                   : 'Your private, phone-first cycle diary & doctor-ready brief'}
               </p>
             </div>
@@ -131,11 +131,11 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-semibold text-ink">
-                    {language === 'hi' ? '100% ऑन-डिवाइस PWA (कोई नाम या प्रोफ़ाइल नहीं)' : '100% On-Device PWA (No Profile Needed)'}
+                    {language === 'hi' ? '100% ऑन-डिवाइस (कोई अकाउंट या नाम नहीं)' : '100% On-Device PWA (No Profile Needed)'}
                   </h4>
                   <p className="text-[11px] sm:text-xs text-ink-muted mt-0.5 leading-relaxed">
                     {language === 'hi'
-                      ? 'कोई खाता, पासवर्ड या नाम आवश्यक नहीं। आपका व्यक्तिगत स्वास्थ्य डेटा केवल आपके इस फ़ोन/ब्राउज़र में रहता है। पूर्ण रूप से ऑफ़लाइन कार्य करता है।'
+                      ? 'कोई अकाउंट, पासवर्ड या नाम की ज़रूरत नहीं। आपका हेल्थ डेटा सिर्फ आपके इस फोन/ब्राउज़र में सुरक्षित रहता है और बिना इंटरनेट भी काम करता है।'
                       : 'No account, profile, or name required. Everything stays locally in your browser IndexedDB. Installable on phone & desktop with offline caching.'}
                   </p>
                 </div>
@@ -147,11 +147,11 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-semibold text-ink">
-                    {language === 'hi' ? 'डॉक्टर के लिए तथ्य-आधारित चिट्ठी' : 'Facts ready for your clinician'}
+                    {language === 'hi' ? 'डॉक्टर के लिए 1-पेज की चिट्ठी' : 'Facts ready for your clinician'}
                   </h4>
                   <p className="text-[11px] sm:text-xs text-ink-muted mt-0.5 leading-relaxed">
                     {language === 'hi'
-                      ? 'हिंग्लिश या सामान्य शब्दों में बोलें। क्लिनिक में दिखाने हेतु 1-पेज पीडीएफ चिट्ठी तैयार करें।'
+                      ? 'अपनी रोज़मर्रा की भाषा में बोलें या लिखें। डॉक्टर को दिखाने के लिए 1-पेज PDF चिट्ठी तैयार हो जाएगी।'
                       : 'Log symptoms in your own words. Generate a clear 1-page PDF for medical appointments.'}
                   </p>
                 </div>
@@ -163,11 +163,11 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-semibold text-amber-950">
-                    {language === 'hi' ? 'चिकित्सकीय अस्वीकरण (Disclaimer)' : 'Non-Diagnostic Wellness Tool'}
+                    {language === 'hi' ? 'ज़रूरी बात (Disclaimer)' : 'Non-Diagnostic Wellness Tool'}
                   </h4>
                   <p className="text-[11px] text-amber-900 mt-0.5 leading-relaxed">
                     {language === 'hi'
-                      ? 'यह ऐप कोई रोग निदान नहीं करता। यह केवल आपके चक्र के रुझान समझने और डॉक्टर से सवाल पूछने में सहायक है।'
+                      ? 'यह ऐप कोई मेडिकल बीमारी डायग्नोज़ नहीं करता। यह सिर्फ आपके पीरियड्स का पैटर्न समझने और डॉक्टर से बात करने में मदद करता है।'
                       : 'Cyculus evaluates clinical standards (FIGO/ACOG) to help you discuss patterns with your doctor.'}
                   </p>
                 </div>
@@ -184,7 +184,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 onClick={() => setStep(2)}
                 className="shadow-soft hover:shadow-card font-medium tracking-wide"
               >
-                {language === 'hi' ? 'चक्र सेटअप (ऐच्छिक) →' : 'Next: Set Up Cycle Prior →'}
+                {language === 'hi' ? 'पीरियड का अंदाज़ा बताएं (ऐच्छिक) →' : 'Next: Set Up Cycle Prior →'}
               </Button>
 
               <button
@@ -192,7 +192,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 onClick={onSkip}
                 className="w-full text-center text-xs text-ink-muted hover:text-ink py-2 transition-colors cursor-pointer"
               >
-                {language === 'hi' ? 'सीधे पहला दिन दर्ज करें →' : 'Skip to: Log your first day →'}
+                {language === 'hi' ? 'सीधे पहला दिन लॉग करें →' : 'Skip to: Log your first day →'}
               </button>
             </div>
           </div>
@@ -205,16 +205,16 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
             <div>
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-3 py-0.5 rounded-full border border-[#E7DCF8]">
-                  {language === 'hi' ? 'कदम 2 · चक्र अनुमान सेटअप' : 'Step 2 · Initial Prior Setup'}
+                  {language === 'hi' ? 'कदम 2 · पीरियड का अंदाज़ा' : 'Step 2 · Initial Prior Setup'}
                 </span>
                 <span className="text-[11px] text-ink-muted">Self-Reported Prior</span>
               </div>
               <h3 className="text-2xl font-serif text-ink tracking-tight mt-2">
-                {language === 'hi' ? 'अपने चक्र का अनुमान बताएं' : 'Calibrate Your Cycle Prior'}
+                {language === 'hi' ? 'अपने पीरियड का अंदाज़ा बताएं' : 'Calibrate Your Cycle Prior'}
               </h3>
               <p className="text-xs text-ink-muted mt-1 leading-relaxed">
                 {language === 'hi'
-                  ? 'यह डेटा केवल एक आरंभिक अनुमान (Prior) के रूप में कार्य करता है और वास्तविक लॉग बढ़ने पर स्वतः हट जाता है। यह कभी कोई क्लिनिकल फ़्लैग ट्रिगर नहीं करता।'
+                  ? 'यह सिर्फ एक शुरुआती अंदाज़ा है। जैसे-जैसे आप लॉग करेंगी, यह खुद सटीक होता जाएगा। इससे कोई गलत मेडिकल फ़्लैग नहीं बनेगा।'
                   : 'This self-reported prior seeds early predictions, fading as real logs accumulate. It never triggers clinical flags or fabricates log entries.'}
               </p>
             </div>
@@ -249,7 +249,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
               <div className="p-4 bg-tint-lavender/30 rounded-2xl border border-[#E7DCF8] space-y-3">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-semibold text-ink">
-                    {language === 'hi' ? 'सामान्य चक्र की लंबाई' : 'Typical Cycle Length'}
+                    {language === 'hi' ? 'आमतौर पर पीरियड्स में कितना गैप रहता है?' : 'Typical Cycle Length'}
                   </label>
                   <span className="text-[10px] text-primary font-bold">28 is a myth</span>
                 </div>
@@ -272,7 +272,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                     }`}
                   >
                     <span>🗓️</span>
-                    <span>{language === 'hi' ? 'मुझे चक्र की लंबाई पता है' : 'I know my cycle'}</span>
+                    <span>{language === 'hi' ? 'मुझे अपना गैप पता है' : 'I know my cycle'}</span>
                   </button>
 
                   <button
@@ -285,7 +285,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                     }`}
                   >
                     <span>❓</span>
-                    <span>{language === 'hi' ? 'पक्का नहीं पता / अनियमित' : 'Not sure / Irregular'}</span>
+                    <span>{language === 'hi' ? 'पक्का नहीं पता / ऊपर-नीचे होता है' : 'Not sure / Irregular'}</span>
                   </button>
                 </div>
 
@@ -294,7 +294,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                     {/* Quick Select Chips */}
                     <div>
                       <span className="block text-[11px] text-ink-muted mb-1.5 font-medium">
-                        {language === 'hi' ? 'त्वरित चयन (सामान्य दिन):' : 'Quick select typical days:'}
+                        {language === 'hi' ? 'आमतौर पर कितने दिन:' : 'Quick select typical days:'}
                       </span>
                       <div className="flex flex-wrap gap-1.5">
                         {[26, 27, 28, 29, 30, 31, 32, 35].map(days => (
@@ -320,7 +320,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                     {/* Stepper + Direct Numeric Input */}
                     <div className="flex items-center justify-between gap-3 bg-white p-2.5 rounded-xl border border-surface-border shadow-soft">
                       <span className="text-xs text-ink-muted font-medium">
-                        {language === 'hi' ? 'दिन समायोजित करें:' : 'Adjust exact days:'}
+                        {language === 'hi' ? 'दिन बदलें:' : 'Adjust exact days:'}
                       </span>
                       <div className="flex items-center gap-1.5">
                         <button
@@ -372,7 +372,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
 
                     <p className="text-[11px] text-ink-muted leading-relaxed">
                       {language === 'hi'
-                        ? 'चिकित्सीय सामान्य सीमा 24–38 दिन है (FIGO मानक)। हम आपकी प्रविष्टियों के साथ अनुमान परिष्कृत करेंगे।'
+                        ? 'मेडिकल रिसर्च के मुताबिक 24–38 दिन का गैप सामान्य माना जाता है। जैसे-जैसे आप लॉग करेंगी, अंदाज़ा और बेहतर होगा।'
                         : 'Normal clinical range is 24–38 days (FIGO standard). Cyculus refines prediction as real logs accumulate.'}
                     </p>
                   </div>
@@ -380,11 +380,11 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                   <div className="p-3.5 bg-white/90 rounded-xl border border-[#E7DCF8] space-y-1.5 animate-fade-in">
                     <div className="flex items-center gap-2 text-xs font-semibold text-primary">
                       <Sparkles className="w-3.5 h-3.5 text-primary" />
-                      <span>{language === 'hi' ? 'जनसंख्या औसत का उपयोग' : 'Population Average Fallback'}</span>
+                      <span>{language === 'hi' ? 'औसत अंदाज़े का इस्तेमाल' : 'Population Average Fallback'}</span>
                     </div>
                     <p className="text-[11px] text-ink-muted leading-relaxed">
                       {language === 'hi'
-                        ? 'कोई बात नहीं! हम जनसंख्या औसत (29.3 दिन, Bull et al. 2019) और व्यापक विंडो का उपयोग करेंगे जब तक कि आपके वास्तविक चक्र दर्ज न हो जाएं।'
+                        ? 'कोई बात नहीं! जब तक आप कुछ पीरियड्स लॉग नहीं कर लेतीं, हम सामान्य औसत (29 दिन) के हिसाब से एक सुरक्षित दायरा मानकर चलेंगे।'
                         : 'No problem! Cyculus will use the clinical population average (29.3 days from Bull et al. 2019) with a wide, low-confidence prediction window until your own logs build up.'}
                     </p>
                   </div>
@@ -397,7 +397,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                   <div className="flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-primary" />
                     <label className="text-xs font-semibold text-ink">
-                      {language === 'hi' ? 'पिछली तारीखें (सटीकता बढ़ाएं)' : 'Earlier Period Dates (Improve Accuracy)'}
+                      {language === 'hi' ? 'पिछली तारीखें (अंदाज़ा और सटीक बनाएं)' : 'Earlier Period Dates (Improve Accuracy)'}
                     </label>
                   </div>
                   <button
@@ -411,7 +411,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
 
                 <p className="text-[11px] text-ink-muted leading-relaxed">
                   {language === 'hi'
-                    ? 'कैलेंडर से 2-3 पिछली माहवारी शुरू होने की तारीखें दर्ज करने से अनुमानित अवधि के बजाय वास्तविक अंतराल प्राप्त होते हैं।'
+                    ? 'कैलेंडर देखकर पिछले 2–3 पीरियड्स की तारीखें जोड़ेंगी, तो अंदाज़ा और सटीक रहेगा।'
                     : '2 or 3 earlier start dates provide real observed intervals rather than a rough estimate.'}
                 </p>
 
@@ -474,8 +474,8 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                   className="shadow-soft hover:shadow-card font-bold tracking-wide text-sm py-3"
                 >
                   {isAlreadyOnboarded
-                    ? (language === 'hi' ? 'अनुमान सहेजें' : 'Save Baseline')
-                    : (language === 'hi' ? 'पहला दिन दर्ज करें' : 'Log your first day')}
+                    ? (language === 'hi' ? 'अंदाज़ा सेव करें' : 'Save Baseline')
+                    : (language === 'hi' ? 'पहला दिन लॉग करें' : 'Log your first day')}
                 </Button>
               </div>
             </div>

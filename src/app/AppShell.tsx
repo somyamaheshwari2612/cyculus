@@ -79,7 +79,7 @@ export const AppShell: React.FC = () => {
     setActiveTab('ooflog');
     setToastMessage(
       language === 'hi'
-        ? 'आरंभिक चक्र अनुमान सहेजा गया! अब आज का दिन दर्ज करें।'
+        ? 'शुरुआती अंदाज़ा सेव हो गया! अब आज का दिन लॉग करें।'
         : 'Initial cycle baseline saved! Now log your first day.'
     );
   };
@@ -97,7 +97,7 @@ export const AppShell: React.FC = () => {
       setDemoPersona(null);
       setToastMessage(
         language === 'hi'
-          ? 'डेमो डेटा हटा दिया गया और आपकी वास्तविक प्रविष्टि सहेजी गई!'
+          ? 'डेमो डेटा हटा दिया गया और आपकी एंट्री सेव हो गई!'
           : 'Demo data removed. Your real health entry has been saved!'
       );
     }
@@ -111,7 +111,7 @@ export const AppShell: React.FC = () => {
     setActiveTab('ooflog');
     setToastMessage(
       language === 'hi'
-        ? 'स्वागत है! आज का अपना पहला दिन दर्ज करें।'
+        ? 'स्वागत है! आज कैसा रहा, लिखकर या बोलकर बताएं।'
         : 'Welcome! Tell us about today to start your diary.'
     );
   };
@@ -122,7 +122,7 @@ export const AppShell: React.FC = () => {
         type: 'riya',
         name: 'Riya (Irregular / 41-day cycle)',
         description: language === 'hi'
-          ? '41-दिन का लंबा चक्र, उच्च चक्र परिवर्तनशीलता (27–41 दिन) और FIGO cycle_long फ़्लैग का प्रदर्शन।'
+          ? '41 दिन का लंबा चक्र, 27 से 41 दिन का भारी उतार-चढ़ाव और FIGO cycle_long फ़्लैग का उदाहरण।'
           : 'Demonstrates a 41-day cycle, high cycle variability (27–41 days), and FIGO cycle_long clinical flag.',
         daysCount: (irregularData as LogEntry[]).length
       });
@@ -131,7 +131,7 @@ export const AppShell: React.FC = () => {
         type: 'heavy',
         name: 'Heavy Menstrual Bleeding',
         description: language === 'hi'
-          ? 'प्रति चक्र 4+ भारी रक्तस्राव दिवस एवं तीव्र कष्टार्तव (दर्द 8/10), NICE व ACOG फ़्लैग का प्रदर्शन।'
+          ? 'हर पीरियड में 4+ दिन हैवी फ्लो और तेज़ क्रैम्प्स (दर्द 8/10), NICE व ACOG फ़्लैग का उदाहरण।'
           : 'Demonstrates 4+ heavy bleeding days per cycle and severe dysmenorrhea (pain 8/10), triggering NICE/ACOG heavy flow flag.',
         daysCount: (heavyData as LogEntry[]).length
       });
@@ -140,7 +140,7 @@ export const AppShell: React.FC = () => {
         type: 'regular',
         name: 'Regular Cycles Baseline',
         description: language === 'hi'
-          ? 'नियमित 28–29 दिन के चक्र, निम्न परिवर्तनशीलता, कोई क्लिनिकल फ़्लैग नहीं।'
+          ? '28–29 दिन का नियमित पीरियड, बिल्कुल सामान्य गैप और कोई क्लिनिकल फ़्लैग नहीं।'
           : 'Demonstrates consistent 28–29 day physiological rhythms with low variability and 0 clinical flags.',
         daysCount: (regularData as LogEntry[]).length
       });
@@ -172,7 +172,7 @@ export const AppShell: React.FC = () => {
     setDemoPersona(null);
     setToastMessage(
       language === 'hi'
-        ? 'डेमो डेटा हटा दिया गया। अब डायरी पूरी तरह से साफ़ है।'
+        ? 'डेमो डेटा हटा दिया गया। अब डायरी एकदम खाली और आपकी अपनी है।'
         : 'Demo data removed. Returned to clean, private diary.'
     );
   };
@@ -205,10 +205,10 @@ export const AppShell: React.FC = () => {
               </div>
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-tint-lavender px-2.5 py-0.5 rounded-full border border-[#E7DCF8]">
-                  {language === 'hi' ? 'डेमो डेटा लोड' : 'Seed Demo Data'}
+                  {language === 'hi' ? 'डेमो डेटा' : 'Seed Demo Data'}
                 </span>
                 <h3 className="text-lg sm:text-xl font-serif font-bold text-ink mt-0.5">
-                  {language === 'hi' ? 'क्या आप डेमो डेटा लोड करना चाहती हैं?' : 'Load Demonstration Persona?'}
+                  {language === 'hi' ? 'क्या आप डेमो डेटा लोड करना चाहते हैं?' : 'Load Demonstration Persona?'}
                 </h3>
               </div>
             </div>
@@ -230,7 +230,7 @@ export const AppShell: React.FC = () => {
             <div className="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-[11px] text-amber-900 leading-relaxed">
               <strong>⚠️ {language === 'hi' ? 'कृपया ध्यान दें:' : 'Notice:'}</strong>{' '}
               {language === 'hi'
-                ? 'यह क्रिया आपके ब्राउज़र में डेमो डेटा लोड करेगी ताकि आप क्लिनिकल अंतर्दृष्टि का परीक्षण कर सकें। आप कभी भी "डेमो डेटा हटाएं" बटन से इसे साफ़ कर सकती हैं।'
+                ? 'इससे आपके फोन/ब्राउज़र में टेस्ट करने के लिए डेमो डेटा लोड हो जाएगा ताकि आप देख सकें कि डॉक्टर की चिट्ठी और टाइमलाइन कैसी दिखती है। आप इसे कभी भी हटा सकते हैं।'
                 : 'This will seed mock entries into your local IndexedDB for clinical rule evaluation. A persistent banner will allow you to remove it at any time.'}
             </div>
 
@@ -405,9 +405,9 @@ export const AppShell: React.FC = () => {
             <div className="hidden lg:flex items-center gap-2 text-xs">
               <span className="font-serif font-bold text-ink text-base">
                 {activeTab === 'ooflog' && (language === 'hi' ? 'OofLog · आज कैसा रहा' : 'OofLog · aaj kaisa raha')}
-                {activeTab === 'home' && (language === 'hi' ? 'Dayum · चक्र टाइमलाइन' : 'Dayum · cycle timeline')}
+                {activeTab === 'home' && (language === 'hi' ? 'Dayum · पीरियड टाइमलाइन' : 'Dayum · cycle timeline')}
                 {activeTab === 'brief' && (language === 'hi' ? 'Doctor Brief · क्लिनिकल चिट्ठी' : 'Doctor Brief · chitthi')}
-                {activeTab === 'settings' && (language === 'hi' ? 'सेटिंग्स · गोपनीयता व डेटा' : 'Settings · privacy & data')}
+                {activeTab === 'settings' && (language === 'hi' ? 'सेटिंग्स · प्राइवेसी और डेटा' : 'Settings · privacy & data')}
               </span>
               <span className="text-ink-muted/50">•</span>
               <span className="text-[11px] text-ink-muted font-medium bg-white/70 px-2.5 py-0.5 rounded-full border border-surface-border">
@@ -436,8 +436,8 @@ export const AppShell: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setActiveTab('settings')}
-                aria-label={language === 'hi' ? 'सेटिंग्स व डेटा' : 'Settings & Privacy'}
-                title={language === 'hi' ? 'सेटिंग्स व डेटा' : 'Settings & Privacy'}
+                aria-label={language === 'hi' ? 'सेटिंग्स और डेटा' : 'Settings & Privacy'}
+                title={language === 'hi' ? 'सेटिंग्स और डेटा' : 'Settings & Privacy'}
                 className={`p-2 rounded-full border transition-all cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center ${
                   activeTab === 'settings'
                     ? 'bg-primary text-white border-primary shadow-soft'
@@ -462,7 +462,7 @@ export const AppShell: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-900 bg-amber-200/90 px-2 py-0.5 rounded-full border border-amber-300">
-                      {language === 'hi' ? 'डेमो डेटा सक्रिय' : 'Demo Data Active'}
+                      {language === 'hi' ? 'डेमो डेटा चालू है' : 'Demo Data Active'}
                     </span>
                     <span className="text-xs sm:text-sm font-serif font-bold text-ink">
                       {demoPersona}
@@ -470,7 +470,7 @@ export const AppShell: React.FC = () => {
                   </div>
                   <p className="text-[11px] text-ink-muted mt-0.5 leading-snug">
                     {language === 'hi'
-                      ? 'सिंथेटिक डेमो डेटा लोड है (फ्लैग LogEntry के बाहर localStorage में सुरक्षित)। कभी भी हटाएं:'
+                      ? 'टेस्टिंग के लिए डेमो डेटा लोड है। आप इसे कभी भी हटा सकते हैं:'
                       : 'Mock longitudinal logs loaded for testing. Flag stored strictly outside LogEntry in localStorage.'}
                   </p>
                 </div>

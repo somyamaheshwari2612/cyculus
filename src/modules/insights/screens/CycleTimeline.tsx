@@ -95,15 +95,15 @@ export const CycleTimeline: React.FC<CycleTimelineProps> = ({
   let headline = '';
   if (monthLogs.length === 0) {
     headline = language === 'hi'
-      ? `${monthName} के लिए अभी कोई प्रविष्टि दर्ज नहीं है।`
+      ? `${monthName} में अभी कोई एंट्री लॉग नहीं है।`
       : `No daily entries recorded for ${monthName}.`;
   } else if (bleedDays > 0) {
     headline = language === 'hi'
-      ? `${monthName} में रक्तस्राव के ${bleedDays} दिन और कुल ${monthLogs.length} प्रविष्टियां दर्ज हैं।`
+      ? `${monthName} में पीरियड के ${bleedDays} दिन और कुल ${monthLogs.length} दिन लॉग हुए हैं।`
       : `${bleedDays} bleeding days and ${monthLogs.length} daily entries recorded in ${monthName}.`;
   } else {
     headline = language === 'hi'
-      ? `${monthName} में ${monthLogs.length} दैनिक लक्षण प्रविष्टियां दर्ज हैं।`
+      ? `${monthName} में ${monthLogs.length} दिन लक्षण लॉग किए गए हैं।`
       : `${monthLogs.length} daily symptom entries recorded in ${monthName}.`;
   }
 
@@ -245,7 +245,7 @@ export const CycleTimeline: React.FC<CycleTimelineProps> = ({
         </div>
         {prediction && (
           <span className="text-primary font-medium">
-            {language === 'hi' ? '±3d अंशांकित विंडो' : 'Calibrated Window'}
+            {language === 'hi' ? '±3 दिन का सटीक दायरा' : 'Calibrated Window'}
           </span>
         )}
       </div>
@@ -283,7 +283,7 @@ export const CycleTimeline: React.FC<CycleTimelineProps> = ({
               )}
               {selectedEntry.painLevel !== null && (
                 <div className="flex items-center gap-2">
-                  <span className="text-ink-muted">{language === 'hi' ? 'दर्द स्तर:' : 'Pain Level:'}</span>
+                  <span className="text-ink-muted">{language === 'hi' ? 'दर्द (0–10):' : 'Pain Level:'}</span>
                   <span className="font-semibold text-ink">{selectedEntry.painLevel}/10</span>
                 </div>
               )}
@@ -312,15 +312,15 @@ export const CycleTimeline: React.FC<CycleTimelineProps> = ({
             <p className="text-xs text-primary font-medium">
               {isSelectedDatePredicted === 'expected'
                 ? language === 'hi'
-                  ? 'अपेक्षित पीरियड की तारीख (सांख्यिकीय केंद्र)'
+                  ? 'पीरियड की अंदाज़ित तारीख'
                   : 'Expected period center date based on cycle history'
                 : language === 'hi'
-                ? 'अनुमानित पीरियड विंडो का हिस्सा'
+                ? 'पीरियड के अंदाज़ित दायरे में'
                 : 'Within your predicted period window'}
             </p>
           ) : (
             <p className="text-xs text-ink-muted italic">
-              {language === 'hi' ? 'इस दिन कोई प्रविष्टि नहीं है।' : 'No entries logged on this day.'}
+              {language === 'hi' ? 'इस दिन कोई एंट्री लॉग नहीं है।' : 'No entries logged on this day.'}
             </p>
           )}
         </div>

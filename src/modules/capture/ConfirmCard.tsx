@@ -78,14 +78,14 @@ export const ConfirmCard: React.FC<ConfirmCardProps> = ({
           <div>
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-wider mb-1">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>{language === 'hi' ? 'ऑन-डिवाइस समझ' : 'On-Device Interpretation'}</span>
+              <span>{language === 'hi' ? '100% आपके फ़ोन में' : 'On-Device Interpretation'}</span>
             </div>
             <h3 className="font-serif font-bold text-ink text-lg sm:text-xl leading-tight">
-              {language === 'hi' ? 'हमने यह समझा।' : 'This is what I understood.'}
+              {language === 'hi' ? 'मैंने यह समझा।' : 'This is what I understood.'}
             </h3>
             <p className="text-xs sm:text-sm text-ink-muted font-medium mt-0.5">
               {language === 'hi'
-                ? 'जो गलत हो उसे बदलें, फिर सहेजें।'
+                ? 'अगर कुछ ठीक करना हो तो बदल लीजिए, फिर सेव करें।'
                 : 'Change anything that’s wrong, then save.'}
             </p>
           </div>
@@ -167,7 +167,7 @@ export const ConfirmCard: React.FC<ConfirmCardProps> = ({
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-xs font-bold text-ink uppercase tracking-wider">
-                  {language === 'hi' ? 'रक्तस्राव (Bleeding Flow)' : 'Bleeding Flow'}
+                  {language === 'hi' ? 'पीरियड फ्लो (Bleeding Flow)' : 'Bleeding Flow'}
                 </label>
                 <span className="text-[11px] font-medium text-ink-muted">
                   {patch.flow ? FLOW_LABELS[patch.flow][language] : (language === 'hi' ? 'कोई नहीं' : 'None / Not recorded')}
@@ -291,7 +291,7 @@ export const ConfirmCard: React.FC<ConfirmCardProps> = ({
             {/* Editable Notes Input */}
             <div>
               <label className="block text-xs font-bold text-ink uppercase tracking-wider mb-1.5">
-                {language === 'hi' ? 'अतिरिक्त नोट्स (Notes)' : 'Personal Notes / Context'}
+                {language === 'hi' ? 'कुछ और लिखना चाहें तो' : 'Personal Notes / Context'}
               </label>
               <input
                 type="text"
@@ -299,7 +299,7 @@ export const ConfirmCard: React.FC<ConfirmCardProps> = ({
                 onChange={e => updatePatch(idx, p => ({ ...p, notes: e.target.value }))}
                 placeholder={
                   language === 'hi'
-                    ? 'कोई दवा ली, आराम किया या अन्य विवरण...'
+                    ? 'दवा, वॉक, कैसा लगा वगैरह...'
                     : 'Any medication taken, remedies tried, or extra context...'
                 }
                 className="w-full text-xs sm:text-sm p-3.5 rounded-2xl border border-surface-border bg-white focus:ring-2 focus:ring-primary/25 focus:border-primary/40 focus:outline-none text-ink shadow-pill"
@@ -326,7 +326,7 @@ export const ConfirmCard: React.FC<ConfirmCardProps> = ({
           onClick={() => onConfirm(patches)}
           className="shadow-soft px-7 font-bold text-sm"
         >
-          {language === 'hi' ? 'सहेजें (Save)' : 'Save'}
+          {language === 'hi' ? 'हाँ, सेव करें' : 'Save'}
         </Button>
       </div>
     </Card>

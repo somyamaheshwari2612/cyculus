@@ -33,7 +33,7 @@ export const WhyModal: React.FC<WhyModalProps> = ({
             </div>
             <div>
               <h3 className="text-base font-bold text-ink">
-                {language === 'hi' ? 'चिकित्सीय नियम और साक्ष्य' : 'Clinical Rules & Evidence'}
+                {language === 'hi' ? 'मेडिकल नियम और संदर्भ' : 'Clinical Rules & Evidence'}
               </h3>
               <p className="text-[11px] text-ink-muted">
                 {language === 'hi' ? '100% पारदर्शी, बिना किसी AI डायग्नोसिस के' : '100% Deterministic · Zero AI Diagnoses'}
@@ -56,26 +56,26 @@ export const WhyModal: React.FC<WhyModalProps> = ({
               <span className="font-bold text-ink text-sm flex items-center gap-1.5">
                 <Sparkles className="w-4 h-4 text-primary" />
                 <span>
-                  {language === 'hi' ? 'यह अनुमान कैसे निकाला गया?' : 'Why am I seeing this prediction?'}
+                  {language === 'hi' ? 'यह अंदाज़ा कैसे निकाला गया?' : 'Why am I seeing this prediction?'}
                 </span>
               </span>
               <span className="text-[10px] font-bold text-primary bg-white px-2.5 py-0.5 rounded-full border border-primary/20 shadow-pill">
                 {language === 'hi'
-                  ? `${prediction.basedOnCycles} चक्रों पर आधारित`
+                  ? `पिछले ${prediction.basedOnCycles} पीरियड्स के हिसाब से`
                   : `Based on ${prediction.basedOnCycles} ${prediction.basedOnCycles === 1 ? 'cycle' : 'cycles'}`}
               </span>
             </div>
 
             <p className="text-ink-muted leading-relaxed">
               {language === 'hi'
-                ? `यह विंडो आपके पिछले ${prediction.basedOnCycles} पूरे चक्रों के व्यक्तिगत विचलन और यूटा हाइव मॉडल के सांख्यिकीय अंशांकन पर आधारित है।`
+                ? `यह विंडो आपके पिछले ${prediction.basedOnCycles} पूरे पीरियड्स के गैप और वैज्ञानिक मॉडल (Utah Hive) पर आधारित है।`
                 : `This window is calculated from the variance across your last ${prediction.basedOnCycles} completed ${prediction.basedOnCycles === 1 ? 'cycle' : 'cycles'}, calibrated against the Utah Hive empirical model.`}
             </p>
 
             <div className="pt-0.5 grid grid-cols-2 gap-2 text-[11px]">
               <div className="p-2.5 bg-white/90 rounded-xl border border-[#E7DCF8]">
                 <span className="text-ink-muted block text-[10px] font-medium">
-                  {language === 'hi' ? 'अपेक्षित केंद्र:' : 'Expected Center:'}
+                  {language === 'hi' ? 'अनुमानित केंद्र:' : 'Expected Center:'}
                 </span>
                 <span className="font-bold text-ink">
                   {new Date(prediction.expected + 'T00:00:00').toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
@@ -83,7 +83,7 @@ export const WhyModal: React.FC<WhyModalProps> = ({
               </div>
               <div className="p-2.5 bg-white/90 rounded-xl border border-[#E7DCF8]">
                 <span className="text-ink-muted block text-[10px] font-medium">
-                  {language === 'hi' ? 'अनुमानित विंडो सीमा:' : 'Window Range:'}
+                  {language === 'hi' ? 'अनुमानित दायरा:' : 'Window Range:'}
                 </span>
                 <span className="font-bold text-primary">
                   {new Date(prediction.earliest + 'T00:00:00').toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US', { month: 'short', day: 'numeric' })} – {new Date(prediction.latest + 'T00:00:00').toLocaleDateString(language === 'hi' ? 'hi-IN' : 'en-US', { month: 'short', day: 'numeric' })}
@@ -92,9 +92,9 @@ export const WhyModal: React.FC<WhyModalProps> = ({
             </div>
 
             <p className="text-[11px] text-ink-muted leading-relaxed pt-1">
-              <strong>💡 {language === 'hi' ? 'विंडो क्यों, एक तारीख क्यों नहीं?' : 'Why a window instead of a single day?'}</strong>{' '}
+              <strong>💡 {language === 'hi' ? 'दायरा क्यों, एक तारीख क्यों नहीं?' : 'Why a window instead of a single day?'}</strong>{' '}
               {language === 'hi'
-                ? 'महिला चक्रों में स्वाभाविक रूप से ±2 से 4 दिनों का उतार-चढ़ाव होता है। एक निश्चित तारीख का दावा करना भ्रामक है; ~80% संभावना विंडो यथार्थवादी और व्यावहारिक योजना देती है।'
+                ? 'पीरियड्स में 2 से 4 दिन का आगे-पीछे होना पूरी तरह स्वाभाविक है। एक निश्चित तारीख तय करने के बजाय 80% संभावना का दायरा दिखाना ज़्यादा व्यावहारिक और सच्चा तरीका है।'
                 : 'Menstrual cycles naturally fluctuate by ±2 to 4 days across months. Pinpointing an exact single day is clinically false; an empirical ±3 day window provides ~80% coverage for realistic preparation.'}
             </p>
           </div>
@@ -104,7 +104,7 @@ export const WhyModal: React.FC<WhyModalProps> = ({
         <div className="p-3 bg-purple-50/70 rounded-2xl border border-primary/15 text-xs text-ink-muted mb-4 leading-relaxed">
           <p>
             {language === 'hi'
-              ? 'साइकुलस किसी भी प्रकार का चिकित्सीय निदान (डायग्नोसिस) नहीं करता है। सभी अलर्ट सीधे अंतरराष्ट्रीय चिकित्सा दिशानिर्देशों (जैसे FIGO 2018 मानक) के सत्यापन पर आधारित हैं।'
+              ? 'साइकुलस किसी बीमारी का इलाज या जांच (डायग्नोसिस) नहीं करता। सभी अलर्ट सीधे अंतरराष्ट्रीय मेडिकल गाइडलाइन्स (जैसे FIGO 2018 मानक) पर आधारित हैं।'
               : 'Cyculus never attempts medical diagnoses. Every threshold and flag is evaluated directly against peer-reviewed clinical guidelines (such as FIGO 2018 criteria) with cited sources.'}
           </p>
         </div>
@@ -114,7 +114,7 @@ export const WhyModal: React.FC<WhyModalProps> = ({
           <div className="mb-4">
             <h4 className="text-xs font-bold text-ink uppercase tracking-wider mb-2 flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-severity-discuss animate-pulse" />
-              {language === 'hi' ? 'वर्तमान में सक्रिय अलर्ट' : 'Currently Active Flags'}
+              {language === 'hi' ? 'ध्यान देने योग्य अलर्ट' : 'Currently Active Flags'}
             </h4>
             <div className="space-y-2">
               {activeFlags.map(flag => {
@@ -129,7 +129,7 @@ export const WhyModal: React.FC<WhyModalProps> = ({
                     <p className="font-bold text-ink mb-1">{rule.title[language]}</p>
                     <p className="text-ink-muted mb-1.5">{rule.explanation[language]}</p>
                     <div className="text-[11px] text-primary font-medium bg-white p-2 rounded-lg border border-surface-border">
-                      {language === 'hi' ? 'साक्ष्य डेटा:' : 'Evidence Trigger:'} <strong>{evidenceStr}</strong>
+                      {language === 'hi' ? 'लॉग किया गया डेटा:' : 'Evidence Trigger:'} <strong>{evidenceStr}</strong>
                     </div>
                   </div>
                 );
@@ -142,7 +142,7 @@ export const WhyModal: React.FC<WhyModalProps> = ({
         <div>
           <h4 className="text-xs font-bold text-ink uppercase tracking-wider mb-2 flex items-center gap-1.5">
             <BookOpen className="w-3.5 h-3.5 text-primary" />
-            {language === 'hi' ? 'सत्यापित नियम निर्देशिका' : 'Verified Knowledge Rules'}
+            {language === 'hi' ? 'सत्यापित मेडिकल नियम' : 'Verified Knowledge Rules'}
           </h4>
 
           <div className="space-y-2.5">
@@ -190,7 +190,7 @@ export const WhyModal: React.FC<WhyModalProps> = ({
         {/* Close Button */}
         <div className="mt-5 pt-3 border-t border-surface-border flex justify-end">
           <Button variant="primary" size="sm" onClick={onClose}>
-            {language === 'hi' ? 'समझ गया / बंद करें' : 'Got it, close'}
+            {language === 'hi' ? 'समझ आ गया / बंद करें' : 'Got it, close'}
           </Button>
         </div>
       </div>

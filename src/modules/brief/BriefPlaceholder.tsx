@@ -121,7 +121,7 @@ export const BriefPlaceholder: React.FC<BriefPlaceholderProps> = ({
             </div>
             <h3 className="text-xl sm:text-2xl font-serif font-bold text-ink mt-2.5">
               {language === 'hi'
-                ? 'मासिक धर्म चक्र एवं लक्षण सारांश'
+                ? 'पीरियड्स और लक्षणों का पूरा हिसाब'
                 : 'Menstrual Cycle & Symptom Longitudinal Summary'}
             </h3>
             <p className="text-xs text-ink-muted mt-1">
@@ -138,7 +138,7 @@ export const BriefPlaceholder: React.FC<BriefPlaceholderProps> = ({
         <div>
           <h4 className="text-xs font-bold uppercase tracking-wider text-ink mb-3 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-primary" />
-            <span>1. {language === 'hi' ? 'दर्ज चक्र का पैटर्न एवं अवधि' : 'Logged Cycle Characteristics (Observed Facts)'}</span>
+            <span>1. {language === 'hi' ? 'लॉग किए गए पीरियड्स और उनका गैप' : 'Logged Cycle Characteristics (Observed Facts)'}</span>
           </h4>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
             <div className="p-3.5 bg-tint-lavender/40 rounded-2xl border border-[#E7DCF8]">
@@ -173,17 +173,17 @@ export const BriefPlaceholder: React.FC<BriefPlaceholderProps> = ({
               <Info className="w-4 h-4 text-primary shrink-0 mt-0.5" />
               <div>
                 <span>
-                  {language === 'hi' ? 'स्व-सूचित चक्र अनुमान: ' : 'Self-reported typical cycle: '}
+                  {language === 'hi' ? 'शुरुआती अंदाज़ा: ' : 'Self-reported typical cycle: '}
                   <strong className="text-ink font-semibold">
                     {userSetup.typicalCycleLength ? `${userSetup.typicalCycleLength} days` : 'Not specified'}
                   </strong>
                   <span className="text-[11px] text-ink-muted ml-1">
-                    ({language === 'hi' ? 'उपयोगकर्ता का अनुमान; लॉग प्रविष्टियों से असत्यापित' : 'patient estimate; unverified prior'})
+                    ({language === 'hi' ? 'आपका अंदाज़ा, अभी ऐप में लॉग करके जांचा नहीं गया' : 'patient estimate; unverified prior'})
                   </span>
                 </span>
                 {userSetup.lastPeriodStart && (
                   <span className="block mt-0.5 text-[11px]">
-                    {language === 'hi' ? 'स्व-सूचित पिछली माहवारी: ' : 'Self-reported last period start: '}
+                    {language === 'hi' ? 'पिछली बार पीरियड शुरू होने की तारीख: ' : 'Self-reported last period start: '}
                     <strong>{userSetup.lastPeriodStart}</strong>
                   </span>
                 )}
